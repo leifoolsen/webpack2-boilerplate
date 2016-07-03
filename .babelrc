@@ -1,0 +1,13 @@
+// Mocha needs es2015
+// es2015-webpack enales tree shaking. Not shure if I can use both.
+
+{
+  "presets": ["es2015", "es2015-webpack", "stage-0"],
+  "env": {
+    "test": {
+      "plugins": [
+        ["__coverage__", {"ignore": "*.+(test|stub).*"}]
+      ]
+    }
+  }
+}
