@@ -23,7 +23,7 @@ A Webpack2 boilerplate, based on Egghead.io course; [Using Webpack for Productio
 * Open a browser at `http://localhost:8084`
 * Press `Ctrl+C` to stop the devserver
 * Init your git: `git init`
-* Modify `"name"` in `package.json`
+* Modify `package.json`, e.g. `name, author, description` 
 * Add your own 3'rd party dependencies  to `package.json`
 * Add those 3'rd party dependencies to `vendor` section in `webpack.config`
 * Happy hacking :)
