@@ -1,6 +1,6 @@
 # Webpack2 boilerplate
 
-A Webpack2 boilerplate, based on Egghead.io course; [Using Webpack for Production JavaScript Applications](https://egghead.io/courses/using-webpack-for-production-javascript-applications)
+A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack for Production JavaScript Applications](https://egghead.io/courses/using-webpack-for-production-javascript-applications)
 
 ## Features
 * Npm as a task/build runner
