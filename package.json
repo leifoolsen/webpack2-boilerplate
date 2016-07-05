@@ -20,6 +20,7 @@
     "test:coverage": "./node_modules/.bin/babel-node ./node_modules/.bin/istanbul cover --root ./src ./node_modules/.bin/_mocha -- --opts ./mocha.opts  './test/**/*.spec.js'",
     "check-coverage": "./node_modules/.bin/istanbul check-coverage --statements 50 --branches 50 --functions 50 --lines 50",
     "test:watch": "./node_modules/.bin/mocha  -w --opts ./mocha.opts './test/**/*.spec.js'",
+    "test:pattern": "./node_modules/.bin/mocha  -w --opts ./mocha.opts './test/**/*.spec.js' --grep $pattern",
     "test": "./node_modules/.bin/mocha  --opts ./mocha.opts './test/**/*.spec.js'",
     "analyze": "./node_modules/.bin/webpack --env.prod --json | ./node_modules/.bin/webpack-bundle-size-analyzer",
     "start": "./node_modules/.bin/webpack-dev-server --env.dev --port 8084 --progress --content-base src"

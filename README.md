@@ -40,6 +40,7 @@ A Webpack2 boilerplate, based on Egghead.io course; [Using Webpack for Productio
 * `start`: runs the webpack-dev-sever, with eslint and stylelint, serving files at http://localhost:8084
 * `test`: runs Mocha tests
 * `test:watch`: runs Mocha tests in watch mode
+* `test:pattern`: will run tests and suites with names matching the given pattern, e.g.<br/>`pattern=Basic npm run test:suite`
 * `test:coverage`: runs Istanbul code coverage (open `coverage/lcov-report/index.html` to view coverage report)
 * `lint`: lint according to rules in `.eslintrc` and `.stylelintrc`
 * `validate`: validates the integrety of the webpack config file and runs code coverage 
