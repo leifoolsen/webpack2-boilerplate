@@ -119,7 +119,7 @@ module.exports = env => {
         context: 'src',
         files: '**/*.s?(a|c)ss',
         syntax: 'scss',
-        failOnError: true
+        failOnError: false
       }),
 
       new CopyWebpackPlugin([
