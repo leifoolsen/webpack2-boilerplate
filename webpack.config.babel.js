@@ -57,11 +57,11 @@ module.exports = env => {
         },
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract('style-loader', css_)
+          loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: css_})
         },
         {
           test: /\.s(a|c)ss$/,
-          loader: ExtractTextPlugin.extract('style-loader', sass_)
+          loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: sass_})
         },
         // Images: inline base64 URLs for <=8k images, direct URLs for the rest
         {
@@ -108,10 +108,7 @@ module.exports = env => {
         template: './index.html'
       }),
 
-      new ExtractTextPlugin('styles.css', {
-        disable: false,
-        allChunks: true
-      }),
+      new ExtractTextPlugin( { filename: 'styles.css', disable: false, allChunks: true } ),
 
       new StyleLintPlugin({
         // http://stylelint.io/user-guide/example-config/
