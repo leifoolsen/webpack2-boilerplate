@@ -51,6 +51,6 @@
     "no-console": 1
   },
   "globals": {
-    "componentHandler": true
+    // "componentHandler": true // Material Design Lite
   }
 }
