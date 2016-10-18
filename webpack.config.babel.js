@@ -25,7 +25,6 @@ module.exports = env => {
   const removeEmpty = array => array.filter(i => !!i);
 
   return {
-    debug: !env.prod,
     context: resolve(__dirname, 'src'),
     devtool: env.prod ? 'source-map' : 'eval-source-map',
     bail: env.prod,
@@ -84,10 +83,9 @@ module.exports = env => {
       failOnError: true
     },
     /*
-    // Note: Do not enable if you don't have any SASS files.
+    // Note: Does not work.
     // webpack-validator will fail with 'error: "sassLoader" is not allowed'
     // See: http://stackoverflow.com/questions/38381328/webpack-how-to-configure-base-directory-path-for-sass-loader/38791565#38791565
-    // Solution for now: Do not call webpack-validator if you use SASS
     //
      sassLoader: {
       includePaths: [
@@ -95,7 +93,7 @@ module.exports = env => {
         resolve(__dirname, './src')
       ]
     },
-    */
+     */
     postcss: [
       autoprefixer({
         browsers: ['last 2 versions']
@@ -104,9 +102,13 @@ module.exports = env => {
     resolve: {
       root: resolve('./src'),
       modulesDirectories: ['src', 'node_modules'],
-      extensions: ['', '.js', '.jsx', '.css', '.scss', '.html']
+      extensions: ['.js', '.jsx', '.css', '.scss', '.html']
     },
     plugins: removeEmpty([
+      new webpack.LoaderOptionsPlugin({
+        debug: !env.prod
+      }),
+
       new HtmlWebpackPlugin({
         template: './index.html'
       }),
