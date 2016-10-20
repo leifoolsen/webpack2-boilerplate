@@ -1,5 +1,6 @@
 const webpack = require('webpack');
-const {resolve} = require('path');
+const path = require('path');
+const precss = require('precss');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -8,24 +9,12 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = env => {
 
-  const css_ = [
-    'css-loader?sourceMap',
-    'postcss-loader'
-  ].join('!');
-
-  const sass_ = [
-    'css-loader?sourceMap',
-    'postcss-loader',
-    'resolve-url-loader',
-    'sass-loader?sourceMap&expanded'
-  ].join('!');
-
   const addPlugin = (add, plugin) => add ? plugin : undefined;
   const ifProd = plugin => addPlugin(env.prod, plugin);
   const removeEmpty = array => array.filter(i => !!i);
 
   return {
-    context: resolve(__dirname, 'src'),
+    context: path.resolve(__dirname, 'src'),
     devtool: env.prod ? 'source-map' : 'eval-source-map',
     bail: env.prod,
     entry: {
@@ -37,85 +26,105 @@ module.exports = env => {
     },
     output: {
       filename: 'bundle.[name].[hash].js',
-      path: resolve(__dirname, 'dist'),
-      pathinfo: !env.prod
+      path: path.resolve(__dirname, 'dist'),
+      pathinfo: !env.prod,
+      publicPath: '/',
     },
     module: {
-      preLoaders: [
+      rules: [
         {
           test: /\.js[x]?$/,
-          loader: 'eslint',
-          exclude: /node_modules/
-        }
-      ],
-      loaders: [
-        {
-          test: /\.js[x]?$/,
-          loader: 'babel',
-          exclude: /node_modules/
+          enforce: 'pre',
+          loader: 'eslint-loader',
+          include: [path.resolve(__dirname, "src")],
+          exclude: [/node_modules/],
         },
         {
+          test: /\.js[x]?$/,
+          include: [path.resolve(__dirname, "src")],
+          exclude: [/node_modules/],
+          loader: "babel-loader",
+        },
+        {
+          // See: https://github.com/webpack/webpack/issues/2812
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: css_})
+          loader: ExtractTextPlugin.extract({
+            fallbackLoader: 'style-loader',
+            loader: ['css?sourceMap', 'postcss']
+          })
         },
         {
-          test: /\.s(a|c)ss$/,
-          loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: sass_})
+          // See: https://github.com/webpack/webpack/issues/2812
+          test: /\.s?(a|c)ss$/,
+          loader: ExtractTextPlugin.extract({
+            fallbackLoader: 'style-loader',
+            loader: ['css?sourceMap', 'postcss', 'resolve-url', 'sass?sourceMap&expanded']
+          })
         },
-        // Images: inline base64 URLs for <=8k images, direct URLs for the rest
         {
-          test: /\.jpg/,
-          loader: 'url-loader',
-          query: {
-            limit: 8192,
-            mimetype: 'image/jpg',
-            name: '/images/[name].[ext]'
-          }
+          test: /\.jpg$/,
+          loader: 'url-loader?limit=8192&mimetype=image/jpg&name=/images/[name].[ext]'
         },
-        { test: /\.gif/, loader: 'url-loader?limit=8192&mimetype=image/gif&name=/images/[name].[ext]' },
-        { test: /\.png/, loader: 'url-loader?limit=8192&mimetype=image/png&name=/images/[name].[ext]' },
-        { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=100000&minetype=application/font-woff' },
-        { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader?limit=100000' }
-      ]
+        {
+          test: /\.gif$/,
+          loader: 'url-loader?limit=8192&mimetype=image/gif&name=/images/[name].[ext]'
+        },
+        {
+          test: /\.png$/,
+          loader: 'url-loader?limit=8192&mimetype=image/png&name=/images/[name].[ext]'
+        },
+        {
+          test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          use: ['url-loader?limit=100000&minetype=application/font-woff']
+        },
+        {
+          test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          use: ['file-loader?limit=100000']
+        },
+      ],
     },
-    eslint: {
-      failOnWarning: false,
-      failOnError: true
-    },
-    /*
-    // Note: Does not work.
-    // webpack-validator will fail with 'error: "sassLoader" is not allowed'
-    // See: http://stackoverflow.com/questions/38381328/webpack-how-to-configure-base-directory-path-for-sass-loader/38791565#38791565
-    //
-     sassLoader: {
-      includePaths: [
-        resolve(__dirname, './node_modules'),
-        resolve(__dirname, './src')
-      ]
-    },
-     */
-    postcss: [
-      autoprefixer({
-        browsers: ['last 2 versions']
-      })
-    ],
     resolve: {
-      root: resolve('./src'),
-      modulesDirectories: ['src', 'node_modules'],
-      extensions: ['.js', '.jsx', '.css', '.scss', '.html']
+      modules: [
+        'node_modules',
+        path.resolve(__dirname, "src"),
+      ],
+      extensions: ['.js', '.jsx', '.css', '.sass', '.scss', '.html']
     },
     plugins: removeEmpty([
       new webpack.LoaderOptionsPlugin({
-        debug: !env.prod
+        debug: !env.prod,
+        context: __dirname,
+        eslint: {
+          failOnWarning: false,
+          failOnError: true
+        },
+        sassLoader: {
+          includePaths: [
+            path.resolve(__dirname, './node_modules'),
+            path.resolve(__dirname, './src')
+          ]
+        },
+        postcss: [
+          require('precss'),
+          require('autoprefixer'),
+          autoprefixer({
+            browsers: ['last 2 versions', 'ie 11']
+          })
+        ],
       }),
 
       new HtmlWebpackPlugin({
         template: './index.html'
       }),
 
-      new ExtractTextPlugin( { filename: 'styles.css', disable: false, allChunks: true } ),
+      new ExtractTextPlugin({
+        filename: 'styles.css',
+        disable: false,
+        allChunks: true
+      }),
 
       new StyleLintPlugin({
+        // https://github.com/vieron/stylelint-webpack-plugin
         // http://stylelint.io/user-guide/example-config/
         configFile: '.stylelintrc',
         context: 'src',
