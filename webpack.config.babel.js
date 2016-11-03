@@ -12,9 +12,11 @@ module.exports = env => {
   const addPlugin = (add, plugin) => add ? plugin : undefined;
   const ifProd = plugin => addPlugin(env.prod, plugin);
   const removeEmpty = array => array.filter(i => !!i);
+  const srcPath = path.resolve(__dirname, 'src');
+  const distPath = path.resolve(__dirname, 'dist');
 
   return {
-    context: path.resolve(__dirname, 'src'),
+    context: srcPath,
     devtool: env.prod ? 'source-map' : 'eval-source-map',
     bail: env.prod,
     entry: {
@@ -26,7 +28,7 @@ module.exports = env => {
     },
     output: {
       filename: 'bundle.[name].[hash].js',
-      path: path.resolve(__dirname, 'dist'),
+      path: distPath,
       pathinfo: !env.prod,
       publicPath: '/',
     },
@@ -36,12 +38,12 @@ module.exports = env => {
           test: /\.js[x]?$/,
           enforce: 'pre',
           loader: 'eslint-loader',
-          include: [path.resolve(__dirname, "src")],
+          include: [srcPath],
           exclude: [/node_modules/],
         },
         {
           test: /\.js[x]?$/,
-          include: [path.resolve(__dirname, "src")],
+          include: [srcPath],
           exclude: [/node_modules/],
           loader: "babel-loader",
         },
@@ -86,7 +88,7 @@ module.exports = env => {
     resolve: {
       modules: [
         'node_modules',
-        path.resolve(__dirname, "src"),
+        srcPath,
       ],
       extensions: ['.js', '.jsx', '.css', '.sass', '.scss', '.html']
     },
@@ -101,16 +103,32 @@ module.exports = env => {
         sassLoader: {
           includePaths: [
             path.resolve(__dirname, './node_modules'),
-            path.resolve(__dirname, './src')
+            srcPath
           ]
         },
-        postcss: [
-          require('precss'),
-          require('autoprefixer'),
-          autoprefixer({
-            browsers: ['last 2 versions', 'ie 11']
-          })
-        ],
+      }),
+
+      new webpack.LoaderOptionsPlugin({
+        // See: https://github.com/postcss/postcss-loader/issues/125
+        // See: http://pastebin.com/Lmka3rju
+
+        test: /\.s?(a|c)ss$/,
+        debug: true,
+        options: {
+          postcss: [
+            precss(),
+            autoprefixer({
+              browsers: [
+                'last 2 versions',
+                'ie >= 11',
+              ],
+            }),
+          ],
+          context: srcPath,
+          output: {
+            path: distPath,
+          },
+        },
       }),
 
       new HtmlWebpackPlugin({
