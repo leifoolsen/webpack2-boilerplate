@@ -152,7 +152,8 @@ module.exports = env => {
       }),
 
       new CopyWebpackPlugin([
-        { from: 'favicon.png' }
+        { from: 'favicon.png' },
+        { from: 'assets', to: 'assets' }
       ]),
 
       ifProd(new webpack.optimize.CommonsChunkPlugin({

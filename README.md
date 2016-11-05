@@ -48,3 +48,9 @@ A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack f
 * `clean`: removes the dist directory
 * `build:dev`: bundles the app to the dist dir using development settings
 * `build:prod`: bundles the app to the dist dir using production settings
+
+## Test the bundle
+* `npm run build:prod`
+* cd to the `dist` dir
+* Start a http server of your choice, e.g. `python -m SimpleHTTPServer 8000`
+* Open a browser at `http://localhost:8084`

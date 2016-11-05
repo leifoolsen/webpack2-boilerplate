@@ -3,5 +3,9 @@
  */
 body {
   color: $text-color;
-  font: normal 125% / 1.4 $text-font-stack;
+  font: normal 100% / 1.4 $text-font-stack;
+
+  @include respond-to('medium') {
+    font: normal 125% / 1.4 $text-font-stack;
+  }
 }
