@@ -1,5 +1,7 @@
 # Webpack2 boilerplate
 
+![webpack2-boilerplate](./webpack2-boilerplate.png)
+
 A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack for Production JavaScript Applications](https://egghead.io/courses/using-webpack-for-production-javascript-applications)
 
 ## Features
@@ -10,7 +12,7 @@ A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack f
 * Linting with eslint and stylelint
 * Unit tests with Mocha, Chai and JsDom 
 * Code coverage with Istanbul
-* SASS boilerplate 
+* SASS boilerplate with Solved by Flexbox Holy Grail example layout 
 
 
 ## Getting started
@@ -38,6 +40,7 @@ A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack f
 
 ## NPM Scripts
 * `start`: runs the webpack-dev-sever, with eslint and stylelint, serving files at http://localhost:8084
+* `dashboard`: runs **webpack-dashboard** before `start` script
 * `test`: runs Mocha tests
 * `test:watch`: runs Mocha tests in watch mode
 * `test:pattern`: will run tests and suites with names matching the given pattern, e.g.<br/>`pattern=Basic npm run test:pattern`
@@ -53,4 +56,4 @@ A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack f
 * `npm run build:prod`
 * cd to the `dist` dir
 * Start a http server of your choice, e.g. `python -m SimpleHTTPServer 8000`
-* Open a browser at `http://localhost:8084`
+* Open a browser at `http://localhost:8000`

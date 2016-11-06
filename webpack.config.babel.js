@@ -6,6 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const DashboardPlugin = require('webpack-dashboard/plugin');
 
 module.exports = env => {
 
@@ -45,7 +46,7 @@ module.exports = env => {
           test: /\.js[x]?$/,
           include: [srcPath],
           exclude: [/node_modules/],
-          loader: "babel-loader",
+          loader: 'babel',
         },
         {
           // See: https://github.com/webpack/webpack/issues/2812
@@ -90,10 +91,11 @@ module.exports = env => {
         'node_modules',
         srcPath,
       ],
-      extensions: ['.js', '.jsx', '.css', '.sass', '.scss', '.html']
+      extensions: ['.js', '.jsx', '.json', '.css', '.sass', '.scss', '.html']
     },
     plugins: removeEmpty([
       new webpack.LoaderOptionsPlugin({
+        minimize: env.prod,
         debug: !env.prod,
         context: __dirname,
         eslint: {
@@ -130,6 +132,8 @@ module.exports = env => {
           },
         },
       }),
+
+      new DashboardPlugin(),
 
       new HtmlWebpackPlugin({
         template: './index.html'
@@ -180,11 +184,21 @@ module.exports = env => {
       })),
 
       // saves 711 kB!!
+      //ifProd(new webpack.optimize.UglifyJsPlugin({
+      //  compress: {
+      //    screw_ie8: true, // eslint-disable-line
+      //    warnings: false
+      //  }
+      //}))
       ifProd(new webpack.optimize.UglifyJsPlugin({
         compress: {
           screw_ie8: true, // eslint-disable-line
           warnings: false
-        }
+        },
+        output: {
+          comments: false
+        },
+        sourceMap: false
       }))
       // End: finetuning 'npm run build:prod'
     ])
