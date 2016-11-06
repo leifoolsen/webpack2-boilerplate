@@ -11,6 +11,7 @@ const DashboardPlugin = require('webpack-dashboard/plugin');
 module.exports = env => {
 
   const addPlugin = (add, plugin) => add ? plugin : undefined;
+  const ifDashboard = plugin => addPlugin(env.dashboard, plugin);
   const ifProd = plugin => addPlugin(env.prod, plugin);
   const removeEmpty = array => array.filter(i => !!i);
   const srcPath = path.resolve(__dirname, 'src');
@@ -115,7 +116,7 @@ module.exports = env => {
         // See: http://pastebin.com/Lmka3rju
 
         test: /\.s?(a|c)ss$/,
-        debug: true,
+        debug: !env.prod,
         options: {
           postcss: [
             precss(),
@@ -132,8 +133,6 @@ module.exports = env => {
           },
         },
       }),
-
-      new DashboardPlugin(),
 
       new HtmlWebpackPlugin({
         template: './index.html'
@@ -159,6 +158,8 @@ module.exports = env => {
         { from: 'favicon.png' },
         { from: 'assets', to: 'assets' }
       ]),
+
+      ifDashboard(new DashboardPlugin()),
 
       ifProd(new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor'

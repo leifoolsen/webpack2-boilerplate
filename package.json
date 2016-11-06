@@ -14,7 +14,7 @@
     "prebuild": "npm run clean && npm run validate",
     "build": "webpack --env.dev --progress --color",
     "prebuild:prod": "npm run clean && npm run validate",
-    "build:prod": "webpack --env.prod  --progress --color",
+    "build:prod": "BABEL_ENV=production webpack --env.prod  --progress --color",
     "stylelint": "stylelint './src/**/*.s?(a|c)ss' --syntax scss",
     "eslint": "eslint ./src",
     "lint": "npm run stylelint && npm run eslint",
@@ -25,7 +25,7 @@
     "test:pattern": "npm run test -- --watch --grep $pattern",
     "analyze": "webpack --env.prod --json | ./node_modules/.bin/webpack-bundle-size-analyzer",
     "start": "webpack-dev-server --env.dev --port 8084 --content-base src",
-    "dashboard": "webpack-dashboard -- npm run start"
+    "dashboard": "webpack-dashboard --env.dashboard -- npm run start"
   },
   "config": {
     "ghooks": {
