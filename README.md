@@ -49,7 +49,7 @@ A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack f
 * `validate`: validates the integrety of the webpack config file and runs code coverage 
 * `analyze`: runs webpack-bundle-size-analyzer to analyze the output bundle sizes
 * `clean`: removes the dist directory
-* `build:dev`: bundles the app to the dist dir using development settings
+* `build`: bundles the app to the dist dir using development settings
 * `build:prod`: bundles the app to the dist dir using production settings
 
 ## Test the bundle
