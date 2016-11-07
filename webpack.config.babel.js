@@ -52,17 +52,34 @@ module.exports = env => {
         {
           // See: https://github.com/webpack/webpack/issues/2812
           test: /\.css$/,
+          include: [
+            srcPath,
+            path.resolve(__dirname, 'node_modules')
+          ],
           loader: ExtractTextPlugin.extract({
             fallbackLoader: 'style-loader',
-            loader: ['css?sourceMap', 'postcss']
+            loader: ['css?sourceMap', 'postcss', 'resolve-url']
           })
         },
         {
           // See: https://github.com/webpack/webpack/issues/2812
-          test: /\.s?(a|c)ss$/,
+          test: /\.css$|\.s?(a|c)ss$/,
+          include: [
+            srcPath,
+            path.resolve(__dirname, 'node_modules')
+          ],
           loader: ExtractTextPlugin.extract({
             fallbackLoader: 'style-loader',
-            loader: ['css?sourceMap', 'postcss', 'resolve-url', 'sass?sourceMap&expanded']
+            loader: [
+              {
+                loader: 'css', query: { sourceMap: true }
+              },
+              'postcss',
+              'resolve-url',
+              {
+                loader: 'sass', query: { sourceMap: env.prod ? 'compressed' : 'expanded' }
+              }
+            ]
           })
         },
         {
@@ -102,12 +119,6 @@ module.exports = env => {
         eslint: {
           failOnWarning: false,
           failOnError: true
-        },
-        sassLoader: {
-          includePaths: [
-            path.resolve(__dirname, './node_modules'),
-            srcPath
-          ]
         },
       }),
 
@@ -192,8 +203,8 @@ module.exports = env => {
       //  }
       //}))
       ifProd(new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          screw_ie8: true, // eslint-disable-line
+        compressor: {
+          screw_ie8: true,
           warnings: false
         },
         output: {
