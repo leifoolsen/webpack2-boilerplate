@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the layout of the site/application.
+// -----------------------------------------------------------------------------
+
 /**
  * https://github.com/philipwalton/solved-by-flexbox/blob/master/assets/css/components/holy-grail.css
  * 1. Avoid the IE 10-11 `min-height` bug.
@@ -46,16 +50,6 @@
     margin: $layout-space-sm $layout-space-sm 0;
     padding: $layout-space-sm;
     border-radius: $layout-sidebar-border-radius;
-
-    &__footer {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-self: flex-end;
-      align-items: flex-end;
-      flex: 1;
-    }
-
   }
 
   &__sidebar-left {
@@ -70,96 +64,13 @@
     &__content {
       margin: $layout-space-lg;
       padding: $layout-space-lg;
-      flex: 1;
     }
 
     &__sidebar-left,
     &__sidebar-right {
       margin: $layout-space-lg $layout-space-lg 0;
       flex: 0 0 $layout-sidebar-left-width;
-      border-radius: $layout-footer-border-radius $layout-footer-border-radius 0 0;
+      border-radius: $mastfoot-border-radius $mastfoot-border-radius 0 0;
     }
-  }
-}
-
-////// Header, Footer //////
-.layout__header {
-  background: $layout-header-color;
-  height: $layout-header-height-sm;
-  display: flex;
-
-  &__logo {
-    width: $layout-header-logo-height-sm;
-    height: $layout-header-logo-height-sm;
-    background: url(HTML5_logo_and_wordmark.svg) no-repeat center;
-  }
-
-  &__left-section {
-    background: $layout-header-left-section-color;
-
-    /* stylelint-disable */
-    padding-top: 0;
-    padding-right: 0 !important;
-    padding-bottom: 0;
-    padding-left: $layout-space-sm;
-    /* stylelint-enable */
-
-    width: $layout-header-left-section-width-sm - $layout-header-diagonal-width-sm;
-    display: flex;
-    align-items: center;
-  }
-
-  &__diagonal {
-    border-right: $layout-header-diagonal-width-sm solid $layout-header-right-section-color;
-    border-bottom: $layout-header-height-sm solid $layout-header-left-section-color;
-  }
-
-  &__right-section {
-    background: $layout-header-right-section-color;
-    padding: 0 $layout-space-sm;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-  }
-
-  @include respond-to('medium') {
-    height: $layout-header-height-lg;
-
-    &__logo {
-      width: $layout-header-logo-height-lg;
-      height: $layout-header-logo-height-lg;
-    }
-
-    &__left-section {
-      padding-left: $layout-space-lg;
-      width: $layout-header-left-section-width-lg - $layout-header-diagonal-width-lg;
-    }
-
-    &__diagonal {
-      border-right-width: $layout-header-diagonal-width-lg;
-      border-bottom-width: $layout-header-height-lg;
-    }
-
-    &__right-section {
-      padding: 0 $layout-space-lg 0 $layout-space-lg*2;
-    }
-  }
-}
-
-.layout__footer {
-  background: $layout-footer-color;
-  border-radius: $layout-footer-border-radius $layout-footer-border-radius 0 0;
-  color: $layout-footer-font-color;
-  height: $layout-footer-height-sm;
-  margin: 0 $layout-space-sm;
-  padding: 0 $layout-space-sm;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  @include respond-to('medium') {
-    height: $layout-footer-height-lg;
-    margin: 0 $layout-space-lg;
-    padding: 0 $layout-space-lg;
   }
 }

@@ -1,3 +1,66 @@
 // -----------------------------------------------------------------------------
 // This file contains all styles related to the header of the site/application.
 // -----------------------------------------------------------------------------
+
+.masthead {
+  background: $masthead-color;
+  height: $masthead-height-sm;
+  display: flex;
+
+  &__logo {
+    width: $masthead-logo-height-sm;
+    height: $masthead-logo-height-sm;
+    background: url(HTML5_logo_and_wordmark.svg) no-repeat center;
+  }
+
+  &__left-section {
+    background: $masthead-left-section-color;
+
+    /* stylelint-disable */
+    padding-top: 0;
+    padding-right: 0 !important;
+    padding-bottom: 0;
+    padding-left: $layout-space-sm;
+    /* stylelint-enable */
+
+    width: $masthead-left-section-width-sm - $masthead-diagonal-width-sm;
+    display: flex;
+    align-items: center;
+  }
+
+  &__diagonal {
+    border-right: $masthead-diagonal-width-sm solid $masthead-right-section-color;
+    border-bottom: $masthead-height-sm solid $masthead-left-section-color;
+  }
+
+  &__right-section {
+    background: $masthead-right-section-color;
+    padding: 0 $layout-space-sm;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  @include respond-to('medium') {
+    height: $masthead-height-lg;
+
+    &__logo {
+      width: $masthead-logo-height-lg;
+      height: $masthead-logo-height-lg;
+    }
+
+    &__left-section {
+      padding-left: $layout-space-lg;
+      width: $masthead-left-section-width-lg - $masthead-diagonal-width-lg;
+    }
+
+    &__diagonal {
+      border-right-width: $masthead-diagonal-width-lg;
+      border-bottom-width: $masthead-height-lg;
+    }
+
+    &__right-section {
+      padding: 0 $layout-space-lg 0 $layout-space-lg*2;
+    }
+  }
+}

@@ -2,6 +2,16 @@
 // This file contains styles that are specific to the home page.
 // -----------------------------------------------------------------------------
 
+.sidebar-demo-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-self: flex-end;
+  align-items: flex-end;
+  flex: 1;
+}
+
+
 .demo-card {
   display: flex;
   align-items: center;

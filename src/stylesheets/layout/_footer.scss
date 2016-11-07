@@ -1,3 +1,21 @@
 // -----------------------------------------------------------------------------
 // This file contains all styles related to the footer of the site/application.
 // -----------------------------------------------------------------------------
+
+.mastfoot {
+  background: $mastfoot-color;
+  border-radius: $mastfoot-border-radius $mastfoot-border-radius 0 0;
+  color: $mastfoot-font-color;
+  height: $mastfoot-height-sm;
+  margin: 0 $layout-space-sm;
+  padding: 0 $layout-space-sm;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include respond-to('medium') {
+    height: $mastfoot-height-lg;
+    margin: 0 $layout-space-lg;
+    padding: 0 $layout-space-lg;
+  }
+}

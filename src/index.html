@@ -9,15 +9,13 @@
   <!-- styles -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
-<body>
-<div id="content" class="layout">
-
-  <header class="layout__header">
-    <div class="layout__header__left-section">
-      <div class="layout__header__logo"></div>
+<body class="layout">
+  <header class="masthead masthead--blue">
+    <div class="masthead__left-section">
+      <div class="masthead__logo"></div>
     </div>
-    <div class="layout__header__diagonal"></div>
-    <div class="layout__header__right-section">
+    <div class="masthead__diagonal"></div>
+    <div class="masthead__right-section">
       <h1>Webpack2 Boilerplate</h1>
     </div>
   </header>
@@ -25,6 +23,15 @@
   <div class="layout__body">
     <div class="layout__wrapper">
       <main class="layout__content">
+
+        <div class="demo-card">
+          <a class="demo-card__left" href="https://webpack.github.io/" title="Image copied from: webpack">
+            <img src="/assets/webpack-logo.png" alt="Webpack logo"/>
+          </a>
+          <div class="demo-card__right">
+            <p><a href="https://webpack.js.org/how-to/upgrade-from-webpack-1/">Webpack2</a></p>
+          </div>
+        </div>
 
         <div class="demo-card">
           <a  class="demo-card__left" href="https://commons.wikimedia.org/wiki/File:HTML5_logo_and_wordmark.svg" title="Image copied from: Wikimedia Commons">
@@ -41,15 +48,6 @@
           </a>
           <div class="demo-card__right">
             <p><a href="http://www.ecma-international.org/ecma-262/6.0/">ECMAScript 2015</a></p>
-          </div>
-        </div>
-
-        <div class="demo-card">
-          <a class="demo-card__left" href="https://webpack.github.io/" title="Image copied from: webpack">
-            <img src="/assets/webpack-logo.png" alt="Webpack logo"/>
-          </a>
-          <div class="demo-card__right">
-            <p><a href="https://webpack.js.org/how-to/upgrade-from-webpack-1/">Webpack2</a></p>
           </div>
         </div>
 
@@ -71,26 +69,22 @@
           </div>
         </div>
       </main>
-      <footer class="layout__footer">
+      <footer class="mastfoot">
         <h4>Sticky Footer</h4>
       </footer>
     </div>
     <aside class="layout__sidebar-left">
       <p>Sidebar</p>
 
-      <footer class="layout__sidebar-left__footer" role="contentinfo">
+      <footer class="sidebar-demo-footer" role="contentinfo">
+        <img style="height:30px;" src="/assets/webpack-logo.png" alt="Webpack Logo"/>
         <img style="height:30px;" src="/assets/HTML5_logo_and_wordmark.svg" alt="HTML 5 Logo"/>
         <img style="height:30px;" src="/assets/js.jpg" alt="JavaScript Logo"/>
-        <img style="height:30px;" src="/assets/webpack-logo.png" alt="Webpack Logo"/>
         <img style="height:30px;" src="/assets/logo-b6e1ef6e.svg" alt="SASS Logo"/>
         <img style="height:30px;" src="/assets/HolyGrail.svg.png" alt="Holy Grail Logo"/>
       </footer>
-
     </aside>
   </div>
-
-</div>
-
 <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 </body>
 </html>

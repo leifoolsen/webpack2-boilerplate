@@ -73,36 +73,29 @@ $base-url: '/assets/' !default;
 
 
 /// Layout
-$layout-space-sm: 8px;
-$layout-space-lg: 16px;
-$layout-border-radius: 3px;
+$layout-space-sm: 8px !default;
+$layout-space-lg: 16px !default;
+$layout-border-radius: 3px !default;
+$layout-sidebar-left-width: 260px !default;
+$layout-sidebar-border-radius: $layout-border-radius !default;
+$layout-sidebar-color: rgba(147, 128, 108, 0.1) !default;
+$layout-content-border-radius: $layout-border-radius !default;
+$layout-content-color: rgba(147, 128, 108, 0.1) !default;
 
-$layout-sidebar-left-width: 260px;
-$layout-sidebar-border-radius: $layout-border-radius;
-$layout-sidebar-color: rgba(147, 128, 108, 0.1);
-$layout-sidebar-breakpoint: 768px;
+$masthead-color: rgba(61, 110, 255, 1) !default; //rgba(66, 113, 255, 1);
+$masthead-height-sm: 112px !default;
+$masthead-height-lg: 136px !default;
+$masthead-logo-height-sm: $masthead-height-sm - $layout-space-sm*2 !default;
+$masthead-logo-height-lg: $masthead-height-lg - $layout-space-lg*2 !default;
+$masthead-left-section-color: rgba(51, 102, 255, 1) !default;
+$masthead-left-section-width-sm: 250px !default;
+$masthead-left-section-width-lg: 290px !default;
+$masthead-right-section-color: $masthead-color !default;
+$masthead-diagonal-width-sm: 40px !default;
+$masthead-diagonal-width-lg: 48px !default;
 
-$layout-content-border-radius: $layout-border-radius;
-$layout-content-color: rgba(147, 128, 108, 0.1);
-
-$layout-header-color: rgba(61, 110, 255, 1); //rgba(66, 113, 255, 1);
-$layout-header-height-sm: 112px;
-$layout-header-height-lg: 136px;
-
-$layout-header-logo-height-sm: $layout-header-height-sm - $layout-space-sm*2;
-$layout-header-logo-height-lg: $layout-header-height-lg - $layout-space-lg*2;
-
-$layout-header-left-section-color: rgba(51, 102, 255, 1);
-$layout-header-left-section-width-sm: 250px;
-$layout-header-left-section-width-lg: 290px;
-
-$layout-header-right-section-color: $layout-header-color;
-
-$layout-header-diagonal-width-sm: 40px;
-$layout-header-diagonal-width-lg: 48px;
-
-$layout-footer-border-radius: $layout-border-radius;
-$layout-footer-color: rgba(#554f4f, 1);
-$layout-footer-font-color: rgba(#ffffff, 1);
-$layout-footer-height-sm: 64px;
-$layout-footer-height-lg: 88px;
+$mastfoot-border-radius: $layout-border-radius !default;
+$mastfoot-color: rgba(#554f4f, 1) !default;
+$mastfoot-font-color: rgba(#ffffff, 1) !default;
+$mastfoot-height-sm: 64px !default;
+$mastfoot-height-lg: 88px !default;
