@@ -1,15 +1,15 @@
-import jsdomify from 'jsdomify';
+import jsdom from 'jsdom';
 import { before, after, describe, it } from 'mocha';
 import { expect } from 'chai';
 
-describe('mocha-jsdom-jsdomify', () => {
+describe('mocha-jsdom', () => {
 
   before ( () => {
-    jsdomify.create('<!doctype html><html><body><div id="mount"></div></body></html>');
+    //jsdomify.create('<!doctype html><html><body><div id="mount"></div></body></html>');
   });
 
   after(() => {
-    jsdomify.destroy();
+    //jsdomify.destroy();
   });
 
   it('has document', () => {
