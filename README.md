@@ -40,7 +40,6 @@ A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack f
 
 ## NPM Scripts
 * `start`: runs the webpack-dev-sever, with eslint and stylelint, serving files at http://localhost:8084
-* `dashboard`: runs **webpack-dashboard** before `start` script
 * `test`: runs Mocha tests
 * `test:watch`: runs Mocha tests in watch mode
 * `test:pattern`: will run tests and suites with names matching the given pattern, e.g.<br/>`pattern=Basic npm run test:pattern`

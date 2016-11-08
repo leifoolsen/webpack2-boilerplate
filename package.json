@@ -24,8 +24,7 @@
     "test:watch": "npm run test -- --watch",
     "test:pattern": "npm run test -- --watch --grep $pattern",
     "analyze": "webpack --env.prod --json | ./node_modules/.bin/webpack-bundle-size-analyzer",
-    "start": "webpack-dev-server --env.dev --port 8084 --content-base src",
-    "dashboard": "webpack-dashboard --env.dashboard -- npm run start"
+    "start": "webpack-dev-server --env.dev --port 8084 --content-base src"
   },
   "config": {
     "ghooks": {
@@ -85,7 +84,6 @@
     "url-loader": "0.5.7",
     "webpack": "2.1.0-beta.25",
     "webpack-bundle-size-analyzer": "2.2.0",
-    "webpack-dashboard": "0.2.0",
     "webpack-dev-server": "2.1.0-beta.9",
     "webpack-validator": "2.2.9"
   },

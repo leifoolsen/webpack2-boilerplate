@@ -4,8 +4,18 @@
 
 .masthead {
   background: $masthead-color;
-  height: $masthead-height-sm;
-  display: flex;
+  flex: none;
+
+  &__row {
+    display: flex;
+    flex: 1 100%;
+    height: $masthead-row-height-sm;
+    overflow: hidden;
+  }
+
+  &__row--1 {
+    height: $masthead-row1-height-sm;
+  }
 
   &__logo {
     width: $masthead-logo-height-sm;
@@ -30,7 +40,7 @@
 
   &__diagonal {
     border-right: $masthead-diagonal-width-sm solid $masthead-right-section-color;
-    border-bottom: $masthead-height-sm solid $masthead-left-section-color;
+    border-bottom: $masthead-row1-height-sm solid $masthead-left-section-color;
   }
 
   &__right-section {
@@ -42,7 +52,13 @@
   }
 
   @include respond-to('medium') {
-    height: $masthead-height-lg;
+    &__row {
+      height: $masthead-row-height-lg;
+    }
+
+    &__row--1 {
+      height: $masthead-row1-height-lg;
+    }
 
     &__logo {
       width: $masthead-logo-height-lg;
@@ -56,7 +72,7 @@
 
     &__diagonal {
       border-right-width: $masthead-diagonal-width-lg;
-      border-bottom-width: $masthead-height-lg;
+      border-bottom-width: $masthead-row1-height-lg;
     }
 
     &__right-section {

@@ -6,12 +6,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const DashboardPlugin = require('webpack-dashboard/plugin');
 
 module.exports = env => {
 
   const addPlugin = (add, plugin) => add ? plugin : undefined;
-  const ifDashboard = plugin => addPlugin(env.dashboard, plugin);
   const ifProd = plugin => addPlugin(env.prod, plugin);
   const removeEmpty = array => array.filter(i => !!i);
   const srcPath = path.resolve(__dirname, 'src');
@@ -169,8 +167,6 @@ module.exports = env => {
         { from: 'favicon.png' },
         { from: 'assets', to: 'assets' }
       ]),
-
-      ifDashboard(new DashboardPlugin()),
 
       ifProd(new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor'
