@@ -38,7 +38,7 @@ function setupJsDom(markup = defaultHtml, options={}) {
   //const opts = Object.assign({}, options, {virtualConsole: jsdom.createVirtualConsole().sendTo(console)});
   const opts = {...options, ...{ virtualConsole: jsdom.createVirtualConsole().sendTo(console) }};
 
-  console.log('Setting up jsdom');
+  //console.log('Setting up jsdom');
 
   //const document = jsdom.jsdom(markup, {
   //  url: 'http://localhost:12345/',
@@ -73,7 +73,7 @@ function setupJsDom(markup = defaultHtml, options={}) {
 }
 
 function teardownJsDom() {
-  console.log('Cleaning up jsdom');
+  //console.log('Cleaning up jsdom');
   exposedProperties.forEach( key => delete global[key] );
 }
 
