@@ -1,15 +1,16 @@
-import jsdom from 'jsdom';
+import { setupJsDom, teardownJsDom } from '../jsdom-init';
 import { before, after, describe, it } from 'mocha';
 import { expect } from 'chai';
+
 
 describe('mocha-jsdom', () => {
 
   before ( () => {
-    //jsdomify.create('<!doctype html><html><body><div id="mount"></div></body></html>');
+    setupJsDom('<!doctype html><html><body><div id="mount"></div></body></html>');
   });
 
   after(() => {
-    //jsdomify.destroy();
+    teardownJsDom();
   });
 
   it('has document', () => {
