@@ -35,13 +35,16 @@ function setupJsDom(markup = defaultHtml, options={}) {
 
   if (typeof document !== 'undefined') return;
 
+  //const opts = Object.assign({}, options, {virtualConsole: jsdom.createVirtualConsole().sendTo(console)});
+  const opts = {...options, ...{ virtualConsole: jsdom.createVirtualConsole().sendTo(console) }};
+
   console.log('Setting up jsdom');
 
   //const document = jsdom.jsdom(markup, {
   //  url: 'http://localhost:12345/',
   //  virtualConsole: jsdom.createVirtualConsole().sendTo(console)
   //});
-  const document = jsdom.jsdom(markup, options);
+  const document = jsdom.jsdom(markup, opts);
 
   const window = document.defaultView;
 
