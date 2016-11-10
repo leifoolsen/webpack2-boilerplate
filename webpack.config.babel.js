@@ -17,10 +17,13 @@ module.exports = env => {
 
   return {
     context: srcPath,
-    devtool: env.prod ? 'source-map' : 'eval-source-map',
+    devtool: env.prod ? 'source-map' : 'eval-cheap-module-source-map', // source map can be turned off in UglifyJsPlugin
     bail: env.prod,
     entry: {
-      app: './index.js',
+      app: [
+        './stylesheets/main.scss',
+        './index.js'
+      ],
       vendor: [
         'moment'
         // +++ other 3'rd party
@@ -46,18 +49,6 @@ module.exports = env => {
           include: [srcPath],
           exclude: [/node_modules/],
           loader: 'babel',
-        },
-        {
-          // See: https://github.com/webpack/webpack/issues/2812
-          test: /\.css$/,
-          include: [
-            srcPath,
-            path.resolve(__dirname, 'node_modules')
-          ],
-          loader: ExtractTextPlugin.extract({
-            fallbackLoader: 'style-loader',
-            loader: ['css?sourceMap', 'postcss', 'resolve-url']
-          })
         },
         {
           // See: https://github.com/webpack/webpack/issues/2812
@@ -124,7 +115,7 @@ module.exports = env => {
         // See: https://github.com/postcss/postcss-loader/issues/125
         // See: http://pastebin.com/Lmka3rju
 
-        test: /\.s?(a|c)ss$/,
+        test: /\.css$|\.s?(a|c)ss$/,
         debug: !env.prod,
         options: {
           postcss: [
@@ -148,7 +139,7 @@ module.exports = env => {
       }),
 
       new ExtractTextPlugin({
-        filename: 'styles.css',
+        filename: 'styles.[hash].css',
         disable: false,
         allChunks: true
       }),
@@ -206,7 +197,7 @@ module.exports = env => {
         output: {
           comments: false
         },
-        sourceMap: false
+        sourceMap: true
       }))
       // End: finetuning 'npm run build:prod'
     ])
