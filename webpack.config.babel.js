@@ -51,8 +51,15 @@ module.exports = env => {
           loader: 'babel',
         },
         {
+          test: /\.css$/,
+          loader: ExtractTextPlugin.extract({
+            fallbackLoader: 'style-loader',
+            loader: ['css?sourceMap', 'postcss']
+          })
+        },
+        {
           // See: https://github.com/webpack/webpack/issues/2812
-          test: /\.css$|\.s?(a|c)ss$/,
+          test: /\.s?(a|c)ss$/,
           include: [
             srcPath,
             path.resolve(__dirname, 'node_modules')
@@ -100,6 +107,9 @@ module.exports = env => {
       ],
       extensions: ['.js', '.jsx', '.json', '.css', '.sass', '.scss', '.html']
     },
+    stats: {
+      colors: true
+    },
     plugins: removeEmpty([
       new webpack.LoaderOptionsPlugin({
         minimize: env.prod,
@@ -133,6 +143,9 @@ module.exports = env => {
           },
         },
       }),
+
+      // Avoid publishing files when compilation fails
+      new webpack.NoErrorsPlugin(),
 
       new HtmlWebpackPlugin({
         template: './index.html'

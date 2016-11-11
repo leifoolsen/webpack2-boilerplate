@@ -12,9 +12,9 @@
     "validate-webpack:prod": "webpack-validator webpack.config.babel.js --env.prod",
     "clean": "rimraf dist",
     "prebuild": "npm run clean && npm run validate",
-    "build": "webpack --env.dev --progress --color",
+    "build": "webpack --env.dev --progress",
     "prebuild:prod": "npm run clean && npm run validate",
-    "build:prod": "BABEL_ENV=production webpack --env.prod  --progress --color",
+    "build:prod": "BABEL_ENV=production webpack --env.prod  --progress",
     "stylelint": "stylelint './src/**/*.s?(a|c)ss' --syntax scss",
     "eslint": "eslint ./src",
     "lint": "npm run stylelint && npm run eslint",
@@ -24,7 +24,7 @@
     "test:watch": "npm run test -- --watch",
     "test:pattern": "npm run test -- --watch --grep $pattern",
     "analyze": "webpack --env.prod --json | ./node_modules/.bin/webpack-bundle-size-analyzer",
-    "start": "webpack-dev-server --env.dev --port 8084 --content-base src"
+    "start": "webpack-dev-server --env.dev --progress --inline --hot --port 8084 --content-base src"
   },
   "config": {
     "ghooks": {
@@ -40,10 +40,10 @@
     "url": "https://github.com/leifoolsen/webpack2-boilerplate.git"
   },
   "dependencies": {
-    "moment": "2.15.2"
+    "moment": "2.16.0"
   },
   "devDependencies": {
-    "autoprefixer": "6.5.2",
+    "autoprefixer": "6.5.3",
     "babel-cli": "6.18.0",
     "babel-core": "6.18.2",
     "babel-eslint": "7.1.0",
@@ -71,7 +71,7 @@
     "node-sass": "3.11.2",
     "npm-run-all": "3.1.1",
     "opt-cli": "1.5.1",
-    "postcss-loader": "1.1.0",
+    "postcss-loader": "1.1.1",
     "precss": "^1.4.0",
     "resolve-url-loader": "1.6.0",
     "rimraf": "2.5.4",
