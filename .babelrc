@@ -1,16 +1,27 @@
 {
   "presets": [
-    ["es2015", {"modules": false }],
+    [
+      "latest", {
+        "es2015": {
+          "modules": false // https://babeljs.io/docs/plugins/preset-es2015/
+        }
+      }
+    ],
     "stage-0"
   ],
   "env": {
     "test": {
       "presets": [
-        "es2015",
+        [
+          "latest", {
+            "es2015": {}
+          }
+        ],
         "stage-0"
       ],
       "plugins": [
-        ["__coverage__", {"ignore": "*.+(test|stub).*"}]
+        ["__coverage__", {"ignore": "*.+(test|stub).*"}],
+        "istanbul"
       ]
     }
   }
