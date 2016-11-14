@@ -14,8 +14,8 @@ module.exports = env => {
   const ifDev = plugin => addPlugin(env.dev, plugin);
   const ifProd = plugin => addPlugin(env.prod, plugin);
   const removeEmpty = array => array.filter(i => !!i);
-  const srcPath = path.resolve(__dirname, 'src');
-  const distPath = path.resolve(__dirname, 'dist');
+  const src = path.resolve(__dirname, 'src');
+  const dist = path.resolve(__dirname, 'dist');
 
   // get the intended port number, use port 3000 if not provided
   const port = Number(argv.port || process.env.PORT || '3000');
@@ -27,10 +27,17 @@ module.exports = env => {
   const proxyPort = process.env.PROXY_PORT || false;
 
   return {
-    context: srcPath,
+    context: src,
     devtool: env.prod ? 'source-map' : 'eval-cheap-module-source-map', // source map can be turned off in UglifyJsPlugin
     bail: env.prod,
     cache: !env.prod,
+    resolve: {
+      modules: [
+        'node_modules',
+        src,
+      ],
+      extensions: ['.js', '.jsx', '.json', '.css', '.sass', '.scss', '.html']
+    },
     entry: {
       app: [
         './stylesheets/main.scss',
@@ -43,7 +50,7 @@ module.exports = env => {
     },
     output: {
       filename: 'bundle.[name].[hash].js',
-      path: distPath,
+      path: dist,
       pathinfo: !env.prod,
       publicPath: '/',
     },
@@ -53,12 +60,12 @@ module.exports = env => {
           test: /\.js[x]?$/,
           enforce: 'pre',
           loader: 'eslint-loader',
-          include: [srcPath],
+          include: [src],
           exclude: [/node_modules/],
         },
         {
           test: /\.js[x]?$/,
-          include: [srcPath],
+          include: [src],
           exclude: [/node_modules/],
           loader: 'babel',
         },
@@ -73,7 +80,7 @@ module.exports = env => {
           // See: https://github.com/webpack/webpack/issues/2812
           test: /\.s?(a|c)ss$/,
           include: [
-            srcPath,
+            src,
             path.resolve(__dirname, 'node_modules')
           ],
           loader: ExtractTextPlugin.extract({
@@ -116,13 +123,6 @@ module.exports = env => {
         },
       ],
     },
-    resolve: {
-      modules: [
-        'node_modules',
-        srcPath,
-      ],
-      extensions: ['.js', '.jsx', '.json', '.css', '.sass', '.scss', '.html']
-    },
 
     plugins: removeEmpty([
       // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
@@ -150,9 +150,9 @@ module.exports = env => {
           colors: true
         },
         options: {
-          context: srcPath,
+          context: src,
           output: {
-            path: distPath,
+            path: dist,
           },
           postcss: [
             precss,
@@ -207,21 +207,20 @@ module.exports = env => {
         failOnError: false
       }),
 
+      // Tell webpack we want Hot Module Reloading.
+      // Note: Do not combine with --hot --inline from command line, you'll end up with 2x HMR
+      ifDev(new webpack.HotModuleReplacementPlugin()),
+
       new CopyWebpackPlugin([
         { from: 'favicon.png' },
         { from: 'assets', to: 'assets' }
       ]),
 
-      // Tell webpack we want Hot Module Reloading.
-      // Note: Do not combine with --hot --inline from command line, you'll end up with 2x HMR
-      ifDev(new webpack.HotModuleReplacementPlugin()),
-
+      // Finetuning 'npm run build:prod'
+      // Note: remove '-p' from "build:prod" in package.json
       ifProd(new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor'
       })),
-
-      // Finetuning 'npm run build:prod'
-      // Note: remove '-p' from "build:prod" in package.json
 
       // Merge all duplicate modules
       ifProd(new webpack.optimize.DedupePlugin()),
