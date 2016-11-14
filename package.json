@@ -25,7 +25,6 @@
     "test:pattern": "npm run test -- --watch --grep $pattern",
     "analyze": "webpack --env.prod --json | webpack-bundle-size-analyzer",
     "server": "babel-node server --presets latest,stage-0",
-    "start:server": "PROXY_PORT=8085 npm-run-all --parallel server start",
     "start": "webpack-dev-server --env.dev --port 8084 --content-base src"
   },
   "config": {

@@ -36,6 +36,7 @@ if(isDev) {
     devtool: isProd ? 'source-map' : 'eval-cheap-module-source-map', // source map can be turned off in UglifyJsPlugin
     bail: isProd,
     cache: !isProd,
+    target: 'web', // Make web variables accessible to webpack, e.g. window
     resolve: {
       modules: [
         'node_modules',
@@ -45,8 +46,9 @@ if(isDev) {
     },
     entry: {
       app: [
+        'webpack-hot-middleware/client',
         './stylesheets/main.scss',
-        './index.js'
+        './index.js',
       ],
       vendor: [
         'moment'
@@ -74,6 +76,7 @@ if(isDev) {
           exclude: [/node_modules/],
           loader: 'babel',
         },
+        /*
         {
           test: /\.css$/,
           loader: ExtractTextPlugin.extract({
@@ -101,6 +104,38 @@ if(isDev) {
               }
             ]
           })
+        },
+        */
+
+        {
+          test: /\.css$/,
+          use: [
+            'style-loader',
+            {
+              loader: 'css-loader', query: { sourceMap: true }
+            },
+            'postcss',
+            'resolve-url',
+          ]
+        },
+        {
+          // See: https://github.com/webpack/webpack/issues/2812
+          test: /\.s?(a|c)ss$/,
+          include: [
+            src,
+            path.resolve(__dirname, 'node_modules')
+          ],
+          use: [
+            'style-loader',
+            {
+              loader: 'css-loader', query: { sourceMap: true }
+            },
+            'postcss',
+            'resolve-url',
+            {
+              loader: 'sass', query: { sourceMap: isProd ? 'compressed' : 'expanded' }
+            }
+          ]
         },
         {
           test: /\.json$/,
@@ -174,6 +209,10 @@ if(isDev) {
         },
       }),
 
+      // Order the modules and chunks by occurrence. This saves space,
+      // because often referenced modules and chunks get smaller ids.
+      new webpack.optimize.OccurrenceOrderPlugin(),
+
       // Avoid publishing files when compilation fails
       new webpack.NoErrorsPlugin(),
 
@@ -211,14 +250,14 @@ if(isDev) {
         failOnError: false
       }),
 
+      new CopyWebpackPlugin([
+        { from: 'favicon.png' },
+        { from: 'assets', to: 'assets' }
+      ]),
+
       // Tell webpack we want Hot Module Reloading.
       // Note: Do not combine with --hot --inline from command line, you'll end up with 2x HMR
       ifDev(new webpack.HotModuleReplacementPlugin()),
-
-      ifDev(new CopyWebpackPlugin([
-        { from: 'favicon.png' },
-        { from: 'assets', to: 'assets' }
-      ])),
 
       // Finetuning 'npm run build:prod'
       // Note: remove '-p' from "build:prod" in package.json
