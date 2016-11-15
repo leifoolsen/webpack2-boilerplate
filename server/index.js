@@ -76,8 +76,8 @@ if(isDev) {
           exclude: [/node_modules/],
           loader: 'babel',
         },
-        /*
         {
+          // No HMR
           test: /\.css$/,
           loader: ExtractTextPlugin.extract({
             fallbackLoader: 'style-loader',
@@ -85,6 +85,7 @@ if(isDev) {
           })
         },
         {
+          // No HMR
           // See: https://github.com/webpack/webpack/issues/2812
           test: /\.s?(a|c)ss$/,
           include: [
@@ -105,9 +106,9 @@ if(isDev) {
             ]
           })
         },
-        */
-
+        /*
         {
+          // Enables HMR - but having trouble loading bacground images in SASS
           test: /\.css$/,
           use: [
             'style-loader',
@@ -119,7 +120,7 @@ if(isDev) {
           ]
         },
         {
-          // See: https://github.com/webpack/webpack/issues/2812
+          // Enables HMR - but having trouble loading bacground images in SASS
           test: /\.s?(a|c)ss$/,
           include: [
             src,
@@ -137,6 +138,7 @@ if(isDev) {
             }
           ]
         },
+        */
         {
           test: /\.json$/,
           loader: 'json-loader',

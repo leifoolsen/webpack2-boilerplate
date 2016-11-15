@@ -31,6 +31,7 @@ module.exports = env => {
     devtool: env.prod ? 'source-map' : 'eval-cheap-module-source-map', // source map can be turned off in UglifyJsPlugin
     bail: env.prod,
     cache: !env.prod,
+    target: 'web', // Make web variables accessible to webpack, e.g. window
     resolve: {
       modules: [
         'node_modules',
@@ -70,6 +71,7 @@ module.exports = env => {
           loader: 'babel',
         },
         {
+          // No HMR
           test: /\.css$/,
           loader: ExtractTextPlugin.extract({
             fallbackLoader: 'style-loader',
@@ -77,6 +79,7 @@ module.exports = env => {
           })
         },
         {
+          // No HMR
           // See: https://github.com/webpack/webpack/issues/2812
           test: /\.s?(a|c)ss$/,
           include: [
@@ -97,6 +100,40 @@ module.exports = env => {
             ]
           })
         },
+
+        /*
+        {
+          // Enables HMR - but having trouble loading bacground images in SASS
+          test: /\.css$/,
+          use: [
+            'style-loader',
+            {
+              loader: 'css-loader', query: { sourceMap: true }
+            },
+            'postcss',
+            'resolve-url',
+          ]
+        },
+        {
+          // Enables HMR - but having trouble loading bacground images in SASS
+          test: /\.s?(a|c)ss$/,
+          include: [
+            src,
+            path.resolve(__dirname, 'node_modules')
+          ],
+          use: [
+            'style-loader',
+            {
+              loader: 'css-loader', query: { sourceMap: true }
+            },
+            'postcss',
+            'resolve-url',
+            {
+              loader: 'sass', query: { sourceMap: env.prod ? 'compressed' : 'expanded' }
+            }
+          ]
+        },
+        */
         {
           test: /\.json$/,
           loader: 'json-loader',
