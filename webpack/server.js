@@ -34,8 +34,8 @@ if(isDev) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-// get the intended port number, use port 3001 if not provided
-const port = process.env.PORT || argv.port || 3001;
+// get the intended port number, use port 3000 if not provided
+const port = process.env.PORT || argv.port || 3000;
 const host = 'localhost';
 const server = app.listen(port, host, (err) => {
   if(err) {

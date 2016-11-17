@@ -20,7 +20,7 @@ const removeEmpty = array => array.filter(i => !!i);
 module.exports = {
 
   context: src,
-  devtool: isProd ? 'source-map' : 'eval-cheap-module-source-map', // source map can be turned off in UglifyJsPlugin
+  devtool: isProd ? 'source-map' : 'cheap-module-eval-source-map', // source map can be turned off in UglifyJsPlugin
   bail: isProd,
   cache: !isProd,
   target: 'web', // Make web variables accessible to webpack, e.g. window
@@ -169,6 +169,12 @@ module.exports = {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
     }),
+
+    new webpack.ProvidePlugin({
+      // make fetch available
+      fetch: 'exports?self.fetch!whatwg-fetch',
+    }),
+
     // Module ids are full names
     // Outputs more readable module names in the browser console on HMR updates
     new webpack.NamedModulesPlugin(),

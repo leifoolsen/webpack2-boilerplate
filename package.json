@@ -40,7 +40,9 @@
     "url": "https://github.com/leifoolsen/webpack2-boilerplate.git"
   },
   "dependencies": {
-    "moment": "2.16.0"
+    "babel-polyfill": "6.16.0",
+    "moment": "2.16.0",
+    "whatwg-fetch": "2.0.0"
   },
   "devDependencies": {
     "autoprefixer": "6.5.3",
@@ -49,17 +51,16 @@
     "babel-eslint": "7.1.0",
     "babel-loader": "6.2.7",
     "babel-plugin-__coverage__": "11.0.0",
-    "babel-plugin-istanbul": "2.0.3",
-    "babel-polyfill": "6.16.0",
+    "babel-plugin-istanbul": "3.0.0",
     "babel-preset-latest": "6.16.0",
     "babel-preset-stage-0": "6.16.0",
     "body-parser": "1.15.2",
     "chai": "3.5.0",
     "chalk": "1.1.3",
     "compression": "1.6.2",
-    "copy-webpack-plugin": "4.0.0",
+    "copy-webpack-plugin": "4.0.1",
     "css-loader": "0.25.0",
-    "eslint": "3.9.1",
+    "eslint": "3.10.2",
     "eslint-loader": "1.6.1",
     "express": "4.14.0",
     "extract-text-webpack-plugin": "2.0.0-beta.4",
@@ -74,7 +75,7 @@
     "json-loader": "0.5.4",
     "material-design-icons": "3.0.1",
     "mocha": "3.1.2",
-    "node-sass": "3.11.2",
+    "node-sass": "3.13.0",
     "npm-run-all": "3.1.1",
     "offline-plugin": "3.4.2",
     "opt-cli": "1.5.1",
@@ -93,8 +94,7 @@
     "webpack-dev-middleware": "1.8.4",
     "webpack-dev-server": "2.1.0-beta.9",
     "webpack-hot-middleware": "2.13.2",
-    "webpack-validator": "2.2.9",
-    "whatwg-fetch": "1.0.0"
+    "webpack-validator": "2.2.9"
   },
   "keywords": [
     "Webpack2",
