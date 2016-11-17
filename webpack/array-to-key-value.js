@@ -3,26 +3,24 @@
  * @param array the array to transform to an object of key value pairs
  * @example
  * arrayToKeyValue([ '--env.dev', '--port', '8084', '--content-base', 'src' ]);
- * // Returns { 'env.dev': undefined, port: '8084', 'content-base': 'src' }
+ * // Returns { 'env.dev': true, port: '8084', 'content-base': 'src' }
  */
 const arrayToKeyValue = array => {
 
-  const isString = s => typeof s === 'string';
+  //const isString = s => typeof s === 'string';
 
-  const argToKey = arg => isString(arg) && arg.trim().startsWith('-') ? arg.trim().replace(/^[-]+/, '') : undefined;
+  const argToKey = arg => String(arg).trim().startsWith('-') ? arg.trim().replace(/^[-]+/, '') : false;
 
   return array.reduce( (prev, current, index, arr) => {
 
     const key = argToKey(current);
     if(key) {
-      let val = undefined;
+      let val = true;
       if (index < arr.length - 1) {
-        val = arr[index + 1];
-        if (isString(val) && !val.trim().startsWith('-')) {
+        const n = String(arr[index + 1]).trim();
+        if (!n.startsWith('-')) {
+          val = arr[index + 1];
           arr.splice(index, 1);
-        }
-        else {
-          val = undefined;
         }
       }
       return {

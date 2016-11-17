@@ -8,13 +8,13 @@
     "setup": "npm install && npm-run-all clean validate",
     "validate": "npm-run-all --parallel test:coverage --serial check-coverage",
     "validate-pre-beta.25": "npm-run-all --parallel validate-webpack:* test:coverage --serial check-coverage",
-    "validate-webpack:dev": "webpack-validator webpack.config.babel.js --env.dev",
-    "validate-webpack:prod": "webpack-validator webpack.config.babel.js --env.prod",
+    "validate-webpack:dev": "webpack-validator webpack/webpack.config.babel.js --env.dev",
+    "validate-webpack:prod": "webpack-validator webpack/webpack.config.babel.js --env.prod",
     "clean": "rimraf dist",
     "prebuild": "npm-run-all clean validate",
-    "build": "webpack --env.dev --progress",
+    "build": "webpack --config webpack/webpack.config.babel.js --env.dev --progress",
     "prebuild:prod": "npm-run-all clean validate",
-    "build:prod": "webpack --env.prod  --progress",
+    "build:prod": "webpack --config webpack/webpack.config.babel.js --env.prod  --progress",
     "lint:stylelint": "stylelint './src/**/*.s?(a|c)ss' --syntax scss",
     "lint:eslint": "eslint ./src",
     "lint": "npm-run-all lint:*",
@@ -23,9 +23,8 @@
     "test": "BABEL_ENV=test mocha --env.test --opts ./mocha.opts './test/**/*.spec.js'",
     "test:watch": "npm run test -- --watch",
     "test:pattern": "npm run test -- --watch --grep $pattern",
-    "analyze": "webpack --env.prod --json | webpack-bundle-size-analyzer",
-    "server": "babel-node server --presets latest,stage-0",
-    "start": "webpack-dev-server --env.dev --port 8084 --content-base src"
+    "analyze": "webpack --config webpack/webpack.config.babel.js --env.prod --json | webpack-bundle-size-analyzer",
+    "start": "babel-node webpack/server --port 8084 --content-base src --presets latest,stage-0"
   },
   "config": {
     "ghooks": {
