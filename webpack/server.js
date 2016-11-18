@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
+const history = require('connect-history-api-fallback');
 const webpack = require('webpack');
 const logger = require('./logger');
 const argv = require('./array-to-key-value').arrayToKeyValue(process.argv.slice(2));
@@ -18,7 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 // Sample REST API
-// Note: Router must be defined before the "catch all" app.get('*', (req, res)
+// Note: Router must be defined before the history-api-fallback and the "catch all" app.get('*', (req, res)
 const router = express.Router();
 
 router.get('/', function (req, res) {
@@ -34,6 +35,13 @@ router.get('/ping', (req, res) => {
 app.use('/api', router);
 //
 
+// This rewrites all routes requests to the root /index.html file
+// (ignoring file requests). If you want to implement universal
+// rendering, you'll want to remove this middleware.
+app.use(history({
+  verbose: false
+}));
+
 if(isDev) {
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -41,6 +49,7 @@ if(isDev) {
 
   app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
+    hot: true,
     filename: config.output.filename,
     publicPath: publicPath,
     contentBase: config.context,
@@ -52,11 +61,10 @@ if(isDev) {
 
   //app.get(publicPath, (req, res) => {
   app.get('*', (req, res) => {
-    fs.readFile(path.resolve(outputPath, 'index.html'), (err, file) => {
+    fs.readFile(path.join(outputPath, 'index.html'), (err, file) => {
       if (err) {
         res.sendStatus(404);
       } else {
-        res.setHeader('Content-Type', 'text/html');
         res.send(file.toString());
       }
     });
@@ -70,14 +78,14 @@ else {
   // and other good practices on official Express.js docs http://mxs.is/googmy
   app.use(compression());
 
-  app.use(publicPath, express.static(outputPath));
-
   //app.get(publicPath, (req, res) => res.sendFile(path.resolve(outputPath, 'index.html')));
   app.get('*', (req, res) => {
-    res.setHeader('Content-Type', 'text/html');
-    res.sendFile(path.resolve(outputPath, 'index.html'))
+    res.sendFile(path.join(outputPath, 'index.html'))
   });
+
+  app.use(publicPath, express.static(outputPath));
 }
+
 
 // get the intended port number, use port 3000 if not provided
 const port = process.env.PORT || argv.port || 3000;
