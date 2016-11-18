@@ -24,7 +24,7 @@
     "test:watch": "npm run test -- --watch",
     "test:pattern": "npm run test -- --watch --grep $pattern",
     "analyze": "webpack --config webpack/webpack.config.babel.js --env.prod --json | webpack-bundle-size-analyzer",
-    "start": "babel-node webpack/server --port 8084 --content-base src --presets latest,stage-0"
+    "start": "babel-node webpack/server --env.dev --port 8084 --content-base src --presets latest,stage-0"
   },
   "config": {
     "ghooks": {
