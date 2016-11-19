@@ -5,22 +5,24 @@
 .masthead {
   background: $masthead-color;
   flex: none;
+  display: flex;
+  align-items: stretch;
+  height: $masthead-height-sm;
 
   &__row {
     display: flex;
     flex: 1 100%;
-    height: $masthead-row-height-sm;
     overflow: hidden;
-  }
-
-  &__row--1 {
-    height: $masthead-row1-height-sm;
   }
 
   &__logo {
     width: $masthead-logo-height-sm;
     height: $masthead-logo-height-sm;
-    background: url(HTML5_logo_and_wordmark.svg) no-repeat center;
+    //background: url(assets/HTML5_logo_and_wordmark.svg) no-repeat center;
+    background: url(/assets/webpack-logo.png) no-repeat center;
+    //background: url(/assets/logo-b6e1ef6e.svg) no-repeat center;
+    //background: url(/assets/js.jpg) no-repeat center;
+    background-size: contain;
   }
 
   &__left-section {
@@ -40,7 +42,7 @@
 
   &__diagonal {
     border-right: $masthead-diagonal-width-sm solid $masthead-right-section-color;
-    border-bottom: $masthead-row1-height-sm solid $masthead-left-section-color;
+    border-bottom: $masthead-height-sm solid $masthead-left-section-color;
   }
 
   &__right-section {
@@ -52,13 +54,7 @@
   }
 
   @include respond-to('medium') {
-    &__row {
-      height: $masthead-row-height-lg;
-    }
-
-    &__row--1 {
-      height: $masthead-row1-height-lg;
-    }
+    height: $masthead-height-lg;
 
     &__logo {
       width: $masthead-logo-height-lg;
@@ -72,7 +68,7 @@
 
     &__diagonal {
       border-right-width: $masthead-diagonal-width-lg;
-      border-bottom-width: $masthead-row1-height-lg;
+      border-bottom-width: $masthead-height-lg;
     }
 
     &__right-section {

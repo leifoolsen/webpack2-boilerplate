@@ -4,6 +4,7 @@
  * @example
  * arrayToKeyValue([ '--env.dev', '--port', '8084', '--content-base', 'src' ]);
  * // Returns { 'env.dev': true, port: '8084', 'content-base': 'src' }
+ * @author Leif Olsen
  */
 const arrayToKeyValue = array => {
 

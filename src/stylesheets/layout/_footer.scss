@@ -4,34 +4,18 @@
 
 .mastfoot {
   flex: none;
+  display: flex;
+  align-items: center;
   background: $mastfoot-color;
   border-radius: $mastfoot-border-radius $mastfoot-border-radius 0 0;
   color: $mastfoot-font-color;
   margin: 0 $layout-space-sm;
-
-  &__row {
-    display: flex;
-    flex: 1 100%;
-    align-items: center;
-    height: $mastfoot-row-height-sm;
-    padding: 0 $layout-space-sm;
-    overflow: hidden;
-  }
-
-  &__row--1 {
-    height: $mastfoot-row1-height-sm;
-  }
+  padding: 0 $layout-space-sm;
+  height: $mastfoot-height-sm;
 
   @include respond-to('medium') {
     margin: 0 $layout-space-lg;
-
-    &__row {
-      height: $mastfoot-row-height-lg;
-      padding: 0 $layout-space-lg;
-    }
-
-    &__row--1 {
-      height: $mastfoot-row1-height-lg;
-    }
+    padding: 0 $layout-space-lg;
+    height: $mastfoot-height-lg;
   }
 }

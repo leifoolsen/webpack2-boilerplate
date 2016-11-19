@@ -9,6 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const argv = require('./array-to-key-value').arrayToKeyValue(process.argv.slice(2));
 const src = path.resolve(process.cwd(), 'src');
 const dist = path.resolve(process.cwd(), 'dist');
+const publicPath = '/';
 const isDev = process.env.NODE_ENV !== 'production' && !argv['env.prod'];
 const isProd = !isDev;
 const ifDev = plugin => addPlugin(isDev, plugin);
@@ -18,25 +19,34 @@ const removeEmpty = array => array.filter(i => !!i);
 
 
 module.exports = {
-
   context: src,
-  devtool: isProd ? 'source-map' : 'cheap-module-eval-source-map', // source map can be turned off in UglifyJsPlugin
+  // Developer tool to enhance debugging, source maps
+  // http://webpack.github.io/docs/configuration.html#devtool
+  // source map can be turned on/off in UglifyJsPlugin
+  devtool: isProd ? 'source-map' : 'cheap-module-eval-source-map',
   bail: isProd,
   cache: !isProd,
-  target: 'web', // Make web variables accessible to webpack, e.g. window
+  target: 'web', // Make web variables accessible to webpack, e.g. window. This is a default value; just be aware of it
   resolve: {
     modules: [
-      'node_modules',
       src,
+      'node_modules',
     ],
     extensions: ['.js', '.jsx', '.json', '.css', '.sass', '.scss', '.html']
   },
   entry: {
-    app: (isProd ? [] : ['webpack-hot-middleware/client']).concat([
-      './stylesheets/main.scss',
+    app: [
+      './main.scss',
       './index.js',
-    ]),
+    ].concat((isProd ? [] : [
+      // Webpack2: remove any reference to webpack/hot/dev-server or webpack/hot/only-dev-server
+      // from your webpack config. Instead, use the reload config option.
+      // reload - Set to true to auto-reload the page when webpack gets stuck. (React: use reload=false)
+      // See: https://github.com/glenjamin/webpack-hot-middleware
+      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'
+    ])),
     vendor: [
+      './vendor.scss',
       'moment'
       // +++ other 3'rd party
     ]
@@ -45,14 +55,14 @@ module.exports = {
     filename: isProd ? 'bundle.[name].[hash].js' : 'bundle.[name].js', // Don't use hashes in dev mode
     path: dist,
     pathinfo: !isProd,
-    publicPath: '/',
+    publicPath: publicPath,
   },
   module: {
     rules: [
       {
         test: /\.js[x]?$/,
         enforce: 'pre',
-        loader: 'eslint-loader',
+        loader: 'eslint',
         include: [src],
         exclude: [/node_modules/],
       },
@@ -62,53 +72,55 @@ module.exports = {
         exclude: [/node_modules/],
         loader: 'babel',
       },
-
-      /*
       {
-        // CSS is part of JS
-        // Enables HMR - but having trouble loading background images in SASS
+        // Enables HMR
         test: /\.css$/,
+        include: [
+          src,
+          path.resolve(__dirname, 'node_modules')
+        ],
         use: [
-          'style-loader',
-          {
-            loader: 'css-loader', query: { sourceMap: true }
-          },
+          'style',
+          // urls does not work when using sourceMap.
+          // See: https://github.com/webpack/css-loader/issues/216
+          // See: https://github.com/webpack/css-loader/issues/296
+          // See: http://stackoverflow.com/questions/37288886/webpack-background-images-not-loading
+          'css', // { loader: 'css', query: { sourceMap: true } },
           'postcss',
           'resolve-url',
         ]
       },
       {
-        // Enables HMR - but having trouble loading bacground images in SASS
+        // Enables HMR
         test: /\.s?(a|c)ss$/,
         include: [
           src,
           path.resolve(__dirname, 'node_modules')
         ],
         use: [
-          'style-loader',
-          {
-            loader: 'css-loader', query: { sourceMap: true }
-          },
+          'style',
+          'css', // { loader: 'css', query: { sourceMap: true } }, // urls does not work when using sourceMap, see: comments above
           'postcss',
           'resolve-url',
-          {
-            loader: 'sass', query: { sourceMap: isProd ? 'compressed' : 'expanded' }
-          }
+          { loader: 'sass', query: { sourceMap: isProd ? 'compressed' : 'expanded' } },
         ]
       },
-      */
 
+      /*
       {
-        // No HMR
+        // No HMR, but source map works
         test: /\.css$/,
+        include: [
+          src,
+          path.resolve(__dirname, 'node_modules')
+        ],
         loader: ExtractTextPlugin.extract({
           fallbackLoader: 'style-loader',
           loader: ['css?sourceMap', 'postcss']
         })
       },
       {
-        // No HMR
-        // See: https://github.com/webpack/webpack/issues/2812
+         // No HMR, but source map works
         test: /\.s?(a|c)ss$/,
         include: [
           src,
@@ -128,36 +140,50 @@ module.exports = {
           ]
         })
       },
-
+      */
+      /*
+      {
+        // Enables HMR. Extra step is needed in './src/index.js'
+        test: /\.html$/,
+        loader: 'html'
+      },
+      */
       {
         test: /\.json$/,
-        loader: 'json-loader',
+        loader: 'json',
       },
       {
         test: /\.(jpg|jpeg)$/,
-        loader: 'url-loader?limit=8192&mimetype=image/jpg&name=[name].[ext]'
+        loader: 'url?name=[name].[ext]&limit=8192&mimetype=image/jpg'
       },
       {
         test: /\.gif$/,
-        loader: 'url-loader?limit=8192&mimetype=image/gif&name=[name].[ext]'
+        loader: 'url?name=[name].[ext]&limit=8192&mimetype=image/gif'
       },
       {
         test: /\.png$/,
-        loader: 'url-loader?limit=8192&mimetype=image/png&name=[name].[ext]'
+        use: 'url?name=[name].[ext]&limit=8192&mimetype=image/png'
       },
       {
         test: /\.svg$/,
-        loader: 'file-loader?limit=8192&mimetype=image/svg+xml&name=[name].[ext]'
+        loader: 'url?name=[name].[ext]&limit=8192&mimetype=image/svg+xml'
       },
       {
-        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['url-loader?limit=100000&mimetype=application/font-woff']
+        test: /\.woff?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: ['url?name=[name].[ext]&limit=100000&mimetype=application/font-woff']
+      },
+      {
+        test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: ['url?name=[name].[ext]&limit=100000&mimetype=application/font-woff2']
       },
       {
         test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['file-loader?limit=100000']
+        use: ['file?name=[name].[ext]&limit=100000&mimetype=application/octet-stream']
       },
-
+      {
+        test: /\.otf(\?.*)?$/,
+        loader: 'file?name=[name].[ext]&limit=10000&mimetype=font/opentype'
+      },
     ]
   },
   plugins: removeEmpty([
@@ -194,6 +220,9 @@ module.exports = {
         context: src,
         output: {
           path: dist,
+        },
+        alias: {
+          roboto: path.resolve(__dirname, 'node_modules/roboto-fontface/css/')
         },
         postcss: [
           precss,
@@ -260,7 +289,9 @@ module.exports = {
 
     // Tell webpack we want Hot Module Reloading.
     // Note: Do not combine with --hot --inline from command line, you'll end up with 2x HMR
-    ifDev(new webpack.HotModuleReplacementPlugin()),
+    ifDev(new webpack.HotModuleReplacementPlugin({
+      multiStep: true, // Enable multi-pass compilation for enhanced performance in larger projects.
+    })),
 
     // Finetuning 'npm run build:prod'
     // Note: remove '-p' from "build:prod" in package.json

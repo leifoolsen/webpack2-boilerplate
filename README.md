@@ -5,15 +5,16 @@
 A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack for Production JavaScript Applications](https://egghead.io/courses/using-webpack-for-production-javascript-applications)
 
 ## Features
+* ES2015
+* Node 6
 * Npm as a task/build runner
 * Webpack2 with tree-shaking
-* Node 6
-* ES2015
+* Express middleware
 * Linting with eslint and stylelint
-* Unit tests with Mocha, Chai and JsDom 
+* Unit tests with Mocha, Chai, Sinon and JsDom 
 * Code coverage with Istanbul
-* SASS boilerplate with Solved by Flexbox Holy Grail example layout 
-
+* SASS boilerplate with Solved by Flexbox Holy Grail example layout
+* Self hosting Google Material Icons and Font Roboto
 
 ## Getting started
 * Install Node6 (via nvm)
@@ -39,7 +40,7 @@ A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack f
 ```
 
 ## NPM Scripts
-* `start`: runs the webpack-dev-sever, with eslint and stylelint, serving files at http://localhost:8084
+* `start`: runs Node Express sever, with Hot Module Reloading (HMR), eslint and stylelint, serving files at http://localhost:8084
 * `test`: runs Mocha tests
 * `test:watch`: runs Mocha tests in watch mode
 * `test:pattern`: will run tests and suites with names matching the given pattern, e.g.<br/>`pattern=Basic npm run test:pattern`
@@ -50,9 +51,12 @@ A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack f
 * `clean`: removes the dist directory
 * `build`: bundles the app to the dist dir using development settings
 * `build:prod`: bundles the app to the dist dir using production settings
+* `start:build`: starts the Express sever with the generated bundle, serving files at http://localhost:8000
 
 ## Test the bundle
 * `npm run build:prod`
-* cd to the `dist` dir
-* Start a http server of your choice, e.g. `python -m SimpleHTTPServer 8000`
+* `npm run start:build`
 * Open a browser at `http://localhost:8000`
+
+## Test the API
+* Open a browser at `http://localhost:8000/api/ping`

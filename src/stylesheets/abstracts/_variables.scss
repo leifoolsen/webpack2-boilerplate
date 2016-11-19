@@ -8,7 +8,7 @@
 
 /// Regular font family
 /// @type List
-$text-font-stack: 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif !default;
+$text-font-stack: 'Roboto-Light', 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif !default;
 
 /// Code (monospace) font family
 /// @type List
@@ -84,14 +84,10 @@ $layout-content-border-radius: $layout-border-radius !default;
 $layout-content-color: rgba(147, 128, 108, 0.1) !default;
 
 $masthead-color: rgba(61, 110, 255, 1) !default; //rgba(66, 113, 255, 1);
-$masthead-row-height-sm: 48px !default;
-$masthead-row-height-lg: 64px !default;
-$masthead-row1-height-sm: 112px !default;
-$masthead-row1-height-lg: 136px !default;
-$masthead-row-main-height-sm: $masthead-row1-height-sm !default;
-$masthead-row-main-height-lg: $masthead-row1-height-lg !default;
-$masthead-logo-height-sm: $masthead-row-main-height-sm - $layout-space-sm*2 !default;
-$masthead-logo-height-lg: $masthead-row-main-height-lg - $layout-space-lg*2 !default;
+$masthead-height-sm: 112px !default;
+$masthead-height-lg: 136px !default;
+$masthead-logo-height-sm: $masthead-height-sm - $layout-space-sm*2 !default;
+$masthead-logo-height-lg: $masthead-height-lg - $layout-space-lg*2 !default;
 $masthead-left-section-color: rgba(51, 102, 255, 1) !default;
 $masthead-left-section-width-sm: 250px !default;
 $masthead-left-section-width-lg: 290px !default;
@@ -102,7 +98,5 @@ $masthead-diagonal-width-lg: 48px !default;
 $mastfoot-border-radius: $layout-border-radius !default;
 $mastfoot-color: rgba(#554f4f, 1) !default;
 $mastfoot-font-color: rgba(#ffffff, 1) !default;
-$mastfoot-row-height-sm: 48px !default;
-$mastfoot-row-height-lg: 64px !default;
-$mastfoot-row1-height-sm: 24px !default;
-$mastfoot-row1-height-lg: 32px !default;
+$mastfoot-height-sm: 56px !default;
+$mastfoot-height-lg: 72px !default;
