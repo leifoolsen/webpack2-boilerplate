@@ -74,6 +74,7 @@ module.exports = {
       },
       {
         // Enables HMR
+        // Inlines CSS in html head
         test: /\.css$/,
         include: [
           src,
@@ -92,6 +93,7 @@ module.exports = {
       },
       {
         // Enables HMR
+        // Inlines CSS in html head
         test: /\.s?(a|c)ss$/,
         include: [
           src,
@@ -109,6 +111,7 @@ module.exports = {
       /*
       {
         // No HMR, but source map works
+        // Creates external CSS
         test: /\.css$/,
         include: [
           src,
@@ -141,6 +144,7 @@ module.exports = {
         })
       },
       */
+
       /*
       {
         // Enables HMR. Extra step is needed in './src/index.js'
@@ -148,6 +152,7 @@ module.exports = {
         loader: 'html'
       },
       */
+
       {
         test: /\.json$/,
         loader: 'json',
