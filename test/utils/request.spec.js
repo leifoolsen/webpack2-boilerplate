@@ -4,26 +4,29 @@ import { expect } from 'chai';
 import { setupJsDom, teardownJsDom } from '../jsdom-init';
 
 import { Response } from 'whatwg-fetch';
+import request from '../../src/utils/request';
 
 
-const response = (obj) => {
-  let json = JSON.stringify(obj);
-  var response = new Response(json, {
+const jsonOk = body => {
+  const mockResponse = new Response(JSON.stringify(body), {
     status: 200,
-    headers: { 'Content-type': 'application/json' }
+    headers: {
+      'Content-type': 'application/json'
+    }
   });
-  return Promise.resolve(response);
-};
+  return Promise.resolve(mockResponse);
+}
 
-const sampleResponse = {
-  'hello': 'world'
-};
-
-
-const request = (url, options) =>
-  fetch(url, options)
-    .then( response => response.json());
-
+const jsonError = (status, statusText) => {
+  const mockResponse = new Response('', {
+    status: status,
+    statusText: statusText,
+    headers: {
+      'Content-type': 'application/json',
+    },
+  });
+  return Promise.resolve(mockResponse);
+}
 
 describe('request', () => {
 
@@ -38,19 +41,22 @@ describe('request', () => {
     teardownJsDom();
   });
 
+  beforeEach(() => {
+    sinon.stub(global, 'fetch');
+  });
+
+  afterEach(() => {
+    sinon.restore(global.fetch); // or: global.fetch.restore();
+  });
+
   describe('stubbing successful response', () => {
-
-    before(()=> {
-      sinon.stub(global, 'fetch', (url, options) => {
-        return response(sampleResponse);
-      })
+    beforeEach(()=> {
+      fetch.returns(jsonOk({
+        hello: 'world'
+      }));
     });
 
-    after(()=> {
-      sinon.restore(global.fetch); // or: global.fetch.restore();
-    });
-
-    it('should fetch', (done) => {
+    it('should format the response correctly', (done) => {
       request('/whatever')
         .catch(done)
         .then((json) => {
@@ -59,6 +65,22 @@ describe('request', () => {
         });
     });
   });
+
+  describe('stubbing error response', () => {
+    beforeEach(()=> {
+      fetch.returns(jsonError(404, 'Not Found'));
+    });
+
+    it('should catch errors', (done) => {
+      request('/errorpath')
+        .catch((err) => {
+          expect(err.response.status).to.equal(404);
+          expect(err.response.statusText).to.equal('Not Found');
+          done();
+        });
+    });
+  });
+
 });
 
 
