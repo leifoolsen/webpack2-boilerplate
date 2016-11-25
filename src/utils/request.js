@@ -1,3 +1,8 @@
+// Code based on
+// See: https://rjzaworski.com/2015/06/testing-api-requests-from-window-fetch
+// See: https://www.sitepoint.com/an-introduction-to-reasonably-pure-functional-programming/
+// See: https://github.com/mxstbr/react-boilerplate/blob/master/app/utils/request.js
+
 /**
  * Constructs an Error object
  *

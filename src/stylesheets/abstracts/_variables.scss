@@ -2,10 +2,6 @@
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
 
-
-
-
-
 /// Regular font family
 /// @type List
 $text-font-stack: 'Roboto-Light', 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif !default;
@@ -13,10 +9,6 @@ $text-font-stack: 'Roboto-Light', 'Open Sans', 'Helvetica Neue Light', 'Helvetic
 /// Code (monospace) font family
 /// @type List
 $code-font-stack: 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Monaco', monospace !default;
-
-
-
-
 
 /// Copy text color
 /// @type Color
@@ -38,17 +30,9 @@ $mid-grey: rgb(153, 153, 153) !default;
 /// @type Color
 $dark-grey: rgb(68, 68, 68) !default;
 
-
-
-
-
 /// Container's maximum width
 /// @type Length
 $max-width: 1180px !default;
-
-
-
-
 
 /// Breakpoints map
 /// @prop {String} keys - Keys are identifiers mapped to a given length
@@ -56,15 +40,13 @@ $max-width: 1180px !default;
 /// @see {mixin} respond-to
 /// @see https://www.sitepoint.com/managing-responsive-breakpoints-sass/
 $breakpoints: (
-  'small': (min-width: 320px),
-  'medium': (min-width: 768px),
-  'large': (min-width: 1024px),
+  'small'  : (min-width: 320px),
+  'medium' : (min-width: 768px),
+  'large'  : (min-width: 1024px),
+  'phone'  : (min-width: 480px),  // Material Design Lite
+  'tablet' : (min-width: 840px),  // Material Design Lite
+  'desktop': (min-width: 1024px), // Material Design Lite
 ) !default;
-
-
-
-
-
 
 /// Relative or absolute URL where all assets are served from
 /// @type String
@@ -74,29 +56,64 @@ $base-url: '/assets/' !default;
 
 
 /// Layout
-$layout-space-sm: 8px !default;
-$layout-space-lg: 16px !default;
-$layout-border-radius: 3px !default;
-$layout-sidebar-left-width: 260px !default;
-$layout-sidebar-border-radius: $layout-border-radius !default;
-$layout-sidebar-color: rgba(147, 128, 108, 0.1) !default;
-$layout-content-border-radius: $layout-border-radius !default;
-$layout-content-color: rgba(147, 128, 108, 0.1) !default;
+$_layout-margin-sm: 8px !default;
+$_layout-margin-lg: 16px !default;
+$_layout-padding-sm: 8px !default;
+$_layout-padding-lg: 16px !default;
+$_layout-border-radius-sm: 3px !default;
+$_layout-border-radius-lg: 5px !default;
 
-$masthead-color: rgba(61, 110, 255, 1) !default; //rgba(66, 113, 255, 1);
+$layout-content-margin-sm: $_layout-margin-sm !default;
+$layout-content-margin-lg: $_layout-margin-lg !default;
+$layout-content-padding-sm: $_layout-padding-sm !default;
+$layout-content-padding-lg: $_layout-padding-lg !default;
+$layout-content-border-radius-sm: $_layout-border-radius-sm !default;
+$layout-content-border-radius-lg: $_layout-border-radius-lg !default;
+
+$layout-sidebar-left-width: 300px !default;
+$layout-sidebar-left-margin-sm: $_layout-margin-sm $_layout-margin-sm 0 $_layout-margin-sm !default;
+$layout-sidebar-left-margin-lg: $_layout-margin-lg 0 0 $_layout-margin-lg !default;
+$layout-sidebar-left-padding-sm: $_layout-padding-sm !default;
+$layout-sidebar-left-padding-lg: $_layout-padding-lg !default;
+$layout-sidebar-left-border-radius-sm: $_layout-border-radius-sm !default;
+$layout-sidebar-left-border-radius-lg: $_layout-border-radius-lg $_layout-border-radius-lg 0 0 !default;  // top left, top right, bottom right, bottom left
+
+$layout-sidebar-right-width: 240px !default;
+$layout-sidebar-right-margin-sm: $_layout-margin-sm 0 !default;
+$layout-sidebar-right-margin-lg: $_layout-margin-lg 0 !default;
+$layout-sidebar-right-padding-sm: $_layout-padding-sm !default;
+$layout-sidebar-right-padding-lg: $_layout-padding-lg !default;
+$layout-sidebar-right-border-radius-sm: $_layout-border-radius-sm !default;
+$layout-sidebar-right-border-radius-lg: $_layout-border-radius-lg $_layout-border-radius-lg 0 0 !default; // top left, top right, bottom right, bottom left
+
+/// Header
 $masthead-height-sm: 112px !default;
 $masthead-height-lg: 136px !default;
-$masthead-logo-height-sm: $masthead-height-sm - $layout-space-sm*2 !default;
-$masthead-logo-height-lg: $masthead-height-lg - $layout-space-lg*2 !default;
-$masthead-left-section-color: rgba(51, 102, 255, 1) !default;
+$masthead-border-radius-sm: 0 0 $_layout-border-radius-sm $_layout-border-radius-sm !default; // top left, top right, bottom right, bottom left
+$masthead-border-radius-lg: 0 0 $_layout-border-radius-lg $_layout-border-radius-lg !default;
+$masthead-margin-sm: 0 !default;
+$masthead-margin-lg: 0 !default;
+$masthead-logo-height-sm: $masthead-height-sm - $_layout-padding-sm*2 !default;
+$masthead-logo-height-lg: $masthead-height-lg - $_layout-padding-lg*2 !default;
+$masthead-left-section-padding-sm: 0 0 0 $_layout-padding-sm !default;
+$masthead-left-section-padding-lg: 0 0 0 $_layout-padding-lg !default;
+$masthead-left-section-background-color: rgba(51, 102, 255, 1) !default;
 $masthead-left-section-width-sm: 250px !default;
-$masthead-left-section-width-lg: 290px !default;
-$masthead-right-section-color: $masthead-color !default;
+$masthead-left-section-width-lg: 320px !default;
 $masthead-diagonal-width-sm: 40px !default;
 $masthead-diagonal-width-lg: 48px !default;
+$masthead-right-section-padding-sm: 0 $_layout-padding-sm !default;
+$masthead-right-section-padding-lg: 0 $_layout-padding-lg !default;
+$masthead-right-section-background-color: rgba(61, 110, 255, 1) !default;
 
-$mastfoot-border-radius: $layout-border-radius !default;
-$mastfoot-color: rgba(#554f4f, 1) !default;
-$mastfoot-font-color: rgba(#ffffff, 1) !default;
+/// Footer
 $mastfoot-height-sm: 56px !default;
 $mastfoot-height-lg: 72px !default;
+$mastfoot-border-radius-sm: $_layout-border-radius-sm $_layout-border-radius-sm 0 0 !default; // top left, top right, bottom right, bottom left
+$mastfoot-border-radius-lg: $_layout-border-radius-lg $_layout-border-radius-lg 0 0 !default;
+$mastfoot-margin-sm: 0 $_layout-padding-sm !default;
+$mastfoot-margin-lg: 0 $_layout-padding-lg !default;
+$mastfoot-padding-sm: 0 $_layout-padding-sm !default;
+$mastfoot-padding-lg: 0 $_layout-padding-lg !default;
+
+

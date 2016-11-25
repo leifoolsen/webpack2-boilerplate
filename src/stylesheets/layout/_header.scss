@@ -3,11 +3,15 @@
 // -----------------------------------------------------------------------------
 
 .masthead {
-  background: $masthead-color;
+  height: $masthead-height-sm;
+  border-radius: $masthead-border-radius-sm;
+  margin: $masthead-margin-sm;
+  padding: 0;
   flex: none;
   display: flex;
   align-items: stretch;
-  height: $masthead-height-sm;
+  background-clip: padding-box;  // Prevent background color leak outs
+  overflow: hidden;              // Prevent child background color leak outs
 
   &__row {
     display: flex;
@@ -26,28 +30,21 @@
   }
 
   &__left-section {
-    background: $masthead-left-section-color;
-
-    /* stylelint-disable */
-    padding-top: 0;
-    padding-right: 0 !important;
-    padding-bottom: 0;
-    padding-left: $layout-space-sm;
-    /* stylelint-enable */
-
+    background-color: $masthead-left-section-background-color;
+    padding: $masthead-left-section-padding-sm;
     width: $masthead-left-section-width-sm - $masthead-diagonal-width-sm;
     display: flex;
     align-items: center;
   }
 
   &__diagonal {
-    border-right: $masthead-diagonal-width-sm solid $masthead-right-section-color;
-    border-bottom: $masthead-height-sm solid $masthead-left-section-color;
+    border-right: $masthead-diagonal-width-sm solid $masthead-right-section-background-color;
+    border-bottom: $masthead-height-sm solid $masthead-left-section-background-color;
   }
 
   &__right-section {
-    background: $masthead-right-section-color;
-    padding: 0 $layout-space-sm;
+    background-color: $masthead-right-section-background-color;
+    padding: $masthead-right-section-padding-sm;
     flex-grow: 1;
     display: flex;
     align-items: center;
@@ -55,6 +52,8 @@
 
   @include respond-to('medium') {
     height: $masthead-height-lg;
+    border-radius: $masthead-border-radius-lg;
+    margin: $masthead-margin-lg;
 
     &__logo {
       width: $masthead-logo-height-lg;
@@ -62,7 +61,7 @@
     }
 
     &__left-section {
-      padding-left: $layout-space-lg;
+      padding: $masthead-left-section-padding-sm;
       width: $masthead-left-section-width-lg - $masthead-diagonal-width-lg;
     }
 
@@ -72,7 +71,7 @@
     }
 
     &__right-section {
-      padding: 0 $layout-space-lg 0 $layout-space-lg*2;
+      padding: $masthead-right-section-padding-lg;
     }
   }
 }

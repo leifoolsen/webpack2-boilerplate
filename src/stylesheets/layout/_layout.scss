@@ -14,46 +14,52 @@
  */
 
 .layout {
-  //background-color: yellow; // trace
   display: flex;
   min-height: 100vh;
   height: 100%; /* 1, 3 */
   flex-direction: column;
 
   &__body {
-    //background-color: cyan; // trace
     display: flex;
     flex: 1 0 auto; /* 2 */
     flex-direction: column;
   }
 
   &__wrapper {
-    //background-color: orange; // trace
     display: flex;
     flex-direction: column;
     flex: 1;
   }
 
   &__content {
-    background: $layout-content-color;
-    border-radius: $layout-content-border-radius;
-    margin: $layout-space-sm;
-    padding: $layout-space-sm;
+    border-radius: $layout-content-border-radius-sm;
+    margin: $layout-content-margin-sm;
+    padding: $layout-content-padding-sm;
     flex: 1;
+    background-clip: padding-box;  // Prevent background color leak outs
+    overflow: hidden;              // Prevent child background color leak outs
   }
 
   &__sidebar-left,
   &__sidebar-right {
     display: flex;
-    flex-direction: column;
-    background: $layout-sidebar-color;
-    margin: $layout-space-sm $layout-space-sm 0;
-    padding: $layout-space-sm;
-    border-radius: $layout-sidebar-border-radius;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-clip: padding-box;  // Prevent background color leak outs
+    overflow: hidden;              // Prevent child background color leak outs
   }
 
   &__sidebar-left {
+    margin: $layout-sidebar-left-margin-sm;
+    padding: $layout-sidebar-left-padding-sm;
+    border-radius: $layout-sidebar-left-border-radius-sm;
     order: -1;
+  }
+
+  &__sidebar-right {
+    margin: $layout-sidebar-right-margin-sm;
+    padding: $layout-sidebar-right-padding-sm;
+    border-radius: $layout-sidebar-right-border-radius-sm;
   }
 
   @include respond-to('medium') {
@@ -62,15 +68,23 @@
     }
 
     &__content {
-      margin: $layout-space-lg;
-      padding: $layout-space-lg;
+      margin: $layout-content-margin-lg;
+      padding: $layout-content-padding-lg;
+      border-radius: $layout-content-border-radius-lg;
     }
 
-    &__sidebar-left,
-    &__sidebar-right {
-      margin: $layout-space-lg $layout-space-lg 0;
+    &__sidebar-left {
+      margin: $layout-sidebar-left-margin-lg;
+      padding: $layout-sidebar-left-padding-lg;
+      border-radius: $layout-sidebar-left-border-radius-lg;
       flex: 0 0 $layout-sidebar-left-width;
-      border-radius: $mastfoot-border-radius $mastfoot-border-radius 0 0;
+    }
+
+    &__sidebar-right {
+      margin: $layout-sidebar-right-margin-lg;
+      padding: $layout-sidebar-right-padding-lg;
+      border-radius: $layout-sidebar-right-border-radius-lg;
+      flex: 0 0 $layout-sidebar-right-width;
     }
   }
 }

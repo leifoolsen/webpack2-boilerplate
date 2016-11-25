@@ -12,10 +12,15 @@ const dist = path.resolve(process.cwd(), 'dist');
 const publicPath = '/';
 const isDev = process.env.NODE_ENV !== 'production' && !argv['env.prod'];
 const isProd = !isDev;
+const isHot = argv['hot'] || false;
 const ifDev = plugin => addPlugin(isDev, plugin);
 const ifProd = plugin => addPlugin(isProd, plugin);
+const ifHot = plugin => addPlugin(isDev, plugin);
 const addPlugin = (add, plugin) => add ? plugin : undefined;
 const removeEmpty = array => array.filter(i => !!i);
+
+
+console.log('webpack ***** isHot', isHot);
 
 
 module.exports = {
@@ -38,13 +43,13 @@ module.exports = {
     app: [
       './main.scss',
       './index.js',
-    ].concat((isProd ? [] : [
+    ].concat((isHot ? [
       // Webpack2: remove any reference to webpack/hot/dev-server or webpack/hot/only-dev-server
       // from your webpack config. Instead, use the reload config option.
       // reload - Set to true to auto-reload the page when webpack gets stuck. (React: use reload=false)
       // See: https://github.com/glenjamin/webpack-hot-middleware
       'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'
-    ])),
+    ] : [] )),
     vendor: [
       './vendor.scss',
       'moment'
@@ -117,7 +122,7 @@ module.exports = {
         test: /\.otf(\?.*)?$/,
         loader: 'file?name=[name].[ext]&limit=10000&mimetype=font/opentype'
       },
-    ].concat( isProd
+    ].concat( !isHot
       ? [ {
         // No HMR. Creates external CSS
         test: /\.css$/,
@@ -285,8 +290,7 @@ module.exports = {
     ]),
 
     // Tell webpack we want Hot Module Reloading.
-    // Note: Do not combine with --hot --inline from command line, you'll end up with 2x HMR
-    ifDev(new webpack.HotModuleReplacementPlugin({
+    ifHot(new webpack.HotModuleReplacementPlugin({
       multiStep: true, // Enable multi-pass compilation for enhanced performance in larger projects.
     })),
 

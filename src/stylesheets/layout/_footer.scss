@@ -3,19 +3,20 @@
 // -----------------------------------------------------------------------------
 
 .mastfoot {
+  border-radius: $mastfoot-border-radius-sm;
+  margin: $mastfoot-margin-sm;
+  padding: $mastfoot-padding-sm;
+  height: $mastfoot-height-sm;
   flex: none;
   display: flex;
   align-items: center;
-  background: $mastfoot-color;
-  border-radius: $mastfoot-border-radius $mastfoot-border-radius 0 0;
-  color: $mastfoot-font-color;
-  margin: 0 $layout-space-sm;
-  padding: 0 $layout-space-sm;
-  height: $mastfoot-height-sm;
+  background-clip: padding-box;  // Prevent background color leak outs
+  overflow: hidden;              // Prevent child background color leak outs
 
   @include respond-to('medium') {
-    margin: 0 $layout-space-lg;
-    padding: 0 $layout-space-lg;
+    border-radius: $mastfoot-border-radius-lg;
+    margin: $mastfoot-margin-lg;
+    padding: $mastfoot-padding-lg;
     height: $mastfoot-height-lg;
   }
 }

@@ -1,9 +1,9 @@
-import './main.scss';
-
-// es6 generator support
+// Polyfills fetch, generator, ++
 import 'babel-polyfill';
 
 import App from './app/app';
+
+import './main.scss';
 
 if (module.hot) {
   module.hot.accept();

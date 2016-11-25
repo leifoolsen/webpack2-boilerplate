@@ -9,6 +9,7 @@ const webpack = require('webpack');
 const logger = require('./logger');
 const argv = require('./array-to-key-value').arrayToKeyValue(process.argv.slice(2));
 const isDev = process.env.NODE_ENV !== 'production' && !argv['env.prod'];
+const isHot = argv['hot'] || false;
 
 const config = require('./webpack.config.babel');
 const publicPath = config.output.publicPath || '/';
@@ -44,25 +45,21 @@ app.use(history({
   verbose: false
 }));
 
-if(isDev) {
+
+if(isHot) {
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
   const compiler = webpack(config);
 
   app.use(webpackDevMiddleware(compiler, {
+    lazy: false,
     noInfo: true,
     filename: config.output.filename,
     publicPath: publicPath,
     contentBase: config.context,
     silent: true,
+    headers: {'Access-Control-Allow-Origin': '*'},
     stats: 'errors-only',
-    /*
-    stats: {
-      colors: true,
-      chunks: false, // this reduces the amount of stuff you see in the terminal; configure to your needs
-      'errors-only': true
-    },
-    */
   }));
 
   app.use(webpackHotMiddleware(compiler, {

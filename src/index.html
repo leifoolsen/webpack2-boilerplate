@@ -10,6 +10,49 @@
     html {
       visibility: hidden;
     }
+
+    .layout__content--demo {
+      background: rgba(235, 235, 235, 0.5);
+    }
+
+    .layout__sidebar-left--demo {
+      background: rgba(126, 126, 126, 0.2);
+    }
+    .layout__sidebar-left--demo__footer {
+      width: 100%;
+      -webkit-align-self: flex-end;
+      -ms-flex-item-align: end;
+      align-self: flex-end;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+    }
+    .layout__sidebar-left--demo__footer img {
+      height: 1.4em;
+    }
+
+    .mastfoot--demo {
+      background: rgba(85, 79, 79, 1);
+      color: rgba(255, 255, 255, 1);
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+    }
+    .mastfoot--demo p {
+      margin: 0;
+    }
+    .mastfoot--demo span {
+      line-height: 0;
+    }
+    .mastfoot--demo span i {
+      font-size: inherit;
+    }
   </style>
 </head>
 <body class="layout">
@@ -25,7 +68,7 @@
 
   <div class="layout__body">
     <div class="layout__wrapper">
-      <main class="layout__content">
+      <main class="layout__content layout__content--demo">
 
         <div class="demo-card">
           <a class="demo-card__left" href="https://webpack.github.io/" title="Image copied from: webpack">
@@ -74,24 +117,7 @@
 
       </main>
 
-      <style>
-        .mastfoot {
-          -webkit-box-pack: justify;
-          -webkit-justify-content: space-between;
-          -ms-flex-pack: justify;
-          justify-content: space-between;
-        }
-        .mastfoot p {
-          margin: 0;
-        }
-        .mastfoot span {
-          line-height: 0;
-        }
-        .mastfoot span i {
-          font-size: inherit;
-        }
-      </style>
-      <footer class="mastfoot">
+      <footer class="mastfoot mastfoot--demo">
         <p>Material Icons:&nbsp;</p>
         <span>
           <i class="material-icons md-dark">face</i>
@@ -108,19 +134,10 @@
         </span>
       </footer>
     </div>
-    <aside class="layout__sidebar-left">
-      <p>Sidebar</p>
+    <aside class="layout__sidebar-left layout__sidebar-left--demo">
+      <p>Left Sidebar</p>
 
-      <style>
-        .sidebar-demo-footer {
-          padding-bottom: .6em;
-        }
-        .sidebar-demo-footer img {
-          height: 1.4em;
-        }
-      </style>
-
-      <footer class="sidebar-demo-footer" role="contentinfo">
+      <footer class="layout__sidebar-left--demo__footer" role="contentinfo">
         <img src="/assets/webpack-logo.png" alt="Webpack Logo"/>
         <img src="/assets/HTML5_logo_and_wordmark.svg" alt="HTML 5 Logo"/>
         <img src="/assets/js.jpg" alt="JavaScript Logo"/>
