@@ -2,30 +2,4 @@
 // This file contains styles that are specific to the home page.
 // -----------------------------------------------------------------------------
 
-.sidebar-demo-footer {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-self: flex-end;
-  align-items: flex-end;
-  flex: 1;
-}
-
-
-.demo-card {
-  display: flex;
-  align-items: center;
-  height: 100px;
-
-  &__left {
-    img {
-      max-height: 80px;
-      width: 80px;
-    }
-  }
-  &__right {
-    flex-grow: 1;
-    padding-left: 16px;
-  }
-}
 

@@ -58,5 +58,5 @@ A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack f
 * `npm run start:build`
 * Open a browser at `http://localhost:8000`
 
-## Test the API
-* Open a browser at `http://localhost:8000/api/ping`
+### Test the API
+* Click the "Ping" button or open a browser at `http://localhost:8000/api/ping`. The response should be: `{"ping":"pong!"}`

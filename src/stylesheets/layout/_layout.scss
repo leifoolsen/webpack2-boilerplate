@@ -27,14 +27,15 @@
 
   &__wrapper {
     display: flex;
-    flex-direction: column;
     flex: 1;
+    flex-direction: column;
   }
 
   &__content {
     border-radius: $layout-content-border-radius-sm;
     margin: $layout-content-margin-sm;
     padding: $layout-content-padding-sm;
+    background: rgba(235, 235, 235, 0.5);
     flex: 1;
     background-clip: padding-box;  // Prevent background color leak outs
     overflow: hidden;              // Prevent child background color leak outs
@@ -42,6 +43,7 @@
 
   &__sidebar-left,
   &__sidebar-right {
+    background: rgba(126, 126, 126, 0.2);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

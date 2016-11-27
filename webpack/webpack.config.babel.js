@@ -10,7 +10,7 @@ const argv = require('./array-to-key-value').arrayToKeyValue(process.argv.slice(
 const src = path.resolve(process.cwd(), 'src');
 const dist = path.resolve(process.cwd(), 'dist');
 const publicPath = '/';
-const isDev = process.env.NODE_ENV !== 'production' && !argv['env.prod'];
+const isDev = process.env.NODE_ENçV !== 'production' && !argv['env.prod'];
 const isProd = !isDev;
 const isHot = argv['hot'] || false;
 const ifDev = plugin => addPlugin(isDev, plugin);
@@ -19,9 +19,8 @@ const ifHot = plugin => addPlugin(isDev, plugin);
 const addPlugin = (add, plugin) => add ? plugin : undefined;
 const removeEmpty = array => array.filter(i => !!i);
 
-
-console.log('webpack ***** isHot', isHot);
-
+const host = 'localhost';
+const port = process.env.PORT || argv.port || 3000;
 
 module.exports = {
   context: src,
@@ -34,7 +33,7 @@ module.exports = {
   target: 'web', // Make web variables accessible to webpack, e.g. window. This is a default value; just be aware of it
   resolve: {
     modules: [
-      src,
+      'src',
       'node_modules',
     ],
     extensions: ['.js', '.jsx', '.json', '.css', '.sass', '.scss', '.html']
@@ -48,7 +47,8 @@ module.exports = {
       // from your webpack config. Instead, use the reload config option.
       // reload - Set to true to auto-reload the page when webpack gets stuck. (React: use reload=false)
       // See: https://github.com/glenjamin/webpack-hot-middleware
-      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'
+      //'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
+      `webpack-hot-middleware/client?path=http://${host}:${port}/__webpack_hmr&timeout=20000`,
     ] : [] )),
     vendor: [
       './vendor.scss',
@@ -57,7 +57,8 @@ module.exports = {
     ]
   },
   output: {
-    filename: isProd ? 'bundle.[name].[hash].js' : 'bundle.[name].js', // Don't use hashes in dev mode
+    filename: isProd ? 'bundle.[name].[chunkhash].js' : 'bundle.[name].js', // Don't use hashes in dev mode
+    chunkFilename: isProd ? 'bundle.[name].[chunkhash].chunk.js' : 'bundle.[name].chunk.js',
     path: dist,
     pathinfo: !isProd,
     publicPath: publicPath,
@@ -77,15 +78,6 @@ module.exports = {
         exclude: [/node_modules/],
         loader: 'babel',
       },
-
-      /*
-      {
-        // Enables HMR. Extra step is needed in './src/index.js'
-        test: /\.html$/,
-        loader: 'html'
-      },
-      */
-
       {
         test: /\.json$/,
         loader: 'json',
@@ -189,6 +181,11 @@ module.exports = {
           { loader: 'sass', query: { sourceMap: isProd ? 'compressed' : 'expanded' } },
         ]
       },
+      {
+        // Enables HMR. Extra step is needed in './src/index.js'
+        test: /\.html$/,
+        loader: 'html', // loader: 'html', // loader: 'raw' // html vs raw: what's the difference??
+      },
     ])
   },
   plugins: removeEmpty([
@@ -203,7 +200,9 @@ module.exports = {
 
     new webpack.ProvidePlugin({
       // make fetch available
-      fetch: 'exports?self.fetch!whatwg-fetch',
+      // See: http://mts.io/2015/04/08/webpack-shims-polyfills/
+      // fetch: 'exports?self.fetch!whatwg-fetch',
+      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch',
     }),
 
     // Module ids are full names
@@ -269,7 +268,7 @@ module.exports = {
     }),
 
     new ExtractTextPlugin({
-      filename: isProd ? 'bundle.[name].[hash].css' : 'bundle.[name].css',
+      filename: isProd ? 'styles.[name].[chunkhash].css' : 'styles.[name].css',
       disable: false,
       allChunks: true
     }),
@@ -314,9 +313,21 @@ module.exports = {
     })),
 
     ifProd(new webpack.optimize.UglifyJsPlugin({
-      compressor: {
+      //compressor: {
+      //  screw_ie8: true,
+      //  warnings: false
+      //},
+      compress: {
+        warnings: false,
         screw_ie8: true,
-        warnings: false
+        conditionals: true,
+        unused: true,
+        comparisons: true,
+        sequences: true,
+        dead_code: true,
+        evaluate: true,
+        if_return: true,
+        join_vars: true,
       },
       output: {
         comments: false

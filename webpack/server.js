@@ -1,4 +1,4 @@
-import 'babel-polyfill';
+require('babel-polyfill');
 
 const fs = require('fs');
 const path = require('path');
@@ -15,6 +15,9 @@ const config = require('./webpack.config.babel');
 const publicPath = config.output.publicPath || '/';
 const outputPath = config.output.path || path.resolve(process.cwd(), 'dist');
 
+const host = 'localhost';
+const port = process.env.PORT || argv.port || 3000;
+
 const app = express();
 
 // Middleware for handling JSON, Raw, Text and URL encoded form data
@@ -22,29 +25,14 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 // Sample REST API
-// Note: Router must be defined before the history-api-fallback and the "catch all" app.get('*', (req, res)
 const router = express.Router();
 
-router.get('/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  res.json( { api: '/api', ping: '/api/ping' } );
-});
+router.get('/', (req, res) => res.type('json').json( { api: '/api', ping: '/api/ping' }));
 
-router.get('/ping', (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  res.json( {ping: 'pong!'} );
-});
+router.get('/ping', (req, res) => res.type('json').json( {ping: 'pong!'}));
 
-app.use('/api', router);
+router.get('*', (req, res) => res.sendStatus(404).end());
 //
-
-// This rewrites all routes requests to the root /index.html file
-// (ignoring file requests). If you want to implement universal
-// rendering, you'll want to remove this middleware.
-app.use(history({
-  verbose: false
-}));
-
 
 if(isHot) {
   const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -59,7 +47,12 @@ if(isHot) {
     contentBase: config.context,
     silent: true,
     headers: {'Access-Control-Allow-Origin': '*'},
+    hot: true,
+    inline: true,
     stats: 'errors-only',
+    //watchOptions: {
+    //  poll: true
+    //},
   }));
 
   app.use(webpackHotMiddleware(compiler, {
@@ -77,8 +70,16 @@ else {
   app.use(compression());
 }
 
-app.use(publicPath, express.static(outputPath));
+app.use('/api', router);
 
+// This rewrites all routes requests to the root /index.html file
+// (ignoring file requests). If you want to implement universal
+// rendering, you'll want to remove this middleware.
+app.use(history({
+  verbose: false,
+}));
+
+app.use(publicPath, express.static(outputPath));
 
 process.on('uncaughtException', evt => {
   logger.error('uncaughtException ', evt);
@@ -86,8 +87,6 @@ process.on('uncaughtException', evt => {
 
 
 // get the intended port number, use port 3000 if not provided
-const port = process.env.PORT || argv.port || 3000;
-const host = 'localhost';
 app.listen(port, host, (err) => {
   if(err) {
     logger.error(err.message);
