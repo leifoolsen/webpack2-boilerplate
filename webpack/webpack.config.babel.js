@@ -68,7 +68,7 @@ module.exports = {
       {
         test: /\.js[x]?$/,
         enforce: 'pre',
-        loader: 'eslint',
+        loader: 'eslint-loader',
         include: [src],
         exclude: [/node_modules/],
       },
@@ -76,43 +76,48 @@ module.exports = {
         test: /\.js[x]?$/,
         include: [src],
         exclude: [/node_modules/],
-        loader: 'babel',
+        loader: 'babel-loader',
+      },
+      {
+        // Enables HMR. Extra step is needed in './src/index.js'
+        test: /\.html$/,
+        loader: 'html-loader', // loader: 'html', // loader: 'raw' // html vs raw: what's the difference??
       },
       {
         test: /\.json$/,
-        loader: 'json',
+        loader: 'json-loader',
       },
       {
         test: /\.(jpg|jpeg)$/,
-        loader: 'url?name=[name].[ext]&limit=8192&mimetype=image/jpg'
+        loader: 'url-loader?name=[name].[ext]&limit=8192&mimetype=image/jpg'
       },
       {
         test: /\.gif$/,
-        loader: 'url?name=[name].[ext]&limit=8192&mimetype=image/gif'
+        loader: 'url-loader?name=[name].[ext]&limit=8192&mimetype=image/gif'
       },
       {
         test: /\.png$/,
-        use: 'url?name=[name].[ext]&limit=8192&mimetype=image/png'
+        use: 'url-loader?name=[name].[ext]&limit=8192&mimetype=image/png'
       },
       {
         test: /\.svg$/,
-        loader: 'url?name=[name].[ext]&limit=8192&mimetype=image/svg+xml'
+        loader: 'url-loader?name=[name].[ext]&limit=8192&mimetype=image/svg+xml'
       },
       {
         test: /\.woff?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['url?name=[name].[ext]&limit=100000&mimetype=application/font-woff']
+        use: ['url-loader?name=[name].[ext]&limit=100000&mimetype=application/font-woff']
       },
       {
         test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['url?name=[name].[ext]&limit=100000&mimetype=application/font-woff2']
+        use: ['url-loader?name=[name].[ext]&limit=100000&mimetype=application/font-woff2']
       },
       {
         test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['file?name=[name].[ext]&limit=100000&mimetype=application/octet-stream']
+        use: ['file-loader?name=[name].[ext]&limit=100000&mimetype=application/octet-stream']
       },
       {
         test: /\.otf(\?.*)?$/,
-        loader: 'file?name=[name].[ext]&limit=10000&mimetype=font/opentype'
+        loader: 'file-loader?name=[name].[ext]&limit=10000&mimetype=font/opentype'
       },
     ].concat( !isHot
       ? [ {
@@ -124,7 +129,7 @@ module.exports = {
         ],
         loader: ExtractTextPlugin.extract({
           fallbackLoader: 'style-loader',
-          loader: ['css?sourceMap', 'postcss', 'resolve-url']
+          loader: ['css-loader?sourceMap', 'postcss-loader', 'resolve-url-loader']
         })
       },
       {
@@ -138,12 +143,12 @@ module.exports = {
           fallbackLoader: 'style-loader',
           loader: [
             {
-              loader: 'css', query: { sourceMap: true }
+              loader: 'css-loader', query: { sourceMap: true }
             },
-            'postcss',
-            'resolve-url',
+            'postcss-loader',
+            'resolve-url-loader',
             {
-              loader: 'sass', query: { sourceMap: isProd ? 'compressed' : 'expanded' }
+              loader: 'sass-loader', query: { sourceMap: isProd ? 'compressed' : 'expanded' }
             }
           ]
         })
@@ -156,14 +161,14 @@ module.exports = {
           path.resolve(__dirname, 'node_modules')
         ],
         use: [
-          'style',
+          'style-loader',
           // urls does not work when using sourceMap.
           // See: https://github.com/webpack/css-loader/issues/216
           // See: https://github.com/webpack/css-loader/issues/296
           // See: http://stackoverflow.com/questions/37288886/webpack-background-images-not-loading
-          'css', // { loader: 'css', query: { sourceMap: true } },
-          'postcss',
-          'resolve-url',
+          'css-loader', // { loader: 'css', query: { sourceMap: true } },
+          'postcss-loader',
+          'resolve-url-loader',
         ]
       },
       {
@@ -174,17 +179,12 @@ module.exports = {
           path.resolve(__dirname, 'node_modules')
         ],
         use: [
-          'style',
-          'css', // { loader: 'css', query: { sourceMap: true } }, // urls does not work when using sourceMap, see: comments above
-          'postcss',
-          'resolve-url',
-          { loader: 'sass', query: { sourceMap: isProd ? 'compressed' : 'expanded' } },
+          'style-loader',
+          'css-loader', // { loader: 'css', query: { sourceMap: true } }, // urls does not work when using sourceMap, see: comments above
+          'postcss-loader',
+          'resolve-url-loader',
+          { loader: 'sass-loader', query: { sourceMap: isProd ? 'compressed' : 'expanded' } },
         ]
-      },
-      {
-        // Enables HMR. Extra step is needed in './src/index.js'
-        test: /\.html$/,
-        loader: 'html', // loader: 'html', // loader: 'raw' // html vs raw: what's the difference??
       },
     ])
   },
@@ -202,7 +202,7 @@ module.exports = {
       // make fetch available
       // See: http://mts.io/2015/04/08/webpack-shims-polyfills/
       // fetch: 'exports?self.fetch!whatwg-fetch',
-      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch',
+      'fetch': 'imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch',
     }),
 
     // Module ids are full names
