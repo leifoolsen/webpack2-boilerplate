@@ -56,64 +56,64 @@ $base-url: '/assets/' !default;
 
 
 /// Layout
-$_layout-margin-sm: 8px !default;
-$_layout-margin-lg: 16px !default;
-$_layout-padding-sm: 8px !default;
-$_layout-padding-lg: 16px !default;
-$_layout-border-radius-sm: 3px !default;
-$_layout-border-radius-lg: 5px !default;
+$default-margin-sm: 8px !default;
+$default-margin-lg: 16px !default;
+$default-padding-sm: 8px !default;
+$default-padding-lg: 16px !default;
+$default-border-radius-sm: 3px !default;
+$default-border-radius-lg: 5px !default;
 
-$layout-content-margin-sm: $_layout-margin-sm !default;
-$layout-content-margin-lg: $_layout-margin-lg !default;
-$layout-content-padding-sm: $_layout-padding-sm !default;
-$layout-content-padding-lg: $_layout-padding-lg !default;
-$layout-content-border-radius-sm: $_layout-border-radius-sm !default;
-$layout-content-border-radius-lg: $_layout-border-radius-lg !default;
+$layout-content-margin-sm: $default-margin-sm !default;
+$layout-content-margin-lg: $default-margin-lg !default;
+$layout-content-padding-sm: $default-padding-sm !default;
+$layout-content-padding-lg: $default-padding-lg !default;
+$layout-content-border-radius-sm: $default-border-radius-sm !default;
+$layout-content-border-radius-lg: $default-border-radius-lg !default;
 
 $layout-sidebar-left-width: 300px !default;
-$layout-sidebar-left-margin-sm: $_layout-margin-sm $_layout-margin-sm 0 $_layout-margin-sm !default;
-$layout-sidebar-left-margin-lg: $_layout-margin-lg 0 0 $_layout-margin-lg !default;
-$layout-sidebar-left-padding-sm: $_layout-padding-sm !default;
-$layout-sidebar-left-padding-lg: $_layout-padding-lg !default;
-$layout-sidebar-left-border-radius-sm: $_layout-border-radius-sm !default;
-$layout-sidebar-left-border-radius-lg: $_layout-border-radius-lg $_layout-border-radius-lg 0 0 !default;  // top left, top right, bottom right, bottom left
+$layout-sidebar-left-margin-sm: $default-margin-sm $default-margin-sm 0 $default-margin-sm !default;
+$layout-sidebar-left-margin-lg: $default-margin-lg 0 0 $default-margin-lg !default;
+$layout-sidebar-left-padding-sm: $default-padding-sm !default;
+$layout-sidebar-left-padding-lg: $default-padding-lg !default;
+$layout-sidebar-left-border-radius-sm: $default-border-radius-sm !default;
+$layout-sidebar-left-border-radius-lg: $default-border-radius-lg $default-border-radius-lg 0 0 !default;  // top left, top right, bottom right, bottom left
 
 $layout-sidebar-right-width: 240px !default;
-$layout-sidebar-right-margin-sm: $_layout-margin-sm 0 !default;
-$layout-sidebar-right-margin-lg: $_layout-margin-lg 0 !default;
-$layout-sidebar-right-padding-sm: $_layout-padding-sm !default;
-$layout-sidebar-right-padding-lg: $_layout-padding-lg !default;
-$layout-sidebar-right-border-radius-sm: $_layout-border-radius-sm !default;
-$layout-sidebar-right-border-radius-lg: $_layout-border-radius-lg $_layout-border-radius-lg 0 0 !default; // top left, top right, bottom right, bottom left
+$layout-sidebar-right-margin-sm: $default-margin-sm 0 !default;
+$layout-sidebar-right-margin-lg: $default-margin-lg 0 !default;
+$layout-sidebar-right-padding-sm: $default-padding-sm !default;
+$layout-sidebar-right-padding-lg: $default-padding-lg !default;
+$layout-sidebar-right-border-radius-sm: $default-border-radius-sm !default;
+$layout-sidebar-right-border-radius-lg: $default-border-radius-lg $default-border-radius-lg 0 0 !default; // top left, top right, bottom right, bottom left
 
 /// Header
 $masthead-height-sm: 112px !default;
 $masthead-height-lg: 136px !default;
-$masthead-border-radius-sm: 0 0 $_layout-border-radius-sm $_layout-border-radius-sm !default; // top left, top right, bottom right, bottom left
-$masthead-border-radius-lg: 0 0 $_layout-border-radius-lg $_layout-border-radius-lg !default;
+$masthead-border-radius-sm: 0 0 $default-border-radius-sm $default-border-radius-sm !default; // top left, top right, bottom right, bottom left
+$masthead-border-radius-lg: 0 0 $default-border-radius-lg $default-border-radius-lg !default;
 $masthead-margin-sm: 0 !default;
 $masthead-margin-lg: 0 !default;
-$masthead-logo-height-sm: $masthead-height-sm - $_layout-padding-sm*2 !default;
-$masthead-logo-height-lg: $masthead-height-lg - $_layout-padding-lg*2 !default;
-$masthead-left-section-padding-sm: 0 0 0 $_layout-padding-sm !default;
-$masthead-left-section-padding-lg: 0 0 0 $_layout-padding-lg !default;
+$masthead-logo-height-sm: $masthead-height-sm - $default-padding-sm*2 !default;
+$masthead-logo-height-lg: $masthead-height-lg - $default-padding-lg*2 !default;
+$masthead-left-section-padding-sm: 0 0 0 $default-padding-sm !default;
+$masthead-left-section-padding-lg: 0 0 0 $default-padding-lg !default;
 $masthead-left-section-background-color: rgba(51, 102, 255, 1) !default;
 $masthead-left-section-width-sm: 250px !default;
 $masthead-left-section-width-lg: 320px !default;
 $masthead-diagonal-width-sm: 40px !default;
 $masthead-diagonal-width-lg: 48px !default;
-$masthead-right-section-padding-sm: 0 $_layout-padding-sm !default;
-$masthead-right-section-padding-lg: 0 $_layout-padding-lg !default;
+$masthead-right-section-padding-sm: 0 $default-padding-sm !default;
+$masthead-right-section-padding-lg: 0 $default-padding-lg !default;
 $masthead-right-section-background-color: rgba(61, 110, 255, 1) !default;
 
 /// Footer
 $mastfoot-height-sm: 56px !default;
 $mastfoot-height-lg: 72px !default;
-$mastfoot-border-radius-sm: $_layout-border-radius-sm $_layout-border-radius-sm 0 0 !default; // top left, top right, bottom right, bottom left
-$mastfoot-border-radius-lg: $_layout-border-radius-lg $_layout-border-radius-lg 0 0 !default;
-$mastfoot-margin-sm: 0 $_layout-padding-sm !default;
-$mastfoot-margin-lg: 0 $_layout-padding-lg !default;
-$mastfoot-padding-sm: 0 $_layout-padding-sm !default;
-$mastfoot-padding-lg: 0 $_layout-padding-lg !default;
+$mastfoot-border-radius-sm: $default-border-radius-sm $default-border-radius-sm 0 0 !default; // top left, top right, bottom right, bottom left
+$mastfoot-border-radius-lg: $default-border-radius-lg $default-border-radius-lg 0 0 !default;
+$mastfoot-margin-sm: 0 $default-padding-sm !default;
+$mastfoot-margin-lg: 0 $default-padding-lg !default;
+$mastfoot-padding-sm: 0 $default-padding-sm !default;
+$mastfoot-padding-lg: 0 $default-padding-lg !default;
 
 

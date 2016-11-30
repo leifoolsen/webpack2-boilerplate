@@ -28,7 +28,7 @@ A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack f
 * Init your git: `git init`
 * Modify `package.json`, e.g. `name, author, description` 
 * Add your own 3'rd party dependencies  to `package.json`
-* Add those 3'rd party dependencies to `vendor` section in `webpack.config`
+* Optionally add those 3'rd party dependencies to `vendor` section in `webpack.config`
 * Happy hacking :)
 
 >**Note:** Remember to add your own repo to package.json 

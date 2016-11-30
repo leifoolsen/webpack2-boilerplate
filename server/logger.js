@@ -12,7 +12,7 @@ const divider = chalk.gray('\n-----------------------------------');
 /**
  * Logger middleware, you can customize it to make messages more personal
  */
-const logger = {
+export default {
 
   log: (...msg) => {
     console.log(msg);
@@ -46,4 +46,3 @@ ${chalk.blue(`Press ${chalk.italic('CTRL-C')} to stop`)}
   },
 };
 
-module.exports = logger;

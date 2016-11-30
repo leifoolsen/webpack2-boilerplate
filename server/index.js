@@ -1,54 +1,52 @@
-require('babel-polyfill');
+import 'babel-polyfill';
 
-const fs = require('fs');
-const path = require('path');
-const express = require('express');
-const bodyParser = require('body-parser');
-const history = require('connect-history-api-fallback');
-const webpack = require('webpack');
-const logger = require('./logger');
+import path from 'path';
+import express from 'express';
+import bodyParser from 'body-parser';
+import history from 'connect-history-api-fallback';
+import webpack from 'webpack';
+import config from '../webpack.config.babel';
+import router from './router';
+import logger from './logger';
 const argv = require('./array-to-key-value').arrayToKeyValue(process.argv.slice(2));
+
 const isDev = process.env.NODE_ENV !== 'production' && !argv['env.prod'];
 const isHot = argv['hot'] || false;
 
-const config = require('./webpack.config.babel');
 const publicPath = config.output.publicPath || '/';
 const outputPath = config.output.path || path.resolve(process.cwd(), 'dist');
 
+// get the intended port number, use port 3000 if not provided
 const host = 'localhost';
 const port = process.env.PORT || argv.port || 3000;
 
 const app = express();
 
-// Middleware for handling JSON, Raw, Text and URL encoded form data
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-
-// Sample REST API
-const router = express.Router();
-
-router.get('/', (req, res) => res.type('json').json( { api: '/api', ping: '/api/ping' }));
-
-router.get('/ping', (req, res) => res.type('json').json( {ping: 'pong!'}));
-
-router.get('*', (req, res) => res.sendStatus(404).end());
-//
-
 if(isHot) {
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
+
+  // Webpack2: remove any reference to webpack/hot/dev-server or webpack/hot/only-dev-server
+  // from your webpack config. Instead, use the reload config option.
+  // reload - Set to true to auto-reload the page when webpack gets stuck. (React: use reload=false)
+  // See: https://github.com/glenjamin/webpack-hot-middleware
+  //config.entry.app.unshift(`webpack-hot-middleware/client?path=http://${host}:${port}/__webpack_hmr&timeout=20000&reload=true`);
+  //config.entry.app.unshift('webpack-hot-middleware/client');
+  config.entry.app.unshift('webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true');
+
   const compiler = webpack(config);
 
   app.use(webpackDevMiddleware(compiler, {
-    lazy: false,
-    noInfo: true,
-    filename: config.output.filename,
-    publicPath: publicPath,
     contentBase: config.context,
-    silent: true,
-    headers: {'Access-Control-Allow-Origin': '*'},
     hot: true,
     inline: true,
+
+    lazy: false,
+    noInfo: true,
+    //filename: 'bundle.app.js', //filename: config.output.filename,
+    publicPath: publicPath, //publicPath: `http://${host}:${port}${publicPath}`, //publicPath: publicPath,
+    silent: true,
+    headers: {'Access-Control-Allow-Origin': '*'},
     stats: 'errors-only',
     //watchOptions: {
     //  poll: true
@@ -70,6 +68,11 @@ else {
   app.use(compression());
 }
 
+// Middleware for handling JSON, Raw, Text and URL encoded form data
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+// Router
 app.use('/api', router);
 
 // This rewrites all routes requests to the root /index.html file
@@ -79,14 +82,15 @@ app.use(history({
   verbose: false,
 }));
 
+
 app.use(publicPath, express.static(outputPath));
 
-process.on('uncaughtException', evt => {
-  logger.error('uncaughtException ', evt);
+
+process.on('uncaughtException', err => {
+  logger.error('Uncaught Exception ', err.stack);
+  process.exit(1)
 });
 
-
-// get the intended port number, use port 3000 if not provided
 app.listen(port, host, (err) => {
   if(err) {
     logger.error(err.message);

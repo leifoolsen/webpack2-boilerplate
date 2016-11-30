@@ -8,7 +8,10 @@
 
 // 2. Vendors
 @import
-  'stylesheets/vendor/normalize';
+  'stylesheets/vendor/normalize',
+  '~material-design-icons/iconfont/material-icons',
+  'stylesheets/vendor/material-icons-overrides',
+  '~roboto-fontface/css/roboto/sass/roboto-fontface-light';
 
 // 3. Base stuff
 @import

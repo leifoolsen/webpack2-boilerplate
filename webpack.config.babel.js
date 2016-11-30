@@ -6,11 +6,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const argv = require('./array-to-key-value').arrayToKeyValue(process.argv.slice(2));
+const argv = require('./server/array-to-key-value').arrayToKeyValue(process.argv.slice(2));
 const src = path.resolve(process.cwd(), 'src');
 const dist = path.resolve(process.cwd(), 'dist');
-const publicPath = '/';
-const isDev = process.env.NODE_ENçV !== 'production' && !argv['env.prod'];
+const isDev = process.env.NODE_ENV !== 'production' && !argv['env.prod'];
 const isProd = !isDev;
 const isHot = argv['hot'] || false;
 const ifDev = plugin => addPlugin(isDev, plugin);
@@ -19,8 +18,6 @@ const ifHot = plugin => addPlugin(isDev, plugin);
 const addPlugin = (add, plugin) => add ? plugin : undefined;
 const removeEmpty = array => array.filter(i => !!i);
 
-const host = 'localhost';
-const port = process.env.PORT || argv.port || 3000;
 
 module.exports = {
   context: src,
@@ -40,28 +37,16 @@ module.exports = {
   },
   entry: {
     app: [
-      './main.scss',
+      './styles.scss',
       './index.js',
-    ].concat((isHot ? [
-      // Webpack2: remove any reference to webpack/hot/dev-server or webpack/hot/only-dev-server
-      // from your webpack config. Instead, use the reload config option.
-      // reload - Set to true to auto-reload the page when webpack gets stuck. (React: use reload=false)
-      // See: https://github.com/glenjamin/webpack-hot-middleware
-      //'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
-      `webpack-hot-middleware/client?path=http://${host}:${port}/__webpack_hmr&timeout=20000`,
-    ] : [] )),
-    vendor: [
-      './vendor.scss',
-      'moment'
-      // +++ other 3'rd party
-    ]
+    ],
   },
   output: {
-    filename: isProd ? 'bundle.[name].[chunkhash].js' : 'bundle.[name].js', // Don't use hashes in dev mode
-    chunkFilename: isProd ? 'bundle.[name].[chunkhash].chunk.js' : 'bundle.[name].chunk.js',
-    path: dist,
+    filename: isProd ? '[name].[chunkhash].js' : '[name].js', // Don't use hashes in dev mode
+    chunkFilename: isProd ? '[name].[chunkhash].chunk.js' : '[name].chunk.js',
+    path:dist,
+    publicPath: '/',
     pathinfo: !isProd,
-    publicPath: publicPath,
   },
   module: {
     rules: [
@@ -194,20 +179,15 @@ module.exports = {
     // drop any unreachable code.
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        NODE_ENV: isProd ? JSON.stringify('production') : JSON.stringify(process.env.NODE_ENV),
       },
     }),
 
     new webpack.ProvidePlugin({
       // make fetch available
       // See: http://mts.io/2015/04/08/webpack-shims-polyfills/
-      // fetch: 'exports?self.fetch!whatwg-fetch',
       'fetch': 'imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch',
     }),
-
-    // Module ids are full names
-    // Outputs more readable module names in the browser console on HMR updates
-    new webpack.NamedModulesPlugin(),
 
     // Hook into the compiler to extract progress information.
     //new webpack.ProgressPlugin(),
@@ -241,18 +221,38 @@ module.exports = {
       },
     }),
 
+    // Avoid publishing files when compilation fails
+    new webpack.NoErrorsPlugin(),
+
+    // Module ids are full names
+    // Outputs more readable module names in the browser console on HMR updates
+    new webpack.NamedModulesPlugin(),
+
     // Order the modules and chunks by occurrence. This saves space,
     // because often referenced modules and chunks get smaller ids.
     new webpack.optimize.OccurrenceOrderPlugin(),
 
-    // Avoid publishing files when compilation fails
-    new webpack.NoErrorsPlugin(),
+    // Optimize the bundle's handling of third party dependencies.
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      chunks: ['vendor'],
+      children: true,
+      minChunks: 2,
+      async: true,
+    }),
+
+    new ExtractTextPlugin({
+      filename: isProd ? '[name].[chunkhash].styles.css' : '[name].styles.css',
+      disable: false,
+      allChunks: true
+    }),
 
     // Minify and optimize the index.html
     new HtmlWebpackPlugin({
       template: './index.html',
       inject: true,
       favicon: 'favicon.png',
+      chunksSortMode: 'none',
       minify: isProd ? {
         removeComments: true,
         collapseWhitespace: true,
@@ -265,12 +265,6 @@ module.exports = {
         minifyCSS: true,
         minifyURLs: true,
       } : {},
-    }),
-
-    new ExtractTextPlugin({
-      filename: isProd ? 'styles.[name].[chunkhash].css' : 'styles.[name].css',
-      disable: false,
-      allChunks: true
     }),
 
     new StyleLintPlugin({
@@ -295,12 +289,6 @@ module.exports = {
 
     // Finetuning 'npm run build:prod'
     // Note: remove '-p' from "build:prod" in package.json
-    ifProd(new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      children: true,
-      minChunks: 2,
-      async: true,
-    })),
 
     // Merge all duplicate modules
     ifProd(new webpack.optimize.DedupePlugin()),
@@ -336,26 +324,4 @@ module.exports = {
     }))
     // End: finetuning 'npm run build:prod'
   ]),
-
-  /*
-  devServer: {
-    port: port,
-    hot: true,
-    inline: true,
-    historyApiFallback: true,
-    progress: true,
-    stats: {
-      colors: true,
-      chunkModules: false,
-      assets: false
-    },
-    proxy: proxyPort ? {
-      // Our api server
-      '/api/*': {
-      target: `http://localhost:${proxyPort}`,
-      secure: false
-      }
-    } : {}
-  },
-  */
 };

@@ -3,7 +3,7 @@ import 'babel-polyfill';
 
 import App from './app/app';
 
-import './main.scss';
+import './styles.scss';
 
 if (module.hot) {
   module.hot.accept();
