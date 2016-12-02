@@ -1,20 +1,13 @@
-import request from '../utils/request';
+import ping from './ping';
 
 class App {
-  //constructor() {
-  //}
-  run() {
+  static run() {
     console.info('***** Application started');
+    const el = document.querySelector('#ping-response');
 
     document.querySelector('#btn-ping').addEventListener('click', () => {
-
-      const pingResponse = document.querySelector('#ping-response');
-
-      request('/api/ping')
-        .catch(err => pingResponse.innerText = err)
-        .then(response => pingResponse.innerText = response);
+      ping(el);
     });
-
   }
 }
 

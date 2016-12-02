@@ -22,7 +22,7 @@
       "plugins": [
         ["__coverage__", {"ignore": "*.+(test|spec|stub).*"}],
 
-        // Works on IOS, but not on Ubuntu
+        // Works on OSX, but not on Ubuntu
         //["istanbul", {
         //  "exclude": [
         //    "**/*.spec.js"

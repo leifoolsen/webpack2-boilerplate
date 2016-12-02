@@ -25,9 +25,9 @@ module.exports = {
   // http://webpack.github.io/docs/configuration.html#devtool
   // source map can be turned on/off in UglifyJsPlugin
   devtool: isProd ? 'source-map' : 'cheap-module-eval-source-map',
-  bail: isProd, // Don't attempt to continue if there are any errors.
-  cache: !isProd,
-  target: 'web', // Make web variables accessible to webpack, e.g. window. This is a default value; just be aware of it
+  cache:   !isProd,
+  bail:    isProd,  // Don't attempt to continue if there are any errors.
+  target:  'web',   // Make web variables accessible to webpack, e.g. window. This is a default value; just be aware of it
   resolve: {
     modules: [
       'src',
@@ -37,8 +37,8 @@ module.exports = {
   },
   entry: {
     app: [
-      './styles.scss',
       './index.js',
+      './styles.scss',
     ],
   },
   output: {
@@ -110,7 +110,7 @@ module.exports = {
         test: /\.css$/,
         include: [
           src,
-          path.resolve(__dirname, 'node_modules')
+          path.resolve(process.cwd(), 'node_modules')
         ],
         loader: ExtractTextPlugin.extract({
           fallbackLoader: 'style-loader',
@@ -122,7 +122,7 @@ module.exports = {
         test: /\.s?(a|c)ss$/,
         include: [
           src,
-          path.resolve(__dirname, 'node_modules')
+          path.resolve(process.cwd(), 'node_modules')
         ],
         loader: ExtractTextPlugin.extract({
           fallbackLoader: 'style-loader',
@@ -143,7 +143,7 @@ module.exports = {
         test: /\.css$/,
         include: [
           src,
-          path.resolve(__dirname, 'node_modules')
+          path.resolve(process.cwd(), 'node_modules')
         ],
         use: [
           'style-loader',
@@ -161,7 +161,7 @@ module.exports = {
         test: /\.s?(a|c)ss$/,
         include: [
           src,
-          path.resolve(__dirname, 'node_modules')
+          path.resolve(process.cwd(), 'node_modules')
         ],
         use: [
           'style-loader',
@@ -178,9 +178,8 @@ module.exports = {
     // inside your code for any environment checks; UglifyJS will automatically
     // drop any unreachable code.
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: isProd ? JSON.stringify('production') : JSON.stringify(process.env.NODE_ENV),
-      },
+      'process.env.NODE_ENV': isProd ? JSON.stringify('production') : JSON.stringify('development'),
+      __DEV__: !isProd
     }),
 
     new webpack.ProvidePlugin({
@@ -224,23 +223,10 @@ module.exports = {
     // Avoid publishing files when compilation fails
     new webpack.NoErrorsPlugin(),
 
-    // Module ids are full names
-    // Outputs more readable module names in the browser console on HMR updates
-    new webpack.NamedModulesPlugin(),
+    // No longer needed in Webpack2, on by default
+    //new webpack.optimize.OccurrenceOrderPlugin(),
 
-    // Order the modules and chunks by occurrence. This saves space,
-    // because often referenced modules and chunks get smaller ids.
-    new webpack.optimize.OccurrenceOrderPlugin(),
-
-    // Optimize the bundle's handling of third party dependencies.
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      chunks: ['vendor'],
-      children: true,
-      minChunks: 2,
-      async: true,
-    }),
-
+    // Generate an external css file with a hash in the filename
     new ExtractTextPlugin({
       filename: isProd ? '[name].[chunkhash].styles.css' : '[name].styles.css',
       disable: false,
@@ -282,6 +268,18 @@ module.exports = {
       { from: 'assets', to: 'assets' }
     ]),
 
+    // Module ids are full names
+    // Outputs more readable module names in the browser console on HMR updates
+    new webpack.NamedModulesPlugin(),
+
+    // Optimize the bundle's handling of third party dependencies.
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      children: true,
+      minChunks: Infinity,
+      async: true,
+    }),
+
     // Tell webpack we want Hot Module Reloading.
     ifHot(new webpack.HotModuleReplacementPlugin({
       multiStep: true, // Enable multi-pass compilation for enhanced performance in larger projects.
@@ -289,6 +287,7 @@ module.exports = {
 
     // Finetuning 'npm run build:prod'
     // Note: remove '-p' from "build:prod" in package.json
+
 
     // Merge all duplicate modules
     ifProd(new webpack.optimize.DedupePlugin()),
@@ -301,10 +300,6 @@ module.exports = {
     })),
 
     ifProd(new webpack.optimize.UglifyJsPlugin({
-      //compressor: {
-      //  screw_ie8: true,
-      //  warnings: false
-      //},
       compress: {
         warnings: false,
         screw_ie8: true,
