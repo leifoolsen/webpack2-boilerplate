@@ -40,8 +40,6 @@ if(isHot) {
   // See: http://webpack.github.io/docs/configuration.html#output-publicpath
   config.entry.app.unshift('./webpack-public-path.js');
 
-  console.log(config.entry.app);
-
   const compiler = webpack(config);
 
   app.use(webpackDevMiddleware(compiler, {

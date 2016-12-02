@@ -272,22 +272,26 @@ module.exports = {
     // Outputs more readable module names in the browser console on HMR updates
     new webpack.NamedModulesPlugin(),
 
-    // Optimize the bundle's handling of third party dependencies.
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      children: true,
-      minChunks: Infinity,
-      async: true,
-    }),
-
     // Tell webpack we want Hot Module Reloading.
     ifHot(new webpack.HotModuleReplacementPlugin({
       multiStep: true, // Enable multi-pass compilation for enhanced performance in larger projects.
     })),
 
-    // Finetuning 'npm run build:prod'
-    // Note: remove '-p' from "build:prod" in package.json
+    //ifDev(new webpack.DllReferencePlugin({
+    //    context: process.cwd(),
+    //    manifest: require(path.resolve(dist, 'vendor-manifest.json'))
+    //})),
 
+    // Optimize the bundle's handling of third party dependencies.
+    ifProd(new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      children: true,
+      minChunks: Infinity,
+      async: true,
+    })),
+
+    // Finetuning 'npm run build:prod'
+    // Note: do not use '-p' from "build:prod" in package.json
 
     // Merge all duplicate modules
     ifProd(new webpack.optimize.DedupePlugin()),
