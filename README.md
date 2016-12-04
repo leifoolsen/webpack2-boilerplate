@@ -6,7 +6,7 @@ A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack f
 
 ## Features
 * ES2015
-* Node 6
+* Node6 or Node7
 * Npm as a task/build runner
 * Webpack2 with tree-shaking
 * Webpack DLL plugin for faster builds
