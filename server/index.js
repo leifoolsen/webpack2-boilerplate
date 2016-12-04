@@ -10,7 +10,7 @@ import router from './router';
 import logger from './logger';
 const argv = require('./array-to-key-value').arrayToKeyValue(process.argv.slice(2));
 
-const isDev = process.env.NODE_ENV !== 'production' && !argv['env.prod'];
+//const isDev = process.env.NODE_ENV !== 'production' && !argv['env.prod'];
 const isHot = argv['hot'] || false;
 
 const publicPath = config.output.publicPath || '/';
@@ -26,20 +26,6 @@ if(isHot) {
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
 
-  // reload - Set to true to auto-reload the page when webpack gets stuck. (React: use reload=false)
-  // See: https://github.com/glenjamin/webpack-hot-middleware
-  //config.entry.app.unshift(`webpack-hot-middleware/client?path=http://${host}:${port}/__webpack_hmr&timeout=20000&reload=true`);
-  //config.entry.app.unshift('webpack-hot-middleware/client');
-  config.entry.app.unshift('webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true');
-
-  // Webpack2: remove any reference to webpack/hot/dev-server or webpack/hot/only-dev-server
-  // from your webpack config. Instead, use the reload config option of 'webpack-hot-middleware'.
-  //config.entry.app.unshift('webpack/hot/only-dev-server');
-
-  // Dynamically set the webpack public path at runtime below
-  // See: http://webpack.github.io/docs/configuration.html#output-publicpath
-  config.entry.app.unshift('./webpack-public-path.js');
-
   const compiler = webpack(config);
 
   app.use(webpackDevMiddleware(compiler, {
@@ -49,7 +35,7 @@ if(isHot) {
 
     lazy: false,
     noInfo: true,
-    //filename: 'bundle.app.js', //filename: config.output.filename,
+    //filename: config.output.filename,
     publicPath: publicPath, //publicPath: `http://${host}:${port}${publicPath}`, //publicPath: publicPath,
     silent: true,
     headers: {'Access-Control-Allow-Origin': '*'},

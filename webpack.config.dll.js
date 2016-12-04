@@ -1,4 +1,4 @@
-// OPTIMIZING WEBPACK FOR FASTER REACT BUILDS
+// OPTIMIZING WEBPACK FOR FASTER BUILDS
 // ------------------------------------------
 // See: http://engineering.invisionapp.com/post/optimizing-webpack/
 // See: https://medium.com/@soederpop/webpack-plugins-been-we-been-keepin-on-the-dll-cdfdd6cb8cd7#.wxanbfcq8
@@ -11,6 +11,8 @@ const dist = path.resolve(process.cwd(), 'dist');
 
 module.exports = {
   context: process.cwd(),
+  devtool: 'eval',
+  target: 'web', // Make web variables accessible to webpack, e.g. window
   entry: {
     vendor: [
       'moment',
@@ -30,7 +32,7 @@ module.exports = {
       // The path to the manifest file which maps between
       // modules included in a bundle and the internal IDs
       // within that bundle
-      path: path.join(dist, '[name]-manifest.json'),
+      path: path.join(dist, '[name].json'),
 
       // The name of the global variable which the library's
       // require function has been assigned to. This must match the

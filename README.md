@@ -9,6 +9,7 @@ A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack f
 * Node 6
 * Npm as a task/build runner
 * Webpack2 with tree-shaking
+* Webpack DLL plugin for faster builds
 * Express middleware
 * Linting with eslint and stylelint
 * Unit tests with Mocha, Chai, Sinon and JsDom 
@@ -17,18 +18,19 @@ A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack f
 * Self hosting Google Material Icons and Font Roboto
 
 ## Getting started
-* Install Node6 (via nvm)
+* Install Node7 or Node6 (via nvm)
 * Clone this repository: `git clone https://github.com/leifoolsen/webpack2-boilerplate.git` (or download zip)
 * CD to project directory: `cd webpack2-boilerplate`
 * Remove existing git: `rm -rf .git`
 * Install dependencies: `npm install`
+* Install dll: `npm run build:dll`
 * Run: `npm start`
 * Open a browser at `http://localhost:8084`
 * Press `Ctrl+C` to stop the devserver
 * Init your git: `git init`
-* Modify `package.json`, e.g. `name, author, description` 
+* Modify `package.json`, e.g. `name, author, description, repository` 
 * Add your own 3'rd party dependencies  to `package.json`
-* Optionally add those 3'rd party dependencies to `vendor` section in `webpack.config`
+* Add those 3'rd party dependencies to `entry.vendor` section in **`webpack.config.dll`**
 * Happy hacking :)
 
 >**Note:** Remember to add your own repo to package.json 

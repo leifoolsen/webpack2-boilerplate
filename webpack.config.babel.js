@@ -1,4 +1,6 @@
+const chalk = require('chalk');
 const path = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
 const precss = require('precss');
 const autoprefixer = require('autoprefixer');
@@ -7,16 +9,127 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const argv = require('./server/array-to-key-value').arrayToKeyValue(process.argv.slice(2));
-const src = path.resolve(process.cwd(), 'src');
-const dist = path.resolve(process.cwd(), 'dist');
 const isDev = process.env.NODE_ENV !== 'production' && !argv['env.prod'];
 const isProd = !isDev;
 const isHot = argv['hot'] || false;
-const ifDev = plugin => addPlugin(isDev, plugin);
-const ifProd = plugin => addPlugin(isProd, plugin);
-const ifHot = plugin => addPlugin(isDev, plugin);
-const addPlugin = (add, plugin) => add ? plugin : undefined;
-const removeEmpty = array => array.filter(i => !!i);
+const src = path.resolve(process.cwd(), 'src');
+const dist = path.resolve(process.cwd(), 'dist');
+const publicPath = '/';
+
+
+const devPlugins = () => {
+
+  if(isDev) {
+    const manifest = path.resolve(dist, 'vendor.json');
+    const indexHTML = path.resolve(src, 'index.html');
+
+    if (!fs.existsSync(manifest)) {
+      console.error(chalk.red(`The DLL manifest "${manifest}" is missing.`));
+      console.error(chalk.red('Please run'), chalk.green('`npm run build:dll`'));
+      process.exit(0);
+    }
+
+    if (!fs.existsSync(indexHTML)) {
+      console.error(chalk.red(`"${indexHTML}" is missing.`));
+      process.exit(0);
+    }
+
+    const templateContent = () => {
+      // Append 'vendor.dll.js' to template
+      const jsdom = require('jsdom');
+      const document = jsdom.jsdom(fs.readFileSync(indexHTML).toString());
+      document.body.insertAdjacentHTML('beforeend', `<script type="text/javascript" src="${publicPath}vendor.dll.js"></script>`);
+      return jsdom.serializeDocument(document);
+    };
+
+    return [
+      new webpack.DllReferencePlugin({
+        context: process.cwd(),
+        manifest: require(manifest)
+      }),
+
+      new HtmlWebpackPlugin({
+        templateContent: templateContent(),
+        inject: true,
+        favicon: 'favicon.png',
+        chunksSortMode: 'none',
+        xhtml: true,
+      }),
+    ];
+  }
+  return [];
+};
+
+const hotPlugins = isHot ? [
+  new webpack.HotModuleReplacementPlugin({
+    multiStep: true, // Enable multi-pass compilation for enhanced performance in larger projects.
+  }),
+] : [];
+
+const prodPlugins = isProd ? [
+  // Optimize the bundle's handling of third party dependencies.
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'vendor',
+    children: true,
+    minChunks: 2,
+    async: true,
+  }),
+
+  // Minify and optimize the index.html
+  new HtmlWebpackPlugin({
+    template: './index.html',
+    inject: true,
+    favicon: 'favicon.png',
+    chunksSortMode: 'none',
+    xhtml: true,
+    minify: {
+      removeComments: true,
+      collapseWhitespace: true,
+      removeRedundantAttributes: true,
+      useShortDoctype: true,
+      removeEmptyAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      keepClosingSlash: true,
+      minifyJS: true,
+      minifyCSS: true,
+      minifyURLs: true,
+    },
+  }),
+
+  // Merge all duplicate modules
+  // No longer needed; default in webpack2
+  //new webpack.optimize.DedupePlugin(),
+
+  // Finetuning 'npm run build:prod'
+  // Note: do not use '-p' in "build:prod" script
+
+  // saves a couple of kBs
+  new webpack.LoaderOptionsPlugin({
+    minimize: true,
+    debug: false,
+    quiet: true
+  }),
+
+  new webpack.optimize.UglifyJsPlugin({
+    compress: {
+      warnings: false,
+      screw_ie8: true,
+      conditionals: true,
+      unused: true,
+      comparisons: true,
+      sequences: true,
+      dead_code: true,
+      evaluate: true,
+      if_return: true,
+      join_vars: true,
+    },
+    output: {
+      comments: false
+    },
+    sourceMap: true
+  }),
+  // End: finetuning 'npm run build:prod'
+] : [];
 
 
 module.exports = {
@@ -36,16 +149,31 @@ module.exports = {
     extensions: ['.js', '.jsx', '.json', '.css', '.sass', '.scss', '.html']
   },
   entry: {
-    app: [
+    app: (isProd ? [] :
+    [
+      // reload - Set to true to auto-reload the page when webpack gets stuck. (React: use reload=false)
+      // See: https://github.com/glenjamin/webpack-hot-middleware
+      // `webpack-hot-middleware/client?path=http://${host}:${port}/__webpack_hmr&timeout=20000&reload=true`,
+      // 'webpack-hot-middleware/client',
+      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
+
+      // Webpack2: remove any reference to webpack/hot/dev-server or webpack/hot/only-dev-server
+      // from your webpack config. Instead, use the reload config option of 'webpack-hot-middleware'.
+      // 'webpack/hot/only-dev-server',
+
+      // Dynamically set the webpack public path at runtime below
+      // See: http://webpack.github.io/docs/configuration.html#output-publicpath
+      './webpack-public-path.js'
+    ]).concat([
       './index.js',
       './styles.scss',
-    ],
+    ]),
   },
   output: {
     filename: isProd ? '[name].[chunkhash].js' : '[name].js', // Don't use hashes in dev mode
     chunkFilename: isProd ? '[name].[chunkhash].chunk.js' : '[name].chunk.js',
-    path:dist,
-    publicPath: '/',
+    path: dist,
+    publicPath: publicPath,
     pathinfo: !isProd,
   },
   module: {
@@ -139,7 +267,7 @@ module.exports = {
         })
       } ]
       : [ {
-        // Enables HMR. Inlines CSS in html head
+        // Enables HMR. Inlines CSS in html head style tag
         test: /\.css$/,
         include: [
           src,
@@ -173,7 +301,7 @@ module.exports = {
       },
     ])
   },
-  plugins: removeEmpty([
+  plugins: [
     // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
     // inside your code for any environment checks; UglifyJS will automatically
     // drop any unreachable code.
@@ -233,26 +361,6 @@ module.exports = {
       allChunks: true
     }),
 
-    // Minify and optimize the index.html
-    new HtmlWebpackPlugin({
-      template: './index.html',
-      inject: true,
-      favicon: 'favicon.png',
-      chunksSortMode: 'none',
-      minify: isProd ? {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-        removeEmptyAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        keepClosingSlash: true,
-        minifyJS: true,
-        minifyCSS: true,
-        minifyURLs: true,
-      } : {},
-    }),
-
     new StyleLintPlugin({
       // https://github.com/vieron/stylelint-webpack-plugin
       // http://stylelint.io/user-guide/example-config/
@@ -272,55 +380,5 @@ module.exports = {
     // Outputs more readable module names in the browser console on HMR updates
     new webpack.NamedModulesPlugin(),
 
-    // Tell webpack we want Hot Module Reloading.
-    ifHot(new webpack.HotModuleReplacementPlugin({
-      multiStep: true, // Enable multi-pass compilation for enhanced performance in larger projects.
-    })),
-
-    //ifDev(new webpack.DllReferencePlugin({
-    //    context: process.cwd(),
-    //    manifest: require(path.resolve(dist, 'vendor-manifest.json'))
-    //})),
-
-    // Optimize the bundle's handling of third party dependencies.
-    ifProd(new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      children: true,
-      minChunks: Infinity,
-      async: true,
-    })),
-
-    // Finetuning 'npm run build:prod'
-    // Note: do not use '-p' from "build:prod" in package.json
-
-    // Merge all duplicate modules
-    ifProd(new webpack.optimize.DedupePlugin()),
-
-    // saves a couple of kBs
-    ifProd(new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false,
-      quiet: true
-    })),
-
-    ifProd(new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        screw_ie8: true,
-        conditionals: true,
-        unused: true,
-        comparisons: true,
-        sequences: true,
-        dead_code: true,
-        evaluate: true,
-        if_return: true,
-        join_vars: true,
-      },
-      output: {
-        comments: false
-      },
-      sourceMap: true
-    }))
-    // End: finetuning 'npm run build:prod'
-  ]),
+  ].concat(devPlugins()).concat(hotPlugins).concat(prodPlugins)
 };
