@@ -86,16 +86,12 @@ const prodPlugins = isProd ? [
   // Note: do not use '-p' in "build:prod" script
 
 
-  // CommonsChunk analyzes everything in your bundles, extracts common bits into files
-  // together. Trick with CommonsChunkPlugin is the name key, accepts an array, which you
-  // can pass a value that doesn't exist. In our case this is the manifest file. Webpack
-  // will place "webpack code" there instead of across your bundlded files.
+  // CommonsChunk analyzes everything in your bundles, extracts common bits into files together.
   new webpack.optimize.CommonsChunkPlugin({
-    name: ['vendor', 'app'], // Inject "vendor.js" before "app.js" into "index.html"
-    filename: '[name].[chunkhash].js',
-    minChunks: Infinity,
-    //children: true,
-    //async: true,
+    name: 'vendor',
+    children: true,
+    minChunks: 2,
+    async: true,
   }),
 
   // Minify and optimize the index.html
@@ -189,6 +185,7 @@ module.exports = {
       './styles.scss',
     ]),
 
+    // consider to not use vendor entry as it does not provide any advantage in a SPA
     vendor: isProd ? ['./vendor.js'] : [],
   }),
 
