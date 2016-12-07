@@ -1,33 +1,26 @@
 {
   "presets": [
-    [
-      "latest", {
-        "es2015": {
-          "modules": false // https://babeljs.io/docs/plugins/preset-es2015/
-        }
-      }
-    ],
+    "latest",
     "stage-0"
   ],
   "env": {
-    "test": {
+    "production": {
       "presets": [
         [
-          "latest", {
-            "es2015": {}
+          "latest",
+          {
+            "es2015": {
+              "modules": false  // https://babeljs.io/docs/plugins/preset-es2015/
+            }
           }
         ],
         "stage-0"
-      ],
+      ]
+    },
+    "test": {
       "plugins": [
-        ["__coverage__", {"ignore": "*.+(test|spec|stub).*"}],
-
-        // Works on OSX, but not on Ubuntu
-        //["istanbul", {
-        //  "exclude": [
-        //    "**/*.spec.js"
-        //  ]
-        //}]
+        "istanbul",
+        ["__coverage__", {"ignore": "*.+(test|spec|stub).*"}]
       ]
     }
   }

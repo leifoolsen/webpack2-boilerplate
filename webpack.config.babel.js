@@ -9,6 +9,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const argv = require('./server/array-to-key-value').arrayToKeyValue(process.argv.slice(2));
+
 const isDev = process.env.NODE_ENV !== 'production' && !argv['env.prod'];
 const isProd = !isDev;
 const isHot = argv['hot'] || false;
@@ -16,6 +17,21 @@ const src = path.resolve(process.cwd(), 'src');
 const dist = path.resolve(process.cwd(), 'dist');
 const publicPath = '/';
 
+// get the intended port number, use port 3000 if not provided
+//const host = 'localhost';
+//const port = process.env.PORT || argv.port || 3000;
+
+//const removeEmpty = array => array.filter(i => !!i);
+
+const removeEmptyKeys = obj => {
+  const result = {};
+  for (const key in obj) {
+    if (!(obj[key] == null || obj[key].length === 0)) {
+      result[key] = obj[key];
+    }
+  }
+  return result;
+};
 
 const devPlugins = () => {
 
@@ -67,12 +83,19 @@ const hotPlugins = isHot ? [
 ] : [];
 
 const prodPlugins = isProd ? [
-  // Optimize the bundle's handling of third party dependencies.
+  // Note: do not use '-p' in "build:prod" script
+
+
+  // CommonsChunk analyzes everything in your bundles, extracts common bits into files
+  // together. Trick with CommonsChunkPlugin is the name key, accepts an array, which you
+  // can pass a value that doesn't exist. In our case this is the manifest file. Webpack
+  // will place "webpack code" there instead of across your bundlded files.
   new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    children: true,
-    minChunks: 2,
-    async: true,
+    name: ['vendor', 'app'], // Inject "vendor.js" before "app.js" into "index.html"
+    filename: '[name].[chunkhash].js',
+    minChunks: Infinity,
+    //children: true,
+    //async: true,
   }),
 
   // Minify and optimize the index.html
@@ -100,10 +123,6 @@ const prodPlugins = isProd ? [
   // No longer needed; default in webpack2
   //new webpack.optimize.DedupePlugin(),
 
-  // Finetuning 'npm run build:prod'
-  // Note: do not use '-p' in "build:prod" script
-
-  // saves a couple of kBs
   new webpack.LoaderOptionsPlugin({
     minimize: true,
     debug: false,
@@ -128,7 +147,6 @@ const prodPlugins = isProd ? [
     },
     sourceMap: true
   }),
-  // End: finetuning 'npm run build:prod'
 ] : [];
 
 
@@ -148,27 +166,32 @@ module.exports = {
     ],
     extensions: ['.js', '.jsx', '.json', '.css', '.sass', '.scss', '.html']
   },
-  entry: {
-    app: (isProd ? [] :
-    [
+  entry: removeEmptyKeys({
+    app: (isHot ? [
       // reload - Set to true to auto-reload the page when webpack gets stuck. (React: use reload=false)
       // See: https://github.com/glenjamin/webpack-hot-middleware
+      // 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
       // `webpack-hot-middleware/client?path=http://${host}:${port}/__webpack_hmr&timeout=20000&reload=true`,
       // 'webpack-hot-middleware/client',
       'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
 
       // Webpack2: remove any reference to webpack/hot/dev-server or webpack/hot/only-dev-server
       // from your webpack config. Instead, use the reload config option of 'webpack-hot-middleware'.
+      // See: https://github.com/glenjamin/webpack-hot-middleware#200
       // 'webpack/hot/only-dev-server',
 
       // Dynamically set the webpack public path at runtime below
       // See: http://webpack.github.io/docs/configuration.html#output-publicpath
       './webpack-public-path.js'
-    ]).concat([
+
+    ] : [] ).concat([
       './index.js',
       './styles.scss',
     ]),
-  },
+
+    vendor: isProd ? ['./vendor.js'] : [],
+  }),
+
   output: {
     filename: isProd ? '[name].[chunkhash].js' : '[name].js', // Don't use hashes in dev mode
     chunkFilename: isProd ? '[name].[chunkhash].chunk.js' : '[name].chunk.js',

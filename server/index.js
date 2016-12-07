@@ -29,21 +29,18 @@ if(isHot) {
   const compiler = webpack(config);
 
   app.use(webpackDevMiddleware(compiler, {
-    contentBase: config.context,
-    hot: true,
-    inline: true,
-
-    lazy: false,
     noInfo: true,
-    //filename: config.output.filename,
     publicPath: publicPath, //publicPath: `http://${host}:${port}${publicPath}`, //publicPath: publicPath,
-    silent: true,
-    headers: {'Access-Control-Allow-Origin': '*'},
+
     stats: 'errors-only',
+    hot: true,
     historyApiFallback: true,
-    //watchOptions: {
-    //  poll: true
-    //},
+    headers: {'Access-Control-Allow-Origin': '*'},
+    contentBase: config.context, //contentBase: `http://${host}:${port}`, //contentBase: config.context,
+    //inline: true,
+    //lazy: false,
+    //silent: true,
+    //filaname: 'app.js',
   }));
 
   app.use(webpackHotMiddleware(compiler, {

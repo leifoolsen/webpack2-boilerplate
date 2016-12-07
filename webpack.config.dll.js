@@ -13,11 +13,14 @@ module.exports = {
   context: process.cwd(),
   devtool: 'eval',
   target: 'web', // Make web variables accessible to webpack, e.g. window
+  resolve: {
+    modules: [
+      'src',
+      'node_modules',
+    ],
+  },
   entry: {
-    vendor: [
-      'moment',
-      // +++ other 3'rd party
-    ]
+    vendor: ['./src/vendor.js'],
   },
   output: {
     filename: '[name].dll.js',
@@ -28,6 +31,10 @@ module.exports = {
     library: '[name]'
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development'),
+      __DEV__: true
+    }),
     new webpack.DllPlugin({
       // The path to the manifest file which maps between
       // modules included in a bundle and the internal IDs
