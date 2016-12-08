@@ -53,7 +53,7 @@ const devPlugins = () => {
     const templateContent = () => {
       // Append 'vendor.dll.js' to template
       const jsdom = require('jsdom');
-      const document = jsdom.jsdom(fs.readFileSync(indexHTML).toString());
+      const document = jsdom.jsdom(fs.readFileSync(indexHTML, 'utf8').toString());
       document.body.insertAdjacentHTML('beforeend', `<script type="text/javascript" src="${publicPath}vendor.dll.js"></script>`);
       return jsdom.serializeDocument(document);
     };
@@ -186,7 +186,7 @@ module.exports = {
     ]),
 
     // consider to not use vendor entry as it does not provide any advantage in a SPA
-    vendor: isProd ? ['./vendor.js'] : [],
+    //vendor: isProd ? ['./vendor.js'] : [],
   }),
 
   output: {

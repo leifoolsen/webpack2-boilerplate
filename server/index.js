@@ -30,15 +30,15 @@ if(isHot) {
 
   app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
-    publicPath: publicPath, //publicPath: `http://${host}:${port}${publicPath}`, //publicPath: publicPath,
+    publicPath: publicPath,
 
+    contentBase: config.context,
     stats: 'errors-only',
     hot: true,
+    inline: true,
+    lazy: false,
     historyApiFallback: true,
     headers: {'Access-Control-Allow-Origin': '*'},
-    contentBase: config.context, //contentBase: `http://${host}:${port}`, //contentBase: config.context,
-    //inline: true,
-    //lazy: false,
     //silent: true,
     //filaname: 'app.js',
   }));

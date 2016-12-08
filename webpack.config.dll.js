@@ -20,7 +20,10 @@ module.exports = {
     ],
   },
   entry: {
-    vendor: ['./src/vendor.js'],
+    vendor: [
+      'babel-polyfill',
+      './src/vendor.js' // If you plan to use chunks, put common dependencies in e.g vendor.js
+    ],
   },
   output: {
     filename: '[name].dll.js',
