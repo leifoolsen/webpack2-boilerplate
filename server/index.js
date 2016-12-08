@@ -30,7 +30,7 @@ if(isHot) {
 
   app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
-    publicPath: publicPath,
+    publicPath: publicPath, // middleware can't access config, so we provide publicPath
 
     contentBase: config.context,
     stats: 'errors-only',
