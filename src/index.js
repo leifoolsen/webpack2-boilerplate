@@ -9,7 +9,7 @@ import './styles.scss';
 if (module.hot) {
   // This tells Webpack that this file and all of its dependencies can be replaced.
   // See e.g: http://andrewhfarmer.com/webpack-hmr-tutorial/
-  module.hot.accept();
+  //module.hot.accept();
 
   // Accept changes to this file for hot reloading.
   //module.hot.accept('./index.js');

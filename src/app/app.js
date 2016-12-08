@@ -1,28 +1,20 @@
 import ping from './ping';
 
-/*
-class App {
-  static run() {
-    console.info('***** Application started');
-    const el = document.querySelector('#ping-response');
-
-    document.querySelector('#btn-ping').addEventListener('click', () => {
-      ping(el);
-    });
-  }
-}
-
-export default App;
-*/
-
+const clickHandler = () => {
+  const el = document.querySelector('#ping-response');
+  ping(el);
+};
 
 const run = () => {
   console.info('***** Application started');
-  const el = document.querySelector('#ping-response');
-
-  document.querySelector('#btn-ping').addEventListener('click', () => {
-    ping(el);
-  });
+  document.querySelector('#btn-ping').addEventListener('click', clickHandler);
 };
+
+if (module.hot) {
+  module.hot.dispose(function() {
+    // Handle side effects
+    document.querySelector('#btn-ping').removeEventListener('click', clickHandler);
+  });
+}
 
 export default run;

@@ -8,7 +8,7 @@ A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack f
 * ES2015
 * Node6 or Node7
 * Npm as a task/build runner
-* Webpack2 with tree-shaking
+* Webpack2 with tree-shaking and hot module replacement (HMR)
 * Webpack DLL plugin for faster builds
 * Express middleware
 * Linting with eslint and stylelint
@@ -16,6 +16,7 @@ A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack f
 * Code coverage with Istanbul
 * SASS boilerplate with Solved by Flexbox Holy Grail example layout
 * Self hosting Google Material Icons and Font Roboto
+* No dependencies to frameworks like React
 
 ## Getting started
 * Install Node7 or Node6 (via nvm)
