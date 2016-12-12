@@ -4,6 +4,10 @@
     "stage-0"
   ],
   "env": {
+    "test": {
+    },
+    "development": {
+    },
     "production": {
       "presets": [
         [
@@ -15,12 +19,6 @@
           }
         ],
         "stage-0"
-      ]
-    },
-    "test": {
-      "plugins": [
-        "istanbul",
-        ["__coverage__", {"ignore": "*.+(test|spec|stub).*"}]
       ]
     }
   }

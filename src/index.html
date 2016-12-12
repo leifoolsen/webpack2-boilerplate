@@ -46,6 +46,11 @@
   }
 
   .demo-card {
+    padding: 8px 0;
+  }
+  .demo-card,
+  .demo-card__left,
+  .demo-card__right {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -54,7 +59,13 @@
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
-    height: 100px;
+  }
+  .demo-card p {
+    margin: 0;
+    padding: 0;
+  }
+  .demo-card__left {
+    padding-right: 16px;
   }
   .demo-card__left button,
   .demo-card__left img {
@@ -62,11 +73,11 @@
     width: 80px;
   }
   .demo-card__right {
+    display: flex;
     -webkit-box-flex: 1;
     -webkit-flex-grow: 1;
     -ms-flex-positive: 1;
     flex-grow: 1;
-    padding-left: 16px;
   }
 </style>
 <div class="layout">
@@ -141,6 +152,13 @@
           </div>
           <div class="demo-card__right">
             <p id="ping-response"></p>
+          </div>
+        </div>
+
+        <div class="demo-card">
+          <div class="demo-card__right">
+            <button id="btn-unhandled-error">Unhandled error!!!</button>
+            <p id="unhandled-error-response" style="margin-left: 16px;"></p>
           </div>
         </div>
 

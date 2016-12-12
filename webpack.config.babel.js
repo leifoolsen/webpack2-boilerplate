@@ -150,8 +150,11 @@ module.exports = {
   context: src,
   // Developer tool to enhance debugging, source maps
   // http://webpack.github.io/docs/configuration.html#devtool
+  // http://moduscreate.com/optimizing-react-es6-webpack-production-build/
   // source map can be turned on/off in UglifyJsPlugin
-  devtool: isProd ? 'source-map' : 'cheap-module-eval-source-map',
+  // devtool: isProd ? 'source-map' : 'cheap-module-eval-source-map',
+  // devtool: isProd ? 'cheap-module-source-map' : 'eval',
+  devtool: isProd ? 'cheap-module-source-map' : 'cheap-module-eval-source-map',
   cache:   !isProd,
   bail:    isProd,  // Don't attempt to continue if there are any errors.
   target:  'web',   // Make web variables accessible to webpack, e.g. window. This is a default value; just be aware of it
