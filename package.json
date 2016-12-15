@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "babel-polyfill": "6.16.0",
+    "beaver-logger": "1.0.17",
     "moment": "2.17.1",
     "whatwg-fetch": "2.0.1"
   },
