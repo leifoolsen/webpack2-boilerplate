@@ -87,11 +87,9 @@ const prodPlugins = isProd ? [
 
 
   // CommonsChunk analyzes everything in your bundles, extracts common bits into files together.
+  // See: https://webpack.js.org/guides/code-splitting-libraries/
   new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    children: true,
-    minChunks: 2,
-    async: true,
+    names: ['vendor', 'manifest'],
   }),
 
   // Minify and optimize the index.html
@@ -99,7 +97,10 @@ const prodPlugins = isProd ? [
     template: './index.html',
     inject: true,
     favicon: 'favicon.png',
-    chunksSortMode: 'none',
+    // Correct bundle order: [manifest, vendor, app]
+    // see: http://stackoverflow.com/questions/36796319/webpack-with-commonschunkplugin-results-with-wrong-bundle-order-in-html-file
+    // see: https://github.com/ampedandwired/html-webpack-plugin/issues/481
+    chunksSortMode: 'dependency',
     xhtml: true,
     minify: {
       removeComments: true,
@@ -146,6 +147,76 @@ const prodPlugins = isProd ? [
 ] : [];
 
 
+const cssRules = isHot ? [
+  {
+    // Enables HMR. Inlines CSS in html head style tag
+    test: /\.css$/,
+    include: [
+      src,
+      path.resolve(process.cwd(), 'node_modules')
+    ],
+    use: [
+      'style-loader',
+      // urls does not work when using sourceMap.
+      // See: https://github.com/webpack/css-loader/issues/216
+      // See: https://github.com/webpack/css-loader/issues/296
+      // See: http://stackoverflow.com/questions/37288886/webpack-background-images-not-loading
+      'css-loader', // { loader: 'css', query: { sourceMap: true } },
+      'postcss-loader',
+      'resolve-url-loader',
+    ]
+  },
+  {
+    // Enables HMR. Inlines CSS in html head
+    test: /\.s?(a|c)ss$/,
+    include: [
+      src,
+      path.resolve(process.cwd(), 'node_modules')
+    ],
+    use: [
+      'style-loader',
+      'css-loader', // { loader: 'css', query: { sourceMap: true } }, // urls does not work when using sourceMap, see: comments above
+      'postcss-loader',
+      'resolve-url-loader',
+      { loader: 'sass-loader', query: { sourceMap: isProd ? 'compressed' : 'expanded' } },
+    ]
+  },
+] : [
+  {
+    // No HMR. Creates external CSS
+    test: /\.css$/,
+    include: [
+      src,
+      path.resolve(process.cwd(), 'node_modules')
+    ],
+    loader: ExtractTextPlugin.extract({
+      fallbackLoader: 'style-loader',
+      loader: ['css-loader?sourceMap', 'postcss-loader', 'resolve-url-loader']
+    })
+  },
+  {
+    // No HMR. Creates external CSS
+    test: /\.s?(a|c)ss$/,
+    include: [
+      src,
+      path.resolve(process.cwd(), 'node_modules')
+    ],
+    loader: ExtractTextPlugin.extract({
+      fallbackLoader: 'style-loader',
+      loader: [
+        {
+          loader: 'css-loader', query: { sourceMap: true }
+        },
+        'postcss-loader',
+        'resolve-url-loader',
+        {
+          loader: 'sass-loader', query: { sourceMap: isProd ? 'compressed' : 'expanded' }
+        }
+      ]
+    })
+  }
+];
+
 module.exports = {
   context: src,
   // Developer tool to enhance debugging, source maps
@@ -157,7 +228,8 @@ module.exports = {
   // source map can be turned on/off in UglifyJsPlugin
   // devtool: isProd ? 'cheap-module-source-map' : 'eval',  // Redux needs 'eval', see: https://twitter.com/dan_abramov/status/706294608603553793
   // devtool: isProd ? 'cheap-module-source-map' : 'cheap-module-eval-source-map', // 'cheap-module-source-map': not possible to map errors to source in production
-  devtool: isProd ? 'source-map' : 'cheap-module-eval-source-map', // 'source-map': detailed mapping of errors to source in production
+  // devtool: isProd ? 'source-map' : 'cheap-module-eval-source-map', // 'source-map': detailed mapping of errors to source in production
+  devtool: isProd ? 'source-map' : 'cheap-module-eval-source-map',
   cache:   !isProd,
   bail:    isProd,  // Don't attempt to continue if there are any errors.
   target:  'web',   // Make web variables accessible to webpack, e.g. window. This is a default value; just be aware of it
@@ -169,6 +241,10 @@ module.exports = {
     extensions: ['.js', '.jsx', '.json', '.css', '.sass', '.scss', '.html']
   },
   entry: removeEmptyKeys({
+    // Correct bundle order: [manifest, vendor, app]
+    // see: http://stackoverflow.com/questions/36796319/webpack-with-commonschunkplugin-results-with-wrong-bundle-order-in-html-file
+    // see: https://github.com/ampedandwired/html-webpack-plugin/issues/481
+    vendor: isProd ? ['./vendor.js'] : [],
     app: (isHot ? [
       // Dynamically set the webpack public path at runtime below
       // Must be first entry to properly set public path
@@ -191,9 +267,6 @@ module.exports = {
       './index.js',
       './styles.scss',
     ]),
-
-    // consider to not use vendor entry as it does not provide any advantage in a SPA
-    //vendor: isProd ? ['./vendor.js'] : [],
   }),
 
   output: {
@@ -202,6 +275,9 @@ module.exports = {
     path: dist,
     publicPath: publicPath,
     pathinfo: !isProd,
+  },
+  performance: {
+    hints: isProd
   },
   module: {
     rules: [
@@ -259,74 +335,7 @@ module.exports = {
         test: /\.otf(\?.*)?$/,
         loader: 'file-loader?name=[name].[ext]&limit=10000&mimetype=font/opentype'
       },
-    ].concat( !isHot
-      ? [ {
-        // No HMR. Creates external CSS
-        test: /\.css$/,
-        include: [
-          src,
-          path.resolve(process.cwd(), 'node_modules')
-        ],
-        loader: ExtractTextPlugin.extract({
-          fallbackLoader: 'style-loader',
-          loader: ['css-loader?sourceMap', 'postcss-loader', 'resolve-url-loader']
-        })
-      },
-      {
-        // No HMR. Creates external CSS
-        test: /\.s?(a|c)ss$/,
-        include: [
-          src,
-          path.resolve(process.cwd(), 'node_modules')
-        ],
-        loader: ExtractTextPlugin.extract({
-          fallbackLoader: 'style-loader',
-          loader: [
-            {
-              loader: 'css-loader', query: { sourceMap: true }
-            },
-            'postcss-loader',
-            'resolve-url-loader',
-            {
-              loader: 'sass-loader', query: { sourceMap: isProd ? 'compressed' : 'expanded' }
-            }
-          ]
-        })
-      } ]
-      : [ {
-        // Enables HMR. Inlines CSS in html head style tag
-        test: /\.css$/,
-        include: [
-          src,
-          path.resolve(process.cwd(), 'node_modules')
-        ],
-        use: [
-          'style-loader',
-          // urls does not work when using sourceMap.
-          // See: https://github.com/webpack/css-loader/issues/216
-          // See: https://github.com/webpack/css-loader/issues/296
-          // See: http://stackoverflow.com/questions/37288886/webpack-background-images-not-loading
-          'css-loader', // { loader: 'css', query: { sourceMap: true } },
-          'postcss-loader',
-          'resolve-url-loader',
-        ]
-      },
-      {
-        // Enables HMR. Inlines CSS in html head
-        test: /\.s?(a|c)ss$/,
-        include: [
-          src,
-          path.resolve(process.cwd(), 'node_modules')
-        ],
-        use: [
-          'style-loader',
-          'css-loader', // { loader: 'css', query: { sourceMap: true } }, // urls does not work when using sourceMap, see: comments above
-          'postcss-loader',
-          'resolve-url-loader',
-          { loader: 'sass-loader', query: { sourceMap: isProd ? 'compressed' : 'expanded' } },
-        ]
-      },
-    ])
+    ].concat(cssRules)
   },
   plugins: [
     // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`

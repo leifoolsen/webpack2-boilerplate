@@ -50,4 +50,7 @@ module.exports = {
       name: '[name]',
     }),
   ],
+  performance: {
+    hints: false
+  },
 };
