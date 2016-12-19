@@ -7,9 +7,6 @@
   "scripts": {
     "setup": "npm install && npm-run-all clean validate",
     "validate": "npm-run-all --parallel test:coverage --serial check-coverage",
-    "validate-pre-beta.25": "npm-run-all --parallel validate-webpack:* test:coverage --serial check-coverage",
-    "validate-webpack:dev": "webpack-validator webpack.config.babel.js --env.dev",
-    "validate-webpack:prod": "webpack-validator webpack.config.babel.js --env.prod",
     "clean": "rimraf dist",
     "build:dll": "webpack --config webpack.config.dll.js",
     "prebuild": "npm-run-all clean validate build:dll",
@@ -100,9 +97,7 @@
     "webpack": "2.2.0-rc.1",
     "webpack-bundle-size-analyzer": "2.2.0",
     "webpack-dev-middleware": "1.9.0",
-    "webpack-dev-server": "2.2.0-rc.0",
-    "webpack-hot-middleware": "2.13.2",
-    "webpack-validator": "2.3.0"
+    "webpack-hot-middleware": "2.13.2"
   },
   "keywords": [
     "Webpack2",
