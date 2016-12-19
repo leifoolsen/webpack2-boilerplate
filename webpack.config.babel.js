@@ -277,7 +277,7 @@ module.exports = {
     pathinfo: !isProd,
   },
   performance: {
-    hints: isProd
+    hints: isProd ? 'warning' : false,
   },
   module: {
     rules: [
