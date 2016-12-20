@@ -49,7 +49,7 @@ A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack f
 * `test:pattern`: will run Mocha tests and suites with names matching the given pattern, e.g.<br/>`pattern=Basic npm run test:pattern`
 * `test:coverage`: run Istanbul code coverage (open `coverage/lcov-report/index.html` to view coverage report)
 * `lint`: lint according to rules in `.eslintrc` and `.stylelintrc`
-* `validate`: validate the integrety of the webpack config file and runs code coverage 
+* `coverage`: runs code coverage 
 * `analyze`: run webpack-bundle-size-analyzer to analyze the output bundle sizes
 * `clean`: remove the dist directory
 * `build`: bundle the app to the dist dir using development settings

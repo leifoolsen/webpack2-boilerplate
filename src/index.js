@@ -1,7 +1,4 @@
-// Polyfills fetch, generator, ++
-import 'babel-polyfill';
 import 'whatwg-fetch';
-
 import run from './app/app';
 import request from './utils/request';
 

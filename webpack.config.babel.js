@@ -219,6 +219,7 @@ const cssRules = isHot ? [
 
 module.exports = {
   context: src,
+
   // Developer tool to enhance debugging, source maps
   // http://webpack.github.io/docs/configuration.html#devtool
   // http://moduscreate.com/optimizing-react-es6-webpack-production-build/
@@ -244,7 +245,7 @@ module.exports = {
     // Correct bundle order: [manifest, vendor, app]
     // see: http://stackoverflow.com/questions/36796319/webpack-with-commonschunkplugin-results-with-wrong-bundle-order-in-html-file
     // see: https://github.com/ampedandwired/html-webpack-plugin/issues/481
-    vendor: isProd ? ['./vendor.js'] : [],
+    vendor: isProd ? ['babel-polyfill', './vendor.js'] : [],
     app: (isHot ? [
       // Dynamically set the webpack public path at runtime below
       // Must be first entry to properly set public path
