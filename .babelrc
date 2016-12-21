@@ -9,17 +9,6 @@
     "development": {
     },
     "production": {
-      "presets": [
-        [
-          "latest",
-          {
-            "es2015": {
-              "modules": false  // https://babeljs.io/docs/plugins/preset-es2015/
-            }
-          }
-        ],
-        "stage-0"
-      ]
     }
   }
 }
