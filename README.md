@@ -5,7 +5,7 @@
 A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack for Production JavaScript Applications](https://egghead.io/courses/using-webpack-for-production-javascript-applications)
 
 >**Note:** The boilerplate has switched from [ghooks](https://github.com/gtramontina/ghooks) to [husky](https://github.com/typicode/husky). 
->To start using husky, follow these steps:
+To start using husky, follow these steps:
 * Uninstall `ghooks` and `opt-cli`
 * Delete hooks from `.git/hooks`
 ```
@@ -15,7 +15,6 @@ ls | grep \.sample -v | xargs rm
 cd ..
 npm install husky
 ```
-
 Alternatively delete your local copy of `webpack2-boilerplate` and make a new clone.
 ```
 rm -rf webpack2-boilerplate
@@ -46,14 +45,14 @@ Some husky links:
 * CD to project directory: `cd webpack2-boilerplate`
 * Remove existing git: `rm -rf .git`
 * Install dependencies: `npm install`
-* Install dll: `npm run build:dll`
+* Build dll: `npm run build:dll`
 * Run: `npm start`
 * Open a browser at `http://localhost:8084`
-* Press `Ctrl+C` to stop the devserver
+* Press `Ctrl+C` to stop the dev server
 * Init your git: `git init`
 * Modify `package.json`, e.g. `name, author, description, repository` 
 * Add your own 3'rd party dependencies  to `package.json`
-* Add those 3'rd party dependencies to `./arc/vendor.js` or the `entry.vendor` section in **`webpack.config.dll`**
+* Add those 3'rd party dependencies to `./src/vendor.js` or the `entry.vendor` section in **`webpack.config.dll`**
 * Happy hacking :)
 
 >**Note:** Remember to add your own repo to package.json 
@@ -77,6 +76,7 @@ Some husky links:
 * `build`: bundle the app to the dist dir using development settings
 * `build:prod`: bundle the app to the dist dir using production settings
 * `start:build`: run Express sever with the generated bundle, serving files at http://localhost:8000
+* `precommit`: husky run command for the git pre-commit hook
 
 ## Test the bundle
 * `npm run build:prod`
