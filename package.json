@@ -8,6 +8,7 @@
     "setup": "npm install && npm-run-all clean validate",
     "clean": "rimraf dist",
     "validate": "npm-run-all lint test",
+    "precommit": "npm run validate",
     "build:dll": "webpack --config webpack.config.dll.js",
     "prebuild": "npm-run-all clean validate build:dll",
     "build": "webpack --env.dev --progress",
@@ -24,8 +25,7 @@
     "test:pattern": "npm run test -- --watch --grep $pattern",
     "analyze": "webpack --env.prod --json | webpack-bundle-size-analyzer",
     "start:build": "babel-node server --env.prod --port 8000",
-    "start": "babel-node server --env.dev --hot --port 8084",
-    "precommit": "npm run validate"
+    "start": "babel-node server --env.dev --hot --port 8084"
   },
   "engineStrict": true,
   "engines": {
