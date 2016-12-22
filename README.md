@@ -4,8 +4,8 @@
 
 A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack for Production JavaScript Applications](https://egghead.io/courses/using-webpack-for-production-javascript-applications)
 
->**Note:** The boilerplate has switched from [ghooks](https://github.com/gtramontina/ghooks) to [husky](https://github.com/typicode/husky). 
-To start using husky, follow these steps:
+>**Note:** The boilerplate now use [husky](https://github.com/typicode/husky) instead of [ghooks](https://github.com/gtramontina/ghooks) tu run git hooks. 
+If you already have a clone of this project, follow these steps to start using husky:
 * Uninstall `ghooks` and `opt-cli`
 * Delete hooks from `.git/hooks`
 ```
@@ -20,7 +20,6 @@ Alternatively delete your local copy of `webpack2-boilerplate` and make a new cl
 rm -rf webpack2-boilerplate
 git clone https://github.com/leifoolsen/webpack2-boilerplate.git
 ```
-
 Some husky links:
 * [Prevent bad git commits and pushes with Husky](http://www.penta-code.com/prevent-bad-git-commits-and-pushes-with-husky/)
 * [Prevent Bad Commits with husky](https://davidwalsh.name/prevent-bad-commits-husky)
@@ -37,7 +36,7 @@ Some husky links:
 * Code coverage with Istanbul
 * SASS boilerplate with Solved by Flexbox Holy Grail example layout
 * Self hosting Google Material Icons and Font Roboto
-* No dependencies to frameworks like React
+* No dependencies to frameworks like React or Angular
 
 ## Getting started
 * Install Node7 or Node6 (via nvm)
