@@ -4,7 +4,7 @@
 
 A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack for Production JavaScript Applications](https://egghead.io/courses/using-webpack-for-production-javascript-applications)
 
->**Note:** The boilerplate now use [husky](https://github.com/typicode/husky) instead of [ghooks](https://github.com/gtramontina/ghooks) tu run git hooks. 
+>**Note:** The boilerplate now use [husky](https://github.com/typicode/husky) instead of [ghooks](https://github.com/gtramontina/ghooks) to run git hooks. 
 If you already have a clone of this project, follow these steps to start using husky:
 * Uninstall `ghooks` and `opt-cli`
 * Delete hooks from `.git/hooks`
