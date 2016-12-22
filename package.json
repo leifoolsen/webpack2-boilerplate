@@ -5,10 +5,11 @@
   "author": "Leif Olsen <leif.o.olsen.at.gmail.com> (https://github.com/leifoolsen)",
   "main": "webpack.config.babel.js",
   "scripts": {
-    "setup": "npm install && npm-run-all clean lint coverage",
+    "setup": "npm install && npm-run-all clean validate",
     "clean": "rimraf dist",
+    "validate": "npm-run-all lint test",
     "build:dll": "webpack --config webpack.config.dll.js",
-    "prebuild": "npm-run-all clean coverage build:dll",
+    "prebuild": "npm-run-all clean validate build:dll",
     "build": "webpack --env.dev --progress",
     "prebuild:prod": "npm-run-all clean coverage",
     "build:prod": "NODE_ENV=production webpack --env.prod  --progress",
@@ -23,12 +24,8 @@
     "test:pattern": "npm run test -- --watch --grep $pattern",
     "analyze": "webpack --env.prod --json | webpack-bundle-size-analyzer",
     "start:build": "babel-node server --env.prod --port 8000",
-    "start": "babel-node server --env.dev --hot --port 8084"
-  },
-  "config": {
-    "ghooks": {
-      "pre-commit": "node_modules/.bin/opt --in pre-commit --exec \"npm run coverage\""
-    }
+    "start": "babel-node server --env.dev --hot --port 8084",
+    "precommit": "npm run validate"
   },
   "engineStrict": true,
   "engines": {
@@ -67,9 +64,9 @@
     "express": "4.14.0",
     "extract-text-webpack-plugin": "2.0.0-beta.4",
     "file-loader": "0.9.0",
-    "ghooks": "2.0.0",
     "html-loader": "0.4.4",
     "html-webpack-plugin": "2.24.1",
+    "husky": "0.12.0",
     "ignore-styles": "5.0.1",
     "imports-loader": "0.7.0",
     "ip": "1.1.4",
@@ -80,14 +77,13 @@
     "mocha": "3.2.0",
     "node-sass": "4.1.1",
     "npm-run-all": "3.1.2",
-    "opt-cli": "1.5.1",
     "postcss-loader": "1.2.1",
     "precss": "^1.4.0",
     "raw-loader": "0.5.1",
     "resolve-url-loader": "1.6.1",
     "rimraf": "2.5.4",
     "roboto-fontface": "0.6.0",
-    "sass-loader": "4.1.0",
+    "sass-loader": "4.1.1",
     "sinon": "1.17.6",
     "style-loader": "0.13.1",
     "stylelint": "7.7.0",
