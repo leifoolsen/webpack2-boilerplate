@@ -4,6 +4,22 @@
 
 A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack for Production JavaScript Applications](https://egghead.io/courses/using-webpack-for-production-javascript-applications)
 
+>**Note:** The boilerplate has switched from [ghooks](https://github.com/gtramontina/ghooks) to [husky](https://github.com/typicode/husky). 
+>To start using husky follow these steps:
+* Uninstall `ghooks` and `opt-cli`
+* Delete hooks from `.git/hooks`
+```
+npm uninstall ghooks opt-cli
+cd .git/hooks
+ls | grep \.sample -v | xargs rm
+```
+
+Alternatively delete your local copy of `webpack2-boilerplate` and make a new clone.
+```
+rm -rf webpack2-boilerplate
+git clone https://github.com/leifoolsen/webpack2-boilerplate.git
+```
+
 ## Features
 * ES2015
 * Node6 or Node7
