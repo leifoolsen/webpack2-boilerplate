@@ -26,7 +26,7 @@ describe('logger', () => {
     teardownJsDom();
   });
 
-  it('setting av logger property should throw ReferenceError', () => {
+  it('setting a logger property should throw ReferenceError', () => {
     expect( () => {
       logger.info = 'not_allowed';
     }).to.throw(ReferenceError);
