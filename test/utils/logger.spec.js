@@ -135,7 +135,7 @@ describe('logger', () => {
       expect(global.fetch.called).to.be.true;
     });
 
-    it('should log many error messages to remote', () => {
+    it('should log a batch of error messages to remote', () => {
       logger.remoteLogger.level = 'error';
       logger.remoteLogger.batchSize = 3;
 
