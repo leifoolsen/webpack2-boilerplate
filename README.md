@@ -82,7 +82,7 @@ More details about Husky can be found here:
 
 ## Test the bundle
 * `npm run build:prod`
-* `npm run start:build`
+* `npm run server`
 * Open a browser at `http://localhost:8000`
 
 ### Test the API
