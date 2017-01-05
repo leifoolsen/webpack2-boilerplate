@@ -20,11 +20,13 @@ describe('Basic', () => {
   });
 });
 
-describe('Async', () => {
+
+describe('Timeout', () => {
   it('should call the callback', (done) => {
     setTimeout(() => done(), 200);
   });
 });
+
 
 describe('Promise', () => {
   it('should succeed when promise is resolved', () => {

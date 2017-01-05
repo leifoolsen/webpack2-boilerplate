@@ -1,51 +1,39 @@
 import 'whatwg-fetch';
 import run from './app/app';
-import request from './utils/request';
-
+import logger, {LOG_LEVEL} from './utils/logger';
 import './styles.scss';
 
-
-const serverLog = msg => {
-
-  request('/api/log'  ,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        message: msg,
-      })
-    })
-    .catch(err => err)
-    .then(response => {
-      console.log('**** response', response);
-    });
-
-};
-
 // Unhandled errors should be sent to the server
-
 if (window && !window.onerror) {
   window.onerror = function (msg, url, lineNo, columnNo, error) {
 
-    console.log('#####', msg, url, lineNo, columnNo, error);
-    serverLog(msg);
+    error = error || {};
+    error.fileName = error.fileName || url || null;
+    error.lineNumber = error.lineNumber || lineNo || null;
+    error.columnNumber = error.columnNumber || columnNo || null;
+
+    const detail = {
+      name: error.name || null,
+      message: error.message || null,
+      file: error.fileName,
+      source: ((error.toSource && error.toSource()) || null),
+      line: error.lineNumber,
+      column: error.columnNumber,
+      stack: error.stack || null,
+    };
+
+    // An uncaught error is dumped to console, so only need to log remote
+    logger.remoteLogger.log(LOG_LEVEL.error, msg, detail);
     return false;
   };
 }
 
-/*
- window.addEventListener('error', (e) => {
- //const stack = e.error.stack;
- //const message = e.error.toString();
- console.log('XXXXX', e.error, e.colno, e.filename, e.lineno, e.message, e);
-
- //e.stopPropagation();
- //e.preventDefault();
- return false;
- });
- */
+if(window) {
+  window.addEventListener('beforeunload', () => {
+    logger.debug('before unload, flushing remote logger');
+    logger.remoteLogger.flush();
+  });
+}
 
 if (module.hot) {
   // This tells Webpack that this file and all of its dependencies can be replaced.
@@ -53,7 +41,7 @@ if (module.hot) {
   module.hot.accept();
 
   // Accept changes to this file for hot reloading.
-  // Enabling this results in multiple page loads (flashing screen)
+  // Enabling this may result in multiple page loads (flashing screen)
   //module.hot.accept('./index.js');
 
   // Any changes to our App will cause a hotload re-render.
@@ -68,5 +56,8 @@ if (module.hot) {
 }
 
 // Start
+logger.consoleLogger.level = LOG_LEVEL.debug;
+logger.remoteLogger.level = LOG_LEVEL.error;
+logger.remoteLogger.batchSize = 1;
 window.addEventListener('load', () => run());
 

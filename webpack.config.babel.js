@@ -221,16 +221,16 @@ module.exports = {
   context: src,
 
   // Developer tool to enhance debugging, source maps
-  // http://webpack.github.io/docs/configuration.html#devtool
-  // http://moduscreate.com/optimizing-react-es6-webpack-production-build/
-  // https://github.com/gaearon/react-hot-loader/blob/master/docs/Troubleshooting.md
-  // https://twitter.com/dan_abramov/status/555770268489375746
-  // see: https://twitter.com/dan_abramov/status/706294608603553793
-  // source map can be turned on/off in UglifyJsPlugin
-  // devtool: isProd ? 'cheap-module-source-map' : 'eval',  // Redux needs 'eval', see: https://twitter.com/dan_abramov/status/706294608603553793
+  // see: http://webpack.github.io/docs/configuration.html#devtool
+  // see: http://moduscreate.com/optimizing-react-es6-webpack-production-build/
+  // see: https://github.com/gaearon/react-hot-loader/blob/master/docs/Troubleshooting.md
+  // see: https://twitter.com/dan_abramov/status/555770268489375746
+  // inline-source-map, see: https://github.com/webpack/webpack/issues/2145
+  // Redux and eval, see: see: https://twitter.com/dan_abramov/status/706294608603553793
+  // devtool: isProd ? 'cheap-module-source-map' : 'eval',
   // devtool: isProd ? 'cheap-module-source-map' : 'cheap-module-eval-source-map', // 'cheap-module-source-map': not possible to map errors to source in production
   // devtool: isProd ? 'source-map' : 'cheap-module-eval-source-map', // 'source-map': detailed mapping of errors to source in production
-  devtool: isProd ? 'source-map' : 'cheap-module-eval-source-map',
+  devtool: isProd ? 'source-map' : 'cheap-module-source-map',
   cache:   !isProd,
   bail:    isProd,  // Don't attempt to continue if there are any errors.
   target:  'web',   // Make web variables accessible to webpack, e.g. window. This is a default value; just be aware of it
@@ -269,7 +269,6 @@ module.exports = {
       './styles.scss',
     ]),
   }),
-
   output: {
     filename: isProd ? '[name].[chunkhash].js' : '[name].js', // Don't use hashes in dev mode
     chunkFilename: isProd ? '[name].[chunkhash].chunk.js' : '[name].chunk.js',

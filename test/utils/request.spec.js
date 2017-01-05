@@ -15,7 +15,7 @@ const jsonOk = body => {
     }
   });
   return Promise.resolve(mockResponse);
-}
+};
 
 const jsonError = (status, statusText) => {
   const mockResponse = new Response('', {
@@ -26,7 +26,7 @@ const jsonError = (status, statusText) => {
     },
   });
   return Promise.resolve(mockResponse);
-}
+};
 
 describe('request', () => {
 

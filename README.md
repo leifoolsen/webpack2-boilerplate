@@ -7,12 +7,15 @@ A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack f
 >**Note:** The boilerplate now use [husky](https://github.com/typicode/husky) instead of [ghooks](https://github.com/gtramontina/ghooks) to run git hooks. 
 If you already have a clone of this project, follow these steps to start using husky:
 * Uninstall `ghooks` and `opt-cli`
+* Remove `ghooks` and `opt-cli` from `package.json` 
+* Remove `"ghooks"` entry from `"config"`" from `package.json`
+* Add `precommit` script to `package.json`, e.g `"precommit": "npm run validate",` 
 * Delete hooks from `.git/hooks`
 ```
 npm uninstall ghooks opt-cli
 cd .git/hooks
 ls | grep \.sample -v | xargs rm
-cd ..
+cd ../..
 npm install husky
 ```
 Alternatively delete your local copy of `webpack2-boilerplate` and make a new clone.
@@ -20,7 +23,7 @@ Alternatively delete your local copy of `webpack2-boilerplate` and make a new cl
 rm -rf webpack2-boilerplate
 git clone https://github.com/leifoolsen/webpack2-boilerplate.git
 ```
-Some husky links:
+More details about Husky can be found here:
 * [Prevent bad git commits and pushes with Husky](http://www.penta-code.com/prevent-bad-git-commits-and-pushes-with-husky/)
 * [Prevent Bad Commits with husky](https://davidwalsh.name/prevent-bad-commits-husky)
 
@@ -66,7 +69,7 @@ Some husky links:
 * `start`: run Express sever, with Hot Module Reloading (HMR), eslint and stylelint, serving files at http://localhost:8084
 * `test`: run Mocha tests
 * `test:watch`: run Mocha tests in watch mode
-* `test:pattern`: will run Mocha tests and suites with names matching the given pattern, e.g.<br/>`pattern=Basic npm run test:pattern`
+* `test:pattern`: will run Mocha tests and suites with names matching the given pattern, e.g.<br/>`pattern=logger npm run test:pattern` will run only the `logger` tests
 * `test:coverage`: run Istanbul code coverage (open `coverage/lcov-report/index.html` to view coverage report)
 * `lint`: lint according to rules in `.eslintrc` and `.stylelintrc`
 * `coverage`: runs code coverage 
@@ -74,7 +77,7 @@ Some husky links:
 * `clean`: remove the dist directory
 * `build`: bundle the app to the dist dir using development settings
 * `build:prod`: bundle the app to the dist dir using production settings
-* `start:build`: run Express sever with the generated bundle, serving files at http://localhost:8000
+* `server`: run Express sever with the generated bundle, serving files at http://localhost:8000
 * `precommit`: husky run command for the git pre-commit hook
 
 ## Test the bundle
