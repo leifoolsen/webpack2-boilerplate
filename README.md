@@ -16,7 +16,7 @@ npm uninstall ghooks opt-cli
 cd .git/hooks
 ls | grep \.sample -v | xargs rm
 cd ../..
-npm install husky
+npm install
 ```
 Alternatively delete your local copy of `webpack2-boilerplate` and make a new clone.
 ```
