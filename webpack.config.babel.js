@@ -23,6 +23,8 @@ const publicPath = '/';
 
 //const removeEmpty = array => array.filter(i => !!i);
 
+console.log('Webpack argv:', argv, 'isDev:', isDev, 'isHot:', isHot);
+
 const removeEmptyKeys = obj => {
   const result = {};
   for (const key in obj) {

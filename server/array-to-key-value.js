@@ -24,10 +24,11 @@ const arrayToKeyValue = array => {
           arr.splice(index, 1);
         }
       }
-      return {
-        ...prev,
-        [key]: val
-      }
+      //return {
+      //  ...prev,
+      //  [key]: val
+      //}
+      return Object.assign({}, prev, {[key]: val});
     }
     return prev;
 
