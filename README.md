@@ -28,7 +28,6 @@ npm i -D husky
 ```bash
 npm install
 ```
-
 Alternatively delete your local copy of `webpack2-boilerplate` and make a new clone.
 ```bash
 rm -rf webpack2-boilerplate
