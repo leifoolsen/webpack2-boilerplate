@@ -29,9 +29,9 @@ npm i -D husky
 npm install
 ```
 
-Alternatively delete your local copy of `mdl-ext` and make a new clone.
+Alternatively delete your local copy of `webpack2-boilerplate` and make a new clone.
 ```bash
-rm -rf mdl-ext
+rm -rf webpack2-boilerplate
 git clone https://github.com/leifoolsen/webpack2-boilerplate.git
 ```
 More details about Husky can be found here:
