@@ -6,26 +6,38 @@ A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack f
 
 >**Note:** The boilerplate now use [husky](https://github.com/typicode/husky) instead of [ghooks](https://github.com/gtramontina/ghooks) to run git hooks. 
 If you already have a clone of this project, follow these steps to start using husky:
-* Uninstall `ghooks` and `opt-cli`
-* Remove `ghooks` and `opt-cli` from `package.json` 
-* Remove `"ghooks"` entry from `"config"`" from `package.json`
-* Add `precommit` script to `package.json`, e.g `"precommit": "npm run validate",` 
-* Delete hooks from `.git/hooks`
+* Update master
+```bash
+git checkout master
+git pull origin master
 ```
+* Uninstall `ghooks` and `opt-cli`
+```bash
 npm uninstall ghooks opt-cli
+```
+* Delete hooks from `.git/hooks`
+```bash
 cd .git/hooks
 ls | grep \.sample -v | xargs rm
-cd ../..
+```
+* Install Husky
+```bash
+npm i -D husky
+```
+* Update all dependencies in `package.json`
+```bash
 npm install
 ```
-Alternatively delete your local copy of `webpack2-boilerplate` and make a new clone.
-```
-rm -rf webpack2-boilerplate
+
+Alternatively delete your local copy of `mdl-ext` and make a new clone.
+```bash
+rm -rf mdl-ext
 git clone https://github.com/leifoolsen/webpack2-boilerplate.git
 ```
 More details about Husky can be found here:
 * [Prevent bad git commits and pushes with Husky](http://www.penta-code.com/prevent-bad-git-commits-and-pushes-with-husky/)
 * [Prevent Bad Commits with husky](https://davidwalsh.name/prevent-bad-commits-husky)
+
 
 ## Features
 * ES2015
