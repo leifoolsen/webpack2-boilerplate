@@ -8,6 +8,7 @@ A Webpack2 boilerplate, partly based on this Egghead.io course; [Using Webpack f
 If you already have a clone of this project, follow these steps to start using husky:
 * Update master
 ```bash
+cd webpack2-bolierplate
 git checkout master
 git pull origin master
 ```
@@ -19,6 +20,7 @@ npm uninstall ghooks opt-cli
 ```bash
 cd .git/hooks
 ls | grep \.sample -v | xargs rm
+cd ../..
 ```
 * Install Husky
 ```bash
