@@ -130,16 +130,16 @@ const prodPlugins = isProd ? [
 
   new webpack.optimize.UglifyJsPlugin({
     compress: {
+      unused: true,    // Enables tree shaking
+      dead_code: true, // Enables tree shaking
       warnings: false,
       screw_ie8: true,
       conditionals: true,
-      unused: true,
       comparisons: true,
       sequences: true,
-      dead_code: true,
       evaluate: true,
-      if_return: true,
       join_vars: true,
+      if_return: true,
     },
     output: {
       comments: false
@@ -387,7 +387,7 @@ module.exports = {
     }),
 
     // Avoid publishing files when compilation fails
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
 
     // No longer needed in Webpack2, on by default
     //new webpack.optimize.OccurrenceOrderPlugin(),
