@@ -132,6 +132,7 @@ const prodPlugins = isProd ? [
     compress: {
       unused: true,    // Enables tree shaking
       dead_code: true, // Enables tree shaking
+      pure_getters: true,
       warnings: false,
       screw_ie8: true,
       conditionals: true,
