@@ -10,8 +10,12 @@
 
   "parser": "babel-eslint",
 
+  "settings": {
+    "ecmascript": 7,
+    "jsx": true
+  },
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 7,
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
       "globalReturn": true,
@@ -20,23 +24,19 @@
     },
     "sourceType": "module"
   },
-
   "env": {
-    "browser": true,     // browser global variables
-    "node": true,        // Node.js global variables and Node.js-specific rules
-    "mocha": true,       // adds all of the Mocha testing global variables
-    "es6": true          // ECMAScript 6
+    "browser": true, // browser global variables
+    "node": true,    // Node.js global variables and Node.js-specific rules
+    "mocha": true,   // adds all of the Mocha testing global variables
+    "es6": true      // ECMAScript 6
   },
 
   "plugins": [
     // e.g. "react" (must run `npm install eslint-plugin-react` first)
   ],
-
-  "settings": {
-    "ecmascript": 7,
-    "jsx": true
+  "globals": {
+    // "componentHandler": true // Material Design Lite
   },
-
   "rules": {
     "strict": 0,
     "indent": [2, 2, {"SwitchCase": 1}],
@@ -49,8 +49,5 @@
     "prefer-spread": 1,
     "prefer-template": 1,
     "no-console": 1
-  },
-  "globals": {
-    // "componentHandler": true // Material Design Lite
   }
 }

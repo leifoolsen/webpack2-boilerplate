@@ -26,7 +26,7 @@ const addListeners = () => {
 
 const run = () => {
   addListeners();
-  logger.info('Application started!');
+  logger.info('Application loaded!');
 };
 
 if (module.hot) {

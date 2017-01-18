@@ -79,7 +79,7 @@ More details about Husky can be found here:
 ```
 
 ## NPM Scripts
-* `start`: run Express sever, with Hot Module Reloading (HMR), eslint and stylelint, serving files at http://localhost:8084
+* `start`: run Express sever with Hot Module Reloading (HMR), eslint and stylelint, serving files at http://localhost:8084
 * `test`: run Mocha tests
 * `test:watch`: run Mocha tests in watch mode
 * `test:single`: run a single Mocha test file in watch mode, e.g.<br/>`npm run test:single test/utils/logger.spec.js`
