@@ -37,20 +37,20 @@
     "url": "https://github.com/leifoolsen/webpack2-boilerplate.git"
   },
   "dependencies": {
-    "babel-polyfill": "6.20.0",
+    "babel-polyfill": "6.22.0",
     "moment": "2.17.1",
-    "whatwg-fetch": "2.0.1"
+    "whatwg-fetch": "2.0.2"
   },
   "devDependencies": {
     "autoprefixer": "6.6.1",
     "babel-cli": "6.18.0",
-    "babel-core": "6.21.0",
+    "babel-core": "6.22.0",
     "babel-eslint": "7.1.1",
     "babel-loader": "6.2.10",
     "babel-plugin-__coverage__": "11.0.0",
     "babel-plugin-istanbul": "3.1.2",
-    "babel-preset-latest": "6.16.0",
-    "babel-preset-stage-0": "6.16.0",
+    "babel-preset-latest": "6.22.0",
+    "babel-preset-stage-0": "6.22.0",
     "body-parser": "1.16.0",
     "chai": "3.5.0",
     "chai-as-promised": "6.0.0",
