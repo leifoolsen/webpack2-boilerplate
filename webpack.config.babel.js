@@ -9,21 +9,21 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const argv = require('./server/array-to-key-value').arrayToKeyValue(process.argv.slice(2));
-
 const isDev = process.env.NODE_ENV !== 'production' && !argv['env.prod'];
 const isProd = !isDev;
-const isHot = argv['hot'] || false;
+const isHot = argv.hot || false;
 const src = path.resolve(process.cwd(), 'src');
 const dist = path.resolve(process.cwd(), 'dist');
 const publicPath = '/';
+const context = src;
 
 // get the intended port number, use port 3000 if not provided
-//const host = 'localhost';
-//const port = process.env.PORT || argv.port || 3000;
-
-//const removeEmpty = array => array.filter(i => !!i);
+const host = 'localhost';
+const port = process.env.PORT || argv.port || 3000;
 
 //console.log('Webpack argv:', argv, 'isDev:', isDev, 'isHot:', isHot);
+
+//const removeEmpty = array => array.filter(i => !!i);
 
 const removeEmptyKeys = obj => {
   const result = {};
@@ -221,7 +221,7 @@ const cssRules = isHot ? [
 ];
 
 module.exports = {
-  context: src,
+  context: context,
 
   // Developer tool to enhance debugging, source maps
   // see: http://webpack.github.io/docs/configuration.html#devtool
@@ -248,14 +248,14 @@ module.exports = {
     // Correct bundle order: [manifest, vendor, app]
     // see: http://stackoverflow.com/questions/36796319/webpack-with-commonschunkplugin-results-with-wrong-bundle-order-in-html-file
     // see: https://github.com/ampedandwired/html-webpack-plugin/issues/481
-    vendor: isProd ? ['babel-polyfill', './vendor.js'] : [],
+    vendor: isProd ? ['./vendor.js'] : [],
     app: (isHot ? [
       // Dynamically set the webpack public path at runtime below
       // Must be first entry to properly set public path
       // See: http://webpack.github.io/docs/configuration.html#output-publicpath
       './webpack-public-path.js',
 
-      // reload - Set to true to auto-reload the page when webpack gets stuck. (React: use reload=false)
+      // reload - Set to true to auto-reload the page when webpack gets stuck. (React: use reload=false ??)
       // See: https://github.com/glenjamin/webpack-hot-middleware
       // 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
       // `webpack-hot-middleware/client?path=http://${host}:${port}/__webpack_hmr&timeout=20000&reload=true`,
@@ -388,6 +388,7 @@ module.exports = {
     }),
 
     // Avoid publishing files when compilation fails
+    // Note: NoErrorsPlugin is renamed to NoEmitOnErrorsPlugin
     new webpack.NoEmitOnErrorsPlugin(),
 
     // No longer needed in Webpack2, on by default
@@ -419,5 +420,34 @@ module.exports = {
     // Outputs more readable module names in the browser console on HMR updates
     new webpack.NamedModulesPlugin(),
 
-  ].concat(devPlugins()).concat(hotPlugins).concat(prodPlugins)
+  ].concat(devPlugins()).concat(hotPlugins).concat(prodPlugins),
+
+  // Config options:
+  // see: https://webpack.github.io/docs/webpack-dev-server.html
+  // see: https://webpack.js.org/configuration/dev-server/
+  // see: https://github.com/webpack/webpack-dev-middleware
+  // see: https://github.com/chimurai/http-proxy-middleware
+  // see: https://github.com/bripkens/connect-history-api-fallback
+  // NOTE: Only use options that are compatible with webpack-dev-middleware
+  devServer: {
+    host: host,
+    port: port,
+    publicPath: publicPath,
+    contentBase: context,   // contentBase: `http://${host}:${port}`,
+    hot: isHot,
+    compress: true,
+    open: true,
+    noInfo: true,
+    stats: 'errors-only',
+    inline: true,
+    lazy: false,
+    headers: {'Access-Control-Allow-Origin': '*'},
+    watchOptions: {
+      aggregateTimeout: 300,
+      poll: 1000
+    },
+    historyApiFallback: {
+      verbose: false
+    },
+  }
 };
