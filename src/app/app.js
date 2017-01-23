@@ -8,12 +8,12 @@ const badFunction = () => {
 };
 
 const pingHandler = () => {
-  const el = document.querySelector('#ping-response'); /* -++- */
+  const el = document.querySelector('#ping-response');
   ping(el);
 };
 
 const unhandledErrorHandler = () => {
-  document.querySelector('#unhandled-error-response').textContent = 'Check your server log';
+  document.querySelector('#unhandled-error-response').textContent = 'Check your console and server log';
   badFunction();
 };
 
@@ -30,6 +30,7 @@ const run = () => {
 };
 
 if (module.hot) {
+  // See e.g. http://andrewhfarmer.com/webpack-hmr-tutorial/
   module.hot.dispose(() => {
     // Handle side effects
     document.querySelector('#btn-ping').removeEventListener('click', pingHandler);
