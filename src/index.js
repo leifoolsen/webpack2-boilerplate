@@ -56,8 +56,12 @@ if (module.hot) {
 }
 
 // Start
-logger.consoleLogger.level = LOG_LEVEL.debug;
-logger.remoteLogger.level = LOG_LEVEL.error;
+// Konfigurer logging
+const config = require('./config'); // eslint-disable-line global-require
+
+logger.consoleLogger.level = config.logger.console.level || LOG_LEVEL.debug;
+logger.remoteLogger.level = config.logger.remote.level || LOG_LEVEL.error;
 logger.remoteLogger.batchSize = 1;
+
 window.addEventListener('load', () => run());
 
