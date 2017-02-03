@@ -1,9 +1,8 @@
+import { Response } from 'whatwg-fetch';
 import sinon from 'sinon';
 import { before, after, beforeEach, afterEach, describe, it } from 'mocha';
 import { expect } from 'chai';
 import { setupJsDom, teardownJsDom } from '../jsdom-init';
-
-import { Response } from 'whatwg-fetch';
 import request from '../../src/utils/request';
 
 
@@ -28,11 +27,15 @@ const jsonError = (status, statusText) => {
   return Promise.resolve(mockResponse);
 };
 
+const networkFailure = () => {
+  return Promise.resolve(undefined);
+}
+
 describe('request', () => {
 
-  before (() => {
+  before(() => {
     setupJsDom();
-    if(!global.fetch) {
+    if (!global.fetch) {
       global.fetch = require('whatwg-fetch').fetch;
     }
   });
@@ -49,8 +52,8 @@ describe('request', () => {
     sinon.restore(global.fetch); // or: global.fetch.restore();
   });
 
-  describe('stubbing successful response', () => {
-    beforeEach(()=> {
+  describe('successful response', () => {
+    beforeEach(() => {
       fetch.returns(jsonOk({
         hello: 'world'
       }));
@@ -58,21 +61,24 @@ describe('request', () => {
 
     it('should format the response correctly', (done) => {
       request('/whatever')
-        .catch(done)
         .then((json) => {
           expect(json.hello).to.equal('world');
           done();
-        });
+        })
+        .catch(done);
     });
   });
 
-  describe('stubbing error response', () => {
-    beforeEach(()=> {
+  describe('error response', () => {
+    beforeEach(() => {
       fetch.returns(jsonError(404, 'Not Found'));
     });
 
     it('should catch errors', (done) => {
       request('/errorpath')
+        .then( () => {
+          throw new Error('Should not return success');
+        })
         .catch((err) => {
           expect(err.response.status).to.equal(404);
           expect(err.response.statusText).to.equal('Not Found');
@@ -81,7 +87,20 @@ describe('request', () => {
     });
   });
 
+  describe('network failure', () => {
+    beforeEach(() => {
+      fetch.returns(networkFailure());
+    });
+    it('should catch response.status: 500 on network failure', (done) => {
+      request('/good')
+        .then( () => {
+          throw new Error('Should not return success');
+        })
+        .catch((err) => {
+          expect(err.response.status).to.equal(500);
+          done();
+        });
+    });
+  });
+
 });
-
-
-
