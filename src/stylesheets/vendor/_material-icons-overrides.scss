@@ -7,18 +7,23 @@
   &.md-12 {
     font-size: 12px;
   }
+
   &.md-18 {
     font-size: 18px;
   }
+
   &.md-24 {
     font-size: 24px;
   }
+
   &.md-32 {
     font-size: 32px;
   }
+
   &.md-36 {
     font-size: 36px;
   }
+
   &.md-48 {
     font-size: 48px;
   }
@@ -26,6 +31,7 @@
   // Rules for using icons as black on a light background.
   &.md-dark {
     color: rgba(0, 0, 0, 0.54);
+
     &.md-inactive {
       color: rgba(0, 0, 0, 0.26);
     }
@@ -34,6 +40,7 @@
   // Rules for using icons as white on a dark background.
   &.md-light {
     color: rgba(255, 255, 255, 1);
+
     &.md-inactive {
       color: rgba(255, 255, 255, 0.3);
     }
