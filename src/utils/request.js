@@ -1,8 +1,10 @@
-// Code based on
-// See: https://rjzaworski.com/2015/06/testing-api-requests-from-window-fetch
-// See: https://www.tjvantoll.com/2015/09/13/fetch-and-errors/
-// See: https://www.sitepoint.com/an-introduction-to-reasonably-pure-functional-programming/
-// See: https://github.com/mxstbr/react-boilerplate/blob/master/app/utils/request.js
+/**
+ * Code based on
+ * See: https://rjzaworski.com/2015/06/testing-api-requests-from-window-fetch
+ * See: https://www.tjvantoll.com/2015/09/13/fetch-and-errors/
+ * See: https://www.sitepoint.com/an-introduction-to-reasonably-pure-functional-programming/
+ * See: https://github.com/mxstbr/react-boilerplate/blob/master/app/utils/request.js
+ */
 
 import 'whatwg-fetch';
 
@@ -23,7 +25,7 @@ const apiError = response => {
  * Error objects sent to the catch handler without a response property, signal a
  * network failure that was never able to receive a response from the server.
  *
- * @param error
+ * @param err
  *
  * @return {undefined} throws an error
  *

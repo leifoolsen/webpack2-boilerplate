@@ -1,4 +1,6 @@
-// Code inspired by https://github.com/mxstbr/react-boilerplate/blob/master/server/middlewares/frontendMiddleware.js
+/**
+ * Code inspired by https://github.com/mxstbr/react-boilerplate/blob/master/server/middlewares/frontendMiddleware.js
+ */
 
 import 'babel-polyfill';
 import path from 'path';
