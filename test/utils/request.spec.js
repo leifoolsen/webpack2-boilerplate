@@ -10,7 +10,17 @@ const jsonOk = body => {
   const mockResponse = new Response(JSON.stringify(body), {
     status: 200,
     headers: {
-      'Content-type': 'application/json'
+      'Content-type': 'application/json; utf-8'
+    }
+  });
+  return Promise.resolve(mockResponse);
+};
+
+const textOk = body => {
+  const mockResponse = new Response(body, {
+    status: 200,
+    headers: {
+      'Content-type': 'text/html; utf-8'
     }
   });
   return Promise.resolve(mockResponse);
@@ -29,7 +39,7 @@ const jsonError = (status, statusText) => {
 
 const networkFailure = () => {
   return Promise.resolve(undefined);
-}
+};
 
 describe('request', () => {
 
@@ -52,7 +62,7 @@ describe('request', () => {
     sinon.restore(global.fetch); // or: global.fetch.restore();
   });
 
-  describe('successful response', () => {
+  describe('successful JSON response', () => {
     beforeEach(() => {
       fetch.returns(jsonOk({
         hello: 'world'
@@ -63,6 +73,23 @@ describe('request', () => {
       request('/whatever')
         .then((json) => {
           expect(json.hello).to.equal('world');
+          done();
+        })
+        .catch(done);
+    });
+  });
+
+  describe('successful text response', () => {
+    beforeEach(() => {
+      fetch.returns(textOk(
+        'hello world'
+      ));
+    });
+
+    it('should format response not having "Content-type: application/json" as text', (done) => {
+      request('/whatever')
+        .then((text) => {
+          expect(text).to.equal('hello world');
           done();
         })
         .catch(done);

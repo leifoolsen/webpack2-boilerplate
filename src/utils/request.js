@@ -75,7 +75,7 @@ const checkResponse = response => {
  * @return {object} The parsed body from the request
  */
 const toContentType = response => {
-  if (response.headers.get('Content-Type') === 'application/json') {
+  if (response.headers.get('Content-Type').indexOf('application/json') > -1) {
     return response.json();
   }
   return response.text();
