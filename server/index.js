@@ -47,7 +47,7 @@ if(isHot) {
     //heartbeat: 10 * 1000,
   }));
 
-  app.use(config.output.publicPath, express.static(config.context));
+  app.use(config.devServer.publicPath, express.static(config.context));
 
   // Since webpackDevMiddleware uses memory-fs internally to store build
   // artifacts, we use it instead

@@ -431,8 +431,8 @@ module.exports = {
   devServer: {
     host: host,
     port: port,
-    publicPath: publicPath,
-    contentBase: context,   // contentBase: `http://${host}:${port}`,
+    publicPath: publicPath, //'/myapp',
+    contentBase: context,
     hot: isHot,
     compress: true,
     open: true,
@@ -446,7 +446,18 @@ module.exports = {
       poll: 1000
     },
     historyApiFallback: {
-      verbose: true
+      verbose: true,
+      disableDotRule: false,
+      /*
+      rewrites: [
+        {
+          from: /^\/.*$/,
+          to: function(context) {
+            return '/myapp' + context.parsedUrl.pathname;
+          }
+        }
+      ],
+      */
     },
   }
 };
