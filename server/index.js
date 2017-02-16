@@ -13,11 +13,13 @@ import logger from './logger';
 
 const argv = require('./array-to-key-value').arrayToKeyValue(process.argv.slice(2));
 const isHot = argv.hot || false;
+const publicPath = config.devServer.publicPath;
+
 
 const app = express();
 
 // Middleware for handling JSON, Raw, Text and URL encoded form data
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Api router. Must be defined before any app.get
@@ -43,19 +45,30 @@ if(isHot) {
   app.use(devMiddleware);
   app.use(webpackHotMiddleware(compiler, {
     //log: console.log,
-    //path: '/__webpack_hmr',
+    path: path.join(publicPath, '__webpack_hmr'),
     //heartbeat: 10 * 1000,
   }));
 
-  app.use(config.devServer.publicPath, express.static(config.context));
+  app.use(publicPath, express.static(config.context));
 
   // Since webpackDevMiddleware uses memory-fs internally to store build
   // artifacts, we use it instead
   const fs = devMiddleware.fileSystem;
 
   app.get(/\.dll\.js$/, (req, res) => {
-    const filename = req.path.replace(/^\//, '');
+    const filename = req.path.replace(new RegExp(publicPath), '');
     res.sendFile(path.join(process.cwd(), 'dist', filename));
+  });
+
+  app.get(/\.map$/, (req, res) => {
+    const filename = req.path.replace(/^\//, '');
+    fs.readFile(path.join(compiler.outputPath, filename), (err, file) => {
+      if (err) {
+        res.sendStatus(404);
+      } else {
+        res.send(file.toString());
+      }
+    });
   });
 
   app.get('*', (req, res) => {
@@ -75,13 +88,19 @@ else {
   const compression = require('compression');
   app.use(compression());
 
-  // Eventually override public path and output path in production
-  const publicPath = process.env.PUBLIC_PATH || argv['public-path'] || config.devServer.publicPath;
+  // Eventually override output path in production
   const outputPath = process.env.OUTPUT_PATH || argv['output-path'] || config.output.path;
 
   app.use(publicPath, express.static(outputPath));
 
-  app.get('*', (req, res) => res.sendFile(path.resolve(outputPath, 'index.html')));
+  app.get(/\.map$/, (req, res) => {
+    const filename = req.path.replace(/^\//, '');
+    res.sendFile(path.resolve(outputPath, filename))
+  });
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(outputPath, 'index.html'))
+  });
 }
 
 process.on('uncaughtException', err => {
