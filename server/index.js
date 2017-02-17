@@ -13,8 +13,7 @@ import logger from './logger';
 
 const argv = require('./array-to-key-value').arrayToKeyValue(process.argv.slice(2));
 const isHot = argv.hot || false;
-const publicPath = config.devServer.publicPath;
-
+const publicPath = config.output.publicPath;
 
 const app = express();
 

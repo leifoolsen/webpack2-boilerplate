@@ -14,13 +14,12 @@ const isProd = !isDev;
 const isHot = argv.hot || false;
 const src = path.resolve(process.cwd(), 'src');
 const dist = path.resolve(process.cwd(), 'dist');
-const publicPath = '/';
 const context = src;
 
 // get the intended port number, use port 3000 if not provided
 const host = 'localhost';
 const port = process.env.PORT || argv.port || 3000;
-const serverPublicPath = process.env.PUBLIC_PATH || argv['public-path'] || '/';
+const publicPath = process.env.PUBLIC_PATH || argv['public-path'] || '/myapp/';
 
 //console.log('Webpack argv:', argv, 'isDev:', isDev, 'isHot:', isHot);
 
@@ -258,7 +257,8 @@ module.exports = {
 
       // reload - Set to true to auto-reload the page when webpack gets stuck.
       // See: https://github.com/glenjamin/webpack-hot-middleware
-      `webpack-hot-middleware/client?path=${path.join(serverPublicPath, '__webpack_hmr')}&reload=true`,
+      //`webpack-hot-middleware/client?http://${host}:${port}/__webpack_hmr?reload=true`
+      `webpack-hot-middleware/client?path=${path.join(publicPath, '__webpack_hmr')}&reload=true`,
 
       // Webpack2: remove any reference to webpack/hot/dev-server or webpack/hot/only-dev-server
       // from your webpack config. Instead, use the reload config option of 'webpack-hot-middleware'.
@@ -430,7 +430,7 @@ module.exports = {
   devServer: {
     host: host,
     port: port,
-    publicPath: serverPublicPath,
+    publicPath: publicPath,
     contentBase: context,
     hot: isHot,
     compress: true,
@@ -447,16 +447,16 @@ module.exports = {
     historyApiFallback: {
       verbose: true,
       disableDotRule: false,
-      rewrites: [
+      rewrites: publicPath != '/' ? [
         {
           from: /^\/.*$/,
           to: function(ctx) {
-            return ctx.parsedUrl.pathname.startsWith(serverPublicPath)
+            return ctx.parsedUrl.pathname.startsWith(publicPath.replace(/\/$/, ''))
               ? ctx.parsedUrl.pathname
-              : path.join(serverPublicPath, ctx.parsedUrl.pathname);
+              : path.join(publicPath, ctx.parsedUrl.pathname);
           }
         }
-      ],
+      ] : [],
     },
   }
 };
