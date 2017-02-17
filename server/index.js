@@ -95,11 +95,11 @@ else {
 
   app.get(/\.map$/, (req, res) => {
     const filename = req.path.replace(/^\//, '');
-    res.sendFile(path.resolve(outputPath, filename))
+    res.sendFile(path.resolve(outputPath, filename));
   });
 
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(outputPath, 'index.html'))
+    res.sendFile(path.resolve(outputPath, 'index.html'));
   });
 }
 

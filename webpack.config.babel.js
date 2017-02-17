@@ -450,10 +450,10 @@ module.exports = {
       rewrites: [
         {
           from: /^\/.*$/,
-          to: function(context) {
-            return context.parsedUrl.pathname.startsWith(serverPublicPath)
-              ? context.parsedUrl.pathname
-              : path.join(serverPublicPath, context.parsedUrl.pathname);
+          to: function(ctx) {
+            return ctx.parsedUrl.pathname.startsWith(serverPublicPath)
+              ? ctx.parsedUrl.pathname
+              : path.join(serverPublicPath, ctx.parsedUrl.pathname);
           }
         }
       ],
