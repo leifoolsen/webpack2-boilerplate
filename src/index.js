@@ -1,6 +1,6 @@
 import 'whatwg-fetch';
 import run from './app/app';
-import logger, {LOG_LEVEL} from './utils/logger';
+import logger, {LOG_LEVEL} from './logger/logger';
 import './styles.scss';
 
 // Unhandled errors should be sent to the server

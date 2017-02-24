@@ -9,6 +9,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const argv = require('./server/array-to-key-value').arrayToKeyValue(process.argv.slice(2));
+const config = require('./src/config');
 const isDev = process.env.NODE_ENV !== 'production' && !argv['env.prod'];
 const isProd = !isDev;
 const isHot = argv.hot || false;
@@ -19,9 +20,9 @@ const context = src;
 // get the intended port number, use port 3000 if not provided
 const host = 'localhost';
 const port = process.env.PORT || argv.port || 3000;
-const publicPath = process.env.PUBLIC_PATH || argv['public-path'] || '/';
+const publicPath = process.env.PUBLIC_PATH || argv['public-path'] || config.publicPath || '/';
 
-//console.log('Webpack argv:', argv, 'isDev:', isDev, 'isHot:', isHot);
+//console.log('Webpack argv:', argv, 'isDev:', isDev, 'isHot:', isHot, 'publicPath', publicPath);
 
 //const removeEmpty = array => array.filter(i => !!i);
 
@@ -253,6 +254,7 @@ module.exports = {
       // Dynamically set the webpack public path at runtime below
       // Must be first entry to properly set public path
       // See: http://webpack.github.io/docs/configuration.html#output-publicpath
+      // NOTE: Not shure if this is really needed. Seems to work OK without
       './webpack-public-path.js',
 
       // reload - Set to true to auto-reload the page when webpack gets stuck.
@@ -344,6 +346,7 @@ module.exports = {
     // drop any unreachable code.
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': isProd ? JSON.stringify('production') : JSON.stringify('development'),
+      'process.env.PUBLIC_PATH': JSON.stringify(publicPath),
       __DEV__: !isProd
     }),
 

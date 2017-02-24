@@ -1,4 +1,4 @@
-import logger from '../utils/logger';
+import logger from '../logger/logger';
 import ping from './ping';
 
 const badFunction = () => {

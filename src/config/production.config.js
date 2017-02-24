@@ -1,4 +1,4 @@
-import { LOG_LEVEL } from '../utils/logger';
+import { LOG_LEVEL } from '../logger/logger';
 
 const config = {
   env: 'production',
