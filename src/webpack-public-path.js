@@ -12,6 +12,3 @@
 
 // eslint-disable-next-line
 __webpack_public_path__ = `${window.location.protocol}//${window.location.host}${process.env.PUBLIC_PATH}`;
-
-// eslint-disable-next-line
-console.log(__webpack_public_path__);
