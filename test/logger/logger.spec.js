@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import { setupJsDom, teardownJsDom } from '../jsdom-init';
 
 import { Response } from 'whatwg-fetch';
-import logger, {LOG_LEVEL} from '../../src/utils/logger';
+import logger, {LOG_LEVEL} from '../../src/logger/logger';
 
 const jsonOk = body => {
   const mockResponse = new Response(JSON.stringify(body), {
