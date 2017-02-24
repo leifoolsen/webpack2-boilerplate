@@ -1,8 +1,9 @@
 /**
- * A simple logger a facade, makes it easy to switch logger implementation at a later stage
+ * A simple logger a facade, makes it easy to switch logger implementation
+ * at a later stage
  */
 
-import request from './request';
+import request from '../utils/request';
 
 const LOG_LEVEL = {
   // https://tools.ietf.org/html/rfc5424
