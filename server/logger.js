@@ -28,8 +28,8 @@ export default {
   },
 
   // Called when express.js app starts on given port w/o errors
-  serverStarted: (port, publicPath='/', tunnelStarted=false) => {
-    console.log(`Server started ${chalk.green('✓')}`);
+  serverStarted: (port, publicPath='/', isHot=false, tunnelStarted=false) => {
+    console.log(`${isHot ? 'HMR ' : ''}Server started ${chalk.green('✓')}`);
 
     // If the tunnel started, log that and the URL it's available at
     if (tunnelStarted) {
@@ -44,5 +44,6 @@ Localhost: ${chalk.magenta(`http://localhost:${port}${publicPath}`)}
 ${chalk.blue(`Press ${chalk.italic('CTRL-C')} to stop`)}
     `);
   },
+
 };
 
