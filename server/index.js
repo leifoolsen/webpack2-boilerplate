@@ -13,7 +13,7 @@ import logger from './logger';
 
 const argv = require('./array-to-key-value').arrayToKeyValue(process.argv.slice(2));
 const isHot = argv.hot || false;
-const publicPath = config.output.publicPath;
+const publicPath = config.devServer.publicPath;
 
 const app = express();
 
@@ -50,17 +50,22 @@ if(isHot) {
 
   app.use(publicPath, express.static(config.context));
 
+  app.get(/\.dll\.js$/, (req, res) => {
+    const filename = req.path.startsWith(publicPath)
+      ? req.path.replace(publicPath, '')
+      : req.path;
+
+    res.sendFile(path.join(compiler.outputPath, filename));
+  });
+
   // Since webpackDevMiddleware uses memory-fs internally to store build
   // artifacts, we use it instead
   const fs = devMiddleware.fileSystem;
 
-  app.get(/\.dll\.js$/, (req, res) => {
-    const filename = req.path.replace(new RegExp(publicPath), '');
-    res.sendFile(path.join(process.cwd(), 'dist', filename));
-  });
-
-  app.get(/\.map$/, (req, res) => {
+  app.get(/\.map$|\.htm[l]?$/, (req, res) => {
     const filename = req.path.replace(/^\//, '');
+    //console.log('§§§ .map|.html', req.path, filename);
+
     fs.readFile(path.join(compiler.outputPath, filename), (err, file) => {
       if (err) {
         res.sendStatus(404);
@@ -71,13 +76,28 @@ if(isHot) {
   });
 
   app.get('*', (req, res) => {
-    fs.readFile(path.join(compiler.outputPath, 'index.html'), (err, file) => {
-      if (err) {
-        res.sendStatus(404);
-      } else {
-        res.send(file.toString());
-      }
-    });
+    const filename = req.path.startsWith(publicPath)
+      ? req.path.replace(publicPath, '')
+      : req.path;
+
+    //console.log('@@@ *', req.path, filename);
+
+    if(filename.indexOf('.') > -1) {
+      res.sendFile(path.join(compiler.outputPath, filename), err => {
+        if(err) {
+          res.sendStatus(404);
+        }
+      });
+    }
+    else {
+      fs.readFile(path.join(compiler.outputPath, 'index.html'), (err, file) => {
+        if (err) {
+          res.sendStatus(404);
+        } else {
+          res.send(file.toString());
+        }
+      });
+    }
   });
 }
 else {
@@ -92,13 +112,38 @@ else {
 
   app.use(publicPath, express.static(outputPath));
 
-  app.get(/\.map$/, (req, res) => {
+  app.get(/\.map$|\.htm[l]?$/, (req, res) => {
     const filename = req.path.replace(/^\//, '');
-    res.sendFile(path.resolve(outputPath, filename));
+    //console.log('§§§ .map|.html', req.path, filename);
+
+    res.sendFile(path.resolve(outputPath, filename), err => {
+      if(err) {
+        res.sendStatus(404);
+      }
+    });
   });
 
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(outputPath, 'index.html'));
+    const filename = req.path.startsWith(publicPath)
+      ? req.path.replace(publicPath, '')
+      : req.path;
+
+    //console.log('@@@ *', req.path, filename);
+
+    if(filename.indexOf('.') > -1) {
+      res.sendFile(path.join(outputPath, filename), err => {
+        if(err) {
+          res.sendStatus(404);
+        }
+      });
+    }
+    else {
+      res.sendFile(path.resolve(outputPath, 'index.html'), err => {
+        if(err) {
+          res.sendStatus(404);
+        }
+      });
+    }
   });
 }
 
@@ -112,6 +157,6 @@ app.listen(config.devServer.port, config.devServer.host, (err) => {
     logger.error(err.message);
   }
   else {
-    logger.serverStarted(config.devServer.port);
+    logger.serverStarted(config.devServer.port, publicPath);
   }
 });

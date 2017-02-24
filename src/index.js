@@ -56,7 +56,7 @@ if (module.hot) {
 }
 
 // Start
-// Konfigurer logging
+// Konfigure logging
 const config = require('./config'); // eslint-disable-line global-require
 
 logger.consoleLogger.level = config.logger.console.level || LOG_LEVEL.debug;

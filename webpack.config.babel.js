@@ -19,7 +19,7 @@ const context = src;
 // get the intended port number, use port 3000 if not provided
 const host = 'localhost';
 const port = process.env.PORT || argv.port || 3000;
-const publicPath = process.env.PUBLIC_PATH || argv['public-path'] || '/myapp/';
+const publicPath = process.env.PUBLIC_PATH || argv['public-path'] || '/';
 
 //console.log('Webpack argv:', argv, 'isDev:', isDev, 'isHot:', isHot);
 
@@ -193,8 +193,8 @@ const cssRules = isHot ? [
       path.resolve(process.cwd(), 'node_modules')
     ],
     loader: ExtractTextPlugin.extract({
-      fallbackLoader: 'style-loader',
-      loader: ['css-loader?sourceMap', 'postcss-loader', 'resolve-url-loader']
+      fallback: 'style-loader',
+      use: ['css-loader?sourceMap', 'postcss-loader', 'resolve-url-loader']
     })
   },
   {
@@ -205,8 +205,8 @@ const cssRules = isHot ? [
       path.resolve(process.cwd(), 'node_modules')
     ],
     loader: ExtractTextPlugin.extract({
-      fallbackLoader: 'style-loader',
-      loader: [
+      fallback: 'style-loader',
+      use: [
         {
           loader: 'css-loader', query: { sourceMap: true }
         },
@@ -430,7 +430,7 @@ module.exports = {
   devServer: {
     host: host,
     port: port,
-    publicPath: publicPath,
+    publicPath: publicPath || '/',
     contentBase: context,
     hot: isHot,
     compress: true,
@@ -447,16 +447,20 @@ module.exports = {
     historyApiFallback: {
       verbose: true,
       disableDotRule: false,
-      rewrites: publicPath != '/' ? [
+      /*
+      rewrites: publicPath && publicPath !== '/' ? [
         {
           from: /^\/.*$/,
           to: function(ctx) {
+            console.log('$$$', ctx.parsedUrl.pathname);
+
             return ctx.parsedUrl.pathname.startsWith(publicPath.replace(/\/$/, ''))
               ? ctx.parsedUrl.pathname
               : path.join(publicPath, ctx.parsedUrl.pathname);
           }
         }
       ] : [],
+      */
     },
   }
 };

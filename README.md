@@ -22,7 +22,7 @@ A Webpack2 boilerplate, partly based on this Egghead.io course;
 
 ### Husky
 This project uses [husky](https://github.com/typicode/husky) to run scripts
-before an actial `git commit`
+before an actual `git commit`
 
 More details about Husky can be found here:
 * [Prevent bad git commits and pushes with Husky](http://www.penta-code.com/prevent-bad-git-commits-and-pushes-with-husky/)
