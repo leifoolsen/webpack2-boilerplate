@@ -55,6 +55,8 @@ if(isHot) {
       ? req.path.replace(publicPath, '')
       : req.path;
 
+    //console.log('### .dll.js', req.path, filename);
+
     res.sendFile(path.join(compiler.outputPath, filename));
   });
 
@@ -64,6 +66,7 @@ if(isHot) {
 
   app.get(/\.map$|\.htm[l]?$/, (req, res) => {
     const filename = req.path.replace(/^\//, '');
+
     //console.log('§§§ .map|.html', req.path, filename);
 
     fs.readFile(path.join(compiler.outputPath, filename), (err, file) => {
@@ -80,7 +83,7 @@ if(isHot) {
       ? req.path.replace(publicPath, '')
       : req.path;
 
-    //console.log('@@@ *', req.path, filename);
+   // console.log('@@@ *', req.path, filename);
 
     if(filename.indexOf('.') > -1) {
       res.sendFile(path.join(compiler.outputPath, filename), err => {
@@ -157,6 +160,6 @@ app.listen(config.devServer.port, config.devServer.host, (err) => {
     logger.error(err.message);
   }
   else {
-    logger.serverStarted(config.devServer.port, publicPath);
+    logger.serverStarted(config.devServer.port, publicPath, isHot);
   }
 });
