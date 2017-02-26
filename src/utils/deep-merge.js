@@ -35,7 +35,7 @@ const deepMerge = function(target, ...sources) {
   if(sources.length > 0) {
     const source = sources.shift();
 
-    for (let key of Object.keys(source)) {
+    for (const key of Object.keys(source)) {
       if (isObject(source[key])) {
         if (!(key in result)) {
           Object.assign(result, {[key]: source[key]});

@@ -1,3 +1,4 @@
+import config from '../config';
 import logger from '../logger/logger';
 import ping from './ping';
 
@@ -26,7 +27,7 @@ const addListeners = () => {
 
 const run = () => {
   addListeners();
-  logger.info('Application loaded!');
+  logger.info(`Application loaded, env: ${config.env}, public path: ${config.publicPath}`);
 };
 
 if (module.hot) {

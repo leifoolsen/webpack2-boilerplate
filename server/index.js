@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 // Api router. Must be defined before any app.get
 // To set up a proxy for the /api, use 'http-proxy-middleware'.
 // Not provided in this example
-app.use('/api', router);
+app.use(path.join(publicPath, 'api'), router);
 
 if(config.devServer.historyApiFallback) {
   // This rewrites all routes requests to the root /index.html file

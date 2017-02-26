@@ -9,10 +9,14 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const argv = require('./server/array-to-key-value').arrayToKeyValue(process.argv.slice(2));
-const config = require('./src/config');
-const isDev = process.env.NODE_ENV !== 'production' && !argv['env.prod'];
+const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);
 const isProd = !isDev;
 const isHot = argv.hot || false;
+
+// Set NODE_ENV to make shure we read correct config
+process.env.NODE_ENV = process.env.NODE_ENV || isProd ? 'production' : 'development';
+const config = require('./src/config');
+
 const src = path.resolve(process.cwd(), 'src');
 const dist = path.resolve(process.cwd(), 'dist');
 const context = src;
@@ -22,7 +26,8 @@ const host = 'localhost';
 const port = process.env.PORT || argv.port || 3000;
 const publicPath = process.env.PUBLIC_PATH || argv['public-path'] || config.publicPath || '/';
 
-//console.log('Webpack argv:', argv, 'isDev:', isDev, 'isHot:', isHot, 'publicPath', publicPath);
+//console.log('Webpack argv:', argv);
+console.log('Webpack options:', 'env:', process.env.NODE_ENV, 'hot:', isHot, 'public path:', publicPath);
 
 //const removeEmpty = array => array.filter(i => !!i);
 

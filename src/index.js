@@ -55,13 +55,22 @@ if (module.hot) {
   require('./index.html');
 }
 
-// Start
-// Konfigure logging
+// Get (and modify) config
 const config = require('./config'); // eslint-disable-line global-require
 
-logger.consoleLogger.level = config.logger.console.level || LOG_LEVEL.debug;
-logger.remoteLogger.level = config.logger.remote.level || LOG_LEVEL.error;
-logger.remoteLogger.batchSize = 1;
+// Note: The "process.env.NODE_ENV" and "process.env.PUBLIC_PATH" globals
+// are injected by webpack during build using webpack.DefinePlugin.
+config.publicPath = process.env.PUBLIC_PATH;
 
+// Configure logging
+logger.consoleLogger.level = config.logger.console.level;
+logger.remoteLogger.level = config.logger.remote.level;
+logger.remoteLogger.batchSize = config.logger.remote.batchSize;
+logger.remoteLogger.url = [config.publicPath, config.logger.remote.url]
+  .map( i => i.replace(/\/$/, ''))
+  .join('/')
+  .replace(/\/\//g, '/');
+
+// Start
 window.addEventListener('load', () => run());
 

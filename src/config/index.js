@@ -3,11 +3,15 @@
  */
 
 import { LOG_LEVEL } from '../logger/logger';
+import deepMerge from '../utils/deep-merge';
 
-const env = process.env.NODE_ENV || 'development';
+// Note: The "process.env.NODE_ENV" and "process.env.PUBLIC_PATH" globals
+// are injected by webpack during build using webpack.DefinePlugin.
+const env = ['test', 'development', 'production']
+    .find( el => el === process.env.NODE_ENV) || 'production';
 
 const defaultConfig = {
-  env: 'development',
+  env: env,
   publicPath: '/',
   logger: {
     console: {
@@ -15,6 +19,8 @@ const defaultConfig = {
     },
     remote: {
       level: LOG_LEVEL.error,
+      batchSize: 1,
+      url: '/api/log',
     }
   },
 };
@@ -23,7 +29,7 @@ const defaultConfig = {
 const config = {
   test: defaultConfig,
   development: defaultConfig,
-  production: Object.assign({}, defaultConfig, require('./production.config')), // eslint-disable-line global-require
+  production: deepMerge(defaultConfig, require('./production.config')), // eslint-disable-line global-require
 };
 
 module.exports = config[env];
