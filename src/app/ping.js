@@ -1,12 +1,8 @@
 import moment from 'moment';
 import request from '../utils/request';
+import joinUrl from '../utils/join-url';
 
-const joinPath = (...parts) =>
-  parts.map( part => part.replace(/\/$/, ''))
-    .join('/')
-    .replace(/\/\//g, '/');
-
-const apiPath = joinPath(process.env.PUBLIC_PATH, '/api/ping');
+const apiPath = joinUrl(process.env.PUBLIC_PATH, '/api/ping');
 
 const ping = el => {
   request(apiPath)
