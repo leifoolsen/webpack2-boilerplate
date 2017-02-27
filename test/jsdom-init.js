@@ -79,7 +79,7 @@ function setupJsDom(markup = defaultHtml, options={}) {
     });
   }
 
-  window.onerror = () => console.log(arguments);
+  window.onerror = () => console.log(arguments); //eslint-disable-line
 
   // ... add whatever browser globals your tests might need ...
 

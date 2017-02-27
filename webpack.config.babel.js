@@ -293,7 +293,7 @@ module.exports = {
         test: /\.js[x]?$/,
         enforce: 'pre',
         loader: 'eslint-loader',
-        include: [src],
+        include: [src, server],
         exclude: [/node_modules/],
       },
       {

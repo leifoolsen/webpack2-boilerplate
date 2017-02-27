@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import { before, after, beforeEach, afterEach, describe, context, it } from 'mocha';
+import { before, after, beforeEach, afterEach, describe, it } from 'mocha';
 import { expect } from 'chai';
 import { setupJsDom, teardownJsDom } from '../jsdom-init';
 
@@ -50,8 +50,8 @@ describe('logger', () => {
       try {
         logger.consoleLogger.level = 'debug';
         logger.debug('logged');
-        expect(console.log.called).to.be.true;
-        expect(console.log.getCall(0).args[2]).to.equal('logged');
+        expect(console.log.called).to.be.true; //eslint-disable-line no-console
+        expect(console.log.getCall(0).args[2]).to.equal('logged'); //eslint-disable-line no-console
       }
       finally {
         sinon.restore(stubLog); // or: console.log.restore();
@@ -63,7 +63,7 @@ describe('logger', () => {
       try {
         logger.consoleLogger.level = 'info';
         logger.debug('abc');
-        expect(console.log.called).to.be.false;
+        expect(console.log.called).to.be.false; //eslint-disable-line no-console
       }
       finally {
         sinon.restore(stubLog);
@@ -82,7 +82,7 @@ describe('logger', () => {
         logger.critical('critical');
         logger.alert('alert');
         logger.emergency('emergency');
-        expect(console.log.called).to.be.false;
+        expect(console.log.called).to.be.false; //eslint-disable-line no-console
       }
       finally {
         sinon.restore(stubLog);
@@ -100,7 +100,7 @@ describe('logger', () => {
       if(!global.fetch) {
         global.fetch = require('whatwg-fetch').fetch;
       }
-      spy = sinon.spy(logger.remoteLogger, "log");
+      spy = sinon.spy(logger.remoteLogger, 'log');
     });
 
     after(() => {

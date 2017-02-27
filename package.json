@@ -16,7 +16,7 @@
     "build:prod": "NODE_ENV=production webpack --env.prod --progress",
     "lint": "npm-run-all lint:*",
     "lint:stylelint": "stylelint './src/**/*.s?(a|c)ss' --syntax scss",
-    "lint:eslint": "eslint ./src",
+    "lint:eslint": "eslint ./src ./server ./test",
     "coverage": "npm-run-all --parallel test:coverage --serial check:coverage",
     "test:coverage": "NODE_ENV=test babel-node ./node_modules/.bin/istanbul cover --root ./src _mocha --env.test -- --opts ./mocha.opts  './test/**/*.spec.js'",
     "check:coverage": "NODE_ENV=test istanbul check-coverage --statements 50 --branches 50 --functions 50 --lines 50",

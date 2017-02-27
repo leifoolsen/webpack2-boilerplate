@@ -152,7 +152,7 @@ else {
 
 process.on('uncaughtException', err => {
   logger.error('Uncaught Exception ', err.stack);
-  process.exit(1)
+  process.exit(1);
 });
 
 app.listen(config.devServer.port, config.devServer.host, (err) => {

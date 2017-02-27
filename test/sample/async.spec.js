@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 
-import { before, after, describe, it } from 'mocha';
+import { describe, it } from 'mocha';
 import { expect, should } from 'chai';
 should();
 
@@ -37,7 +37,7 @@ describe('Async', () => {
     });
 
     it('promise rejects', async() => {
-      let result = await rejectingPromise.catch( err => err.message );
+      const result = await rejectingPromise.catch( err => err.message );
       expect(result).to.equal('promise rejected');
     });
 
