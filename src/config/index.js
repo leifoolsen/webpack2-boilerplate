@@ -1,5 +1,5 @@
 /**
- * Se: http://beletsky.net/2015/01/configuring-front-end-applications.html
+ * See: http://beletsky.net/2015/01/configuring-front-end-applications.html
  */
 
 import { LOG_LEVEL } from '../logger/logger';

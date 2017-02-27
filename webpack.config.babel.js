@@ -9,17 +9,17 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const argv = require('./server/array-to-key-value').arrayToKeyValue(process.argv.slice(2));
+
 const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);
 const isProd = !isDev;
 const isHot = argv.hot || false;
+const src = path.resolve(process.cwd(), 'src');
+const dist = path.resolve(process.cwd(), 'dist');
+const context = src;
 
 // Set NODE_ENV to make shure we read correct config
 process.env.NODE_ENV = process.env.NODE_ENV || isProd ? 'production' : 'development';
 const config = require('./src/config');
-
-const src = path.resolve(process.cwd(), 'src');
-const dist = path.resolve(process.cwd(), 'dist');
-const context = src;
 
 // get the intended port number, use port 3000 if not provided
 const host = 'localhost';

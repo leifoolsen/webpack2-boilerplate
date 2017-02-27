@@ -28,13 +28,15 @@ const isObject = x => x != null && typeof x === 'object';
  * // Rerurns a deep merge { a: { a: 1, b: 1 } }
  */
 
-const deepMerge = function(target, ...sources) {
+const deepMerge = (target, ...sources) => {
 
   const result = Object.assign({}, target);
 
   if(sources.length > 0) {
     const source = sources.shift();
 
+    // TODO: Rewite for-of loop
+    //eslint-disable-next-line no-restricted-syntax
     for (const key of Object.keys(source)) {
       if (isObject(source[key])) {
         if (!(key in result)) {

@@ -1,5 +1,5 @@
-//
-// Copied from: https://github.com/coryhouse/react-slingshot
+/*
+// Modified from: https://github.com/coryhouse/react-slingshot
 //
 // Dynamically set the webpack public path at runtime below
 // This magic global is used by webpack to set the public path at runtime.
@@ -9,6 +9,7 @@
 // 3. https://github.com/coryhouse/react-slingshot/pull/125
 // Documentation: http://webpack.github.io/docs/configuration.html#output-publicpath
 //                https://webpack.js.org/guides/public-path/
+*/
 
 // eslint-disable-next-line
 __webpack_public_path__ = `${window.location.protocol}//${window.location.host}${process.env.PUBLIC_PATH}`;
