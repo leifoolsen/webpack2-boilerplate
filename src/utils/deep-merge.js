@@ -32,25 +32,25 @@ const deepMerge = (target, ...sources) => {
 
   const result = Object.assign({}, target);
 
-  if(sources.length > 0) {
-    const source = sources.shift();
+  for (let i = 0; i < sources.length; i++) {
 
-    // TODO: Rewite for-of loop
-    //eslint-disable-next-line no-restricted-syntax
-    for (const key of Object.keys(source)) {
+    const source = sources[i];
+
+    Object.keys(source).forEach(key => {
+
       if (isObject(source[key])) {
+
         if (!(key in result)) {
-          Object.assign(result, {[key]: source[key]});
+          Object.assign(result, { [key]: source[key] });
         }
         else {
           result[key] = deepMerge(result[key], source[key]);
         }
       }
       else {
-        Object.assign(result, {[key]: source[key]});
+        Object.assign(result, { [key]: source[key] });
       }
-    }
-    return deepMerge(result, ...sources);
+    });
   }
   return result;
 };
