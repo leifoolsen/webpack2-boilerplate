@@ -1,6 +1,8 @@
 import 'whatwg-fetch';
 import run from './app/app';
 import logger, {LOG_LEVEL} from './logger/logger';
+import joinUrl from './utils/join-url';
+
 import './styles.scss';
 
 // Unhandled errors should be sent to the server
@@ -66,10 +68,7 @@ config.publicPath = process.env.PUBLIC_PATH;
 logger.consoleLogger.level = config.logger.console.level;
 logger.remoteLogger.level = config.logger.remote.level;
 logger.remoteLogger.batchSize = config.logger.remote.batchSize;
-logger.remoteLogger.url = [config.publicPath, config.logger.remote.url]
-  .map( i => i.replace(/\/$/, ''))
-  .join('/')
-  .replace(/\/\//g, '/');
+logger.remoteLogger.url = joinUrl(config.publicPath, config.logger.remote.url);
 
 // Start
 window.addEventListener('load', () => run());
