@@ -11,7 +11,7 @@ import config from '../webpack.config.babel';
 import router from './router';
 import logger from './logger';
 
-const argv = require('./array-to-key-value').arrayToKeyValue(process.argv.slice(2));
+const argv = require('./args-to-key-value').arrayToKeyValue(process.argv.slice(2));
 const isHot = argv.hot || false;
 const publicPath = config.devServer.publicPath;
 

@@ -8,7 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const argv = require('./server/array-to-key-value').arrayToKeyValue(process.argv.slice(2));
+const argv = require('./server/args-to-key-value').arrayToKeyValue(process.argv.slice(2));
 
 const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);
 const isProd = !isDev;

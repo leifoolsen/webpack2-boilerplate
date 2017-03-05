@@ -1,12 +1,12 @@
 /**
- * Transforms an array to key value pairs
+ * Transforms an array of arguments to key value pairs
  * @param array the array to transform to an object of key value pairs
  * @example
  * arrayToKeyValue([ '--env.dev', '--port', '8084', '--content-base', 'src' ]);
  * // Returns { 'env.dev': true, port: '8084', 'content-base': 'src' }
  * @author Leif Olsen
  */
-const arrayToKeyValue = array => {
+const argsToKeyValue = array => {
 
   //const isString = s => typeof s === 'string';
 
@@ -35,4 +35,4 @@ const arrayToKeyValue = array => {
   }, {});
 };
 
-exports.arrayToKeyValue = arrayToKeyValue;
+exports.arrayToKeyValue = argsToKeyValue;
