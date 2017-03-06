@@ -12,14 +12,14 @@ import isObject from './is-object';
  * @returns {String} The key wrapped in brackets if the key is numeric,
  *                   otherwise the key is prefixed with a '/'
  */
-const wrapKey = key => isNumeric(key) ? `[${parseInt(key) + 1}]` : `/${key}`;
+const wrapKey = key => isNumeric(key) ? `[${parseInt(key, 10) + 1}]` : `/${key}`;
 
 /**
  * Split a key int two parts if the key contains brackets
  * @param key
  * @returns {Array} the split key
  */
-const splitKey = key => key.split( /[[\]]{1,2}/ ); // 'a[1]' => ['a', 1], 'a' => ['a', undefined]
+const splitKey = key => key.split(/[[\]]{1,2}/); // 'a[1]' => ['a', 1], 'a' => ['a', undefined]
 
 /**
  * Convert an object to a list of XPath expressions
@@ -30,12 +30,13 @@ const splitKey = key => key.split( /[[\]]{1,2}/ ); // 'a[1]' => ['a', 1], 'a' =>
  * @see http://stackoverflow.com/questions/6393943/convert-javascript-string-in-dot-notation-into-an-object-reference
  */
 const o2XPath = object => {
+  // eslint-disable-next-line wrap-iife
   return Object.assign({}, ...function _flatten(objectBit, path = '') {  // spread the result into our return object
     return [].concat(                                                    // concat everything into one level
       ...Object.keys(objectBit).map(                                     // iterate over object
         key => isObject(objectBit[key])                                  // check if there is a nested object
           ? _flatten(objectBit[key], `${path}${wrapKey(key)}`)           // call itself if there is
-          : ( {[`${path}/${key}`] : objectBit[key]} )                    // append object with it’s path as key
+          : ({ [`${path}/${key}`]: objectBit[key] })                     // append object with it’s path as key
       )
     );
   }(object));
@@ -151,7 +152,7 @@ const jsXPath = {
    */
   objectToXPath: (...args) => {
     let result;
-    if(args.length === 1) {
+    if (args.length === 1) {
       result = o2XPath(args[0]);
     }
     else {
@@ -174,10 +175,10 @@ const jsXPath = {
     return xPath
       .split('/')
       .filter(key => !!key)
-      .reduce( (result, key) => {
+      .reduce((result, key) => {
         const [k, i] = splitKey(key); // '/a[0]' => ['a', 0], '/a' => ['a', undefined]
-        return i !== undefined ? result[k][i-1] : result[k];
-      }, obj );
+        return i !== undefined ? result[k][i - 1] : result[k];
+      }, obj);
   },
 
   /**
@@ -195,14 +196,14 @@ const jsXPath = {
     const keys = xPath.split('/').filter(key => !!key);
     const last = keys.pop();
 
-    const rest = keys.reduce( (result, key) => {
+    const rest = keys.reduce((result, key) => {
       const [k, i] = splitKey(key); // '/a[0]' => ['a', 0], '/a' => ['a', undefined]
-      return i !== undefined ? result[k][i-1] : result[k];
-    }, obj );
+      return i !== undefined ? result[k][i - 1] : result[k];
+    }, obj);
 
     const [k, i] = splitKey(last);
-    if(i) {
-      rest[k][i-1] = value;
+    if (i) {
+      rest[k][i - 1] = value;
     }
     else {
       rest[k] = value;

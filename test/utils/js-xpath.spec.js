@@ -380,8 +380,8 @@ describe('js-xpath', () => {
         b: 'b',
       };
 
-      expect(jsXPath.pathExists(obj, '/c')).to.be.false;
-      expect(jsXPath.pathExists(obj, '/c/x[1]')).to.be.false;
+      expect(jsXPath.pathExists(obj, '/c')).to.be.false; // eslint-disable-line no-unused-expressions
+      expect(jsXPath.pathExists(obj, '/c/x[1]')).to.be.false; // eslint-disable-line no-unused-expressions
     });
 
     it('should return true if path exists', () => {
@@ -397,8 +397,8 @@ describe('js-xpath', () => {
           },
         ],
       };
-      expect(jsXPath.pathExists(obj, '/bars')).to.be.true;
-      expect(jsXPath.pathExists(obj, '/bars[1]/bar/c')).to.be.true;
+      expect(jsXPath.pathExists(obj, '/bars')).to.be.true; // eslint-disable-line no-unused-expressions
+      expect(jsXPath.pathExists(obj, '/bars[1]/bar/c')).to.be.true; // eslint-disable-line no-unused-expressions
     });
 
   });

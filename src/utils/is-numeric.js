@@ -10,6 +10,6 @@ const isNumeric = val =>
   // ...but misinterprets leading-number strings, particularly hex literals ("0x...")
   // subtraction forces infinities to NaN
   // adding 1 corrects loss of precision from parseFloat (#15100)
-  !Array.isArray(val) && (val - parseFloat(val) + 1) >= 0;
+  !Array.isArray(val) && ((val - parseFloat(val)) + 1) >= 0;
 
 export default isNumeric;
