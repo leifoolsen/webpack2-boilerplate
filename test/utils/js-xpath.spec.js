@@ -31,7 +31,7 @@ describe('js-xpath', () => {
         '/objectToTransform/b': 'b',
       };
 
-      const result = jsXPath.objectToXPath( {objectToTransform} );
+      const result = jsXPath.objectToXPath({ objectToTransform });
       expect(result).to.have.all.keys(Object.keys(expectedXPaths));
       expect(result).to.deep.equal(expectedXPaths);
     });
@@ -55,7 +55,7 @@ describe('js-xpath', () => {
         }
       ];
 
-      const result = jsXPath.objectToXPath( foo, bar );
+      const result = jsXPath.objectToXPath(foo, bar);
       expect(result).to.have.all.keys(Object.keys(expectedXPaths));
       expect(result).to.deep.equal(expectedXPaths);
     });
@@ -79,7 +79,7 @@ describe('js-xpath', () => {
         }
       ];
 
-      const result = jsXPath.objectToXPath( {foo}, {bar} );
+      const result = jsXPath.objectToXPath({ foo }, { bar });
       expect(result).to.have.all.keys(Object.keys(expectedXPaths));
       expect(result).to.deep.equal(expectedXPaths);
     });
@@ -100,7 +100,7 @@ describe('js-xpath', () => {
         '/z': 'z'
       };
 
-      const result = jsXPath.objectToXPath( {...foo, ...bar} );
+      const result = jsXPath.objectToXPath({ ...foo, ...bar });
       expect(result).to.have.all.keys(Object.keys(expectedXPaths));
       expect(result).to.deep.equal(expectedXPaths);
     });
@@ -121,7 +121,7 @@ describe('js-xpath', () => {
         '/bar/z': 'z'
       };
 
-      const result = jsXPath.objectToXPath( {foo, bar} );
+      const result = jsXPath.objectToXPath({ foo, bar });
       expect(result).to.have.all.keys(Object.keys(expectedXPaths));
       expect(result).to.deep.equal(expectedXPaths);
     });
@@ -331,7 +331,7 @@ describe('js-xpath', () => {
         a: 1,
         b: 'b',
       };
-      expect( () => {
+      expect(() => {
         jsXPath.getValue(obj, '/a/x[1]');
       }).to.throw(TypeError);
     });
@@ -364,7 +364,7 @@ describe('js-xpath', () => {
         b: 'b',
       };
 
-      expect( () => {
+      expect(() => {
         jsXPath.setValue(obj, '/bars[1]/bar/c', 10);
       }).to.throw(TypeError);
 
