@@ -42,7 +42,7 @@ const o2XPath = object => {
   }(object));
 };
 
-const jsXPath = {
+const JsXPath = {
 
   /**
    * Transforms object(s) to a list of key value pairs
@@ -218,7 +218,7 @@ const jsXPath = {
    */
   pathExists: (obj, xPath) => {
     try {
-      return jsXPath.getValue(obj, xPath) !== undefined;
+      return JsXPath.getValue(obj, xPath) !== undefined;
     }
     catch (TypeError) {
       return false;
@@ -227,4 +227,5 @@ const jsXPath = {
 
 };
 
-export default jsXPath;
+Object.freeze(JsXPath);
+export default JsXPath;

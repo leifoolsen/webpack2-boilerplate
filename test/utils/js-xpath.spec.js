@@ -1,6 +1,6 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import jsXPath from '../../src/utils/js-xpath';
+import JsXPath from '../../src/utils/js-xpath';
 
 describe('js-xpath', () => {
 
@@ -16,7 +16,7 @@ describe('js-xpath', () => {
         '/b': 'b',
       };
 
-      const result = jsXPath.objectToXPath(objectToTransform);
+      const result = JsXPath.objectToXPath(objectToTransform);
       expect(result).to.have.all.keys(Object.keys(expectedXPaths));
       expect(result).to.deep.equal(expectedXPaths);
     });
@@ -31,7 +31,7 @@ describe('js-xpath', () => {
         '/objectToTransform/b': 'b',
       };
 
-      const result = jsXPath.objectToXPath({ objectToTransform });
+      const result = JsXPath.objectToXPath({ objectToTransform });
       expect(result).to.have.all.keys(Object.keys(expectedXPaths));
       expect(result).to.deep.equal(expectedXPaths);
     });
@@ -55,7 +55,7 @@ describe('js-xpath', () => {
         }
       ];
 
-      const result = jsXPath.objectToXPath(foo, bar);
+      const result = JsXPath.objectToXPath(foo, bar);
       expect(result).to.have.all.keys(Object.keys(expectedXPaths));
       expect(result).to.deep.equal(expectedXPaths);
     });
@@ -79,7 +79,7 @@ describe('js-xpath', () => {
         }
       ];
 
-      const result = jsXPath.objectToXPath({ foo }, { bar });
+      const result = JsXPath.objectToXPath({ foo }, { bar });
       expect(result).to.have.all.keys(Object.keys(expectedXPaths));
       expect(result).to.deep.equal(expectedXPaths);
     });
@@ -100,7 +100,7 @@ describe('js-xpath', () => {
         '/z': 'z'
       };
 
-      const result = jsXPath.objectToXPath({ ...foo, ...bar });
+      const result = JsXPath.objectToXPath({ ...foo, ...bar });
       expect(result).to.have.all.keys(Object.keys(expectedXPaths));
       expect(result).to.deep.equal(expectedXPaths);
     });
@@ -121,7 +121,7 @@ describe('js-xpath', () => {
         '/bar/z': 'z'
       };
 
-      const result = jsXPath.objectToXPath({ foo, bar });
+      const result = JsXPath.objectToXPath({ foo, bar });
       expect(result).to.have.all.keys(Object.keys(expectedXPaths));
       expect(result).to.deep.equal(expectedXPaths);
     });
@@ -164,7 +164,7 @@ describe('js-xpath', () => {
         '/buz/z': 'z'
       };
 
-      const result = jsXPath.objectToXPath(objectToTransform);
+      const result = JsXPath.objectToXPath(objectToTransform);
       expect(result).to.have.all.keys(Object.keys(expectedXPaths));
       expect(result).to.deep.equal(expectedXPaths);
     });
@@ -203,7 +203,7 @@ describe('js-xpath', () => {
         '/buz/z': 'z'
       };
 
-      const result = jsXPath.objectToXPath(objectToTransform);
+      const result = JsXPath.objectToXPath(objectToTransform);
       expect(result).to.have.all.keys(Object.keys(expectedXPaths));
       expect(result).to.deep.equal(expectedXPaths);
     });
@@ -250,7 +250,7 @@ describe('js-xpath', () => {
         '/buz/z': 'z'
       };
       Object.keys(xPaths).forEach(key => {
-        expect(jsXPath.getValue(obj, key)).to.deep.equal(xPaths[key]);
+        expect(JsXPath.getValue(obj, key)).to.deep.equal(xPaths[key]);
       });
     });
 
@@ -271,7 +271,7 @@ describe('js-xpath', () => {
         d: 'd'
       };
 
-      const result = jsXPath.getValue(obj, '/bars[1]');
+      const result = JsXPath.getValue(obj, '/bars[1]');
       expect(result).to.be.an('object');
       expect(result).to.deep.equal(expected);
     });
@@ -296,7 +296,7 @@ describe('js-xpath', () => {
         }
       };
 
-      const result = jsXPath.getValue(obj, '/bars[1]');
+      const result = JsXPath.getValue(obj, '/bars[1]');
       expect(result).to.be.an('object');
       expect(result).to.deep.equal(expected);
     });
@@ -306,7 +306,7 @@ describe('js-xpath', () => {
         a: [1, 2, 3, 4, 5, 6]
       };
       const expected = [1, 2, 3, 4, 5, 6];
-      expect(jsXPath.getValue(obj, '/a')).to.deep.equal(expected);
+      expect(JsXPath.getValue(obj, '/a')).to.deep.equal(expected);
     });
 
     it('should return an array element', () => {
@@ -314,8 +314,8 @@ describe('js-xpath', () => {
         a: [1, 2, 3, 4, 5, 6]
       };
       const expected = [1, 2, 3, 4, 5, 6];
-      expect(jsXPath.getValue(obj, '/a[1]')).to.equal(expected[0]);
-      expect(jsXPath.getValue(obj, '/a[4]')).to.equal(expected[3]);
+      expect(JsXPath.getValue(obj, '/a[1]')).to.equal(expected[0]);
+      expect(JsXPath.getValue(obj, '/a[4]')).to.equal(expected[3]);
     });
 
     it('should return undefined', () => {
@@ -323,7 +323,7 @@ describe('js-xpath', () => {
         a: 1,
         b: 'b',
       };
-      expect(jsXPath.getValue(obj, '/c')).to.be.an('undefined');
+      expect(JsXPath.getValue(obj, '/c')).to.be.an('undefined');
     });
 
     it('should throw TypeError', () => {
@@ -332,7 +332,7 @@ describe('js-xpath', () => {
         b: 'b',
       };
       expect(() => {
-        jsXPath.getValue(obj, '/a/x[1]');
+        JsXPath.getValue(obj, '/a/x[1]');
       }).to.throw(TypeError);
     });
   });
@@ -353,9 +353,9 @@ describe('js-xpath', () => {
         ],
       };
 
-      expect(jsXPath.getValue(obj, '/bars[1]/bar/c')).to.equal(3, 'Expected value to be "3" before changing it');
-      jsXPath.setValue(obj, '/bars[1]/bar/c', 10);
-      expect(jsXPath.getValue(obj, '/bars[1]/bar/c')).to.equal(10, 'Expected value to be "10" after changing it');
+      expect(JsXPath.getValue(obj, '/bars[1]/bar/c')).to.equal(3, 'Expected value to be "3" before changing it');
+      JsXPath.setValue(obj, '/bars[1]/bar/c', 10);
+      expect(JsXPath.getValue(obj, '/bars[1]/bar/c')).to.equal(10, 'Expected value to be "10" after changing it');
     });
 
     it('should throw TypeError if path is not valid', () => {
@@ -365,7 +365,7 @@ describe('js-xpath', () => {
       };
 
       expect(() => {
-        jsXPath.setValue(obj, '/bars[1]/bar/c', 10);
+        JsXPath.setValue(obj, '/bars[1]/bar/c', 10);
       }).to.throw(TypeError);
 
     });
@@ -380,8 +380,8 @@ describe('js-xpath', () => {
         b: 'b',
       };
 
-      expect(jsXPath.pathExists(obj, '/c')).to.be.false; // eslint-disable-line no-unused-expressions
-      expect(jsXPath.pathExists(obj, '/c/x[1]')).to.be.false; // eslint-disable-line no-unused-expressions
+      expect(JsXPath.pathExists(obj, '/c')).to.be.false; // eslint-disable-line no-unused-expressions
+      expect(JsXPath.pathExists(obj, '/c/x[1]')).to.be.false; // eslint-disable-line no-unused-expressions
     });
 
     it('should return true if path exists', () => {
@@ -397,8 +397,8 @@ describe('js-xpath', () => {
           },
         ],
       };
-      expect(jsXPath.pathExists(obj, '/bars')).to.be.true; // eslint-disable-line no-unused-expressions
-      expect(jsXPath.pathExists(obj, '/bars[1]/bar/c')).to.be.true; // eslint-disable-line no-unused-expressions
+      expect(JsXPath.pathExists(obj, '/bars')).to.be.true; // eslint-disable-line no-unused-expressions
+      expect(JsXPath.pathExists(obj, '/bars[1]/bar/c')).to.be.true; // eslint-disable-line no-unused-expressions
     });
 
   });
