@@ -6,7 +6,7 @@ A Webpack2 boilerplate, partly based on this Egghead.io course;
 [Using Webpack for Production JavaScript Applications](https://egghead.io/courses/using-webpack-for-production-javascript-applications)
 
 ## Features
-* ES2015
+* ES2015/ES2016
 * Node6 or Node7
 * Npm as a task/build runner
 * Webpack2 with tree-shaking and hot module replacement (HMR)
@@ -75,3 +75,92 @@ More details about Husky can be found here:
 
 ### Test the API
 * Click the "Ping" button or open a browser at `http://localhost:8000/api/ping`. The response should be: `{"ping":"pong!"}`
+
+## How to use the boilerplate with React
+The boilerplate may, with a few modifications, be used with React.
+ 
+### Install required packages
+```bash
+# dependencies
+npm i -S react
+npm i -S react-dom
+
+# devdependencies
+npm i -D babel-preset-react 
+npm i -D react-hot-loader@3.0.0-beta.6
+```
+
+### Add React dependencies to `src/vendor.js`
+```javascript
+if (!window._babelPolyfill) {
+  require('babel-polyfill'); // eslint-disable-line global-require
+}
+import 'moment';
+import 'react';
+import 'react-dom';
+```
+
+### Modify `.babelrc`
+
+```json
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": ["last 2 versions", "ie >= 11"]
+      }
+    }],
+    "react",
+    "stage-0"
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "react-hot-loader/babel"
+      ]
+    },
+    "test": {
+    },
+    "production": {
+    }
+  }
+}
+```
+
+### Modify `webpack.config.babel.js`
+
+#### entry.app
+Add 'react-hot-loader/patch'
+
+```javascript
+app: (!isHot ? [] : [
+  './webpack-public-path.js',
+  // Put react-hot-loader/patch before webpack-hot-middleware,
+  // see: https://github.com/gaearon/react-hot-loader/issues/243
+  'react-hot-loader/patch',
+  `webpack-hot-middleware/client?path=${path.join(publicPath, '__webpack_hmr')}&reload=true`,
+]).concat([
+  './styles.scss',
+  './index.js'
+]),
+```
+
+#### modules.rules.test: /\.js[x]?$/
+Add 'react-hot-loader/babel'
+
+```javascript
+{
+  test: /\.js[x]?$/,
+  include: [src],
+  exclude: [/node_modules/],
+  loader: 'babel-loader',
+  query: {
+    'plugins': isHot ? [
+      'react-hot-loader/babel'
+    ] : []
+  }
+},
+```
+
+### Start coding React
+Enjoy your React coding :-)
