@@ -28,16 +28,13 @@ More details about Husky can be found here:
 * [Prevent bad git commits and pushes with Husky](http://www.penta-code.com/prevent-bad-git-commits-and-pushes-with-husky/)
 * [Prevent Bad Commits with husky](https://davidwalsh.name/prevent-bad-commits-husky)
 
-## Getting started
+## Get started
 * Install Node7 or Node6 (via nvm)
 * Clone this repository: `git clone https://github.com/leifoolsen/webpack2-boilerplate.git` (or download zip)
 * CD to project directory: `cd webpack2-boilerplate`
 * Remove existing git: `rm -rf .git`
 * Install dependencies: `npm install`
 * Build dll: `npm run build:dll`
-* Run: `npm start`
-* Open a browser at `http://localhost:8084`
-* Press `Ctrl+C` to stop the dev server
 * Init your git: `git init`
 * Modify `package.json`, e.g. `name, author, description, repository` 
 * Add your own 3'rd party dependencies  to `package.json`
@@ -68,13 +65,18 @@ More details about Husky can be found here:
 * `server`: run Express sever with the generated bundle, serving files at http://localhost:8000
 * `precommit`: husky run command for the git pre-commit hook
 
+## Start coding
+* Run: `npm start`
+* Open a browser at `http://localhost:8084`
+* Press `Ctrl+C` to stop the dev server
+
+### Test the API
+* Click the "Ping" button or open a browser at `http://localhost:8000/api/ping`. The response should be: `{"ping":"pong!"}`
+
 ## Test the bundle
 * `npm run build:prod`
 * `npm run server`
 * Open a browser at `http://localhost:8000`
-
-### Test the API
-* Click the "Ping" button or open a browser at `http://localhost:8000/api/ping`. The response should be: `{"ping":"pong!"}`
 
 ## How to use the boilerplate with React
 The boilerplate may, with a few modifications, be used with React.
