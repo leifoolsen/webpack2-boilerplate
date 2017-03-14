@@ -1,9 +1,15 @@
 verbose: false
 instrumentation:
-    default-excludes: true
-    excludes: ['node_modules/*', 'dist/*', 'webpack.**', '__test__/*', '**demo/**']
-    include-all-sources: true
     es-modules: true
+    include-all-sources: true
+    default-excludes: true
+    excludes:
+        - 'dist/**'
+        - 'server/**'
+        - 'src/vendor.js'
+        - 'src/webpack-public-path.js'
+        - 'webpack.**'
+        - '__test__/**'
 reporting:
     print: summary
     reports:
