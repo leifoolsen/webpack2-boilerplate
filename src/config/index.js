@@ -10,9 +10,12 @@ import deepMerge from '../utils/deep-merge';
 const env = ['test', 'development', 'production']
     .find( el => el === process.env.NODE_ENV) || 'production';
 
+const PUBLIC_PATH = '/';
+
 const defaultConfig = {
   env: env,
-  publicPath: '/',
+  publicPath: PUBLIC_PATH,
+  apiPath: `${PUBLIC_PATH}api`,
   logger: {
     console: {
       level: LOG_LEVEL.debug,

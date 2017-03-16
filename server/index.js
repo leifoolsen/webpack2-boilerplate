@@ -157,6 +157,7 @@ process.on('uncaughtException', err => {
 
 
 const server = {
+  app: app,
   handle: null,
 
   start: () => {
@@ -173,9 +174,9 @@ const server = {
     }
   },
 
-  stop: () => {
+  stop: (done) => {
     if (server.handle !== null) {
-      server.handle.close();
+      server.handle.close(done);
       server.handle = null;
     }
   },
@@ -186,4 +187,5 @@ if (process.env.NODE_ENV !== 'test') {
   server.start();
 }
 
-export default server; // Export for test
+//export default server; // Export for test
+module.exports = server;

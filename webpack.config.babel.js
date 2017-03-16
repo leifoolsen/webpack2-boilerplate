@@ -11,6 +11,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const argv = require('./server/args-to-key-value').arrayToKeyValue(process.argv.slice(2));
 
 const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);
+const isTest = process.env.NODE_ENV === 'test' || argv['env.test'];
 const isProd = !isDev;
 const isHot = argv.hot || false;
 const src = path.resolve(process.cwd(), 'src');
@@ -19,7 +20,8 @@ const context = src;
 
 // Set NODE_ENV to make shure we read correct config
 // eslint-disable-next-line no-nested-ternary
-process.env.NODE_ENV = isProd ? 'production' : isDev ? 'development' : 'test';
+process.env.NODE_ENV = isTest ? 'test' : isProd ? 'production' : 'development';
+
 const config = require('./src/config');
 
 // get the intended port number, use port 3000 if not provided

@@ -51,11 +51,10 @@ More details about Husky can be found here:
 
 ## NPM Scripts
 * `start`: run Express sever with Hot Module Reloading (HMR), eslint and stylelint, serving files at http://localhost:8084
-* `test`: run Mocha tests
-* `test:watch`: run Mocha tests in watch mode
-* `test:single`: run a single Mocha test file in watch mode, e.g.<br/>`npm run test:single test/utils/logger.spec.js`
-* `test:pattern`: will run Mocha tests and suites with names matching the given pattern, e.g.<br/>`pattern=logger npm run test:pattern` will run only the `logger` tests
-* `test:coverage`: run Istanbul code coverage (open `coverage/lcov-report/index.html` to view coverage report)
+* `test`: run tests
+* `test:watch`: run unit tests in watch mode
+* `test:single`: run a single test file in watch mode, e.g.<br/>`npm run test:single test/utils/logger.spec.js`
+* `test:pattern`: will run tests and suites with names matching the given pattern, e.g.<br/>`pattern=logger npm run test:pattern` will run only the `logger` tests
 * `lint`: lint according to rules in `.eslintrc` and `.stylelintrc`
 * `coverage`: runs code coverage 
 * `analyze`: run webpack-bundle-size-analyzer to analyze the output bundle sizes
