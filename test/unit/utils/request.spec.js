@@ -42,6 +42,8 @@ const networkFailure = () => {
 
 describe('request', () => {
 
+  let fetchStub;
+
   before(() => {
     setupJsDom();
     if (!global.fetch) {
@@ -54,11 +56,11 @@ describe('request', () => {
   });
 
   beforeEach(() => {
-    sinon.stub(global, 'fetch');
+    fetchStub = sinon.stub(global, 'fetch');
   });
 
   afterEach(() => {
-    sinon.restore(global.fetch); // or: global.fetch.restore();
+    fetchStub.restore();
   });
 
   describe('successful JSON response', () => {

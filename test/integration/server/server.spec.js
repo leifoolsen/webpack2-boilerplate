@@ -35,7 +35,7 @@ describe('Express server', () => {
     }
   });
 
-  describe('Starting an stopping', () => {
+  describe('Starting and stopping', () => {
     it('should have an Express server up and running', () => {
       expect(server.handle).to.not.be.null;
       expect(server.handle.address()).to.be.an.object;

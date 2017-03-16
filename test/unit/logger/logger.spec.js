@@ -53,7 +53,7 @@ describe('logger', () => {
         expect(console.log.getCall(0).args[2]).to.equal('logged'); //eslint-disable-line no-console
       }
       finally {
-        sinon.restore(stubLog); // or: console.log.restore();
+        stubLog.restore();
       }
     });
 
@@ -65,7 +65,7 @@ describe('logger', () => {
         expect(console.log.called).to.be.false; //eslint-disable-line no-console
       }
       finally {
-        sinon.restore(stubLog);
+        stubLog.restore();
       }
     });
 
@@ -84,13 +84,14 @@ describe('logger', () => {
         expect(console.log.called).to.be.false; //eslint-disable-line no-console
       }
       finally {
-        sinon.restore(stubLog);
+        stubLog.restore();
       }
     });
   });
 
   describe('remote logger', () => {
     let spy;
+    let fetchStub;
 
     before(() => {
       expect(logger.remoteLogger).to.not.be.undefined;
@@ -107,13 +108,13 @@ describe('logger', () => {
     });
 
     beforeEach(() => {
-      sinon.stub(global, 'fetch');
+      fetchStub = sinon.stub(global, 'fetch');
       fetch.returns(jsonOk());
     });
 
     afterEach(() => {
       spy.reset();
-      sinon.restore(global.fetch);
+      fetchStub.restore();
     });
 
     it('should set remote log level to "info"', () => {
