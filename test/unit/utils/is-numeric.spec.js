@@ -1,6 +1,6 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import isNumeric from '../../src/utils/is-numeric';
+import isNumeric from '../../../src/utils/is-numeric';
 
 describe('is-numeric', () => {
 

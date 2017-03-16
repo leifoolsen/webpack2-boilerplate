@@ -1,6 +1,6 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import JsXPath from '../../src/utils/js-xpath';
+import JsXPath from '../../../src/utils/js-xpath';
 
 describe('js-xpath', () => {
 

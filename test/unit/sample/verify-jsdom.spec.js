@@ -1,7 +1,6 @@
-import { setupJsDom, teardownJsDom } from '../jsdom-init';
 import { before, after, describe, it } from 'mocha';
 import { expect } from 'chai';
-
+import { setupJsDom, teardownJsDom } from '../../jsdom-init';
 
 describe('mocha-jsdom', () => {
 

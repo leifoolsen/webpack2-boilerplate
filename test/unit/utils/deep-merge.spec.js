@@ -1,6 +1,6 @@
 import { describe, it } from 'mocha';
 import { assert } from 'chai';
-import deepMerge from '../../src/utils/deep-merge';
+import deepMerge from '../../../src/utils/deep-merge';
 
 describe('deep-merge', () => {
 

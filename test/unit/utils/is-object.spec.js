@@ -1,6 +1,6 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import isObject from '../../src/utils/is-object';
+import isObject from '../../../src/utils/is-object';
 
 describe('is-object', () => {
 

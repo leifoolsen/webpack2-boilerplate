@@ -7,9 +7,9 @@ import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 import webpack from 'webpack';
-import config from '../webpack.config.babel';
 import router from './router';
 import logger from './logger';
+import config from '../webpack.config.babel';
 
 const argv = require('./args-to-key-value').arrayToKeyValue(process.argv.slice(2));
 const isHot = argv.hot || false;
@@ -155,11 +155,35 @@ process.on('uncaughtException', err => {
   process.exit(1);
 });
 
-app.listen(config.devServer.port, config.devServer.host, (err) => {
-  if(err) {
-    logger.error(err.message);
-  }
-  else {
-    logger.serverStarted(config.devServer.port, publicPath, isHot);
-  }
-});
+
+const server = {
+  handle: null,
+
+  start: () => {
+    if(server.handle === null) {
+      server.handle = app.listen(config.devServer.port, config.devServer.host, (err) => {
+        if (err) {
+          logger.error(err.message);
+        }
+        else {
+          server.handle.emit('serverStarted');
+          logger.serverStarted(config.devServer.port, publicPath, isHot);
+        }
+      });
+    }
+  },
+
+  stop: () => {
+    if (server.handle !== null) {
+      server.handle.close();
+      server.handle = null;
+    }
+  },
+
+};
+
+if (process.env.NODE_ENV !== 'test') {
+  server.start();
+}
+
+export default server; // Export for test

@@ -18,7 +18,8 @@ const dist = path.resolve(process.cwd(), 'dist');
 const context = src;
 
 // Set NODE_ENV to make shure we read correct config
-process.env.NODE_ENV = process.env.NODE_ENV || isProd ? 'production' : 'development';
+// eslint-disable-next-line no-nested-ternary
+process.env.NODE_ENV = isProd ? 'production' : isDev ? 'development' : 'test';
 const config = require('./src/config');
 
 // get the intended port number, use port 3000 if not provided
@@ -26,7 +27,7 @@ const host = 'localhost';
 const port = process.env.PORT || argv.port || 3000;
 const publicPath = process.env.PUBLIC_PATH || argv['public-path'] || config.publicPath || '/';
 
-//console.log('Webpack argv:', argv);
+//eslint-disable-next-line no-console
 console.log('Webpack options:', 'env:', process.env.NODE_ENV, 'hot:', isHot, 'public path:', publicPath);
 
 //const removeEmpty = array => array.filter(i => !!i);

@@ -1,10 +1,9 @@
+import { Response } from 'whatwg-fetch';
 import sinon from 'sinon';
 import { before, after, beforeEach, afterEach, describe, it } from 'mocha';
 import { expect } from 'chai';
-import { setupJsDom, teardownJsDom } from '../jsdom-init';
-
-import { Response } from 'whatwg-fetch';
-import logger, {LOG_LEVEL} from '../../src/logger/logger';
+import { setupJsDom, teardownJsDom } from '../../jsdom-init';
+import logger, {LOG_LEVEL} from '../../../src/logger/logger';
 
 const jsonOk = body => {
   const mockResponse = new Response(JSON.stringify(body), {
