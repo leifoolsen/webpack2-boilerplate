@@ -26,6 +26,9 @@ const defaultConfig = {
       url: '/api/log',
     }
   },
+  server: {
+    port: 8082
+  },
 };
 
 

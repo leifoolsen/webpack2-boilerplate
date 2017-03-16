@@ -28,7 +28,6 @@ describe('Express server', () => {
   after((done) => {
     if (server.handle) {
       server.stop(done);
-      expect(server.handle).to.be.null;
     }
     else {
       done();

@@ -42,7 +42,7 @@ const networkFailure = () => {
 
 describe('request', () => {
 
-  let fetchStub;
+  const sandbox = sinon.sandbox.create();
 
   before(() => {
     setupJsDom();
@@ -56,11 +56,11 @@ describe('request', () => {
   });
 
   beforeEach(() => {
-    fetchStub = sinon.stub(global, 'fetch');
+    sandbox.stub(global, 'fetch');
   });
 
   afterEach(() => {
-    fetchStub.restore();
+    sandbox.restore();
   });
 
   describe('successful JSON response', () => {

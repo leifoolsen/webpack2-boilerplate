@@ -8,7 +8,7 @@
     "setup": "npm install && npm-run-all clean validate",
     "clean": "rimraf dist",
     "validate": "npm-run-all lint test",
-    "precommit": "npm run validate",
+    "precommit": "npm run lint",
     "build:dll": "webpack --config webpack.config.dll.js",
     "prebuild": "npm-run-all clean validate build:dll",
     "build": "webpack --env.dev --progress",

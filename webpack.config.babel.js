@@ -26,7 +26,7 @@ const config = require('./src/config');
 
 // get the intended port number, use port 3000 if not provided
 const host = 'localhost';
-const port = process.env.PORT || argv.port || 3000;
+const port = process.env.PORT || argv.port || config.server.port || 3000;
 const publicPath = process.env.PUBLIC_PATH || argv['public-path'] || config.publicPath || '/';
 
 //eslint-disable-next-line no-console
