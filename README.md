@@ -11,13 +11,14 @@ A Webpack2 boilerplate, partly based on this Egghead.io course;
 * Npm as a task/build runner
 * Webpack2 with tree-shaking and hot module replacement (HMR)
 * Webpack DLL plugin for faster builds
-* Express middleware
+* Node Express middleware
 * Linting with eslint and stylelint
-* Unit tests with Mocha, Chai, Sinon and JsDom 
-* Code coverage with Istanbul
+* Unit tests with Mocha, Chai, Sinon and JsDom
+* Integration tests with Node Express server <!--* Acceptance testing with Node Express, Cucumber.js, WDIO, Selenium and PhantomJS -->
+* Code coverage and reporting with Istanbul
 * SASS boilerplate with Solved by Flexbox Holy Grail example layout
 * Self hosting Google Material Icons and Font Roboto
-* No dependencies to frameworks like React or Angular
+* Framework agnostic. No dependencies to frameworks like React or Angular
 * Uses [husky](https://github.com/typicode/husky) to prevent bad commits
 
 ### Husky
@@ -53,7 +54,7 @@ More details about Husky can be found here:
 * `start`: run Express sever with Hot Module Reloading (HMR), eslint and stylelint, serving files at http://localhost:8084
 * `test`: run tests
 * `test:watch`: run unit tests in watch mode
-* `test:single`: run a single test file in watch mode, e.g.<br/>`npm run test:single test/utils/logger.spec.js`
+* `test:single`: run a single test file in watch mode, e.g.<br/>`npm run test:single test/unit/utils/logger.spec.js`
 * `test:pattern`: will run tests and suites with names matching the given pattern, e.g.<br/>`pattern=logger npm run test:pattern` will run only the `logger` tests
 * `lint`: lint according to rules in `.eslintrc` and `.stylelintrc`
 * `coverage`: runs code coverage 
