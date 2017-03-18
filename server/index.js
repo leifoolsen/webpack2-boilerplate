@@ -150,11 +150,6 @@ else {
   });
 }
 
-process.on('uncaughtException', err => {
-  logger.error('Uncaught Exception ', err.stack);
-  process.exit(1);
-});
-
 
 const server = {
   app: app,
@@ -184,8 +179,14 @@ const server = {
 };
 
 if (process.env.NODE_ENV !== 'test') {
+  process.on('uncaughtException', err => {
+    logger.error('Server Uncaught Exception ', err.stack);
+    process.exit(1);
+  });
+
   server.start();
 }
 
-//export default server; // Export for test
+// Export for test
 module.exports = server;
+export default server;

@@ -1,3 +1,5 @@
+
+
 import server from '../../../server';
 import joinUrl from '../../../src/utils/join-url';
 
@@ -9,6 +11,8 @@ const expect = require('chai').expect;
 
 
 // See: https://mrvautin.com/ensure-express-app-started-before-tests/
+// See: http://developmentnow.com/2015/02/05/make-your-node-js-api-bulletproof-how-to-test-with-mocha-chai-and-supertest/
+// See: https://blog.codeship.com/testing-http-apis-supertest/
 describe('Express server', () => {
 
   const config = require('../../../src/config');
@@ -46,29 +50,84 @@ describe('Express server', () => {
     const agent = request.agent(server.app);
 
     describe('Public path', () => {
-      it('should load index.html', () => {
+      it('should load index.html, .end() version', (done) => {
         agent
           .get(config.publicPath)
           .set('Accept', 'text/html')
+          .expect('Content-Type', /text\/html/)
           .expect(200)
-          .then(response => {
-            expect(response.text).to.include('<!DOCTYPE html>');
+          .end((err, res) => {
+            if(err) {
+              return done(err);
+            }
+
+            // NOTE: The AssertionError should be handled to avoid
+            // an Uncaught AssertionError to "bubble" to server
+            try {
+              expect(res.text).to.include('<!DOCTYPE html>');
+            }
+            catch(ae) {
+              return done(ae);
+            }
+            done();
           });
+      });
+
+      it('should load index.html, .then/.catch version', (done) => {
+        agent
+          .get(config.publicPath)
+          .set('Accept', 'text/html')
+          .expect('Content-Type', /text\/html/)
+          .expect(200)
+          .then(res => {
+            expect(res.text).to.include('<!DOCTYPE html>');
+            done();
+          })
+          .catch(done);
       });
     });
 
     describe('API', () => {
 
-      it('responds to /api/ping with 200', (done) => {
+      it('responds to /api/ping with 200, .end() version', (done) => {
         agent
           .get(joinUrl(config.apiPath, 'ping'))
-          .expect(200, done);
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end((err, res) => {
+            if (err) {
+              return done(err);
+            }
+            try {
+              expect(res.body.ping).to.equal('pong!');
+            }
+            catch(ae) {
+              return done(ae);
+            }
+            done();
+          });
+      });
+
+      it('responds to /api/ping with 200, .then/catch version', (done) => {
+        agent
+          .get(joinUrl(config.apiPath, 'ping'))
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .then(res => {
+            expect(res.body.ping).to.equal('pong!');
+            done();
+          })
+          .catch(done);
       });
 
       it('responds to /api/foobar with 404', (done) => {
         agent
           .get(joinUrl(config.apiPath, 'foobar'))
-          .expect(404, done);
+          .set('Accept', 'application/json')
+          .expect(404)
+          .end(done);
       });
     });
   });
