@@ -59,7 +59,7 @@ describe('Express server', () => {
 
       it('should load index.html, .end() version', (done) => {
         agent
-          .get('/')
+          .get(config.publicPath)
           .set('Accept', 'text/html')
           .expect('Content-Type', /text/)
           .expect(200)
