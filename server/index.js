@@ -3,7 +3,7 @@
  */
 
 
-// Code is a bit messy. In need some refactoring :-)
+// Code is a bit messy. In need of some refactoring :-)
 
 import 'babel-polyfill';
 import path from 'path';
