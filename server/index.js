@@ -2,6 +2,9 @@
  * Code inspired by https://github.com/mxstbr/react-boilerplate/blob/master/server/middlewares/frontendMiddleware.js
  */
 
+
+// Code is a bit messy. In need some refactoring :-)
+
 import 'babel-polyfill';
 import path from 'path';
 import express from 'express';
@@ -12,41 +15,50 @@ import logger from './logger';
 import config from '../webpack.config.babel';
 
 const argv = require('./args-to-key-value').arrayToKeyValue(process.argv.slice(2));
+const isTest = process.env.NODE_ENV === 'test' || argv['env.test'];
+const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);
+const isProd = !isDev;
 const isHot = argv.hot || false;
 const publicPath = config.devServer.publicPath;
 
 const app = express();
+let devMiddleware = null;
 
-// Middleware for handling JSON, Raw, Text and URL encoded form data
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// eslint-disable-next-line no-console
+console.log('Express config:', 'NODE_ENV:', process.env.NODE_ENV, 'test:', isTest, 'prod:', isProd, 'dev:', isDev, 'hot:', isHot, 'public path:', publicPath);
 
-// Api router. Must be defined before any app.get
-// To set up a proxy for the /api, use 'http-proxy-middleware'.
-// Not provided in this example
-app.use(path.join(publicPath, 'api'), router);
+const commonConfig = () => {
+  // Middleware for handling JSON, Raw, Text and URL encoded form data
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
 
-if(config.devServer.historyApiFallback) {
-  // This rewrites all routes requests to the root /index.html file
-  // (ignoring file requests). If you want to implement universal
-  // rendering, you'll want to remove this middleware.
-  const history = require('connect-history-api-fallback');
-  app.use(history(config.devServer.historyApiFallback));
-}
+  // Api router. Must be defined before any app.get
+  // To set up a proxy for the /api, use 'http-proxy-middleware'.
+  // Not provided in this example
+  app.use(path.join(publicPath, 'api'), router);
 
-if(isHot) {
-  const webpackDevMiddleware = require('webpack-dev-middleware');
-  const webpackHotMiddleware = require('webpack-hot-middleware');
 
+  if(config.devServer.historyApiFallback) {
+    // This rewrites all routes requests to the root /index.html file
+    // (ignoring file requests). If you want to implement universal
+    // rendering, you'll want to remove this middleware.
+    const history = require('connect-history-api-fallback');
+    app.use(history(config.devServer.historyApiFallback));
+  }
+};
+
+const webpackConfig = () => {
   const compiler = webpack(config);
-  const devMiddleware = webpackDevMiddleware(compiler, config.devServer);
-
+  const webpackDevMiddleware = require('webpack-dev-middleware');
+  devMiddleware = webpackDevMiddleware(compiler, config.devServer);
   app.use(devMiddleware);
-  app.use(webpackHotMiddleware(compiler, {
-    //log: console.log,
-    path: path.join(publicPath, '__webpack_hmr'),
-    //heartbeat: 10 * 1000,
-  }));
+
+  if(isHot) {
+    const webpackHotMiddleware = require('webpack-hot-middleware');
+    app.use(webpackHotMiddleware(compiler, {
+      path: path.join(publicPath, '__webpack_hmr'),
+    }));
+  }
 
   app.use(publicPath, express.static(config.context));
 
@@ -83,7 +95,7 @@ if(isHot) {
       ? req.path.replace(publicPath, '')
       : req.path;
 
-   // console.log('@@@ *', req.path, filename);
+    // console.log('@@@ *', req.path, filename);
 
     if(filename.indexOf('.') > -1) {
       res.sendFile(path.join(compiler.outputPath, filename), err => {
@@ -102,8 +114,9 @@ if(isHot) {
       });
     }
   });
-}
-else {
+};
+
+const distConfig = () => {
   // compression middleware compresses your server responses which makes them
   // smaller (applies also to assets). You can read more about that technique
   // and other good practices on official Express.js docs http://mxs.is/googmy
@@ -125,6 +138,7 @@ else {
       }
     });
   });
+
 
   app.get('*', (req, res) => {
     const filename = req.path.startsWith(publicPath)
@@ -148,7 +162,7 @@ else {
       });
     }
   });
-}
+};
 
 
 const server = {
@@ -156,16 +170,28 @@ const server = {
   handle: null,
 
   start: () => {
-    if(server.handle === null) {
-      server.handle = app.listen(config.devServer.port, config.devServer.host, (err) => {
-        if (err) {
-          logger.error(err.message);
-        }
-        else {
-          server.handle.emit('serverStarted');
-          logger.serverStarted(config.devServer.port, publicPath, isHot);
-        }
+    const startServer = () => {
+      if(server.handle === null) {
+        server.handle = app.listen(config.devServer.port, config.devServer.host, (err) => {
+          if (err) {
+            logger.error(err.message);
+          }
+          else {
+            server.app.emit('serverStarted');
+            logger.serverStarted(config.devServer.port, publicPath, isHot);
+          }
+        });
+      }
+    };
+
+    if(devMiddleware) {
+      devMiddleware.waitUntilValid(() => {
+        logger.info('webpack is in a valid state');
+        startServer();
       });
+    }
+    else {
+      startServer();
     }
   },
 
@@ -177,6 +203,17 @@ const server = {
   },
 
 };
+
+
+//
+commonConfig();
+
+if(isDev || isHot) {
+  webpackConfig();
+}
+else {
+  distConfig();
+}
 
 if (process.env.NODE_ENV !== 'test') {
   process.on('uncaughtException', err => {

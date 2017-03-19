@@ -31,17 +31,17 @@ describe('config', () => {
     expect(config.env).to.equal('development');
   });
 
-  it('should have config.env: production when process.env.NODE_ENV is undefined', () => {
+  it('should have config.env: development when process.env.NODE_ENV is undefined', () => {
     process.env.NODE_ENV = undefined;
     const config = requireUncached('../../../src/config');
     assert.isDefined(config);
-    expect(config.env).to.equal('production');
+    expect(config.env).to.equal('development');
   });
 
-  it('should have config.env: production when process.env.NODE_ENV not in [test, development, production]', () => {
+  it('should have config.env: development when process.env.NODE_ENV not in [test, development, production]', () => {
     process.env.NODE_ENV = 'foo';
     const config = requireUncached('../../../src/config');
-    expect(config.env).to.equal('production');
+    expect(config.env).to.equal('development');
   });
 
   it('should merge default and production settings correctly', () => {

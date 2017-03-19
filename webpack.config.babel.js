@@ -10,8 +10,8 @@ const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const argv = require('./server/args-to-key-value').arrayToKeyValue(process.argv.slice(2));
 
-const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);
 const isTest = process.env.NODE_ENV === 'test' || argv['env.test'];
+const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);
 const isProd = !isDev;
 const isHot = argv.hot || false;
 const src = path.resolve(process.cwd(), 'src');
@@ -20,7 +20,7 @@ const context = src;
 
 // Set NODE_ENV to make shure we read correct config
 // eslint-disable-next-line no-nested-ternary
-process.env.NODE_ENV = isTest ? 'test' : isProd ? 'production' : 'development';
+//process.env.NODE_ENV = isTest ? 'test' : isProd ? 'production' : 'development';
 
 const config = require('./src/config');
 
@@ -29,8 +29,9 @@ const host = 'localhost';
 const port = process.env.PORT || argv.port || config.server.port || 3000;
 const publicPath = process.env.PUBLIC_PATH || argv['public-path'] || config.publicPath || '/';
 
+// NOTE: Comment out "console.log" before executing "npm run analyze"
 //eslint-disable-next-line no-console
-console.log('Webpack options:', 'env:', process.env.NODE_ENV, 'hot:', isHot, 'public path:', publicPath);
+console.log('Webpack config:', 'NODE_ENV:', process.env.NODE_ENV, 'test:', isTest, 'prod:', isProd, 'dev:', isDev, 'hot:', isHot, 'public path:', publicPath);
 
 //const removeEmpty = array => array.filter(i => !!i);
 

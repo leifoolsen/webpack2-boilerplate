@@ -52,14 +52,13 @@ More details about Husky can be found here:
 
 ## NPM Scripts
 * `start`: run Express sever with Hot Module Reloading (HMR), eslint and stylelint, serving files at http://localhost:8084
-* `test`: run tests
+* `test`: run unit tests and integration tests
 * `test:watch`: run unit tests in watch mode
 * `test:single`: run a single test file in watch mode, e.g.<br/>`npm run test:single test/unit/utils/logger.spec.js`
 * `test:pattern`: will run tests and suites with names matching the given pattern, e.g.<br/>`pattern=logger npm run test:pattern` will run only the `logger` tests
 * `lint`: lint according to rules in `.eslintrc` and `.stylelintrc`
-* `coverage`: runs code coverage 
-* `analyze`: run webpack-bundle-size-analyzer to analyze the output bundle sizes
-* `clean`: remove the dist directory
+* `analyze`: run webpack-bundle-size-analyzer to analyze the output bundle sizes<br/>Note: There is a `console.log` statement at the top of the `webpack.config` file that must be removed before this script can be run
+* `clean`: remove dist and coverage directory
 * `build`: bundle the app to the dist dir using development settings
 * `build:prod`: bundle the app to the dist dir using production settings
 * `server`: run Express sever with the generated bundle, serving files at http://localhost:8000

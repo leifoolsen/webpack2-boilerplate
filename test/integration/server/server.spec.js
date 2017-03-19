@@ -1,5 +1,4 @@
 
-
 import server from '../../../server';
 import joinUrl from '../../../src/utils/join-url';
 
@@ -18,20 +17,27 @@ describe('Express server', () => {
   const config = require('../../../src/config');
 
   // Start server
-  before((done) => {
+  before( function(done) {
+
+    // webpack may take more than 2000ms to compile
+    this.timeout(10000);
+
     server.start();
 
-    server.handle.on('serverStarted', () => {
+    server.app.on('serverStarted', () => {
       done();
       expect(server.handle).to.not.be.null;
       expect(server.handle.address()).to.be.an.object;
     });
   });
 
+
   // Stop server
   after((done) => {
     if (server.handle) {
       server.stop(done);
+      // eslint-disable-next-line no-console
+      console.log('Server stopped');
     }
     else {
       done();
@@ -50,17 +56,17 @@ describe('Express server', () => {
     const agent = request.agent(server.app);
 
     describe('Public path', () => {
+
       it('should load index.html, .end() version', (done) => {
         agent
-          .get(config.publicPath)
+          .get('/')
           .set('Accept', 'text/html')
-          .expect('Content-Type', /text\/html/)
+          .expect('Content-Type', /text/)
           .expect(200)
           .end((err, res) => {
             if(err) {
               return done(err);
             }
-
             // NOTE: The AssertionError should be handled to avoid
             // an Uncaught AssertionError to "bubble" to server
             try {
@@ -77,7 +83,7 @@ describe('Express server', () => {
         agent
           .get(config.publicPath)
           .set('Accept', 'text/html')
-          .expect('Content-Type', /text\/html/)
+          .expect('Content-Type', /text/)
           .expect(200)
           .then(res => {
             expect(res.text).to.include('<!DOCTYPE html>');

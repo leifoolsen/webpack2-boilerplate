@@ -1,38 +1,9 @@
 {
   "name": "webpack2-boilerplate",
   "version": "0.0.1",
-  "description": "A boilerplate for ES2015 and SASS using Webpack2. NOTE: 'webpack-validator' and 'webpack-bundle-size-analyzer' is not compatible with webpack-2.1.0-beta.25",
+  "description": "A boilerplate for ES2015 and SASS using Webpack2.",
   "author": "Leif Olsen <leif.o.olsen.at.gmail.com> (https://github.com/leifoolsen)",
   "main": "webpack.config.babel.js",
-  "scripts": {
-    "setup": "npm install && npm-run-all clean validate",
-    "clean": "rimraf dist rimraf coverage",
-    "validate": "npm-run-all lint test",
-    "precommit": "npm run lint",
-    "build:dll": "webpack --config webpack.config.dll.js",
-    "prebuild": "npm-run-all clean lint build:dll coverage",
-    "build": "webpack --env.dev --progress",
-    "prebuild:prod": "npm-run-all clean lint build:dll coverage",
-    "build:prod": "NODE_ENV=production webpack --env.prod --progress",
-    "lint": "npm-run-all lint:*",
-    "lint:stylelint": "stylelint './src/**/*.s?(a|c)ss' --syntax scss",
-    "lint:eslint": "eslint ./src ./server ./test",
-    "coverage": "npm-run-all coverage:* check:coverage",
-    "coverage:unit": "NODE_ENV=test babel-node ./node_modules/.bin/istanbul cover --root ./src --dir ./coverage/unit _mocha --env.test -- --opts ./mocha.opts './test/unit/**/*.spec.js'",
-    "coverage:it": "NODE_ENV=test babel-node ./node_modules/.bin/istanbul cover --root ./src --dir ./coverage/integration _mocha --env.test -- --opts ./mocha.opts './test/integration/**/*.spec.js'",
-    "coverage:report": "babel-node ./node_modules/.bin/istanbul report --root ./coverage --include **/coverage.raw.json lcov html",
-    "check:coverage": "NODE_ENV=test istanbul check-coverage  --root ./coverage --statements 50 --branches 50 --functions 50 --lines 50",
-    "test": "npm-run-all test:unit test:it",
-    "test:unit": "NODE_ENV=test mocha --env.test --opts ./mocha.opts './test/unit/**/*.spec.js'",
-    "test:it": "NODE_ENV=test mocha --env.test --opts ./mocha.opts './test/integration/**/*.spec.js'",
-    "test:watch": "npm run test:unit -- --watch",
-    "test:single": "NODE_ENV=test mocha --watch --opts ./mocha.opts",
-    "test:pattern": "NODE_ENV=test mocha --watch --opts ./mocha.opts --grep $pattern",
-    "analyze": "webpack --env.prod --json | webpack-bundle-size-analyzer",
-    "server": "babel-node server --env.prod --port 8000",
-    "start": "babel-node server --env.dev --hot --port 8084",
-    "wdio": " NODE_TLS_REJECT_UNAUTHORIZED=0 babel-node ./node_modules/.bin/wdio ./test/wdio.conf.js"
-  },
   "engineStrict": true,
   "engines": {
     "node": ">= 6"
@@ -43,7 +14,7 @@
   },
   "dependencies": {
     "babel-polyfill": "6.23.0",
-    "moment": "2.17.1",
+    "moment": "2.18.0",
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
@@ -131,5 +102,40 @@
     "Node Express",
     "Cucumber"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "setup": "npm install && npm-run-all clean validate",
+    "clean": "rimraf dist rimraf coverage",
+    "validate": "npm-run-all lint test:unit",
+    "precommit": "npm run lint",
+    "lint": "npm-run-all lint:*",
+    "lint:stylelint": "stylelint './src/**/*.s?(a|c)ss' --syntax scss",
+    "lint:eslint": "eslint ./src ./server ./test",
+
+    "build:dll": "webpack --config webpack.config.dll.js",
+    "prebuild": "npm-run-all clean lint build:dll && npm run coverage:unit -- --env.dev",
+    "postbuild": "npm run coverage:it -- --env.dev && npm-run-all coverage:report check:coverage",
+    "build": "NODE_ENV=development webpack --progress",
+
+    "prebuild:prod": "npm-run-all clean lint && npm run coverage:unit -- --env.prod",
+    "postbuild:prod": "npm run coverage:it -- --env.prod  && npm-run-all coverage:report check:coverage",
+    "build:prod": "NODE_ENV=production webpack --progress",
+
+    "coverage:unit": "NODE_ENV=test babel-node ./node_modules/.bin/istanbul cover --root ./src --dir ./coverage/unit _mocha -- --opts ./mocha.opts './test/unit/**/*.spec.js'",
+    "coverage:it": "NODE_ENV=test babel-node ./node_modules/.bin/istanbul cover --root ./src --dir ./coverage/integration _mocha -- --opts ./mocha.opts './test/integration/**/*.spec.js'",
+    "coverage:report": "babel-node ./node_modules/.bin/istanbul report --root ./coverage --include **/coverage.raw.json lcov html",
+    "check:coverage": "istanbul check-coverage  --root ./coverage --statements 50 --branches 50 --functions 50 --lines 50",
+
+    "test": "npm-run-all test:unit test:it",
+    "test:unit": "NODE_ENV=test mocha --env.dev --opts ./mocha.opts './test/unit/**/*.spec.js'",
+    "test:it": "NODE_ENV=test mocha --env.dev --opts ./mocha.opts './test/integration/**/*.spec.js'",
+    "test:watch": "npm run test:unit -- --watch",
+    "test:single": "NODE_ENV=test mocha --env.dev --watch --opts ./mocha.opts",
+    "test:pattern": "NODE_ENV=test mocha --env.dev --watch --opts ./mocha.opts --grep $pattern",
+
+    "analyze": "webpack --env.prod --json | webpack-bundle-size-analyzer",
+    "server": "NODE_ENV=production babel-node ./server --port 8000",
+    "start": "babel-node ./server --hot --port 8084",
+    "wdio": " NODE_TLS_REJECT_UNAUTHORIZED=0 babel-node ./node_modules/.bin/wdio ./test/wdio.conf.js"
+  }
 }

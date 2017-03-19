@@ -8,7 +8,7 @@ import deepMerge from '../utils/deep-merge';
 // Note: The "process.env.NODE_ENV" and "process.env.PUBLIC_PATH" globals
 // are injected by webpack during build using webpack.DefinePlugin.
 const env = ['test', 'development', 'production']
-    .find( el => el === process.env.NODE_ENV) || 'production';
+    .find( el => el === process.env.NODE_ENV) || 'development';
 
 const PUBLIC_PATH = '/';
 
