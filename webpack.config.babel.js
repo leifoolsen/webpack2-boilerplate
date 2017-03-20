@@ -17,11 +17,6 @@ const isHot = argv.hot || false;
 const src = path.resolve(process.cwd(), 'src');
 const dist = path.resolve(process.cwd(), 'dist');
 const context = src;
-
-// Set NODE_ENV to make shure we read correct config
-// eslint-disable-next-line no-nested-ternary
-//process.env.NODE_ENV = isTest ? 'test' : isProd ? 'production' : 'development';
-
 const config = require('./src/config');
 
 // get the intended port number, use port 3000 if not provided

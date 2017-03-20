@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable consistent-return */
 
 import server from '../../../server';
 import joinUrl from '../../../src/utils/join-url';
@@ -17,7 +19,7 @@ describe('Express server', () => {
   const config = require('../../../src/config');
 
   // Start server
-  before( function(done) {
+  before( function (done) {
 
     // webpack may take more than 2000ms to compile
     this.timeout(10000);

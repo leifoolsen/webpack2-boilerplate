@@ -15,6 +15,7 @@ import logger from './logger';
 import config from '../webpack.config.babel';
 
 const argv = require('./args-to-key-value').arrayToKeyValue(process.argv.slice(2));
+
 const isTest = process.env.NODE_ENV === 'test' || argv['env.test'];
 const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);
 const isProd = !isDev;
@@ -97,9 +98,9 @@ const webpackConfig = () => {
 
     // console.log('@@@ *', req.path, filename);
 
-    if(filename.indexOf('.') > -1) {
+    if (filename.indexOf('.') > -1) {
       res.sendFile(path.join(compiler.outputPath, filename), err => {
-        if(err) {
+        if (err) {
           res.sendStatus(404);
         }
       });
@@ -133,7 +134,7 @@ const distConfig = () => {
     //console.log('§§§ .map|.html', req.path, filename);
 
     res.sendFile(path.resolve(outputPath, filename), err => {
-      if(err) {
+      if (err) {
         res.sendStatus(404);
       }
     });
@@ -147,16 +148,16 @@ const distConfig = () => {
 
     //console.log('@@@ *', req.path, filename);
 
-    if(filename.indexOf('.') > -1) {
+    if (filename.indexOf('.') > -1) {
       res.sendFile(path.join(outputPath, filename), err => {
-        if(err) {
+        if (err) {
           res.sendStatus(404);
         }
       });
     }
     else {
       res.sendFile(path.resolve(outputPath, 'index.html'), err => {
-        if(err) {
+        if (err) {
           res.sendStatus(404);
         }
       });
@@ -171,10 +172,11 @@ const server = {
 
   start: () => {
     const startServer = () => {
-      if(server.handle === null) {
+      if (server.handle === null) {
         server.handle = app.listen(config.devServer.port, config.devServer.host, (err) => {
           if (err) {
             logger.error(err.message);
+            process.exit(1);
           }
           else {
             server.app.emit('serverStarted');
@@ -184,7 +186,7 @@ const server = {
       }
     };
 
-    if(devMiddleware) {
+    if (devMiddleware) {
       devMiddleware.waitUntilValid(() => {
         logger.info('webpack is in a valid state');
         startServer();
@@ -208,7 +210,7 @@ const server = {
 //
 commonConfig();
 
-if(isDev || isHot) {
+if (isDev || isHot) {
   webpackConfig();
 }
 else {
