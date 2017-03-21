@@ -56,4 +56,27 @@ describe('deep-merge', () => {
     assert.deepEqual(z, expectedZ);
   });
 
+  it('should be an empty object after merge', () => {
+    const x = {};
+    const y = undefined;
+    const expected = {};
+
+    let z = deepMerge(x, y);
+    assert.deepEqual(z, expected);
+
+    z = deepMerge(y, x);
+    assert.deepEqual(z, expected);
+  });
+
+  it('should be same as non empty object after merge', () => {
+    const x = { a: { a: 1 } };
+    const y = undefined;
+
+    let z = deepMerge(x, y);
+    assert.deepEqual(z, x);
+
+    z = deepMerge(y, x);
+    assert.deepEqual(z, x);
+  });
+
 });

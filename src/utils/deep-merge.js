@@ -18,29 +18,30 @@ import isObject from './is-object';
  * // Rerurns a deep merge { a: { a: 1, b: 1 } }
  */
 
-const deepMerge = (target, ...sources) => {
+const deepMerge = (target = {}, ...sources) => {
 
   const result = Object.assign({}, target);
 
   for (let i = 0; i < sources.length; i++) {
 
     const source = sources[i];
+    if (source) {
+      Object.keys(source).forEach(key => {
 
-    Object.keys(source).forEach(key => {
+        if (isObject(source[key])) {
 
-      if (isObject(source[key])) {
-
-        if (!(key in result)) {
-          Object.assign(result, { [key]: source[key] });
+          if (!(key in result)) {
+            Object.assign(result, { [key]: source[key] });
+          }
+          else {
+            result[key] = deepMerge(result[key], source[key]);
+          }
         }
         else {
-          result[key] = deepMerge(result[key], source[key]);
+          Object.assign(result, { [key]: source[key] });
         }
-      }
-      else {
-        Object.assign(result, { [key]: source[key] });
-      }
-    });
+      });
+    }
   }
   return result;
 };
