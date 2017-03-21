@@ -307,10 +307,6 @@ module.exports = {
         loader: 'html-loader', // loader: 'html', // loader: 'raw' // html vs raw: what's the difference??
       },
       {
-        test: /\.json$/,
-        loader: 'json-loader',
-      },
-      {
         test: /\.(jpg|jpeg)$/,
         loader: 'url-loader?name=[name].[ext]&limit=8192&mimetype=image/jpg'
       },
