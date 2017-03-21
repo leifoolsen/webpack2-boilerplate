@@ -8,8 +8,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const argv = require('./server/args-to-key-value').arrayToKeyValue(process.argv.slice(2));
 
+const argv = require('./server/args-to-key-value').argsToKeyValue(process.argv.slice(2));
 const isTest = process.env.NODE_ENV === 'test' || argv['env.test'];
 const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);
 const isProd = !isDev;
@@ -349,6 +349,7 @@ module.exports = {
     // inside your code for any environment checks; UglifyJS will automatically
     // drop any unreachable code.
     new webpack.DefinePlugin({
+      // NODE_ENV is either 'production' or 'development' in compiler
       'process.env.NODE_ENV': isProd ? JSON.stringify('production') : JSON.stringify('development'),
       'process.env.PUBLIC_PATH': JSON.stringify(publicPath),
       __DEV__: !isProd
@@ -454,20 +455,6 @@ module.exports = {
     historyApiFallback: {
       verbose: true,
       disableDotRule: false,
-      /*
-      rewrites: publicPath && publicPath !== '/' ? [
-        {
-          from: /^\/.*$/,
-          to: function(ctx) {
-            console.log('$$$', ctx.parsedUrl.pathname);
-
-            return ctx.parsedUrl.pathname.startsWith(publicPath.replace(/\/$/, ''))
-              ? ctx.parsedUrl.pathname
-              : path.join(publicPath, ctx.parsedUrl.pathname);
-          }
-        }
-      ] : [],
-      */
     },
   }
 };

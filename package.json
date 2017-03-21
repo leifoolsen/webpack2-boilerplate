@@ -21,7 +21,7 @@
     "autoprefixer": "6.7.7",
     "babel-cli": "6.24.0",
     "babel-core": "6.24.0",
-    "babel-eslint": "7.1.1",
+    "babel-eslint": "7.2.0",
     "babel-loader": "6.4.1",
     "babel-plugin-__coverage__": "11.0.0",
     "babel-plugin-istanbul": "4.0.0",
@@ -66,7 +66,7 @@
     "roboto-fontface": "0.7.0",
     "sass-loader": "6.0.3",
     "selenium-standalone": "6.1.0",
-    "sinon": "2.0.0",
+    "sinon": "2.1.0",
     "style-loader": "0.14.1",
     "stylelint": "7.9.0",
     "stylelint-config-standard": "16.0.0",
@@ -110,26 +110,32 @@
     "validate": "npm-run-all lint test:unit",
     "analyze": "webpack --env.prod --json | webpack-bundle-size-analyzer",
     "precommit": "npm run lint",
+
     "lint": "npm-run-all lint:*",
     "lint:stylelint": "stylelint \"./src/**/*.s?(a|c)ss\" --syntax scss",
     "lint:eslint": "eslint ./src ./server ./test",
+
     "build:dll": "webpack --config webpack.config.dll.js",
     "prebuild": "npm-run-all clean lint build:dll && npm run coverage:unit -- --env.dev",
     "postbuild": "npm run coverage:it -- --env.prod && npm-run-all coverage:report check:coverage",
     "build": "cross-env NODE_ENV=development babel-node ./node_modules/.bin/webpack --progress",
+
     "prebuild:prod": "npm-run-all clean lint && npm run coverage:unit -- --env.prod",
     "postbuild:prod": "npm run coverage:it -- --env.prod  && npm-run-all coverage:report check:coverage",
     "build:prod": "cross-env NODE_ENV=production babel-node ./node_modules/.bin/webpack --progress",
+
     "coverage:unit": "cross-env NODE_ENV=test babel-node ./node_modules/.bin/istanbul cover --root ./src --dir ./coverage/unit _mocha -- --opts ./mocha.opts \"./test/unit/**/*.spec.js\"",
     "coverage:it": "cross-env NODE_ENV=test babel-node ./node_modules/.bin/istanbul cover --root ./src --dir ./coverage/integration _mocha -- --opts ./mocha.opts \"./test/integration/**/*.spec.js\"",
     "coverage:report": "babel-node ./node_modules/.bin/istanbul report --root ./coverage --include **/coverage.raw.json lcov html",
     "check:coverage": "istanbul check-coverage  --root ./coverage --statements 50 --branches 50 --functions 50 --lines 50",
+
     "test": "npm-run-all test:unit test:it",
     "test:unit": "cross-env NODE_ENV=test mocha --env.dev --opts ./mocha.opts \"./test/unit/**/*.spec.js\"",
     "test:it": "cross-env NODE_ENV=test mocha --env.dev --opts ./mocha.opts \"./test/integration/**/*.spec.js\"",
     "test:watch": "npm run test:unit -- --watch",
     "test:single": "cross-env NODE_ENV=test mocha --env.dev --watch --opts ./mocha.opts",
     "test:pattern": "cross-env NODE_ENV=test mocha --env.dev --watch --opts ./mocha.opts --grep $pattern",
+
     "server": "cross-env NODE_ENV=production babel-node ./server --port 8000",
     "start": "babel-node ./server --hot --port 8084",
     "wdio": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 babel-node ./node_modules/.bin/wdio ./test/wdio.conf.js"
