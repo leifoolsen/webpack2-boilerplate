@@ -20,7 +20,7 @@ const src = path.resolve(process.cwd(), 'src');
 const dist = path.resolve(process.cwd(), 'dist');
 const context = src;
 
-const config = require('./src/config/config')(process.env.NODE_ENV);
+const config = require('./src/config/config-builder')(process.env.NODE_ENV);
 const host = config.server.host;
 const port = config.server.port; //process.env.PORT || argv.port || config.server.port || 3000;
 const publicPath = config.server.publicPath; //process.env.PUBLIC_PATH || argv['public-path'] || config.publicPath || '/';

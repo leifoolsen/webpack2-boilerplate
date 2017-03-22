@@ -16,7 +16,7 @@ const expect = require('chai').expect;
 // See: https://blog.codeship.com/testing-http-apis-supertest/
 describe('Express server', () => {
 
-  const config = require('../../../src/config/config')('test');
+  const config = require('../../../src/config/config-builder')('test');
 
   // Start server
   before( function (done) {

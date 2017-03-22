@@ -60,7 +60,7 @@ if (module.hot) {
 // Get (and modify) config
 // Note: The "process.env.NODE_ENV" and "process.env.PUBLIC_PATH" globals
 // are injected by webpack during build using webpack.DefinePlugin.
-const config = require('./config/config.js')(process.env.NODE_ENV); // eslint-disable-line global-require
+const config = require('./config/config-builder.js')(process.env.NODE_ENV); // eslint-disable-line global-require
 config.server.publicPath = process.env.PUBLIC_PATH; // TODO: override in config.js
 
 // Configure logging

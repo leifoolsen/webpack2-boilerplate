@@ -1,7 +1,7 @@
 import { describe, it } from 'mocha';
 import { assert } from 'chai';
 import { LOG_LEVEL } from '../../../src/logger/logger';
-import config from '../../../src/config/config';
+import config from '../../../src/config/config-builder';
 
 const expectedConfigTest = {
   env: 'test',
@@ -81,7 +81,7 @@ const expectedConfigProd = {
   },
 };
 
-describe('config', () => {
+describe('config-builder', () => {
   it('should build config for test', () => {
     const cfg = config('test');
     assert.deepEqual(cfg, expectedConfigTest);
@@ -93,7 +93,7 @@ describe('config', () => {
   });
 
   it('should build config for production', () => {
-    const cfg = require('../../../src/config/config')('production');
+    const cfg = require('../../../src/config/config-builder')('production');
     assert.deepEqual(cfg, expectedConfigProd);
   });
 });
