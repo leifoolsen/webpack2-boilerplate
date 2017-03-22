@@ -16,6 +16,7 @@ import logger from './logger';
 
 const config = require('../webpack.config.babel');
 const argv = require('./args-to-key-value').argsToKeyValue(process.argv.slice(2));
+
 const isTest = process.env.NODE_ENV === 'test' || argv['env.test'];
 const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);
 const isProd = !isDev;

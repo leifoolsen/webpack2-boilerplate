@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable consistent-return */
+
 import { Response } from 'whatwg-fetch';
 import sinon from 'sinon';
 import { before, after, beforeEach, afterEach, describe, it } from 'mocha';
@@ -45,6 +48,7 @@ describe('logger', () => {
     });
 
     it('should log debug message to console', () => {
+      // eslint-disable-next-line no-void
       const stubLog = sinon.stub(console, 'log').returns(void 0); // Cannot stub in beforeEach; silences Mocha output
       try {
         logger.consoleLogger.level = 'debug';
@@ -58,6 +62,7 @@ describe('logger', () => {
     });
 
     it('should not log debug messages to console', () => {
+      // eslint-disable-next-line no-void
       const stubLog = sinon.stub(console, 'log').returns(void 0); // Cannot use beforeEach; silences Mocha output
       try {
         logger.consoleLogger.level = 'info';
@@ -70,6 +75,7 @@ describe('logger', () => {
     });
 
     it('console log should be silent', () => {
+      // eslint-disable-next-line no-void
       const stubLog = sinon.stub(console, 'log').returns(void 0); // Cannot use beforeEach; silences Mocha output
       try {
         logger.consoleLogger.level = 'silent';
@@ -98,6 +104,7 @@ describe('logger', () => {
       logger.consoleLogger.level = 'silent';
 
       if(!global.fetch) {
+        //eslint-disable-next-line global-require
         global.fetch = require('whatwg-fetch').fetch;
       }
       spy = sinon.spy(logger.remoteLogger, 'log');

@@ -60,6 +60,10 @@ class ConsoleLogger extends AbstractLogger {
   }
 }
 
+const consoleLogger = new ConsoleLogger();
+LOG_LEVEL.consoleLogger = consoleLogger;
+
+
 class RemoteLogger extends AbstractLogger {
   constructor() {
     super(LOG_LEVEL.silent);
@@ -122,9 +126,6 @@ class RemoteLogger extends AbstractLogger {
     }
   }
 }
-
-const consoleLogger = new ConsoleLogger();
-LOG_LEVEL.consoleLogger = consoleLogger;
 
 const remoteLogger = new RemoteLogger();
 LOG_LEVEL.remoteLogger = remoteLogger;

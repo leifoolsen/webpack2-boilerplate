@@ -74,7 +74,7 @@ const cfg = {
  *
  */
 const configBuilder = env => {
-  const result = { ['env']: env };
+  const result = { env: env };
   Object.keys(cfg).forEach(key => {
     if (isObject(cfg[key])) {
       const a = cfg[key].config;

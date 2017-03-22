@@ -93,6 +93,7 @@ describe('config-builder', () => {
   });
 
   it('should build config for production', () => {
+    //eslint-disable-next-line global-require
     const cfg = require('../../../src/config/config-builder')('production');
     assert.deepEqual(cfg, expectedConfigProd);
   });
