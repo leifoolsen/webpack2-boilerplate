@@ -17,10 +17,13 @@ import logger from './logger';
 const config = require('../webpack.config.babel');
 const argv = require('./args-to-key-value').argsToKeyValue(process.argv.slice(2));
 
-const isTest = process.env.NODE_ENV === 'test' || argv['env.test'];
+const isTest = process.env.NODE_ENV === 'test' || argv['env.test'] || false;
 const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);
 const isProd = !isDev;
 const isHot = argv.hot || false;
+
+const host = config.devServer.host;
+const port = config.devServer.port;
 const publicPath = config.devServer.publicPath;
 
 const app = express();
@@ -174,14 +177,14 @@ const server = {
   start: () => {
     const startServer = () => {
       if (server.handle === null) {
-        server.handle = app.listen(config.devServer.port, config.devServer.host, (err) => {
+        server.handle = app.listen(port, host, (err) => {
           if (err) {
             logger.error(err.message);
             process.exit(1);
           }
           else {
             server.app.emit('serverStarted');
-            logger.serverStarted(config.devServer.port, publicPath, isHot);
+            logger.serverStarted(port, publicPath, isHot);
           }
         });
       }
