@@ -54,7 +54,7 @@ More details about Husky can be found here:
 * `start`: run Express sever with Hot Module Reloading (HMR), eslint and stylelint, serving files at http://localhost:8084
 * `test`: run unit tests and integration tests
 * `test:watch`: run unit tests in watch mode
-* `test:single`: run a single test file in watch mode, e.g.<br/>`npm run test:single test/unit/utils/logger.spec.js`
+* `test:single`: run a single test file in watch mode, e.g.<br/>`npm run test:single test/unit/logger/logger.spec.js`<br/>`npm run test:single test/integration/server/server.spec.js`
 * `test:pattern`: will run tests and suites with names matching the given pattern, e.g.<br/>`pattern=logger npm run test:pattern` will run only the `logger` tests
 * `lint`: lint according to rules in `.eslintrc` and `.stylelintrc`
 * `analyze`: run webpack-bundle-size-analyzer to analyze the output bundle sizes<br/>Note: There is a `console.log` statement at the top of the `webpack.config` file that must be removed before this script can be run
