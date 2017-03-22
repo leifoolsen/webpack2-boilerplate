@@ -127,7 +127,7 @@ const consoleLogger = new ConsoleLogger();
 LOG_LEVEL.consoleLogger = consoleLogger;
 
 const remoteLogger = new RemoteLogger();
-LOG_LEVEL.remoteLogger = consoleLogger;
+LOG_LEVEL.remoteLogger = remoteLogger;
 
 
 const log = level => {
