@@ -65,11 +65,15 @@ LOG_LEVEL.consoleLogger = consoleLogger;
 
 
 class RemoteLogger extends AbstractLogger {
-  constructor() {
+  constructor(consoleLogger) {
     super(LOG_LEVEL.silent);
+    this.consoleLogger = consoleLogger;
     this.url = '/api/log';
     this._logMessages = [];
     this.batchSize = 10;
+  }
+  set consoleLogger(value) {
+    this._consoleLogger = value;
   }
   set url(value) {
     this._url = value;
@@ -97,7 +101,7 @@ class RemoteLogger extends AbstractLogger {
       })
     }).catch((err) => {
       const errStr = () => err.response ? `${err.response.status} - ${err.response.statusText}` : `${err}`;
-      consoleLogger.log(LOG_LEVEL.error, `Remote logging failed: ${errStr()}`);
+      this._consoleLogger.log(LOG_LEVEL.error, `Remote logging failed: ${errStr()}`);
     });
   }
   flush() {
@@ -127,7 +131,10 @@ class RemoteLogger extends AbstractLogger {
   }
 }
 
-const remoteLogger = new RemoteLogger();
+const consoleLogger = new ConsoleLogger();
+LOG_LEVEL.consoleLogger = consoleLogger;
+
+const remoteLogger = new RemoteLogger(consoleLogger);
 LOG_LEVEL.remoteLogger = remoteLogger;
 
 
