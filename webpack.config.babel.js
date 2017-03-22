@@ -10,8 +10,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
 const argv = require('./server/args-to-key-value').argsToKeyValue(process.argv.slice(2));
+const config = require('./src/config/config-builder')(process.env.NODE_ENV);
+
 const isTest = process.env.NODE_ENV === 'test' || argv['env.test'];
 const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);
 const isProd = !isDev;
@@ -20,7 +21,6 @@ const src = path.resolve(process.cwd(), 'src');
 const dist = path.resolve(process.cwd(), 'dist');
 const context = src;
 
-const config = require('./src/config/config-builder')(process.env.NODE_ENV);
 const host = config.server.host;
 const port = config.server.port; //process.env.PORT || argv.port || config.server.port || 3000;
 const publicPath = config.server.publicPath; //process.env.PUBLIC_PATH || argv['public-path'] || config.publicPath || '/';
@@ -346,7 +346,6 @@ module.exports = {
     // inside your code for any environment checks; UglifyJS will automatically
     // drop any unreachable code.
     new webpack.DefinePlugin({
-      //'process.env.NODE_ENV': isProd ? JSON.stringify('production') : JSON.stringify('development'),
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       'process.env.PUBLIC_PATH': JSON.stringify(publicPath),
       __DEV__: !isProd

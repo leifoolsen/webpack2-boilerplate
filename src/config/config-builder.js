@@ -77,7 +77,7 @@ const configBuilder = env => {
   const result = { ['env']: env };
   Object.keys(cfg).forEach(key => {
     if (isObject(cfg[key])) {
-      const a = cfg[key]['config'];
+      const a = cfg[key].config;
       const b = cfg[key][env];
       result[key] = deepMerge(a, b);
     }
