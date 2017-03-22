@@ -58,17 +58,16 @@ if (module.hot) {
 }
 
 // Get (and modify) config
-const config = require('./config'); // eslint-disable-line global-require
-
 // Note: The "process.env.NODE_ENV" and "process.env.PUBLIC_PATH" globals
 // are injected by webpack during build using webpack.DefinePlugin.
-config.publicPath = process.env.PUBLIC_PATH;
+const config = require('./config/config.js')(process.env.NODE_ENV); // eslint-disable-line global-require
+config.server.publicPath = process.env.PUBLIC_PATH; // TODO: override in config.js
 
 // Configure logging
 logger.consoleLogger.level = config.logger.console.level;
 logger.remoteLogger.level = config.logger.remote.level;
 logger.remoteLogger.batchSize = config.logger.remote.batchSize;
-logger.remoteLogger.url = joinUrl(config.publicPath, config.logger.remote.url);
+logger.remoteLogger.url = joinUrl(config.server.publicPath, config.logger.remote.url); // TODO: override in config.js
 
 // Start
 window.addEventListener('load', () => run());

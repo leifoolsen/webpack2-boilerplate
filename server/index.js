@@ -4,6 +4,7 @@
 
 
 // Code is a bit messy. In need of some refactoring :-)
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 import 'babel-polyfill';
 import path from 'path';
@@ -12,8 +13,8 @@ import bodyParser from 'body-parser';
 import webpack from 'webpack';
 import router from './router';
 import logger from './logger';
-import config from '../webpack.config.babel';
 
+const config = require('../webpack.config.babel');
 const argv = require('./args-to-key-value').argsToKeyValue(process.argv.slice(2));
 const isTest = process.env.NODE_ENV === 'test' || argv['env.test'];
 const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);

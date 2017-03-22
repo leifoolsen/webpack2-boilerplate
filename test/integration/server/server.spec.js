@@ -16,7 +16,7 @@ const expect = require('chai').expect;
 // See: https://blog.codeship.com/testing-http-apis-supertest/
 describe('Express server', () => {
 
-  const config = require('../../../src/config');
+  const config = require('../../../src/config/config')('test');
 
   // Start server
   before( function (done) {
@@ -61,7 +61,7 @@ describe('Express server', () => {
 
       it('should load index.html, .end() version', (done) => {
         agent
-          .get(config.publicPath)
+          .get(config.server.publicPath)
           .set('Accept', 'text/html')
           .expect('Content-Type', /text/)
           .expect(200)
@@ -83,7 +83,7 @@ describe('Express server', () => {
 
       it('should load index.html, .then/.catch version', (done) => {
         agent
-          .get(config.publicPath)
+          .get(config.server.publicPath)
           .set('Accept', 'text/html')
           .expect('Content-Type', /text/)
           .expect(200)
@@ -99,7 +99,7 @@ describe('Express server', () => {
 
       it('responds to /api/ping with 200, .end() version', (done) => {
         agent
-          .get(joinUrl(config.apiPath, 'ping'))
+          .get(joinUrl(config.server.apiPath, 'ping'))
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
           .expect(200)
@@ -119,7 +119,7 @@ describe('Express server', () => {
 
       it('responds to /api/ping with 200, .then/catch version', (done) => {
         agent
-          .get(joinUrl(config.apiPath, 'ping'))
+          .get(joinUrl(config.server.apiPath, 'ping'))
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
           .expect(200)
@@ -132,7 +132,7 @@ describe('Express server', () => {
 
       it('responds to /api/foobar with 404', (done) => {
         agent
-          .get(joinUrl(config.apiPath, 'foobar'))
+          .get(joinUrl(config.server.apiPath, 'foobar'))
           .set('Accept', 'application/json')
           .expect(404)
           .end(done);

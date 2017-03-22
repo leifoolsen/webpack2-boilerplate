@@ -1,3 +1,5 @@
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
 const chalk = require('chalk');
 const path = require('path');
 const fs = require('fs');
@@ -17,12 +19,11 @@ const isHot = argv.hot || false;
 const src = path.resolve(process.cwd(), 'src');
 const dist = path.resolve(process.cwd(), 'dist');
 const context = src;
-const config = require('./src/config');
 
-// get the intended port number, use port 3000 if not provided
-const host = 'localhost';
-const port = process.env.PORT || argv.port || config.server.port || 3000;
-const publicPath = process.env.PUBLIC_PATH || argv['public-path'] || config.publicPath || '/';
+const config = require('./src/config/config')(process.env.NODE_ENV);
+const host = config.server.host;
+const port = config.server.port; //process.env.PORT || argv.port || config.server.port || 3000;
+const publicPath = config.server.publicPath; //process.env.PUBLIC_PATH || argv['public-path'] || config.publicPath || '/';
 
 // NOTE: Comment out "console.log" before executing "npm run analyze"
 //eslint-disable-next-line no-console
@@ -341,12 +342,12 @@ module.exports = {
     ].concat(cssRules)
   },
   plugins: [
-    // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
+    // Expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
     // inside your code for any environment checks; UglifyJS will automatically
     // drop any unreachable code.
     new webpack.DefinePlugin({
-      // NODE_ENV is either 'production' or 'development' in compiler
-      'process.env.NODE_ENV': isProd ? JSON.stringify('production') : JSON.stringify('development'),
+      //'process.env.NODE_ENV': isProd ? JSON.stringify('production') : JSON.stringify('development'),
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       'process.env.PUBLIC_PATH': JSON.stringify(publicPath),
       __DEV__: !isProd
     }),
@@ -434,7 +435,7 @@ module.exports = {
   devServer: {
     host: host,
     port: port,
-    publicPath: publicPath || '/',
+    publicPath: publicPath,
     contentBase: context,
     hot: isHot,
     compress: true,
