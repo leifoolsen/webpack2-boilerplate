@@ -22,13 +22,13 @@ const isTest = process.env.NODE_ENV === 'test' || argv['env.test'] || false;
 const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);
 const isProd = !isDev;
 const isHot = argv.hot || false;
-const isProxy = argv.proxy || false;
 
 const host = webpackCfg.devServer.host;
 const port = webpackCfg.devServer.port;
 const publicPath = webpackCfg.devServer.publicPath;
 const apiPath = appCfg.server.apiPath;
 
+const isProxy = argv.proxy || false;
 let proxyHost;
 let proxyPort;
 let proxyPath;
