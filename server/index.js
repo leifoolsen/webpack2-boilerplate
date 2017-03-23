@@ -15,16 +15,29 @@ import router from './router';
 import logger from './logger';
 
 const argv = require('./args-to-key-value').argsToKeyValue(process.argv.slice(2));
-const config = require('../webpack.config.babel');
+const appCfg = require('../src/config/config-builder')(process.env.NODE_ENV);
+const webpackCfg = require('../webpack.config.babel');
 
 const isTest = process.env.NODE_ENV === 'test' || argv['env.test'] || false;
 const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);
 const isProd = !isDev;
 const isHot = argv.hot || false;
+const isProxy = argv.proxy || false;
 
-const host = config.devServer.host;
-const port = config.devServer.port;
-const publicPath = config.devServer.publicPath;
+const host = webpackCfg.devServer.host;
+const port = webpackCfg.devServer.port;
+const publicPath = webpackCfg.devServer.publicPath;
+const apiPath = appCfg.server.apiPath;
+
+let proxyHost;
+let proxyPort;
+let proxyPath;
+
+if (isProxy) {
+  proxyHost = process.env.PROXY_HOST || argv['proxy-host'] || appCfg.proxyServer.host || 'localhost';
+  proxyPort = process.env.PROXY_PORT || argv['proxy-port'] || appCfg.proxyServer.port || 8090;
+  proxyPath = process.env.PROXY_PATH || argv['proxy-path'] || appCfg.proxyServer.path || '/api';
+}
 
 const app = express();
 let devMiddleware = null;
@@ -32,30 +45,57 @@ let devMiddleware = null;
 // eslint-disable-next-line no-console
 console.log('Express config:', 'NODE_ENV:', process.env.NODE_ENV, 'test:', isTest, 'prod:', isProd, 'dev:', isDev, 'hot:', isHot, 'public path:', publicPath);
 
+const proxyConfig = () => {
+  // Ping proxy server
+  const ping = require('node-http-ping'); // eslint-disable-line global-require
+
+  ping(proxyHost, proxyPort)
+    //.then(time => console.log(`Response time: ${time}ms`))
+    .catch(error => {
+      logger.error(`Could not connect to: ${proxyHost}:${proxyPort}. Error: ${error}\n` +
+        'Try to restart the proxy server');
+      process.exit(1);
+    });
+
+  // Proxy middleware
+  const proxy = require('http-proxy-middleware'); // eslint-disable-line global-require
+  app.use(proxy(proxyPath, {
+    target: `http://${proxyHost}:${proxyPort}`,
+    changeOrigin: true,
+    onProxyReq(proxyReq) {
+      logger.debug(`Proxy to: ${proxyReq.path}`);
+    }
+  }));
+};
+
 const commonConfig = () => {
   // Middleware for handling JSON, Raw, Text and URL encoded form data
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
-  // Api router. Must be defined before any app.get
-  // To set up a proxy for the /api, use 'http-proxy-middleware'.
-  // Not provided in this example
-  app.use(path.join(publicPath, 'api'), router);
+  if (isProxy) {
+    proxyConfig();
+  }
+  else {
+    // Api router. Must be defined before any app.get
+    // To set up a proxy for the /api, use 'http-proxy-middleware'.
+    // Not provided in this example
+    app.use(apiPath, router);
+  }
 
-
-  if(config.devServer.historyApiFallback) {
+  if(webpackCfg.devServer.historyApiFallback) {
     // This rewrites all routes requests to the root /index.html file
     // (ignoring file requests). If you want to implement universal
     // rendering, you'll want to remove this middleware.
-    const history = require('connect-history-api-fallback');
-    app.use(history(config.devServer.historyApiFallback));
+    const history = require('connect-history-api-fallback'); // eslint-disable-line global-require
+    app.use(history(webpackCfg.devServer.historyApiFallback));
   }
 };
 
 const webpackConfig = () => {
-  const compiler = webpack(config);
+  const compiler = webpack(webpackCfg);
   const webpackDevMiddleware = require('webpack-dev-middleware');
-  devMiddleware = webpackDevMiddleware(compiler, config.devServer);
+  devMiddleware = webpackDevMiddleware(compiler, webpackCfg.devServer);
   app.use(devMiddleware);
 
   if(isHot) {
@@ -65,7 +105,7 @@ const webpackConfig = () => {
     }));
   }
 
-  app.use(publicPath, express.static(config.context));
+  app.use(publicPath, express.static(webpackCfg.context));
 
   app.get(/\.dll\.js$/, (req, res) => {
     const filename = req.path.startsWith(publicPath)
@@ -129,7 +169,7 @@ const distConfig = () => {
   app.use(compression());
 
   // Eventually override output path in production
-  const outputPath = process.env.OUTPUT_PATH || argv['output-path'] || config.output.path;
+  const outputPath = process.env.OUTPUT_PATH || argv['output-path'] || webpackCfg.output.path;
 
   app.use(publicPath, express.static(outputPath));
 
@@ -184,7 +224,7 @@ const server = {
           }
           else {
             server.app.emit('serverStarted');
-            logger.serverStarted(port, publicPath, isHot);
+            logger.serverStarted(port, proxyPort, publicPath, isHot);
           }
         });
       }
@@ -207,7 +247,6 @@ const server = {
       server.handle = null;
     }
   },
-
 };
 
 

@@ -29,8 +29,7 @@ const cfg = {
     config: {
       host: 'localhost',
       port: 8090,
-      user: 'any',
-      apiPath: '/api',
+      path: '/api',
     },
   },
   logger: {

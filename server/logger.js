@@ -7,7 +7,7 @@
 const chalk = require('chalk');
 const ip = require('ip');
 
-const divider = chalk.gray('\n---------------------------------------------');
+const divider = chalk.gray('\n---------------------------------------------------------');
 
 /**
  * Logger middleware, you can customize it to make messages more personal
@@ -28,19 +28,14 @@ export default {
   },
 
   // Called when express.js app starts on given port w/o errors
-  serverStarted: (port, publicPath='/', isHot=false, tunnelStarted=false) => {
+  serverStarted: (port, proxyPort = null, publicPath = '/', isHot = false) => {
     console.log(`${isHot ? 'HMR ' : ''}Server started ${chalk.green('✓')}`);
-
-    // If the tunnel started, log that and the URL it's available at
-    if (tunnelStarted) {
-      console.log(`Tunnel initialised ${chalk.green('✓')}`);
-    }
 
     console.log(`
 ${chalk.bold('Access URLs:')}${divider}
 Localhost: ${chalk.magenta(`http://localhost:${port}${publicPath}`)}
       LAN: ${chalk.magenta(`http://${ip.address()}:${port}${publicPath}`) +
-    (tunnelStarted ? `\n    Proxy: ${chalk.magenta(tunnelStarted)}` : '')}${divider}
+    (proxyPort ? `\n    Proxy: ${chalk.magenta(`http://localhost:${proxyPort}${publicPath}`)}` : '')}${divider}
 ${chalk.blue(`Press ${chalk.italic('CTRL-C')} to stop`)}
     `);
   },
