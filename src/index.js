@@ -1,8 +1,6 @@
 import 'whatwg-fetch';
 import run from './app/app';
 import logger, {LOG_LEVEL} from './logger/logger';
-import joinUrl from './utils/join-url';
-
 import './styles.scss';
 
 // Unhandled errors should be sent to the server
@@ -57,18 +55,7 @@ if (module.hot) {
   require('./index.html');
 }
 
-// Get (and modify) config
-// Note: The "process.env.NODE_ENV" and "process.env.PUBLIC_PATH" globals
-// are injected by webpack during build using webpack.DefinePlugin.
-const config = require('./config/config-builder.js')(process.env.NODE_ENV); // eslint-disable-line global-require
-config.server.publicPath = process.env.PUBLIC_PATH; // TODO: override in config.js
-
-// Configure logging
-logger.consoleLogger.level = config.logger.console.level;
-logger.remoteLogger.level = config.logger.remote.level;
-logger.remoteLogger.batchSize = config.logger.remote.batchSize;
-logger.remoteLogger.url = joinUrl(config.server.publicPath, config.logger.remote.url); // TODO: override in config.js
-
 // Start
+require('./config/config');
 window.addEventListener('load', () => run());
 

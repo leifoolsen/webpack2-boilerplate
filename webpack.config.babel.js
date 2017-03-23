@@ -19,13 +19,13 @@ const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);
 const isProd = !isDev;
 const isHot = argv.hot || false;
 
-const src = path.resolve(process.cwd(), 'src');
-const dist = path.resolve(process.cwd(), 'dist');
-const context = src;
-
 const host = process.env.HOST || argv.host || config.server.host || 'localhost';
 const port = process.env.PORT || argv.port || config.server.port || 3000;
 const publicPath = process.env.PUBLIC_PATH || argv['public-path'] || config.server.publicPath || '/';
+
+const src = path.resolve(process.cwd(), 'src');
+const dist = path.resolve(process.cwd(), 'dist');
+const context = src;
 
 // NOTE: Comment out "console.log" before executing "npm run analyze"
 //eslint-disable-next-line no-console

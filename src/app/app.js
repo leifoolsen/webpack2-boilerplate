@@ -1,3 +1,4 @@
+import config from '../config/config';
 import logger from '../logger/logger';
 import ping from './ping';
 
@@ -26,9 +27,6 @@ const addListeners = () => {
 
 const run = () => {
   addListeners();
-
-  // eslint-disable-next-line global-require
-  const config = require('../config/config-builder.js')(process.env.NODE_ENV);
   logger.info(`Application loaded, env: ${config.env}, public path: ${config.server.publicPath}`);
 };
 

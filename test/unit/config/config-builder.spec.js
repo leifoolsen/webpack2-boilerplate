@@ -1,7 +1,7 @@
 import { describe, it } from 'mocha';
 import { assert } from 'chai';
 import { LOG_LEVEL } from '../../../src/logger/logger';
-import config from '../../../src/config/config-builder';
+import configBuilder from '../../../src/config/config-builder';
 
 const expectedConfigTest = {
   env: 'test',
@@ -22,7 +22,7 @@ const expectedConfigTest = {
       level: LOG_LEVEL.debug,
     },
     remote: {
-      level: LOG_LEVEL.error,
+      level: LOG_LEVEL.silent,
       batchSize: 1,
       url: '/api/log',
     },
@@ -71,7 +71,7 @@ const expectedConfigProd = {
   },
   logger: {
     console: {
-      level: LOG_LEVEL.debug,
+      level: LOG_LEVEL.info,
     },
     remote: {
       level: LOG_LEVEL.error,
@@ -83,12 +83,12 @@ const expectedConfigProd = {
 
 describe('config-builder', () => {
   it('should build config for test', () => {
-    const cfg = config('test');
+    const cfg = configBuilder('test');
     assert.deepEqual(cfg, expectedConfigTest);
   });
 
   it('should build config for development', () => {
-    const cfg = config('development');
+    const cfg = configBuilder('development');
     assert.deepEqual(cfg, expectedConfigDev);
   });
 

@@ -44,6 +44,16 @@ const cfg = {
         url: '/api/log',
       },
     },
+    production: {
+      console: {
+        level: LOG_LEVEL.info,
+      },
+    },
+    test: {
+      remote: {
+        level: LOG_LEVEL.silent,
+      },
+    },
   },
 };
 

@@ -35,6 +35,11 @@ describe('logger', () => {
   });
 
   describe('console logger', () => {
+    before(() => {
+      expect(logger.consoleLogger).to.not.be.undefined;
+      logger.remoteLogger.level = 'silent';
+    });
+
     it('should set console log level to "info"', () => {
       const cl = logger.consoleLogger;
       expect(cl).to.not.be.undefined;
@@ -108,10 +113,6 @@ describe('logger', () => {
         global.fetch = require('whatwg-fetch').fetch;
       }
       spy = sinon.spy(logger.remoteLogger, 'log');
-    });
-
-    after(() => {
-      logger.consoleLogger.level = 'silent';
     });
 
     beforeEach(() => {

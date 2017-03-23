@@ -100,7 +100,8 @@
     "Chai",
     "Istanbul",
     "Node Express",
-    "Cucumber"
+    "Cucumber",
+    "WebdriverIO"
   ],
   "license": "MIT",
   "scripts": {
@@ -130,7 +131,7 @@
 
     "test": "npm-run-all test:unit test:it",
     "test:unit": "cross-env NODE_ENV=test mocha --env.dev --opts ./mocha.opts \"./test/unit/**/*.spec.js\"",
-    "test:it": "cross-env NODE_ENV=test mocha --env.prod --opts ./mocha.opts \"./test/integration/**/*.spec.js\"",
+    "test:it": "cross-env NODE_ENV=test mocha --env.dev --opts ./mocha.opts \"./test/integration/**/*.spec.js\"",
     "test:watch": "npm run test:unit -- --watch",
     "test:single": "cross-env NODE_ENV=test mocha --env.dev --watch --opts ./mocha.opts",
     "test:pattern": "cross-env NODE_ENV=test mocha --env.dev --watch --opts ./mocha.opts --grep $pattern",

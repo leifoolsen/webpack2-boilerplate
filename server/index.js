@@ -14,8 +14,8 @@ import webpack from 'webpack';
 import router from './router';
 import logger from './logger';
 
-const config = require('../webpack.config.babel');
 const argv = require('./args-to-key-value').argsToKeyValue(process.argv.slice(2));
+const config = require('../webpack.config.babel');
 
 const isTest = process.env.NODE_ENV === 'test' || argv['env.test'] || false;
 const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);
