@@ -26,7 +26,7 @@ const isHot = argv.hot || false;
 const host = webpackCfg.devServer.host;
 const port = webpackCfg.devServer.port;
 const publicPath = webpackCfg.devServer.publicPath;
-const apiPath = appCfg.server.apiPath;
+const apiPath = process.env.API_PATH || argv['api-path'] || appCfg.server.apiPath || '/api';
 
 const isProxy = argv.proxy || false;
 let proxyHost;

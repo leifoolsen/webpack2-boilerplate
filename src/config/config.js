@@ -8,6 +8,7 @@ import joinUrl from '../utils/join-url';
 
 const config = configBuilder(process.env.NODE_ENV);
 config.server.publicPath = process.env.PUBLIC_PATH || config.server.publicPath;
+config.server.apiPath = process.env.API_PATH || config.server.apiPath;
 
 logger.consoleLogger.level = config.logger.console.level;
 logger.remoteLogger.level = config.logger.remote.level;

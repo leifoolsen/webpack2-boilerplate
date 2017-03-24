@@ -22,6 +22,7 @@ const isHot = argv.hot || false;
 const host = process.env.HOST || argv.host || config.server.host || 'localhost';
 const port = process.env.PORT || argv.port || config.server.port || 3000;
 const publicPath = process.env.PUBLIC_PATH || argv['public-path'] || config.server.publicPath || '/';
+const apiPath = process.env.API_PATH || argv['api-path'] || config.server.apiPath || '/api';
 
 const src = path.resolve(process.cwd(), 'src');
 const dist = path.resolve(process.cwd(), 'dist');
@@ -350,6 +351,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       'process.env.PUBLIC_PATH': JSON.stringify(publicPath),
+      'process.env.API_PATH': JSON.stringify(apiPath),
       __DEV__: !isProd
     }),
 
