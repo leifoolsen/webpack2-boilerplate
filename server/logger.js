@@ -15,7 +15,7 @@ const divider = chalk.gray('\n--------------------------------------------------
 export default {
 
   log: (...msg) => {
-    console.log(msg);
+    console.log(chalk.white(msg));
   },
 
   info: (...msg) => {

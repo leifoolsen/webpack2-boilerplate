@@ -38,8 +38,6 @@ describe('Express server', () => {
   after((done) => {
     if (server.handle) {
       server.stop(done);
-      // eslint-disable-next-line no-console
-      console.log('Server stopped');
     }
     else {
       done();

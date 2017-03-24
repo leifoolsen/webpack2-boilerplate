@@ -27,7 +27,7 @@ const addListeners = () => {
 
 const run = () => {
   addListeners();
-  logger.info(`Application loaded, env: ${config.env}, public path: ${config.server.publicPath}`);
+  logger.info(`Application loaded, env: ${config.env}, public path: ${config.server.publicPath}, API path: ${config.server.apiPath}`);
 };
 
 if (module.hot) {
