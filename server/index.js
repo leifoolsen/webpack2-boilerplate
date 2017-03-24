@@ -45,27 +45,16 @@ let devMiddleware = null;
 // eslint-disable-next-line no-console
 console.log('Express config:', 'NODE_ENV:', process.env.NODE_ENV,
   'test:', isTest, 'prod:', isProd, 'dev:', isDev,
-  'hot:', isHot, 'public path:', publicPath, 'API path', apiPath);
+  'hot:', isHot, 'public path:', publicPath, 'API path:', apiPath, 'proxy:', isProxy);
 
 const proxyConfig = () => {
-  // Ping proxy server
-  const ping = require('node-http-ping'); // eslint-disable-line global-require
-
-  ping(proxyHost, proxyPort)
-    //.then(time => console.log(`Response time: ${time}ms`))
-    .catch(error => {
-      logger.error(`Could not connect to: ${proxyHost}:${proxyPort}. Error: ${error}\n` +
-        'Try to restart the proxy server');
-      process.exit(1);
-    });
-
   // Proxy middleware
   const proxy = require('http-proxy-middleware'); // eslint-disable-line global-require
   app.use(proxy(proxyPath, {
     target: `http://${proxyHost}:${proxyPort}`,
     changeOrigin: true,
     onProxyReq(proxyReq) {
-      logger.debug(`Proxy to: ${proxyReq.path}`);
+      logger.log(`Proxy to: ${proxyReq.path}`);
     }
   }));
 };
@@ -218,6 +207,17 @@ const server = {
   handle: null,
 
   start: () => {
+    const pingProxyServer = () => {
+      const ping = require('node-http-ping'); // eslint-disable-line global-require
+      ping(proxyHost, proxyPort)
+        //.then(time => console.log(`Response time: ${time}ms`))
+        .catch(error => {
+          logger.error(`Could not connect to: ${proxyHost}:${proxyPort}. Error: ${error}\n` +
+            'Try to restart the proxy server');
+          process.exit(1);
+        });
+    };
+
     const startServer = () => {
       if (server.handle === null) {
         server.handle = app.listen(port, host, (err) => {
@@ -228,6 +228,9 @@ const server = {
           else {
             server.app.emit('serverStarted');
             logger.serverStarted(port, proxyPort, publicPath, isHot);
+          }
+          if (isProxy) {
+            pingProxyServer();
           }
         });
       }
@@ -244,10 +247,11 @@ const server = {
     }
   },
 
-  stop: (done) => {
+  stop: (done = () => {}) => {
     if (server.handle !== null) {
       server.handle.close(done);
       server.handle = null;
+      logger.log('Server stopped');
     }
   },
 };

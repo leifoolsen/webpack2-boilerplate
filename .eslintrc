@@ -50,7 +50,7 @@
     "prefer-spread": 1,
     "prefer-template": 1,
     "quotes": [2, "single"],
-    "semi": [1, "always"],
+    "semi": [2, "always"],
     "strict": 0
   }
 }

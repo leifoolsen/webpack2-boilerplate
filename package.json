@@ -114,7 +114,7 @@
 
     "lint": "npm-run-all lint:*",
     "lint:stylelint": "stylelint \"./src/**/*.s?(a|c)ss\" --syntax scss",
-    "lint:eslint": "eslint ./src ./server ./test",
+    "lint:eslint": "eslint ./src ./server ./test --max-warnings 10",
 
     "build:dll": "webpack --config webpack.config.dll.js",
     "prebuild": "npm-run-all clean lint build:dll && npm run coverage:unit -- --env.dev",
@@ -136,6 +136,7 @@
     "test:watch": "npm run test:unit -- --watch",
     "test:single": "cross-env NODE_ENV=test mocha --env.dev --watch --opts ./mocha.opts",
     "test:pattern": "cross-env NODE_ENV=test mocha --env.dev --watch --opts ./mocha.opts --grep $pattern",
+    "test:proxy-example": "cross-env NODE_ENV=test mocha --env.dev --proxy --opts ./mocha.opts \"./test/integration/proxy/proxy-example.js\"",
 
     "server": "cross-env NODE_ENV=production babel-node ./server",
     "start": "babel-node ./server --hot",
