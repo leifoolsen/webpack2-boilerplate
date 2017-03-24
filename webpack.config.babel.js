@@ -30,7 +30,9 @@ const context = src;
 
 // NOTE: Comment out "console.log" before executing "npm run analyze"
 //eslint-disable-next-line no-console
-console.log('Webpack config:', 'NODE_ENV:', process.env.NODE_ENV, 'test:', isTest, 'prod:', isProd, 'dev:', isDev, 'hot:', isHot, 'public path:', publicPath);
+console.log('Webpack config:', 'NODE_ENV:', process.env.NODE_ENV,
+  'test:', isTest, 'prod:', isProd, 'dev:', isDev,
+  'hot:', isHot, 'public path:', publicPath);
 
 //const removeEmpty = array => array.filter(i => !!i);
 
