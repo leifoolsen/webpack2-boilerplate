@@ -32,7 +32,7 @@ const context = src;
 //eslint-disable-next-line no-console
 console.log('Webpack config:', 'NODE_ENV:', process.env.NODE_ENV,
   'test:', isTest, 'prod:', isProd, 'dev:', isDev,
-  'hot:', isHot, 'public path:', publicPath);
+  'hot:', isHot, 'public path:', publicPath, 'API path', apiPath);
 
 //const removeEmpty = array => array.filter(i => !!i);
 
