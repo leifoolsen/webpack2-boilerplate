@@ -39,22 +39,18 @@ describe('Proxy to API server example', () => {
 
   // Stop server
   after((done) => {
-    if (apiServer.handle) {
-      apiServer.stop();
-    }
-    else {
-      done();
-    }
-
     if (server.handle) {
-      server.stop(done);
+      server.stop();
+    }
+    if (apiServer.handle) {
+      apiServer.stop(done);
     }
     else {
       done();
     }
   });
 
-  it('should proxy /api/ping to API server', (done) => {
+  it('should proxy "/api/ping" to API server', (done) => {
     const request = require('supertest');
     const agent = request.agent(server.app);
 
