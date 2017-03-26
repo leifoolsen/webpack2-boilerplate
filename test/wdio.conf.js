@@ -1,3 +1,7 @@
+require('babel-register');
+require('../src/config/config-builder')('test');
+const server = require('../server');
+
 exports.config = {
 
   //
@@ -74,7 +78,7 @@ exports.config = {
   //
   // Set a base URL in order to shorten url command calls. If your url parameter starts
   // with "/", then the base url gets prepended.
-  baseUrl: 'http://localhost',
+  baseUrl: 'http://localhost:8084/',
   //
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,
@@ -125,11 +129,23 @@ exports.config = {
   //reporters: ['dot'],
   reporters: ['spec'],
   //
+  // Options to be passed to Mocha.
+  // See the full list at http://mochajs.org/
+  //mochaOpts: {
+  //  ui: 'bdd',
+  //  compilers: ['js:babel-register'],
+  //  require: ['babel-polyfill']
+  //},
+  //
   // If you are using Cucumber you need to specify the location of your step definitions.
   cucumberOpts: {
-    require: ['./test/features/step-definitions'],  // <string[]> (file/dir) require files before executing features
+    require: [
+      './test/features/step-definitions'
+    ],                  // <string[]> (file/dir) require files before executing features
     backtrace: false,   // <boolean> show full backtrace for errors
-    compiler: [],       // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
+    compiler: [
+      'js:babel-register',
+    ],                  // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
     dryRun: false,      // <boolean> invoke formatters without executing steps
     failFast: false,    // <boolean> abort the run on first failure
     format: ['pretty'], // <string[]> (type[:path]) specify the output format, optionally supply PATH to redirect formatter output (repeatable)
@@ -153,8 +169,10 @@ exports.config = {
   // resolved to continue.
   //
   // Gets executed once before all workers get launched.
-  // onPrepare: function (config, capabilities) {
-  // },
+  onPrepare: function (config, capabilities) {  // eslint-disable-line no-unused-vars
+    console.log('*** on prepare'); // eslint-disable-line no-console
+    server.start();
+  },
   //
   // Gets executed just before initialising the webdriver session and test framework. It allows you
   // to manipulate configurations depending on the capability or spec.
@@ -211,6 +229,10 @@ exports.config = {
   //
   // Gets executed after all workers got shut down and the process is about to exit. It is not
   // possible to defer the end of the process using a promise.
-  // onComplete: function(exitCode) {
-  // }
+  onComplete: function(exitCode) {   // eslint-disable-line no-unused-vars
+    console.log('*** on complete');  // eslint-disable-line no-console
+    if (server.handle) {
+      server.stop();
+    }
+  }
 };

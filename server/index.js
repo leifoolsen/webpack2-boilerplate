@@ -42,8 +42,7 @@ if (isProxy) {
 const app = express();
 let devMiddleware = null;
 
-// eslint-disable-next-line no-console
-console.log('Express config:', 'NODE_ENV:', process.env.NODE_ENV,
+logger.log('Express config:', 'NODE_ENV:', process.env.NODE_ENV,
   'test:', isTest, 'prod:', isProd, 'dev:', isDev,
   'hot:', isHot, 'public path:', publicPath, 'API path:', apiPath, 'proxy:', isProxy);
 

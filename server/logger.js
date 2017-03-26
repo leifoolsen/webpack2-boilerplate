@@ -15,16 +15,16 @@ const divider = chalk.gray('\n--------------------------------------------------
 export default {
 
   log: (...msg) => {
-    console.log(chalk.white(msg));
+    console.log(chalk.white(...msg));
   },
 
   info: (...msg) => {
-    console.info(chalk.green(msg));
+    console.info(chalk.green(...msg));
   },
 
   // Called whenever there's an error on the server we want to print
   error: (...err) => {
-    console.error(chalk.red(err));
+    console.error(chalk.red(...err));
   },
 
   // Called when express.js app starts on given port w/o errors
