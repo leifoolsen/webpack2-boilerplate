@@ -14,7 +14,8 @@ A Webpack2 boilerplate, partly based on this Egghead.io course;
 * Node Express middleware
 * Linting with eslint and stylelint
 * Unit tests with Mocha, Chai, Sinon and JsDom
-* Integration tests with Node Express server <!--* Acceptance testing with Node Express, Cucumber.js, WDIO, Selenium and PhantomJS -->
+* Integration tests with Node Express server 
+* Acceptance testing with Node Express, Cucumber.js, WebdriverIO and PhantomJS
 * Code coverage and reporting with Istanbul
 * SASS boilerplate with Solved by Flexbox Holy Grail example layout
 * Self hosting Google Material Icons and Font Roboto
