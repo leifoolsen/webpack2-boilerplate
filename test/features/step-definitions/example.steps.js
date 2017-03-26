@@ -5,7 +5,7 @@ module.exports = function () {
     browser.url(url); // eslint-disable-line no-undef
   });
 
-  this.Then(/^I expect the title of the page "([^"]*)"$/, (title) => {
+  this.Then(/^I expect the title of the page to be "([^"]*)"$/, (title) => {
     expect(browser.getTitle()).to.be.eql(title); // eslint-disable-line no-undef
   });
 };

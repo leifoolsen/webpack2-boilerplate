@@ -1,6 +1,6 @@
 require('babel-register');
-require('../src/config/config-builder')('test');
-const server = require('../server');
+
+let server = null;
 
 exports.config = {
 
@@ -169,8 +169,12 @@ exports.config = {
   // resolved to continue.
   //
   // Gets executed once before all workers get launched.
-  onPrepare: function (config, capabilities) {  // eslint-disable-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars
+  onPrepare: function (config, capabilities) {
     console.log('*** on prepare'); // eslint-disable-line no-console
+    require('../src/config/config-builder')('test');
+    server = require('../server');
+
     server.start();
   },
   //
@@ -229,9 +233,10 @@ exports.config = {
   //
   // Gets executed after all workers got shut down and the process is about to exit. It is not
   // possible to defer the end of the process using a promise.
-  onComplete: function(exitCode) {   // eslint-disable-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars
+  onComplete: function(exitCode) {
     console.log('*** on complete');  // eslint-disable-line no-console
-    if (server.handle) {
+    if (server && server.handle) {
       server.stop();
     }
   }
