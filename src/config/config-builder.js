@@ -28,7 +28,7 @@ const cfg = {
   proxyServer: {
     config: {
       host: 'localhost',
-      port: 8090,
+      port: 8010,
       path: '/api',
     },
   },

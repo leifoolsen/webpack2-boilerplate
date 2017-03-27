@@ -140,7 +140,7 @@ exports.config = {
   // If you are using Cucumber you need to specify the location of your step definitions.
   cucumberOpts: {
     require: [
-      './test/features/step-definitions'
+      './test/features/step_definitions'
     ],                  // <string[]> (file/dir) require files before executing features
     backtrace: false,   // <boolean> show full backtrace for errors
     compiler: [

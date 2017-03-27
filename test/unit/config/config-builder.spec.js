@@ -13,7 +13,7 @@ const expectedConfigTest = {
   },
   proxyServer: {
     host: 'localhost',
-    port: 8090,
+    port: 8010,
     path: '/api',
   },
   logger: {
@@ -38,7 +38,7 @@ const expectedConfigDev = {
   },
   proxyServer: {
     host: 'localhost',
-    port: 8090,
+    port: 8010,
     path: '/api',
   },
   logger: {
@@ -63,7 +63,7 @@ const expectedConfigProd = {
   },
   proxyServer: {
     host: 'localhost',
-    port: 8090,
+    port: 8010,
     path: '/api',
   },
   logger: {

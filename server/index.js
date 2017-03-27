@@ -39,51 +39,49 @@ if (isProxy) {
   proxyPath = process.env.PROXY_PATH || argv['proxy-path'] || appCfg.proxyServer.path || '/api';
 }
 
-const app = express();
-let devMiddleware = null;
-
 logger.log('Express config:', 'NODE_ENV:', process.env.NODE_ENV,
   'test:', isTest, 'prod:', isProd, 'dev:', isDev,
   'hot:', isHot, 'public path:', publicPath, 'API path:', apiPath, 'proxy:', isProxy);
 
 
-const proxyConfig = () => {
+// ------------------------
+// Common config
+// ------------------------
+const app = express();
+let devMiddleware = null;
+
+// Middleware for handling JSON, Raw, Text and URL encoded form data
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+if (isProxy) {
   // Proxy middleware
   const proxy = require('http-proxy-middleware'); // eslint-disable-line global-require
   app.use(proxy(proxyPath, {
     target: `http://${proxyHost}:${proxyPort}`,
     changeOrigin: true,
     onProxyReq(proxyReq) {
-      logger.log(`Proxy to: ${proxyReq.path}`);
+      logger.log(`Proxying to: ${proxyReq.path}`);
     }
   }));
-};
+}
+else {
+  // Api router. Must be defined before any app.get
+  app.use(apiPath, router);
+}
 
-const commonConfig = () => {
-  // Middleware for handling JSON, Raw, Text and URL encoded form data
-  app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(bodyParser.json());
+if(webpackCfg.devServer.historyApiFallback) {
+  // This rewrites all routes requests to the root /index.html file
+  // (ignoring file requests). If you want to implement universal
+  // rendering, you'll want to remove this middleware.
+  const history = require('connect-history-api-fallback'); // eslint-disable-line global-require
+  app.use(history(webpackCfg.devServer.historyApiFallback));
+}
 
-  if (isProxy) {
-    proxyConfig();
-  }
-  else {
-    // Api router. Must be defined before any app.get
-    // To set up a proxy for the /api, use 'http-proxy-middleware'.
-    // Not provided in this example
-    app.use(apiPath, router);
-  }
-
-  if(webpackCfg.devServer.historyApiFallback) {
-    // This rewrites all routes requests to the root /index.html file
-    // (ignoring file requests). If you want to implement universal
-    // rendering, you'll want to remove this middleware.
-    const history = require('connect-history-api-fallback'); // eslint-disable-line global-require
-    app.use(history(webpackCfg.devServer.historyApiFallback));
-  }
-};
-
-const webpackConfig = () => {
+if (isDev || isHot) {
+  // ------------------------
+  // webpack config
+  // ------------------------
   const compiler = webpack(webpackCfg);
   const webpackDevMiddleware = require('webpack-dev-middleware');
   devMiddleware = webpackDevMiddleware(compiler, webpackCfg.devServer);
@@ -151,9 +149,12 @@ const webpackConfig = () => {
       });
     }
   });
-};
+}
+else {
+  // ------------------------
+  // Dist/Build config
+  // ------------------------
 
-const distConfig = () => {
   // compression middleware compresses your server responses which makes them
   // smaller (applies also to assets). You can read more about that technique
   // and other good practices on official Express.js docs http://mxs.is/googmy
@@ -175,7 +176,6 @@ const distConfig = () => {
       }
     });
   });
-
 
   app.get('*', (req, res) => {
     const filename = req.path.startsWith(publicPath)
@@ -199,21 +199,7 @@ const distConfig = () => {
       });
     }
   });
-};
-
-const setup = () => {
-  logger.log('**** setup');
-
-  commonConfig();
-
-  if (isDev || isHot) {
-    webpackConfig();
-  }
-  else {
-    distConfig();
-  }
-};
-
+}
 
 const server = {
   app: app,
@@ -223,7 +209,7 @@ const server = {
     const pingProxyServer = () => {
       const ping = require('node-http-ping'); // eslint-disable-line global-require
       ping(proxyHost, proxyPort)
-        //.then(time => console.log(`Response time: ${time}ms`))
+        .then(time => logger.log(`Proxy response time: ${time}ms`))
         .catch(error => {
           logger.error(`Could not connect to: ${proxyHost}:${proxyPort}. Error: ${error}\n` +
             'Try to restart the proxy server');
@@ -233,7 +219,6 @@ const server = {
 
     const startServer = () => {
       if (server.handle === null) {
-        setup();
 
         server.handle = app.listen(port, host, (err) => {
           if (err) {
@@ -270,10 +255,6 @@ const server = {
     }
   },
 };
-
-
-//
-setup();
 
 if (process.env.NODE_ENV !== 'test') {
   process.on('uncaughtException', err => {

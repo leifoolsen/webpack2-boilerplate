@@ -17,14 +17,14 @@ const apiServer = {
   start: () => {
     const startServer = () => {
       if (apiServer.handle === null) {
-        apiServer.handle = apiServer.app.listen(8090, 'localhost', (err) => {
+        apiServer.handle = apiServer.app.listen(8010, 'localhost', (err) => {
           if (err) {
             logger.error(err.message);
             process.exit(1);
           }
           else {
             apiServer.app.emit('serverStarted');
-            logger.log('API server stared @ port: 8090');
+            logger.log('API server stared @ port: 8010');
           }
         });
       }
