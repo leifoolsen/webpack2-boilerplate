@@ -42,6 +42,11 @@ if (isProxy) {
 const app = express();
 let devMiddleware = null;
 
+logger.log('Express config:', 'NODE_ENV:', process.env.NODE_ENV,
+  'test:', isTest, 'prod:', isProd, 'dev:', isDev,
+  'hot:', isHot, 'public path:', publicPath, 'API path:', apiPath, 'proxy:', isProxy);
+
+
 const proxyConfig = () => {
   // Proxy middleware
   const proxy = require('http-proxy-middleware'); // eslint-disable-line global-require
@@ -196,28 +201,25 @@ const distConfig = () => {
   });
 };
 
+const setup = () => {
+  logger.log('**** setup');
+
+  commonConfig();
+
+  if (isDev || isHot) {
+    webpackConfig();
+  }
+  else {
+    distConfig();
+  }
+};
+
 
 const server = {
   app: app,
   handle: null,
 
   start: () => {
-    const setup = () => {
-      logger.log('Express config:', 'NODE_ENV:', process.env.NODE_ENV,
-        'test:', isTest, 'prod:', isProd, 'dev:', isDev,
-        'hot:', isHot, 'public path:', publicPath, 'API path:', apiPath, 'proxy:', isProxy);
-
-
-      commonConfig();
-
-      if (isDev || isHot) {
-        webpackConfig();
-      }
-      else {
-        distConfig();
-      }
-    };
-
     const pingProxyServer = () => {
       const ping = require('node-http-ping'); // eslint-disable-line global-require
       ping(proxyHost, proxyPort)
@@ -271,6 +273,7 @@ const server = {
 
 
 //
+setup();
 
 if (process.env.NODE_ENV !== 'test') {
   process.on('uncaughtException', err => {
