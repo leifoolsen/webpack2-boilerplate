@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 
 module.exports = function () {
-  this.Given(/^I go to the website "([^"]*)"$/, (url) => {
+  this.Given(/^I open the url "([^"]*)"$/, (url) => {
     browser.url(url); // eslint-disable-line no-undef
   });
 

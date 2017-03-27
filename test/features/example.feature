@@ -1,7 +1,10 @@
 Feature: Title check
-  I should be able to go to a website
-  and check its title
+  I should be able to use Cucumber with WDIO
 
   Scenario: Get the title of webpage
-    Given I go to the website "http://localhost:8082/"
+    Given I open the url "http://localhost:8082/"
     Then I expect the title of the page to be "Webpack2 Boilerplate"
+
+  #Scenario: Click the Ping button
+  #  Given I open the url "http://localhost:8082/"
+  #  When I click the Ping button

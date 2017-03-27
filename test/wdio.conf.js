@@ -78,7 +78,7 @@ exports.config = {
   //
   // Set a base URL in order to shorten url command calls. If your url parameter starts
   // with "/", then the base url gets prepended.
-  baseUrl: 'http://localhost:8084/',
+  baseUrl: 'http://localhost:8082/',
   //
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,
@@ -171,7 +171,7 @@ exports.config = {
   // Gets executed once before all workers get launched.
   // eslint-disable-next-line no-unused-vars
   onPrepare: function (config, capabilities) {
-    console.log('*** on prepare'); // eslint-disable-line no-console
+    //console.log('*** on prepare'); // eslint-disable-line no-console
     require('../src/config/config-builder')('test');
     server = require('../server');
 
@@ -235,7 +235,7 @@ exports.config = {
   // possible to defer the end of the process using a promise.
   // eslint-disable-next-line no-unused-vars
   onComplete: function(exitCode) {
-    console.log('*** on complete');  // eslint-disable-line no-console
+    //console.log('*** on complete');  // eslint-disable-line no-console
     if (server && server.handle) {
       server.stop();
     }
