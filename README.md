@@ -94,9 +94,6 @@ npm i -D react-hot-loader@3.0.0-beta.6
 
 ### Add React dependencies to `src/vendor.js`
 ```javascript
-if (!window._babelPolyfill) {
-  require('babel-polyfill'); // eslint-disable-line global-require
-}
 import 'moment';
 import 'react';
 import 'react-dom';

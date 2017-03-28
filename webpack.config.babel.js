@@ -279,6 +279,7 @@ module.exports = {
       //'webpack/hot/only-dev-server',
 
     ] : [] ).concat([
+      'babel-polyfill',
       './index.js',
       './styles.scss',
     ]),

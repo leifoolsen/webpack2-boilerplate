@@ -1,5 +1,3 @@
-import 'babel-polyfill';
-
 import { describe, it } from 'mocha';
 import { expect, should } from 'chai';
 should();
