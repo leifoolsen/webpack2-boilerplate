@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 const expect = require('chai').expect;
 
 module.exports = function () {
@@ -7,5 +9,21 @@ module.exports = function () {
 
   this.Then(/^I expect the title of the page to be "([^"]*)"$/, (title) => {
     expect(browser.getTitle()).to.be.eql(title); // eslint-disable-line no-undef
+  });
+
+  this.When(/^I click the Ping button$/, () => {
+    console.log('###', browser.getText('#ping-response')); // eslint-disable-line no-console
+    browser.click('#btn-ping');
+  });
+
+  this.Then(/^I expect the response to be "([^"]*)"$/, (response) => {
+
+    browser.waitUntil(function () {
+
+      console.log('***', browser.getText('#ping-response')); // eslint-disable-line no-console
+
+      return browser.getText('#ping-response').indexOf(response) >= 0;
+    }, 5000, 'expected ping to return pong');
+
   });
 };

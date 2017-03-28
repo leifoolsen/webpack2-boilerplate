@@ -3,6 +3,7 @@
 build/
 bundle/
 dist/
+errorShots/
 logs/
 *.log
 *.tmp
