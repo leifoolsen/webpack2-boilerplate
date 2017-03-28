@@ -12,16 +12,12 @@ module.exports = function () {
   });
 
   this.When(/^I click the Ping button$/, () => {
-    console.log('###', browser.getText('#ping-response')); // eslint-disable-line no-console
     browser.click('#btn-ping');
   });
 
   this.Then(/^I expect the response to be "([^"]*)"$/, (response) => {
 
     browser.waitUntil(function () {
-
-      console.log('***', browser.getText('#ping-response')); // eslint-disable-line no-console
-
       return browser.getText('#ping-response').indexOf(response) >= 0;
     }, 5000, 'expected ping to return pong');
 
