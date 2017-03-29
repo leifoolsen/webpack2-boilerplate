@@ -47,10 +47,22 @@ exports.config = {
     // grid with only 5 firefox instances available you can make sure that not more than
     // 5 instances get started at a time.
     maxInstances: 5,
+    loggingPrefs: { browser: 'ALL', driver: 'ALL' },
     //
     // browserName: 'firefox'
-    browserName: 'chrome'
-    //browserName: 'phantomjs'
+    // browserName: 'phantomjs'
+    browserName: 'chrome',
+
+    chromeOptions: {
+      args: [
+        'disable-plugins',
+        'disable-plugins-discovery',
+        'disable-web-security',
+        'log-path=./logs/chromedriver.log',
+        //'window-size=1280,1024',
+      ], // https://sites.google.com/a/chromium.org/chromedriver/capabilities
+      extensions: [],
+    }
   }],
   //
   // ===================
@@ -139,7 +151,6 @@ exports.config = {
   //mochaOpts: {
   //  ui: 'bdd',
   //  compilers: ['js:babel-register'],
-  //  require: ['babel-polyfill']
   //},
   //
   // If you are using Cucumber you need to specify the location of your step definitions.
