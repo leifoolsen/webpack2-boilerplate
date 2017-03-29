@@ -266,18 +266,14 @@ module.exports = {
       // Must be first entry to properly set public path
       // See: http://webpack.github.io/docs/configuration.html#output-publicpath
       // NOTE: Not shure if this is really needed. Seems to work OK without
-      './webpack-public-path.js',
+      //'./webpack-public-path.js',
 
       // reload - Set to true to auto-reload the page when webpack gets stuck.
-      // See: https://github.com/glenjamin/webpack-hot-middleware
-      //`webpack-hot-middleware/client?http://${host}:${port}/__webpack_hmr?reload=true`
-      //`webpack-hot-middleware/client?path=${path.join(publicPath, '__webpack_hmr')}&reload=true`,
-      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
 
-      // Webpack2: remove any reference to webpack/hot/dev-server or webpack/hot/only-dev-server
-      // from your webpack config. Instead, use the reload config option of 'webpack-hot-middleware'.
-      // See: https://github.com/glenjamin/webpack-hot-middleware#200
-      //'webpack/hot/only-dev-server',
+      // You can use full urls, like:
+      //`webpack-hot-middleware/client?path=http://${host}:${port}${publicPath}/__webpack_hmr?reload=true`
+      // Remember to update path in ./server/index.js - see: Step 3 in ./server/index.js
 
     ] : [] ).concat([
       'babel-polyfill',

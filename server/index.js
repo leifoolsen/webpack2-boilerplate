@@ -82,20 +82,26 @@ if (isDev || isHot) {
   // ------------------------
   // webpack config
   // ------------------------
+
+  // Step 1: Create & configure a webpack compiler
   const compiler = webpack(webpackCfg);
-  const webpackDevMiddleware = require('webpack-dev-middleware');
+
+  // Step 2: Attach the dev middleware to the compiler & the server
+  const webpackDevMiddleware = require('webpack-dev-middleware'); // eslint-disable-line global-require
   devMiddleware = webpackDevMiddleware(compiler, webpackCfg.devServer);
   app.use(devMiddleware);
 
   if(isHot) {
-    /*
-    const joinUrl = require('../src/utils/join-url'); // eslint-disable-line global-require
-    const webpackHotMiddleware = require('webpack-hot-middleware'); // eslint-disable-line global-require
-    app.use(webpackHotMiddleware(compiler, {
-      path: joinUrl(publicPath, '__webpack_hmr'),
+    // Step 3: Attach the hot middleware to the compiler & the server
+    // eslint-disable-next-line global-require
+    app.use(require('webpack-hot-middleware')(compiler, {
+      log: console.log, // eslint-disable-line no-console
+      heartbeat: 10 * 1000,
+      path: '/__webpack_hmr',
+      // You can use full urls, like:
+      // path: `http://${host}:${port}${publicPath}/__webpack_hmr`
+      // Remember to update webpack-hot-middleware in ../webpack-config.babel
     }));
-    */
-    app.use(require('webpack-hot-middleware')(compiler)); // eslint-disable-line global-require
   }
 
   app.use(publicPath, express.static(webpackCfg.context));
