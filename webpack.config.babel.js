@@ -271,7 +271,8 @@ module.exports = {
       // reload - Set to true to auto-reload the page when webpack gets stuck.
       // See: https://github.com/glenjamin/webpack-hot-middleware
       //`webpack-hot-middleware/client?http://${host}:${port}/__webpack_hmr?reload=true`
-      `webpack-hot-middleware/client?path=${path.join(publicPath, '__webpack_hmr')}&reload=true`,
+      //`webpack-hot-middleware/client?path=${path.join(publicPath, '__webpack_hmr')}&reload=true`,
+      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
 
       // Webpack2: remove any reference to webpack/hot/dev-server or webpack/hot/only-dev-server
       // from your webpack config. Instead, use the reload config option of 'webpack-hot-middleware'.

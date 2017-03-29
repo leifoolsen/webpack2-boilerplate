@@ -30,7 +30,7 @@ if (window && !window.onerror) {
 
 if(window) {
   window.addEventListener('beforeunload', () => {
-    logger.debug('before unload, flushing remote logger');
+    logger.debug('Before unload. flushing remote logger');
     logger.remoteLogger.flush();
   });
 }

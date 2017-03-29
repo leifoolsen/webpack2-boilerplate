@@ -88,11 +88,14 @@ if (isDev || isHot) {
   app.use(devMiddleware);
 
   if(isHot) {
+    /*
     const joinUrl = require('../src/utils/join-url'); // eslint-disable-line global-require
     const webpackHotMiddleware = require('webpack-hot-middleware'); // eslint-disable-line global-require
     app.use(webpackHotMiddleware(compiler, {
       path: joinUrl(publicPath, '__webpack_hmr'),
     }));
+    */
+    app.use(require('webpack-hot-middleware')(compiler)); // eslint-disable-line global-require
   }
 
   app.use(publicPath, express.static(webpackCfg.context));
