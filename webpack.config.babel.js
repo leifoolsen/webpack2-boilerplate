@@ -276,7 +276,6 @@ module.exports = {
       // Remember to update path in ./server/index.js - see: Step 3 in ./server/index.js
 
     ] : [] ).concat([
-      'babel-polyfill',
       './index.js',
       './styles.scss',
     ]),

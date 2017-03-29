@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "babel-polyfill": "6.23.0",
+    "harmony-reflect": "1.5.1",
     "moment": "2.18.1",
     "whatwg-fetch": "2.0.3"
   },
@@ -76,7 +77,6 @@
     "url-loader": "0.5.8",
     "wdio-cucumber-framework": "0.2.16",
     "wdio-mocha-framework": "0.5.9",
-    "wdio-phantomjs-service": "0.2.2",
     "wdio-selenium-standalone-service": "0.0.8",
     "wdio-spec-reporter": "0.1.0",
     "webdriverio": "4.6.2",
@@ -138,8 +138,8 @@
     "test:pattern": "cross-env NODE_ENV=test mocha --env.dev --watch --opts ./mocha.opts --grep $pattern",
     "test:proxy-example": "cross-env NODE_ENV=test mocha --env.dev --proxy --opts ./mocha.opts \"./test/integration/proxy/proxy-example.js\"",
 
+    "wdio": "cross-env NODE_ENV=test cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 babel-node ./node_modules/.bin/wdio ./test/wdio.conf.js --env.prod",
     "server": "cross-env NODE_ENV=production babel-node ./server",
-    "start": "babel-node ./server --hot",
-    "wdio": "cross-env NODE_ENV=test cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 babel-node ./node_modules/.bin/wdio ./test/wdio.conf.js --env.prod"
+    "start": "babel-node ./server --hot"
   }
 }

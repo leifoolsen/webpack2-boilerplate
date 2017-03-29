@@ -22,7 +22,6 @@ module.exports = {
   },
   entry: {
     vendor: [
-      'babel-polyfill',
       './src/vendor.js'
     ],
   },
