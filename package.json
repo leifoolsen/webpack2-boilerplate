@@ -107,8 +107,9 @@
   ],
   "license": "MIT",
   "scripts": {
-    "setup": "npm install && npm-run-all clean validate",
     "clean": "rimraf dist rimraf coverage",
+    "setup": "npm run clean && npm install",
+    "postsetup": "selenium-standalone install",
     "validate": "npm-run-all lint test:unit",
     "analyze": "webpack --env.prod --json | webpack-bundle-size-analyzer",
     "precommit": "npm run lint",
