@@ -355,11 +355,13 @@ module.exports = {
       __DEV__: !isProd
     }),
 
-    new webpack.ProvidePlugin({
-      // make fetch available
-      // See: http://mts.io/2015/04/08/webpack-shims-polyfills/
-      'fetch': 'imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch',
-    }),
+    // Not needed in webpack2??
+    //new webpack.ProvidePlugin({
+    //  // make fetch available
+    //  // See: http://mts.io/2015/04/08/webpack-shims-polyfills/
+    //  'fetch': 'imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch',
+    //}),
+    //
 
     // Hook into the compiler to extract progress information.
     //new webpack.ProgressPlugin(),
