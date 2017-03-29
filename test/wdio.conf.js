@@ -58,7 +58,7 @@ exports.config = {
         'disable-plugins',
         'disable-plugins-discovery',
         'disable-web-security',
-        'log-path=./logs/chromedriver.log',
+        //'log-path=./logs/chromedriver.log',
         //'window-size=1280,1024',
       ], // https://sites.google.com/a/chromium.org/chromedriver/capabilities
       extensions: [],
@@ -126,6 +126,9 @@ exports.config = {
   // commands. Instead, they hook themselves up into the test process.
   // services: ['phantomjs'], // Do not use PhantomJS v2.1, it's BUGGY. Hopefully next version will work?
   services: ['selenium-standalone'],
+  //
+  // Path where all logs from the Selenium server should be stored.
+  seleniumLogs: './logs/',
   //
   phantomjsOpts: {
     webdriverLogfile: './logs/phantomjs.log',
