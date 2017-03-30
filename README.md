@@ -121,7 +121,7 @@ The following libraries are used:
 
 For now, the (standalone) acceptance tests must be run manually. The only way to 
 ro run standalone acceptance tests on a CI server, is to use a headless browser 
-like PhantomJS (I think). Unfortunatley I have so far had any success running 
+like PhantomJS (I think). Unfortunatley I have so far had no success running 
 acceptance tests using PhantomJS.
 
 #### Required steps to run acceptance tests
