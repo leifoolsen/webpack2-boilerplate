@@ -269,7 +269,8 @@ module.exports = {
       //'./webpack-public-path.js',
 
       // reload - Set to true to auto-reload the page when webpack gets stuck.
-      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
+      //'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
+      `webpack-hot-middleware/client`,
 
       // You can use full urls, like:
       //`webpack-hot-middleware/client?path=http://${host}:${port}${publicPath}/__webpack_hmr?reload=true`

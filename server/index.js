@@ -88,20 +88,28 @@ if (isDev || isHot) {
 
   // Step 2: Attach the dev middleware to the compiler & the server
   const webpackDevMiddleware = require('webpack-dev-middleware'); // eslint-disable-line global-require
-  devMiddleware = webpackDevMiddleware(compiler, webpackCfg.devServer);
+  devMiddleware = webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: publicPath
+  });
   app.use(devMiddleware);
+
 
   if(isHot) {
     // Step 3: Attach the hot middleware to the compiler & the server
+    // See: https://github.com/glenjamin/webpack-hot-middleware
     // eslint-disable-next-line global-require
-    app.use(require('webpack-hot-middleware')(compiler, {
-      log: console.log, // eslint-disable-line no-console
-      heartbeat: 10 * 1000,
-      path: '/__webpack_hmr',
-      // You can use full urls, like:
-      // path: `http://${host}:${port}${publicPath}/__webpack_hmr`
-      // Remember to update webpack-hot-middleware in ../webpack-config.babel
-    }));
+    // app.use(require('webpack-hot-middleware')(compiler, {
+    //   log: console.log, // eslint-disable-line no-console // A function used to log lines, pass false to disable. Defaults to console.log
+    //   heartbeat: 10 * 1000, // How often to send heartbeat updates to the client to keep the connection alive. Should be less than the client's timeout setting - usually set to half its value.
+    //   path: '/__webpack_hmr', // The path which the middleware will serve the event stream on, must match the client setting
+    //   // You can use full urls, like:
+    //   // path: `http://${host}:${port}${publicPath}/__webpack_hmr`
+    //   // Remember to update webpack-hot-middleware in ../webpack-config.babel
+    // }));
+
+    // eslint-disable-next-line global-require
+    app.use(require('webpack-hot-middleware')(compiler));
   }
 
   app.use(publicPath, express.static(webpackCfg.context));
