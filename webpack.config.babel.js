@@ -355,14 +355,20 @@ module.exports = {
       __DEV__: !isProd
     }),
 
-    // Not needed in webpack2??
+    // Shimming not needed in webpack2?? Moved to vendor.js
+    // Need to investigate further into this:
+    // See: https://philipwalton.com/articles/loading-polyfills-only-when-needed/
+    // See: https://hackernoon.com/polyfills-everything-you-ever-wanted-to-know-or-maybe-a-bit-less-7c8de164e423
+    // See: https://github.com/mc-zone/webpack2-polyfill-plugin
+    // See: http://stackoverflow.com/questions/38960490/how-can-i-polyfill-promise-with-webpack
+    // See: https://gist.github.com/sokra/27b24881210b56bbaff7#promise-polyfill
+    //
     //new webpack.ProvidePlugin({
     //  // make fetch available
     //  // See: http://mts.io/2015/04/08/webpack-shims-polyfills/
     //  'fetch': 'imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch',
     //}),
     //
-
     // Hook into the compiler to extract progress information.
     //new webpack.ProgressPlugin(),
 
