@@ -40,7 +40,7 @@ console.log('Webpack config:', 'NODE_ENV:', process.env.NODE_ENV,
 const removeEmptyKeys = obj => {
   const result = {};
   for (const key in obj) {
-    if (!(obj[key] == null || obj[key].length === 0)) {
+    if (!(obj[key] === null || obj[key].length === 0)) {
       result[key] = obj[key];
     }
   }
@@ -235,16 +235,13 @@ const cssRules = isHot ? [
 module.exports = {
   context: context,
 
-  // Developer tool to enhance debugging, source maps
-  // see: http://webpack.github.io/docs/configuration.html#devtool
-  // see: http://moduscreate.com/optimizing-react-es6-webpack-production-build/
-  // see: https://github.com/gaearon/react-hot-loader/blob/master/docs/Troubleshooting.md
-  // see: https://twitter.com/dan_abramov/status/555770268489375746
+  // Developer tool to enhance debugging
+  // see: https://webpack.js.org/configuration/devtool/#devtool
   // inline-source-map, see: https://github.com/webpack/webpack/issues/2145
-  // Redux and eval, see: see: https://twitter.com/dan_abramov/status/706294608603553793
-  // devtool: isProd ? 'cheap-module-source-map' : 'eval',
-  // devtool: isProd ? 'cheap-module-source-map' : 'cheap-module-eval-source-map', // 'cheap-module-source-map': not possible to map errors to source in production
-  // devtool: isProd ? 'source-map' : 'cheap-module-eval-source-map', // 'source-map': detailed mapping of errors to source in production
+  // Redux and eval, see: https://twitter.com/dan_abramov/status/706294608603553793
+  //                    : use devtool: eval for React HMR
+  // devtool: 'cheap-module-source-map' : not possible to map errors to source in production
+  // devtool: 'source-map' :  detailed mapping of errors to source in production
   devtool: isProd ? 'source-map' : 'cheap-module-source-map',
   cache:   !isProd,
   bail:    isProd,  // Don't attempt to continue if there are any errors.
@@ -270,7 +267,7 @@ module.exports = {
 
       // reload - Set to true to auto-reload the page when webpack gets stuck.
       //'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
-      `webpack-hot-middleware/client`,
+      'webpack-hot-middleware/client',
 
       // You can use full urls, like:
       //`webpack-hot-middleware/client?path=http://${host}:${port}${publicPath}/__webpack_hmr?reload=true`
@@ -356,23 +353,13 @@ module.exports = {
       __DEV__: !isProd
     }),
 
-    // Shimming not needed in webpack2?? Moved to vendor.js
-    // Need to investigate further into this:
-    // See: https://philipwalton.com/articles/loading-polyfills-only-when-needed/
-    // See: http://anujnair.com/blog/13-conditionally-load-multiple-polyfills-using-webpack-promises-and-code-splitting
-    // See: http://anzorb.com/we-dont-need-your-polyfills/
-    // See: https://hackernoon.com/polyfills-everything-you-ever-wanted-to-know-or-maybe-a-bit-less-7c8de164e423
-    // See: https://github.com/mc-zone/webpack2-polyfill-plugin
-    // See: http://stackoverflow.com/questions/38960490/how-can-i-polyfill-promise-with-webpack
-    // See: https://gist.github.com/sokra/27b24881210b56bbaff7#promise-polyfill
-    // See: https://medium.com/@adamrackis/vendor-and-code-splitting-in-webpack-2-6376358f1923
-    //
+    // Shimming not needed in webpack2. See: src/polyfill.js
     //new webpack.ProvidePlugin({
     //  // make fetch available
     //  // See: http://mts.io/2015/04/08/webpack-shims-polyfills/
     //  'fetch': 'imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch',
     //}),
-    //
+
     // Hook into the compiler to extract progress information.
     //new webpack.ProgressPlugin(),
 

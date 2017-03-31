@@ -98,6 +98,7 @@ if (isDev || isHot) {
   if(isHot) {
     // Step 3: Attach the hot middleware to the compiler & the server
     // See: https://github.com/glenjamin/webpack-hot-middleware
+    //
     // eslint-disable-next-line global-require
     // app.use(require('webpack-hot-middleware')(compiler, {
     //   log: console.log, // eslint-disable-line no-console // A function used to log lines, pass false to disable. Defaults to console.log

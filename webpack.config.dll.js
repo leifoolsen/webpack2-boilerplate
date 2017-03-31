@@ -22,6 +22,7 @@ module.exports = {
   },
   entry: {
     vendor: [
+      './src/polyfill.js',
       './src/vendor.js'
     ],
   },

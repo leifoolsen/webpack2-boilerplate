@@ -9,13 +9,14 @@ A Webpack2 boilerplate, partly based on this Egghead.io course;
 * ES2015/ES2016
 * Node6 or Node7
 * Npm as a task/build runner
-* Webpack2 with tree-shaking and hot module replacement (HMR)
-* Webpack DLL plugin for faster builds
+* [Webpack2](https://webpack.js.org/) with tree-shaking and hot module replacement (HMR)
+* Webpack [DLL plugin](https://github.com/webpack/docs/wiki/list-of-plugins#dllplugin) for [faster builds](https://robertknight.github.io/posts/webpack-dll-plugins/)
+* Load polyfills on demand using [dynamic import](https://webpack.js.org/guides/code-splitting-import/#dynamic-import)
 * Node Express middleware
 * Linting with eslint and stylelint
 * Unit tests with Mocha, Chai, Sinon and JsDom
 * Integration tests with Node Express server 
-* Acceptance testing with Node Express, Cucumber.js, WebdriverIO and PhantomJS
+* Acceptance testing with WebdriverIO, Cucumber.js, and Node Express
 * Code coverage and reporting with Istanbul
 * SASS boilerplate with Solved by Flexbox Holy Grail example layout
 * Self hosting Google Material Icons and Font Roboto
@@ -40,7 +41,7 @@ More details about Husky can be found here:
 * Init your git: `git init`
 * Modify `package.json`, e.g. `name, author, description, repository` 
 * Add your own 3'rd party dependencies  to `package.json`
-* Add those 3'rd party dependencies to `./src/vendor.js` or the `entry.vendor` section in **`webpack.config.dll`**
+* Add those 3'rd party dependencies to `./src/vendor.js`
 * Happy hacking :)
 
 >**Note:** Remember to add your own repo to package.json 
@@ -79,6 +80,19 @@ More details about Husky can be found here:
 * `npm run build:prod`
 * `npm run server`
 * Open a browser at `http://localhost:8000`
+
+### 3'rd party dependencies
+Add your 3'rd party dependencies to `vendor.js`.
+* See: [OPTIMIZING WEBPACK FOR FASTER REACT BUILDS](http://engineering.invisionapp.com/post/optimizing-webpack/)
+* See: [Optimizing Webpack build times and improving caching with DLL bundles](https://robertknight.github.io/posts/webpack-dll-plugins/)
+* See: [Webpack Plugins we been keepin on the DLL](https://medium.com/@soederpop/webpack-plugins-been-we-been-keepin-on-the-dll-cdfdd6cb8cd7)
+
+### Polyfills
+Add your polyfills to `polyfill.js`
+* See: [Code Splitting - Using import()](https://webpack.js.org/guides/code-splitting-import/)
+* See: [WE DON'T NEED YOUR POLYFILLS!](http://anzorb.com/we-dont-need-your-polyfills/)
+* See: [Polyfills: everything you ever wanted to know, or maybe a bit less](https://hackernoon.com/polyfills-everything-you-ever-wanted-to-know-or-maybe-a-bit-less-7c8de164e423)
+* See: [Conditionally load multiple Polyfills using Webpack, Promises and Code Splitting](http://anujnair.com/blog/13-conditionally-load-multiple-polyfills-using-webpack-promises-and-code-splitting)
 
 ## Running tests
 Tests are divided into three categories; unit tests, integration tests and 
@@ -192,9 +206,6 @@ npm i -D react-hot-loader@3.0.0-beta.6
 
 ### Add React dependencies to `src/vendor.js`
 ```javascript
-import 'babel-polyfill';
-import 'whatwg-fetch';
-import 'harmony-reflect';
 import 'moment';
 import 'react';
 import 'react-dom';

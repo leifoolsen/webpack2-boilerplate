@@ -1,4 +1,4 @@
-import 'whatwg-fetch';
+import polyfill from './polyfill';
 import run from './app/app';
 import logger, {LOG_LEVEL} from './logger/logger';
 import './styles.scss';
@@ -56,6 +56,10 @@ if (module.hot) {
 }
 
 // Start
-require('./config/config');
-window.addEventListener('load', () => run());
+window.addEventListener('load', () => {
+  polyfill().then(() => {
+    require('./config/config');
+    run();
+  });
+});
 

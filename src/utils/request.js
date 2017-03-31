@@ -6,8 +6,6 @@
  * See: https://github.com/mxstbr/react-boilerplate/blob/master/app/utils/request.js
  */
 
-import 'whatwg-fetch';
-
 /**
  * Constructs an Error object
  *
