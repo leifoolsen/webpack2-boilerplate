@@ -359,10 +359,13 @@ module.exports = {
     // Shimming not needed in webpack2?? Moved to vendor.js
     // Need to investigate further into this:
     // See: https://philipwalton.com/articles/loading-polyfills-only-when-needed/
+    // See: http://anujnair.com/blog/13-conditionally-load-multiple-polyfills-using-webpack-promises-and-code-splitting
+    // See: http://anzorb.com/we-dont-need-your-polyfills/
     // See: https://hackernoon.com/polyfills-everything-you-ever-wanted-to-know-or-maybe-a-bit-less-7c8de164e423
     // See: https://github.com/mc-zone/webpack2-polyfill-plugin
     // See: http://stackoverflow.com/questions/38960490/how-can-i-polyfill-promise-with-webpack
     // See: https://gist.github.com/sokra/27b24881210b56bbaff7#promise-polyfill
+    // See: https://medium.com/@adamrackis/vendor-and-code-splitting-in-webpack-2-6376358f1923
     //
     //new webpack.ProvidePlugin({
     //  // make fetch available
