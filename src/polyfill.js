@@ -26,6 +26,16 @@ export default function polyfill() {
     promises.push(import('intl/locale-data/jsonp/en.js'));
     promises.push(import('intl/locale-data/jsonp/nb.js'));
   }
+
+  if (typeof Element.prototype.closest !== 'function') {
+    promises.push(import('./utils/closest-polyfill'));
+  }
+
+  // ie11:  'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko';
+  const ua = window.navigator.userAgent;
+  if(/Trident/.test(ua) && ua.indexOf('rv:')) {
+    promises.push(import('./utils/ie11-polyfill'));
+  }
   //... other polyfills
 
   return Promise.all(promises);

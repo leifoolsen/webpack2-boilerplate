@@ -3,9 +3,198 @@
  * See: http://www.asbjornenge.com/wwc/testing_react_components.html
  * See: https://github.com/rstacruz/jsdom-global
  * See: https://github.com/dmatteo/jsdomify
+ * See: https://github.com/rstacruz/jsdom-global
  */
 
-const exposedProperties = ['window', 'navigator', 'document'];
+// See jsdom's lib/jsdom/living/index.js
+const LIVING_KEYS = [
+  'DOMException',
+  'NamedNodeMap',
+  'Attr',
+  'Node',
+  'Element',
+  'DocumentFragment',
+  'HTMLDocument',
+  'Document',
+  'CharacterData',
+  'Comment',
+  'DocumentType',
+  'DOMImplementation',
+  'ProcessingInstruction',
+  'Text',
+  'Event',
+  'CustomEvent',
+  'MessageEvent',
+  'ErrorEvent',
+  'HashChangeEvent',
+  'PopStateEvent',
+  'UIEvent',
+  'MouseEvent',
+  'KeyboardEvent',
+  'TouchEvent',
+  'ProgressEvent',
+  'EventTarget',
+  'Location',
+  'History',
+  'HTMLElement',
+  'HTMLAnchorElement',
+  'HTMLAppletElement',
+  'HTMLAreaElement',
+  'HTMLAudioElement',
+  'HTMLBaseElement',
+  'HTMLBodyElement',
+  'HTMLBRElement',
+  'HTMLButtonElement',
+  'HTMLCanvasElement',
+  'HTMLDataElement',
+  'HTMLDataListElement',
+  'HTMLDialogElement',
+  'HTMLDirectoryElement',
+  'HTMLDivElement',
+  'HTMLDListElement',
+  'HTMLEmbedElement',
+  'HTMLFieldSetElement',
+  'HTMLFontElement',
+  'HTMLFormElement',
+  'HTMLFrameElement',
+  'HTMLFrameSetElement',
+  'HTMLHeadingElement',
+  'HTMLHeadElement',
+  'HTMLHRElement',
+  'HTMLHtmlElement',
+  'HTMLIFrameElement',
+  'HTMLImageElement',
+  'HTMLInputElement',
+  'HTMLLabelElement',
+  'HTMLLegendElement',
+  'HTMLLIElement',
+  'HTMLLinkElement',
+  'HTMLMapElement',
+  'HTMLMediaElement',
+  'HTMLMenuElement',
+  'HTMLMetaElement',
+  'HTMLMeterElement',
+  'HTMLModElement',
+  'HTMLObjectElement',
+  'HTMLOListElement',
+  'HTMLOptGroupElement',
+  'HTMLOptionElement',
+  'HTMLOutputElement',
+  'HTMLParagraphElement',
+  'HTMLParamElement',
+  'HTMLPreElement',
+  'HTMLProgressElement',
+  'HTMLQuoteElement',
+  'HTMLScriptElement',
+  'HTMLSelectElement',
+  'HTMLSourceElement',
+  'HTMLSpanElement',
+  'HTMLStyleElement',
+  'HTMLTableCaptionElement',
+  'HTMLTableCellElement',
+  'HTMLTableColElement',
+  'HTMLTableDataCellElement',
+  'HTMLTableElement',
+  'HTMLTableHeaderCellElement',
+  'HTMLTimeElement',
+  'HTMLTitleElement',
+  'HTMLTableRowElement',
+  'HTMLTableSectionElement',
+  'HTMLTemplateElement',
+  'HTMLTextAreaElement',
+  'HTMLTrackElement',
+  'HTMLUListElement',
+  'HTMLUnknownElement',
+  'HTMLVideoElement',
+  'StyleSheet',
+  'MediaList',
+  'CSSStyleSheet',
+  'CSSRule',
+  'CSSStyleRule',
+  'CSSMediaRule',
+  'CSSImportRule',
+  'CSSStyleDeclaration',
+  'StyleSheetList',
+  'XPathException',
+  'XPathExpression',
+  'XPathResult',
+  'XPathEvaluator',
+  'HTMLCollection',
+  'NodeFilter',
+  'NodeIterator',
+  'NodeList',
+  'Blob',
+  'File',
+  'FileList',
+  'FormData',
+  'XMLHttpRequest',
+  'XMLHttpRequestEventTarget',
+  'XMLHttpRequestUpload',
+  'DOMTokenList',
+  'URL'
+];
+
+const OTHER_KEYS = [
+  'addEventListener',
+  'alert',
+  'atob',
+  'blur',
+  'btoa',
+  /* 'clearInterval', */
+  /* 'clearTimeout', */
+  'close',
+  'confirm',
+  /* 'console', */
+  'createPopup',
+  'dispatchEvent',
+  'document',
+  'focus',
+  'frames',
+  'getComputedStyle',
+  'history',
+  'innerHeight',
+  'innerWidth',
+  'length',
+  'location',
+  'moveBy',
+  'moveTo',
+  'name',
+  'navigator',
+  'open',
+  'outerHeight',
+  'outerWidth',
+  'pageXOffset',
+  'pageYOffset',
+  'parent',
+  'postMessage',
+  'print',
+  'prompt',
+  'removeEventListener',
+  'resizeBy',
+  'resizeTo',
+  'screen',
+  'screenLeft',
+  'screenTop',
+  'screenX',
+  'screenY',
+  'scroll',
+  'scrollBy',
+  'scrollLeft',
+  'scrollTo',
+  'scrollTop',
+  'scrollX',
+  'scrollY',
+  'self',
+  /* 'setInterval', */
+  /* 'setTimeout', */
+  'stop',
+  /* 'toString', */
+  'top',
+  'window'
+];
+
+const EXPOSED_PROPERTIES = LIVING_KEYS.concat(OTHER_KEYS);
+//const EXPOSED_PROPERTIES = ['window', 'navigator', 'document'];
 const defaultHtml = '<!doctype html><html><head><meta charset="utf-8"></head><body></body></html>';
 const jsdom = require('jsdom');
 
@@ -34,32 +223,28 @@ function storageMock() {
 
 function setupJsDom(markup = defaultHtml, options={}) {
 
-  if (typeof document !== 'undefined') return;
+  if (global.navigator &&
+    global.navigator.userAgent &&
+    global.navigator.userAgent.indexOf('Node.js') > -1 &&
+    global.document &&
+    typeof global.document.destroy === 'function') {
+
+    return global.document.destroy;
+  }
 
   //const opts = Object.assign({}, options, {virtualConsole: jsdom.createVirtualConsole().sendTo(console)});
   const opts = {...options, ...{ virtualConsole: jsdom.createVirtualConsole().sendTo(console) }};
-
-  //console.log('Setting up jsdom');
-
-  //const doc = jsdom.jsdom(markup, {
-  //  url: 'http://localhost:12345/',
-  //  virtualConsole: jsdom.createVirtualConsole().sendTo(console)
-  //});
   const doc = jsdom.jsdom(markup, opts);
-
-  Object.keys(doc.defaultView).forEach( key => {
-    if (typeof global[key] === 'undefined') {
-      exposedProperties.push(key);
-      global[key] = doc.defaultView[key];
-    }
-  });
 
   global.document = doc;
   global.window = doc.defaultView;
+
+  EXPOSED_PROPERTIES.forEach(key => global[key] = window[key]);
+
   window.console = global.console;
   window.basePath = '/';
   global.navigator = {
-    userAgent: 'node.js',
+    userAgent: 'Node.js',
   };
 
   global.localStorage = global.window.localStorage = storageMock();
@@ -88,7 +273,7 @@ function setupJsDom(markup = defaultHtml, options={}) {
 
 function teardownJsDom() {
   //console.log('Cleaning up jsdom');
-  exposedProperties.forEach( key => delete global[key] );
+  EXPOSED_PROPERTIES.forEach( key => delete global[key] );
 }
 
 export { setupJsDom, teardownJsDom };
