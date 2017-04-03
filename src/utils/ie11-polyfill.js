@@ -18,23 +18,6 @@
  */
 
 
-// defaultPrevented is broken in IE.
-// https://connect.microsoft.com/IE/feedback/details/790389/event-defaultprevented-returns-false-after-preventdefault-was-called
-const originalPreventDefault = Event.prototype.preventDefault;
-Event.prototype.preventDefault = function() {
-  if (!this.cancelable) {
-    return;
-  }
-  originalPreventDefault.call(this);
-  Object.defineProperty(this, 'defaultPrevented', {
-    get: function() {
-      return true;
-    },
-    configurable: true
-  });
-};
-
-
 // Event constructor shim
 const origEvent = window.Event;
 window.Event = function(inType, params) {
@@ -52,14 +35,29 @@ if (origEvent) {
 window.Event.prototype = origEvent.prototype;
 
 
+// defaultPrevented is broken in IE.
+// https://connect.microsoft.com/IE/feedback/details/790389/event-defaultprevented-returns-false-after-preventdefault-was-called
+const originalPreventDefault = Event.prototype.preventDefault;
+Event.prototype.preventDefault = function() {
+  if (!this.cancelable) {
+    return;
+  }
+  originalPreventDefault.call(this);
+  Object.defineProperty(this, 'defaultPrevented', {
+    get: function() {
+      return true;
+    },
+    configurable: true
+  });
+};
+
 // CustomEvent constructor shim
-const CustomEvent = (inType, params = { bubbles: false, cancelable: false, detail: null }) => {
+window.CustomEvent = function(inType, params = { bubbles: false, cancelable: false, detail: null }) {
   const ce = document.createEvent('CustomEvent');
   ce.initCustomEvent(inType, Boolean(params.bubbles), Boolean(params.cancelable), params.detail);
   return ce;
 };
-CustomEvent.prototype = window.Event.prototype;
-window.CustomEvent = CustomEvent; // expose definition to window
+window.CustomEvent.prototype = window.Event.prototype;
 
 
 // Mouse event shim
