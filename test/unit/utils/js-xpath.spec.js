@@ -173,7 +173,7 @@ describe('js-xpath', () => {
       const objectToTransform = {
         a: 1,
         b: 'b',
-        bars: [
+        bar: [
           {
             c: 3,
             d: 'd'
@@ -194,11 +194,11 @@ describe('js-xpath', () => {
       const expectedXPaths = {
         '/a': 1,
         '/b': 'b',
-        '/bars[1]/c': 3,
-        '/bars[1]/d': 'd',
-        '/bars[2]/c': 5,
-        '/bars[2]/d': 'f',
-        '/bars[2]/baz/x': 24,
+        '/bar[1]/c': 3,
+        '/bar[1]/d': 'd',
+        '/bar[2]/c': 5,
+        '/bar[2]/d': 'f',
+        '/bar[2]/baz/x': 24,
         '/buz/y': 25,
         '/buz/z': 'z'
       };

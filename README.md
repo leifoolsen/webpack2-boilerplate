@@ -74,7 +74,7 @@ More details about Husky can be found here:
 
 ### Try the API
 * Run: `npm start`
-* Click the "Ping" button or open a browser at `http://localhost:8000/api/ping`. The response should be: `{"ping":"pong!"}`
+* Click the "Ping" button or open a browser at `http://localhost:8084/api/ping`. The response should be: `{"ping":"pong!"}`
 
 ### Try the bundle
 * `npm run build:prod`
@@ -99,10 +99,6 @@ Tests are divided into three categories; unit tests, integration tests and
 acceptance tests. Unit tests and integration tests uses Moca as a test runner. 
 The acceptance tests uses WebdriverIO as a test runner. Istanbul is used
 for code coverage and reporting. 
-
-e2e tests are not implemented in this boilerplate, but basically they are equal 
-to the integration tests. The main difference is that you use a proxy to connect
-to a "real" api server before running your client api tests. 
 
 ### Unit tests
 The following libraries are used:
@@ -189,6 +185,15 @@ npm run wdio
 ### Test coverage
 `npm run build:prod`, then browse `./coverage/index.html`, 
 `./coverage/unit/index.html`, `./coverage/integration/index.html`  
+
+### e2e tests
+e2e tests are not implemented in this boilerplate, but basically they are equal 
+to the integration tests. The main difference is that you use a proxy to connect
+to a "real" api server before running your client api tests. A sample e2e test
+using a proxy can be found in the
+[./test/integration/proxy](./test/integration/proxy) directory.
+
+To see it in action, run the `test:proxy-example` script.
 
 ## How to use the boilerplate with React
 The boilerplate may, with a few modifications, be used with React.
