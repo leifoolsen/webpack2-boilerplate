@@ -207,6 +207,7 @@ npm i -S react-dom
 # devdependencies
 npm i -D babel-preset-react 
 npm i -D react-hot-loader@3.0.0-beta.6
+npm i -D eslint-plugin-react
 ```
 
 ### Add React dependencies to `src/vendor.js`
@@ -242,6 +243,30 @@ import 'react-dom';
   }
 }
 ```
+
+### Modify `.eslintrc`
+Add "react" to "plugins"
+
+```json
+{
+  "plugins": [
+    "compat",  // Allow configuration of target browser/s (npm i -D eslint-plugin-compat)
+    "react"    // React specific linting rules (npm i -D eslint-plugin-react)
+  ],
+}
+```
+
+Enable all of the rules that you would like to use
+
+```json
+{
+  "rules": {
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+  }
+}
+```
+
 
 ### Modify `webpack.config.babel.js`
 
