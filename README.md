@@ -247,7 +247,7 @@ import 'react-dom';
 ### Modify `.eslintrc`
 Add "react" to "plugins"
 
-```json
+```javascript
 {
   "plugins": [
     "compat",  // Allow configuration of target browser/s (npm i -D eslint-plugin-compat)
@@ -258,7 +258,7 @@ Add "react" to "plugins"
 
 Enable all of the rules that you would like to use
 
-```json
+```javascript
 {
   "rules": {
     "react/jsx-uses-react": "error",
