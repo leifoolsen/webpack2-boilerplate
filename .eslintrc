@@ -12,7 +12,10 @@
 
   "settings": {
     "ecmascript": 7,
-    "jsx": true
+    "jsx": true,
+    "polyfills": [
+      "fetch"
+    ],
   },
   "parserOptions": {
     "ecmaVersion": 7,
@@ -32,12 +35,14 @@
   },
 
   "plugins": [
-    // e.g. "react" (must run `npm install eslint-plugin-react` first)
+    "compat"  // Allow configuration of target browser/s (npm i -D eslint-plugin-compat)
+    //"react" // React specific linting rules (npm i -D eslint-plugin-react)
   ],
   "globals": {
     // "componentHandler": true // Material Design Lite
   },
   "rules": {
+    "compat/compat": 2, // required by eslint-plugin-compat
     "indent": [2, 2, {"SwitchCase": 1}],
     "linebreak-style": [2, "unix"],
     "max-statements-per-line": [1, {"max": 1}],
