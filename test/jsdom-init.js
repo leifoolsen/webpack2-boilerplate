@@ -221,7 +221,12 @@ function storageMock() {
   };
 }
 
-function setupJsDom(markup = defaultHtml, options={}) {
+function teardownJsDom() {
+  //console.log('Cleaning up jsdom');
+  EXPOSED_PROPERTIES.forEach(key => delete global[key]);
+}
+
+function setupJsDom(markup = defaultHtml, options = {}) {
 
   if (global.navigator &&
     global.navigator.userAgent &&
@@ -233,13 +238,15 @@ function setupJsDom(markup = defaultHtml, options={}) {
   }
 
   //const opts = Object.assign({}, options, {virtualConsole: jsdom.createVirtualConsole().sendTo(console)});
-  const opts = {...options, ...{ virtualConsole: jsdom.createVirtualConsole().sendTo(console) }};
+  const opts = { ...options, ...{ virtualConsole: jsdom.createVirtualConsole().sendTo(console) } };
   const doc = jsdom.jsdom(markup, opts);
 
   global.document = doc;
   global.window = doc.defaultView;
 
-  EXPOSED_PROPERTIES.forEach(key => global[key] = window[key]);
+  EXPOSED_PROPERTIES.forEach(key => {
+    global[key] = window[key];
+  });
 
   window.console = global.console;
   window.basePath = '/';
@@ -247,7 +254,10 @@ function setupJsDom(markup = defaultHtml, options={}) {
     userAgent: 'Node.js',
   };
 
+  // eslint-disable-next-line no-multi-assign
   global.localStorage = global.window.localStorage = storageMock();
+
+  // eslint-disable-next-line no-multi-assign
   global.sessionStorage = global.window.sessionStorage = storageMock();
 
   const browserLocale = () => {
@@ -257,7 +267,7 @@ function setupJsDom(markup = defaultHtml, options={}) {
       : navigator.language || navigator.userLanguage;
   };
 
-  if(!browserLocale()) {
+  if (!browserLocale()) {
     Object.defineProperty(navigator, 'language', {
       writable: false,
       value: 'en-US',
@@ -269,11 +279,7 @@ function setupJsDom(markup = defaultHtml, options={}) {
   // ... add whatever browser globals your tests might need ...
 
   document.destroy = teardownJsDom;
-}
-
-function teardownJsDom() {
-  //console.log('Cleaning up jsdom');
-  EXPOSED_PROPERTIES.forEach( key => delete global[key] );
+  return global.document.destroy;
 }
 
 export { setupJsDom, teardownJsDom };

@@ -242,7 +242,7 @@ module.exports = {
   //                    : use devtool: eval for React HMR
   // devtool: 'cheap-module-source-map' : not possible to map errors to source in production
   // devtool: 'source-map' :  detailed mapping of errors to source in production
-  devtool: isProd ? 'source-map' : 'cheap-module-source-map',
+  devtool: isProd ? 'source-map' : 'eval',
   cache:   !isProd,
   bail:    isProd,  // Don't attempt to continue if there are any errors.
   target:  'web',   // Make web variables accessible to webpack, e.g. window. This is a default value; just be aware of it
@@ -352,13 +352,6 @@ module.exports = {
       'process.env.API_PATH': JSON.stringify(apiPath),
       __DEV__: !isProd
     }),
-
-    // Shimming not needed in webpack2. See: src/polyfill.js
-    //new webpack.ProvidePlugin({
-    //  // make fetch available
-    //  // See: http://mts.io/2015/04/08/webpack-shims-polyfills/
-    //  'fetch': 'imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch',
-    //}),
 
     // Hook into the compiler to extract progress information.
     //new webpack.ProgressPlugin(),

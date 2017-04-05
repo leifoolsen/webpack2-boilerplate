@@ -9,6 +9,7 @@ import 'core-js/es6/promise';
 export default function polyfill() {
   const promises = [];
 
+  // eslint-disable-next-line no-underscore-dangle
   if (!window._babelPolyfill) {
     promises.push(import('babel-polyfill'));
   }
@@ -17,7 +18,7 @@ export default function polyfill() {
     promises.push(import('whatwg-fetch'));
   }
 
-  if(!window.Proxy) {
+  if (!window.Proxy) {
     promises.push(import('harmony-reflect'));
   }
 
@@ -33,7 +34,7 @@ export default function polyfill() {
 
   // ie11:  'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko';
   const ua = window.navigator.userAgent;
-  if(/Trident/.test(ua) && ua.indexOf('rv:')) {
+  if (/Trident/.test(ua) && ua.indexOf('rv:')) {
     promises.push(import('./utils/ie11-polyfill'));
   }
   //... other polyfills

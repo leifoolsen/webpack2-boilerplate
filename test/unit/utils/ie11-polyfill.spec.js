@@ -1,21 +1,19 @@
-'use strict';
-//import requireUncached from 'require-uncached';
+import requireUncached from 'require-uncached';
 import { before, after, describe, it } from 'mocha';
 import { assert } from 'chai';
 import sinon from 'sinon';
 import { setupJsDom, teardownJsDom } from '../../jsdom-init';
 
-
 describe('IE11 polyfill', () => {
   let sandbox;
 
-  before ( () => {
+  before(() => {
     sandbox = sinon.sandbox.create();
     setupJsDom();
-    require( '../../../src/utils/ie11-polyfill');
+    requireUncached('../../../src/utils/ie11-polyfill');
   });
 
-  after ( () => {
+  after(() => {
     teardownJsDom();
     sandbox.restore();
   });
@@ -27,7 +25,7 @@ describe('IE11 polyfill', () => {
     });
 
     it('should create an event', () => {
-      assert.doesNotThrow( () => {
+      assert.doesNotThrow(() => {
         let e = new window.Event('foo', { bubbles: true, cancelable: true });
         assert(e);
         assert.equal(e.type, 'foo');
@@ -80,7 +78,7 @@ describe('IE11 polyfill', () => {
     });
 
     it('should create a customevent', () => {
-      assert.doesNotThrow( () => {
+      assert.doesNotThrow(() => {
         const e = new window.CustomEvent('cat', { bubbles: true, cancelable: true, detail: {} });
         assert.isNotNull(e);
       }, Error);
@@ -95,14 +93,14 @@ describe('IE11 polyfill', () => {
     });
 
     it('should create a CustomEvent with bubbles:true', () => {
-      const ce = new window.CustomEvent('cat', {bubbles: true});
+      const ce = new window.CustomEvent('cat', { bubbles: true });
       assert.equal(ce.type, 'cat');
       assert.equal(ce.bubbles, true);
       assert.equal(ce.cancelable, false);
       assert.equal(ce.detail, null);
     });
 
-    it('should create a CustomEvent instance with a detail object', function () {
+    it('should create a CustomEvent instance with a detail object', () => {
       const ce = new window.CustomEvent('cat', { detail: { sound: 'meow' } });
       assert.equal(ce.type, 'cat');
       assert.equal(ce.bubbles, false);
@@ -111,7 +109,7 @@ describe('IE11 polyfill', () => {
     });
 
     it('should work', () => {
-      const ce = new window.CustomEvent('sound', { bubbles: false, detail: {species: 'bird', sound: 'tweet'} });
+      const ce = new window.CustomEvent('sound', { bubbles: false, detail: { species: 'bird', sound: 'tweet' } });
       const spy = sinon.spy();
       document.body.addEventListener('sound', spy);
       document.body.dispatchEvent(ce);
@@ -134,7 +132,7 @@ describe('IE11 polyfill', () => {
     });
 
     it('should create a mouse event', () => {
-      assert.doesNotThrow( () => {
+      assert.doesNotThrow(() => {
         let e = new window.MouseEvent('click', {
           'view': window,
           'bubbles': true,
@@ -179,7 +177,4 @@ describe('IE11 polyfill', () => {
       assert.isTrue(spy.called, 'Expected "select" event to fire');
     });
   });
-
 });
-
-

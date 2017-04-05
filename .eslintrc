@@ -15,7 +15,7 @@
     "jsx": true,
     "polyfills": [
       "fetch"
-    ],
+    ]
   },
   "parserOptions": {
     "ecmaVersion": 7,

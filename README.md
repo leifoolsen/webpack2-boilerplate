@@ -143,7 +143,7 @@ npm install
 npm run build:prod
 
 # Fetch actual Seleninum distro
-./node_modules/.bin/selenium-standalone install
+NODE_TLS_REJECT_UNAUTHORIZED=0 ./node_modules/.bin/selenium-standalone install
 
 # Run acceptance tests
 npm run wdio

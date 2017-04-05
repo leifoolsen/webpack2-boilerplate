@@ -26,23 +26,23 @@ describe('closest', () => {
   <section>
     <p>Paragraph #6</p>
     <p class='foo'>Paragraph #7</p>
-  	<ul class="task-list">
-			<li class="task-item">
-				<a href="#"><u><span>Hello</span></u></a>
-			</li>
-		</ul>    
+    <ul class="task-list">
+      <li class="task-item">
+        <a href="#"><u><span>Hello</span></u></a>
+      </li>
+    </ul>    
   </section>
 </div>
 </body>
 </html>`;
 
-  let matches_;
-  let msmatches_;
-  let mozmatches_;
-  let webkitmatches_;
-  let closest_;
+  let matches_; // eslint-disable-line no-underscore-dangle
+  let msmatches_; // eslint-disable-line no-underscore-dangle
+  let mozmatches_; // eslint-disable-line no-underscore-dangle
+  let webkitmatches_; // eslint-disable-line no-underscore-dangle
+  let closest_; // eslint-disable-line no-underscore-dangle
 
-  before ( () => {
+  before(() => {
     setupJsDom(fixture);
 
     matches_ = Element.prototype.matches;
@@ -57,10 +57,10 @@ describe('closest', () => {
     Element.prototype.webkitMatchesSelector = undefined;
     Element.prototype.closest = undefined;
 
-    requireUncached( '../../../src/utils/closest-polyfill');
+    requireUncached('../../../src/utils/closest-polyfill');
   });
 
-  after ( () => {
+  after(() => {
     Element.prototype.matches = matches_;
     Element.prototype.msMatchesSelector = msmatches_;
     Element.prototype.mozMatchesSelector = mozmatches_;
@@ -72,7 +72,7 @@ describe('closest', () => {
   describe('matches polyfill', () => {
     it('should match class="foo"', () => {
       const p = document.querySelector('.foo');
-      expect(p.matches('.foo')).to.be.true;
+      expect(p.matches('.foo')).to.be.true; // eslint-disable-line no-unused-expressions
     });
   });
 
@@ -80,13 +80,13 @@ describe('closest', () => {
     it('should have parent with tagName section', () => {
       const p = document.querySelector('article p');
       const section = p.closest('section');
-      expect(section).to.not.be.null;
+      expect(section).to.not.be.null; // eslint-disable-line no-unused-expressions
     });
 
     it('should have no parent with given tagName', () => {
       const p = document.querySelector('section p');
       const article = p.closest('article');
-      expect(article).to.be.null;
+      expect(article).to.be.null; // eslint-disable-line no-unused-expressions
     });
 
     it('should find self', () => {
@@ -103,7 +103,5 @@ describe('closest', () => {
       const p = document.querySelector('.foo');
       expect(document.documentElement).to.equal(p.closest('.the-document'));
     });
-
   });
-
 });

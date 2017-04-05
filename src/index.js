@@ -6,7 +6,7 @@ import './styles.scss';
 // Unhandled errors should be sent to the server
 if (window && !window.onerror) {
   window.onerror = function (msg, url, lineNo, columnNo, error) {
-
+    // eslint-disable-next-line no-param-reassign
     error = error || {};
     error.fileName = error.fileName || url || null;
     error.lineNumber = error.lineNumber || lineNo || null;
@@ -58,7 +58,7 @@ if (module.hot) {
 // Start
 window.addEventListener('load', () => {
   polyfill().then(() => {
-    require('./config/config');
+    require('./config/config'); // eslint-disable-line global-require
     run();
   });
 });

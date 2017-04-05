@@ -20,14 +20,15 @@
 
 // Event constructor shim
 const origEvent = window.Event;
-window.Event = function(inType, params) {
-  params = params || {};
+
+// eslint-disable-next-line func-names
+window.Event = function (inType, params = { bubbles: false, cancelable: false }) {
   const e = document.createEvent('Event');
   e.initEvent(inType, Boolean(params.bubbles), Boolean(params.cancelable));
   return e;
 };
 if (origEvent) {
-  // eslint-disable-next-line prefer-const
+  // eslint-disable-next-line
   for (let i in origEvent) {
     window.Event[i] = origEvent[i];
   }
@@ -38,13 +39,16 @@ window.Event.prototype = origEvent.prototype;
 // defaultPrevented is broken in IE.
 // https://connect.microsoft.com/IE/feedback/details/790389/event-defaultprevented-returns-false-after-preventdefault-was-called
 const originalPreventDefault = Event.prototype.preventDefault;
-Event.prototype.preventDefault = function() {
+
+// eslint-disable-next-line func-names
+Event.prototype.preventDefault = function () {
   if (!this.cancelable) {
     return;
   }
   originalPreventDefault.call(this);
   Object.defineProperty(this, 'defaultPrevented', {
-    get: function() {
+    // eslint-disable-next-line func-names
+    get: function () {
       return true;
     },
     configurable: true
@@ -52,7 +56,8 @@ Event.prototype.preventDefault = function() {
 };
 
 // CustomEvent constructor shim
-window.CustomEvent = function(inType, params = { bubbles: false, cancelable: false, detail: null }) {
+// eslint-disable-next-line func-names
+window.CustomEvent = function (inType, params = { bubbles: false, cancelable: false, detail: null }) {
   const ce = document.createEvent('CustomEvent');
   ce.initCustomEvent(inType, Boolean(params.bubbles), Boolean(params.cancelable), params.detail);
   return ce;
@@ -62,8 +67,10 @@ window.CustomEvent.prototype = window.Event.prototype;
 
 // Mouse event shim
 const origMouseEvent = window.MouseEvent;
-window.MouseEvent = function(inType, params) {
-  params = params || {};
+
+// eslint-disable-next-line func-names
+window.MouseEvent = function (inType, params) {
+  params = params || {}; // eslint-disable-line no-param-reassign
   const e = document.createEvent('MouseEvent');
   e.initMouseEvent(inType,
     Boolean(params.bubbles), Boolean(params.cancelable),
@@ -73,8 +80,9 @@ window.MouseEvent = function(inType, params) {
     params.button, params.relatedTarget);
   return e;
 };
+
 if (origMouseEvent) {
-  // eslint-disable-next-line prefer-const
+  // eslint-disable-next-line
   for (let i in origMouseEvent) {
     window.MouseEvent[i] = origMouseEvent[i];
   }
