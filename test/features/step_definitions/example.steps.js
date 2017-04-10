@@ -17,7 +17,7 @@ module.exports = function () {
 
   this.Then(/^I expect the response to be "([^"]*)"$/, (response) => {
 
-    browser.waitUntil(function () {
+    browser.waitUntil(() => {
       return browser.getText('#ping-response').indexOf(response) >= 0;
     }, 5000, 'expected ping to return pong');
 
