@@ -112,12 +112,9 @@ class RemoteLogger extends AbstractLogger {
         level: valueToKey(LOG_LEVEL, level),
         time: new Date().toISOString(),
         message: args.length > 0 ? args[0] : '',
+        detail: args.length > 1 ? args.slice(1) : undefined,
         userAgent: navigator.userAgent,
       };
-
-      if(args.length > 1) {
-        data.detail = args.slice(1);
-      }
 
       this._logMessages.push(data);
       if (this._logMessages.length >= this.batchSize) {

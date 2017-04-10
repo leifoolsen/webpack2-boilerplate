@@ -36,9 +36,9 @@ More details about Husky can be found here:
 * Clone this repository: `git clone https://github.com/leifoolsen/webpack2-boilerplate.git` (or download zip)
 * CD to project directory: `cd webpack2-boilerplate`
 * Remove existing git: `rm -rf .git`
-* Install dependencies: `npm install`
-* Build dll: `npm run build:dll`
 * Init your git: `git init`
+* Install dependencies: `npm install` or `yarn install`
+* Build dll: `npm run build:dll`
 * Modify `package.json`, e.g. `name, author, description, repository` 
 * Add your own 3'rd party dependencies  to `package.json`
 * Add those 3'rd party dependencies to `./src/vendor.js`

@@ -237,12 +237,10 @@ module.exports = {
 
   // Developer tool to enhance debugging
   // see: https://webpack.js.org/configuration/devtool/#devtool
-  // inline-source-map, see: https://github.com/webpack/webpack/issues/2145
+  // see: https://github.com/rstacruz/webpack-tricks#source-maps-webpack-2
   // Redux and eval, see: https://twitter.com/dan_abramov/status/706294608603553793
   //                    : use devtool: eval for React HMR
-  // devtool: 'cheap-module-source-map' : not possible to map errors to source in production
-  // devtool: 'source-map' :  detailed mapping of errors to source in production
-  devtool: isProd ? 'source-map' : 'eval',
+  devtool: isProd ? 'source-map' : 'cheap-module-source-map',
   cache:   !isProd,
   bail:    isProd,  // Don't attempt to continue if there are any errors.
   target:  'web',   // Make web variables accessible to webpack, e.g. window. This is a default value; just be aware of it

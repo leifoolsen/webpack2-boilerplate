@@ -3,32 +3,41 @@ import run from './app/app';
 import logger, {LOG_LEVEL} from './logger/logger';
 import './styles.scss';
 
-// Unhandled errors should be sent to the server
-if (window && !window.onerror) {
-  window.onerror = function (msg, url, lineNo, columnNo, error) {
-    // eslint-disable-next-line no-param-reassign
-    error = error || {};
-    error.fileName = error.fileName || url || null;
-    error.lineNumber = error.lineNumber || lineNo || null;
-    error.columnNumber = error.columnNumber || columnNo || null;
+if(window) {
+  /**
+   * An event handler for the error event.
+   * When an error is thrown, the following arguments are passed to the function:
+   * @param msg The message associated with the error, e.g. “Uncaught ReferenceError: foo is not defined”
+   * @param url The URL of the script or document associated with the error, e.g. “/dist/app.js”
+   * @param lineNo The line number (if available)
+   * @param columnNo The column number (if available)
+   * @param error The Error object associated with this error (if available)
+   * @return {boolean}
+   * @see: https://developer.mozilla.org/en/docs/Web/API/GlobalEventHandlers/onerror
+   * @see https://blog.sentry.io/2016/01/04/client-javascript-reporting-window-onerror.html
+   */
+  window.onerror = function (msg, url, lineNo, columnNo, error = {}) {
+    let detail;
+    if (msg.toLowerCase().indexOf('script error.') > -1) {
+      detail = {
+        name: 'Script error',
+        stack: 'See Browser Console for Detail'
+      };
+    }
+    else {
+      detail = {
+        name: error.name,
+        line: lineNo,
+        column: columnNo,
+        url: url,
+        stack: error.stack || null,
+      };
+    }
 
-    const detail = {
-      name: error.name || null,
-      message: error.message || null,
-      file: error.fileName,
-      source: ((error.toSource && error.toSource()) || null),
-      line: error.lineNumber,
-      column: error.columnNumber,
-      stack: error.stack || null,
-    };
-
-    // An uncaught error is dumped to console, so only need to log remote
     logger.remoteLogger.log(LOG_LEVEL.error, msg, detail);
     return false;
   };
-}
 
-if(window) {
   window.addEventListener('beforeunload', () => {
     logger.debug('Before unload. flushing remote logger');
     logger.remoteLogger.flush();

@@ -88,10 +88,13 @@ if (isDev || isHot) {
 
   // Step 2: Attach the dev middleware to the compiler & the server
   const webpackDevMiddleware = require('webpack-dev-middleware'); // eslint-disable-line global-require
-  devMiddleware = webpackDevMiddleware(compiler, {
-    noInfo: true,
-    publicPath: publicPath
-  });
+
+  //devMiddleware = webpackDevMiddleware(compiler, {
+  //  noInfo: true,
+  //  quiet: true,
+  //  publicPath: publicPath
+  //});
+  devMiddleware = webpackDevMiddleware(compiler, webpackCfg.devServer);
   app.use(devMiddleware);
 
 
