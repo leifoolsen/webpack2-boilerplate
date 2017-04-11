@@ -190,7 +190,7 @@ const cssRules = isHot
           {
             loader: 'postcss-loader',
             options: {
-              sourceMap: 'inline'
+              sourceMap: 'inline',
             }
           },
           {
@@ -255,7 +255,7 @@ module.exports = {
   // see: https://github.com/rstacruz/webpack-tricks#source-maps-webpack-2
   // Redux and eval, see: https://twitter.com/dan_abramov/status/706294608603553793
   //                    : use devtool: eval for React HMR
-  devtool: isProd ? 'hidden-source-map' : 'source-map',
+  devtool: isProd ? 'source-map' : 'eval',
 
   // See: https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/35
   stats: {
@@ -391,15 +391,6 @@ module.exports = {
         output: {
           path: dist,
         },
-        postcss: [
-          precss,
-          autoprefixer({
-            browsers: [
-              'last 2 versions',
-              'ie >= 11',
-            ],
-          }),
-        ],
       },
       eslint: {
         failOnWarning: false,
@@ -426,7 +417,7 @@ module.exports = {
       // https://github.com/vieron/stylelint-webpack-plugin
       // http://stylelint.io/user-guide/example-config/
       configFile: '.stylelintrc',
-      context: 'src',
+      context: src,
       files: '**/*.s?(a|c)ss',
       syntax: 'scss',
       failOnError: false
