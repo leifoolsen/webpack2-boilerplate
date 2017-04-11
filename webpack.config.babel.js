@@ -101,6 +101,7 @@ const prodPlugins = isProd ? [
 
 
   // CommonsChunk analyzes everything in your bundles, extracts common bits into files together.
+  // See: https://webpack.js.org/plugins/commons-chunk-plugin/
   // See: https://webpack.js.org/guides/code-splitting-libraries/
   new webpack.optimize.CommonsChunkPlugin({
     names: ['vendor', 'manifest'],

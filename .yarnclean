@@ -1,3 +1,8 @@
+# Exclude rules
+!browser-sync-ui/lib/plugins/history
+!svgo/.svgo.yml
+!istanbul-reports/lib/html/assets
+
 # test directories
 __tests__
 test
