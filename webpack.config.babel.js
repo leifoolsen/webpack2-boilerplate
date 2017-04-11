@@ -162,76 +162,90 @@ const prodPlugins = isProd ? [
   }),
 ] : [];
 
+// See: https://github.com/rstacruz/webpack-tricks/blob/master/recipes/css.md
+// See: https://github.com/rstacruz/webpack-starter-kit
+const cssRules = isHot
+  ? [
+      {
+        // Enables HMR. Inlines CSS in html head style tag
+        test: /\.css|\.scss$/,
+        include: [
+          src,
+          path.resolve(process.cwd(), 'node_modules')
+        ],
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
 
-const cssRules = isHot ? [
-  {
-    // Enables HMR. Inlines CSS in html head style tag
-    test: /\.css$/,
-    include: [
-      src,
-      path.resolve(process.cwd(), 'node_modules')
-    ],
-    use: [
-      'style-loader',
-      // urls does not work when using sourceMap.
-      // See: https://github.com/webpack/css-loader/issues/216
-      // See: https://github.com/webpack/css-loader/issues/296
-      // See: http://stackoverflow.com/questions/37288886/webpack-background-images-not-loading
-      'css-loader', // { loader: 'css', query: { sourceMap: true } },
-      'postcss-loader',
-      'resolve-url-loader',
+            // Uncomment options if you don't want inlines CSS (HMR works for both)
+            /*
+            options: {
+              url: true,
+              sourceMap: true,
+              importLoaders: 1
+            }
+            */
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: 'inline'
+            }
+          },
+          {
+            loader: 'resolve-url-loader'
+          },
+          {
+            loader: 'sass-loader',
+            query: {
+              sourceMap: 'expanded'
+            }
+          },
+        ]
+      }
     ]
-  },
-  {
-    // Enables HMR. Inlines CSS in html head
-    test: /\.s?(a|c)ss$/,
-    include: [
-      src,
-      path.resolve(process.cwd(), 'node_modules')
-    ],
-    use: [
-      'style-loader',
-      'css-loader', // { loader: 'css', query: { sourceMap: true } }, // urls does not work when using sourceMap, see: comments above
-      'postcss-loader',
-      'resolve-url-loader',
-      { loader: 'sass-loader', query: { sourceMap: isProd ? 'compressed' : 'expanded' } },
-    ]
-  },
-] : [
-  {
-    // No HMR. Creates external CSS
-    test: /\.css$/,
-    include: [
-      src,
-      path.resolve(process.cwd(), 'node_modules')
-    ],
-    loader: ExtractTextPlugin.extract({
-      fallback: 'style-loader',
-      use: ['css-loader?sourceMap', 'postcss-loader', 'resolve-url-loader']
-    })
-  },
-  {
-    // No HMR. Creates external CSS
-    test: /\.s?(a|c)ss$/,
-    include: [
-      src,
-      path.resolve(process.cwd(), 'node_modules')
-    ],
-    loader: ExtractTextPlugin.extract({
-      fallback: 'style-loader',
-      use: [
-        {
-          loader: 'css-loader', query: { sourceMap: true }
-        },
-        'postcss-loader',
-        'resolve-url-loader',
-        {
-          loader: 'sass-loader', query: { sourceMap: isProd ? 'compressed' : 'expanded' }
-        }
-      ]
-    })
-  }
-];
+  : [
+      {
+        test: /\.css|\.scss$/,
+        include: [
+          src,
+          path.resolve(process.cwd(), 'node_modules')
+        ],
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: isDev
+                ? {
+                    url: true,
+                    sourceMap: true,
+                    importLoaders: 1
+                  }
+                : {
+                    url: true
+                  }
+            },
+            {
+              loader: 'postcss-loader',
+              options: isDev
+                ? { sourceMap: 'inline' }
+                : {}
+            },
+            {
+              loader: 'resolve-url-loader'
+            },
+            {
+              loader: 'sass-loader',
+              query: {
+                sourceMap: isProd ? 'compressed' : 'expanded'
+              }
+            },
+          ]
+        })
+      },
+    ];
 
 module.exports = {
   context: context,
@@ -241,7 +255,15 @@ module.exports = {
   // see: https://github.com/rstacruz/webpack-tricks#source-maps-webpack-2
   // Redux and eval, see: https://twitter.com/dan_abramov/status/706294608603553793
   //                    : use devtool: eval for React HMR
-  devtool: isProd ? 'source-map' : 'eval',
+  devtool: isProd ? 'hidden-source-map' : 'source-map',
+
+  // See: https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/35
+  stats: {
+    colors: true,
+    children: false,
+    chunks: false,
+    assetsSort: 'name',
+  },
   cache:   !isProd,
   bail:    isProd,  // Don't attempt to continue if there are any errors.
   target:  'web',   // Make web variables accessible to webpack, e.g. window. This is a default value; just be aware of it
@@ -283,6 +305,7 @@ module.exports = {
     path: dist,
     publicPath: publicPath,
     pathinfo: !isProd,
+    devtoolModuleFilenameTemplate: 'webpack:///[absolute-resource-path]',
   },
   performance: {
     hints: isProd ? 'warning' : false,
@@ -392,10 +415,11 @@ module.exports = {
     //new webpack.optimize.OccurrenceOrderPlugin(),
 
     // Generate an external css file with a hash in the filename
+    // allChunks: true -> preserve source maps
     new ExtractTextPlugin({
       filename: isProd ? '[name].[chunkhash].styles.css' : '[name].styles.css',
       disable: false,
-      allChunks: true
+      allChunks: true,
     }),
 
     new StyleLintPlugin({
