@@ -241,7 +241,7 @@ module.exports = {
   // see: https://github.com/rstacruz/webpack-tricks#source-maps-webpack-2
   // Redux and eval, see: https://twitter.com/dan_abramov/status/706294608603553793
   //                    : use devtool: eval for React HMR
-  devtool: isProd ? 'source-map' : 'cheap-module-source-map',
+  devtool: isProd ? 'source-map' : 'eval',
   cache:   !isProd,
   bail:    isProd,  // Don't attempt to continue if there are any errors.
   target:  'web',   // Make web variables accessible to webpack, e.g. window. This is a default value; just be aware of it

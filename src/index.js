@@ -16,23 +16,15 @@ if(window) {
    * @see: https://developer.mozilla.org/en/docs/Web/API/GlobalEventHandlers/onerror
    * @see https://blog.sentry.io/2016/01/04/client-javascript-reporting-window-onerror.html
    */
-  window.onerror = function (msg, url, lineNo, columnNo, error = {}) {
-    let detail;
-    if (msg.toLowerCase().indexOf('script error.') > -1) {
-      detail = {
-        name: 'Script error',
-        stack: 'See Browser Console for Detail'
-      };
-    }
-    else {
-      detail = {
-        name: error.name,
-        line: lineNo,
-        column: columnNo,
-        url: url,
-        stack: error.stack || null,
-      };
-    }
+  window.onerror = function (msg, url, lineNo, columnNo, error) {
+    const err = error || {};
+    const detail = {
+      name: err.name || (msg.toLowerCase().indexOf('script error.') > -1 ? 'Script error' : ''),
+      line: lineNo,
+      column: columnNo,
+      url: url || '',
+      stack: err.stack || (msg.toLowerCase().indexOf('script error.') > -1 ? 'See browser console for detail' : ''),
+    };
 
     logger.remoteLogger.log(LOG_LEVEL.error, msg, detail);
     return false;
