@@ -31,27 +31,6 @@ More details about Husky can be found here:
 * [Prevent bad git commits and pushes with Husky](http://www.penta-code.com/prevent-bad-git-commits-and-pushes-with-husky/)
 * [Prevent Bad Commits with husky](https://davidwalsh.name/prevent-bad-commits-husky)
 
-## Get started
-* Install Node6 or Node7 (via nvm)
-* Clone this repository: `git clone https://github.com/leifoolsen/webpack2-boilerplate.git` (or download zip)
-* CD to project directory: `cd webpack2-boilerplate`
-* Remove existing git: `rm -rf .git`
-* Init your git: `git init`
-* Install dependencies: `npm install` or `yarn install`
-* Build dll: `npm run build:dll`
-* Modify `package.json`, e.g. `name, author, description, repository` 
-* Add your own 3'rd party dependencies  to `package.json`
-* Add those 3'rd party dependencies to `./src/vendor.js`
-* Happy hacking :)
-
->**Note:** Remember to add your own repo to package.json 
-```
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/<your-git>/<your-project>.git"
-  },
-```
-
 ## NPM Scripts
 * `start`: run Express sever with Hot Module Reloading (HMR), eslint and stylelint, serving files at http://localhost:8084
 * `test`: run unit tests and integration tests
@@ -66,7 +45,27 @@ More details about Husky can be found here:
 * `server`: run Express sever with the generated bundle, serving files at http://localhost:8000
 * `precommit`: husky run command for the git pre-commit hook
 
-## Start coding
+## Get started
+* Install Node6 or Node7 (via nvm)
+* Clone this repository: `git clone https://github.com/leifoolsen/webpack2-boilerplate.git` (or download zip)
+* CD to project directory: `cd webpack2-boilerplate`
+* Remove existing git: `rm -rf .git`
+* Init your git: `git init`
+* Install dependencies: `npm install` or `yarn install`
+* Build dll: `npm run build:dll`
+* Modify `package.json`, e.g. `name, author, description, repository` 
+* Add your own 3'rd party dependencies  to `package.json`
+* Add those 3'rd party dependencies to `./src/vendor.js`
+
+>**Note:** Remember to add your own repo to package.json 
+```
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/<your-git>/<your-project>.git"
+  },
+```
+
+### Start coding
 * Run: `npm start`
 * Open a browser at `http://localhost:8084`
 * Add/modify code
