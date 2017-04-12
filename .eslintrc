@@ -6,7 +6,10 @@
 // See: https://github.com/feross/eslint-config-standard
 
 {
-  "extends":  "eslint:recommended",
+  "extends": [
+    "eslint:recommended"
+    //"plugin:flowtype/recommended" // Will not use flow. See: https://github.com/facebook/flow/issues/869#issuecomment-256643823
+  ],
 
   "parser": "babel-eslint",
 
@@ -33,10 +36,10 @@
     "mocha": true,   // adds all of the Mocha testing global variables
     "es6": true      // ECMAScript 6
   },
-
   "plugins": [
-    "compat"  // Allow configuration of target browser/s (npm i -D eslint-plugin-compat)
-    //"react" // React specific linting rules (npm i -D eslint-plugin-react)
+    "compat"     // Allow configuration of target browser/s (npm i -D eslint-plugin-compat)
+    //"react"    // React specific linting rules (npm i -D eslint-plugin-react)
+    //"flowtype" // Will not use flow. See: https://github.com/facebook/flow/issues/869#issuecomment-256643823
   ],
   "globals": {
     // "componentHandler": true // Material Design Lite
