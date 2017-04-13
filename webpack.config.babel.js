@@ -1,5 +1,6 @@
-require("babel-register");
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+require("babel-register");
 
 const chalk = require('chalk');
 const path = require('path');
@@ -90,77 +91,80 @@ const devPlugins = () => {
   return [];
 };
 
-const hotPlugins = isHot ? [
-  new webpack.HotModuleReplacementPlugin({
-    multiStep: true, // Enable multi-pass compilation for enhanced performance in larger projects.
-  }),
-] : [];
+const hotPlugins = isHot
+  ? [
+      new webpack.HotModuleReplacementPlugin({
+        multiStep: true, // Enable multi-pass compilation for enhanced performance in larger projects.
+      }),
+    ]
+  : [];
 
-const prodPlugins = isProd ? [
-  // Note: do not use '-p' in "build:prod" script
+const prodPlugins = isProd
+  ? [
+      // Note: do not use '-p' in "build:prod" script
 
+      // CommonsChunk analyzes everything in your bundles, extracts common bits into files together.
+      // See: https://webpack.js.org/plugins/commons-chunk-plugin/
+      // See: https://webpack.js.org/guides/code-splitting-libraries/
+      new webpack.optimize.CommonsChunkPlugin({
+        names: ['vendor', 'manifest'],
+      }),
 
-  // CommonsChunk analyzes everything in your bundles, extracts common bits into files together.
-  // See: https://webpack.js.org/plugins/commons-chunk-plugin/
-  // See: https://webpack.js.org/guides/code-splitting-libraries/
-  new webpack.optimize.CommonsChunkPlugin({
-    names: ['vendor', 'manifest'],
-  }),
+      // Minify and optimize the index.html
+      new HtmlWebpackPlugin({
+        template: './index.html',
+        inject: true,
+        favicon: 'favicon.png',
+        // Correct bundle order: [manifest, vendor, app]
+        // see: http://stackoverflow.com/questions/36796319/webpack-with-commonschunkplugin-results-with-wrong-bundle-order-in-html-file
+        // see: https://github.com/ampedandwired/html-webpack-plugin/issues/481
+        chunksSortMode: 'dependency',
+        xhtml: true,
+        minify: {
+          removeComments: true,
+          collapseWhitespace: true,
+          removeRedundantAttributes: true,
+          useShortDoctype: true,
+          removeEmptyAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          keepClosingSlash: true,
+          minifyJS: true,
+          minifyCSS: true,
+          minifyURLs: true,
+        },
+      }),
 
-  // Minify and optimize the index.html
-  new HtmlWebpackPlugin({
-    template: './index.html',
-    inject: true,
-    favicon: 'favicon.png',
-    // Correct bundle order: [manifest, vendor, app]
-    // see: http://stackoverflow.com/questions/36796319/webpack-with-commonschunkplugin-results-with-wrong-bundle-order-in-html-file
-    // see: https://github.com/ampedandwired/html-webpack-plugin/issues/481
-    chunksSortMode: 'dependency',
-    xhtml: true,
-    minify: {
-      removeComments: true,
-      collapseWhitespace: true,
-      removeRedundantAttributes: true,
-      useShortDoctype: true,
-      removeEmptyAttributes: true,
-      removeStyleLinkTypeAttributes: true,
-      keepClosingSlash: true,
-      minifyJS: true,
-      minifyCSS: true,
-      minifyURLs: true,
-    },
-  }),
+      // Merge all duplicate modules
+      // No longer needed; default in webpack2
+      //new webpack.optimize.DedupePlugin(),
 
-  // Merge all duplicate modules
-  // No longer needed; default in webpack2
-  //new webpack.optimize.DedupePlugin(),
+      new webpack.LoaderOptionsPlugin({
+        minimize: true,
+        debug: false,
+        quiet: true
+      }),
 
-  new webpack.LoaderOptionsPlugin({
-    minimize: true,
-    debug: false,
-    quiet: true
-  }),
-
-  new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      unused: true,    // Enables tree shaking
-      dead_code: true, // Enables tree shaking
-      pure_getters: true,
-      warnings: false,
-      screw_ie8: true,
-      conditionals: true,
-      comparisons: true,
-      sequences: true,
-      evaluate: true,
-      join_vars: true,
-      if_return: true,
-    },
-    output: {
-      comments: false
-    },
-    sourceMap: true
-  }),
-] : [];
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          unused: true,    // Enables tree shaking
+          dead_code: true, // Enables tree shaking
+          pure_getters: true,
+          warnings: false,
+          screw_ie8: true,
+          conditionals: true,
+          comparisons: true,
+          sequences: true,
+          evaluate: true,
+          join_vars: true,
+          if_return: true,
+        },
+        output: {
+          comments: false
+        },
+        sourceMap: true
+      }),
+    ]
+  : [];
 
 // See: https://github.com/rstacruz/webpack-tricks/blob/master/recipes/css.md
 // See: https://github.com/rstacruz/webpack-starter-kit
@@ -255,7 +259,7 @@ module.exports = {
   // see: https://github.com/rstacruz/webpack-tricks#source-maps-webpack-2
   // Redux and eval, see: https://twitter.com/dan_abramov/status/706294608603553793
   //                    : use devtool: eval for React HMR
-  devtool: isProd ? 'source-map' : 'eval',
+  devtool: isProd ? 'hidden-source-map' : 'source-map',
 
   // See: https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/35
   stats: {
@@ -279,25 +283,28 @@ module.exports = {
     // see: http://stackoverflow.com/questions/36796319/webpack-with-commonschunkplugin-results-with-wrong-bundle-order-in-html-file
     // see: https://github.com/ampedandwired/html-webpack-plugin/issues/481
     vendor: isProd ? ['./vendor.js'] : [],
-    app: (isHot ? [
-      // Dynamically set the webpack public path at runtime below
-      // Must be first entry to properly set public path
-      // See: http://webpack.github.io/docs/configuration.html#output-publicpath
-      // NOTE: Not shure if this is really needed. Seems to work OK without
-      //'./webpack-public-path.js',
+    app: (isHot
+      ? [
+          // Dynamically set the webpack public path at runtime below
+          // Must be first entry to properly set public path
+          // See: http://webpack.github.io/docs/configuration.html#output-publicpath
+          // NOTE: Not shure if this is really needed. Seems to work OK without
+          //'./webpack-public-path.js',
 
-      // reload - Set to true to auto-reload the page when webpack gets stuck.
-      //'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
-      'webpack-hot-middleware/client',
+          'webpack-hot-middleware/client',
 
-      // You can use full urls, like:
-      //`webpack-hot-middleware/client?path=http://${host}:${port}${publicPath}/__webpack_hmr?reload=true`
-      // Remember to update path in ./server/index.js - see: Step 3 in ./server/index.js
+          // reload - Set to true to auto-reload the page when webpack gets stuck.
+          //'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
 
-    ] : [] ).concat([
-      './index.js',
-      './styles.scss',
-    ]),
+          // You can use full urls, like:
+          //`webpack-hot-middleware/client?http://${host}:${port}${publicPath}`
+          // Remember to update path in ./server/index.js - see: Step 3 in ./server/index.js
+        ]
+      : [])
+      .concat([
+        './index.js',
+        './styles.scss',
+      ]),
   }),
   output: {
     filename: isProd ? '[name].[chunkhash].js' : '[name].js', // Don't use hashes in dev mode
