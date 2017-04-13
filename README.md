@@ -196,7 +196,8 @@ To see it in action, run the `test:proxy-example` script.
 
 ## Hot Module Reloading, HMR
 Read [Hot Module Replacement - React](https://webpack.js.org/guides/hmr-react/) 
-Webpack2 documentation and [Tree-shaking with webpack 2 and Babel 6](http://2ality.com/2015/12/webpack-tree-shaking.html).
+Webpack2 documentation, [Tree-shaking with webpack 2 and Babel 6](http://2ality.com/2015/12/webpack-tree-shaking.html)
+and [http://andrewhfarmer.com/webpack-hmr-tutorial/](http://andrewhfarmer.com/webpack-hmr-tutorial/).
 
 ## How to use the boilerplate with React
 The boilerplate may, with a few modifications, be used with React.
