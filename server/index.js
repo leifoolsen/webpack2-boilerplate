@@ -3,7 +3,6 @@
  */
 
 
-// Code is a bit messy. In need of some refactoring :-)
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 import 'babel-polyfill';
@@ -38,6 +37,8 @@ if (isProxy) {
   proxyPort = process.env.PROXY_PORT || argv['proxy-port'] || appCfg.proxyServer.port || 8090;
   proxyPath = process.env.PROXY_PATH || argv['proxy-path'] || appCfg.proxyServer.path || '/api';
 }
+
+// Code is (still) a bit messy. In need of some refactoring :-)
 
 logger.log('Express config:', 'NODE_ENV:', process.env.NODE_ENV,
   'test:', isTest, 'prod:', isProd, 'dev:', isDev,
