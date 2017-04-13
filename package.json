@@ -23,7 +23,7 @@
     "autoprefixer": "6.7.7",
     "babel-cli": "6.24.1",
     "babel-core": "6.24.1",
-    "babel-eslint": "7.2.1",
+    "babel-eslint": "7.2.2",
     "babel-loader": "6.4.1",
     "babel-plugin-__coverage__": "11.0.0",
     "babel-plugin-istanbul": "4.1.1",
