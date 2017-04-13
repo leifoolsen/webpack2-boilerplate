@@ -205,9 +205,12 @@ npm i -S react-dom
 
 # devdependencies
 npm i -D babel-preset-react 
-npm i -D react-hot-loader@3.0.0-beta.6
+npm i -D react-hot-loader@next
 npm i -D eslint-plugin-react
 ```
+
+Read [Hot Module Replacement - React](https://webpack.js.org/guides/hmr-react/) 
+Webpack2 documentation.
 
 ### Add React dependencies to `src/vendor.js`
 ```javascript
@@ -222,6 +225,7 @@ import 'react-dom';
 {
   "presets": [
     ["env", {
+      "modules": false,
       "targets": {
         "browsers": ["last 2 versions", "ie >= 11"]
       }
@@ -266,7 +270,6 @@ Enable all of the rules that you would like to use
 }
 ```
 
-
 ### Modify `webpack.config.babel.js`
 
 #### entry.app
@@ -278,7 +281,7 @@ app: (!isHot ? [] : [
   // Put react-hot-loader/patch before webpack-hot-middleware,
   // see: https://github.com/gaearon/react-hot-loader/issues/243
   'react-hot-loader/patch',
-  `webpack-hot-middleware/client?path=${path.join(publicPath, '__webpack_hmr')}&reload=true`,
+  'webpack-hot-middleware/client',
 ]).concat([
   './styles.scss',
   './index.js'
