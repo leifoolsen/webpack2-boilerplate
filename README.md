@@ -194,6 +194,10 @@ using a proxy can be found in the
 
 To see it in action, run the `test:proxy-example` script.
 
+## Hot Module Reloading, HMR
+Read [Hot Module Replacement - React](https://webpack.js.org/guides/hmr-react/) 
+Webpack2 documentation and [Tree-shaking with webpack 2 and Babel 6](http://2ality.com/2015/12/webpack-tree-shaking.html).
+
 ## How to use the boilerplate with React
 The boilerplate may, with a few modifications, be used with React.
  
@@ -209,9 +213,6 @@ npm i -D react-hot-loader@next
 npm i -D eslint-plugin-react
 ```
 
-Read [Hot Module Replacement - React](https://webpack.js.org/guides/hmr-react/) 
-Webpack2 documentation.
-
 ### Add React dependencies to `src/vendor.js`
 ```javascript
 import 'moment';
@@ -220,18 +221,43 @@ import 'react-dom';
 ```
 
 ### Modify `.babelrc`
+Add "react" and "react-hot-loader/babel"
 
 ```json
 {
   "presets": [
     ["env", {
-      "modules": false,
+      "es2015": {
+        "modules": false
+      },
       "targets": {
         "browsers": ["last 2 versions", "ie >= 11"]
       }
     }],
     "react",
     "stage-0"
+  ],
+  "plugins": [
+    // See: http://2ality.com/2015/12/webpack-tree-shaking.html
+    "transform-es2015-template-literals",
+    "transform-es2015-literals",
+    "transform-es2015-function-name",
+    "transform-es2015-arrow-functions",
+    "transform-es2015-block-scoped-functions",
+    "transform-es2015-classes",
+    "transform-es2015-object-super",
+    "transform-es2015-shorthand-properties",
+    "transform-es2015-computed-properties",
+    "transform-es2015-for-of",
+    "transform-es2015-sticky-regex",
+    "transform-es2015-unicode-regex",
+    "check-es2015-constants",
+    "transform-es2015-spread",
+    "transform-es2015-parameters",
+    "transform-es2015-destructuring",
+    "transform-es2015-block-scoping",
+    "transform-es2015-typeof-symbol",
+    ["transform-regenerator", { "async": false, "asyncGenerators": false }]
   ],
   "env": {
     "development": {
@@ -240,6 +266,9 @@ import 'react-dom';
       ]
     },
     "test": {
+      "plugins": [
+        "transform-es2015-modules-commonjs"
+      ]
     },
     "production": {
     }
