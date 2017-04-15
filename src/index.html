@@ -93,10 +93,13 @@
 
   <div class="layout__body">
     <div class="layout__wrapper">
-      <main class="layout__content layout__content--demo">
+      <main id="root" class="layout__content layout__content--demo">
 
         <!-- Display a message if JS has been disabled on the browser. -->
-        <noscript>If you're seeing this message, that means <strong>JavaScript has been disabled on your browser</strong>, please <strong>enable JS</strong> to make this app work.</noscript>
+        <noscript>If you're seeing this message, that means
+          <strong>JavaScript has been disabled on your browser</strong>,
+          please <strong>enable JS</strong> to make this app work.
+        </noscript>
 
         <div class="demo-card">
           <a class="demo-card__left" href="https://webpack.github.io/" title="Image copied from: webpack">
@@ -156,7 +159,7 @@
 
         <div class="demo-card">
           <div class="demo-card__right">
-            <button id="btn-unhandled-error">Unhandled error!!!</button>
+            <button id="btn-unhandled-error">Unhandled error!</button>
             <p id="unhandled-error-response" style="margin-left: 16px;"></p>
           </div>
         </div>
@@ -203,5 +206,6 @@
     document.querySelector('html').style.visibility='visible'
   }, false);
 </script>
+
 </body>
 </html>

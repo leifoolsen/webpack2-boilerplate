@@ -61,12 +61,12 @@ describe('is-element', () => {
     });
 
     it('TextNode', function() {
-      var dummy = document.body.appendChild(document.createTextNode('aaa'));
+      const dummy = document.body.appendChild(document.createTextNode('aaa'));
       expect(isElement(dummy)).to.be.false;
     });
 
     it('Document Fragment', function() {
-      var dummy = document.body.appendChild(document.createDocumentFragment());
+      const dummy = document.body.appendChild(document.createDocumentFragment());
       expect(isElement(dummy)).to.be.false;
     });
   });

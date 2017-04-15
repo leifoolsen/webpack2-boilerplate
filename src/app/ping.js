@@ -6,7 +6,8 @@ const apiPath = joinUrl(process.env.PUBLIC_PATH, '/api/ping');
 
 const ping = el => {
   request(apiPath)
-    .then(response => el.textContent = `${moment().format('YYYY-MM-DD HH:mm:ss')}: ${JSON.stringify(response)}`)
+    .then(response => el.textContent =
+      `${moment().format('YYYY-MM-DD HH:mm:ss')}: ${JSON.stringify(response)}`)
     .catch(err => el.textContent = err);
 };
 

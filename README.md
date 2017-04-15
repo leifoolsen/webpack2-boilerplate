@@ -66,14 +66,55 @@ More details about Husky can be found here:
 ```
 
 ### Start coding
-* Run: `npm start`
+* Open a console (shell) and run: `npm start`
 * Open a browser at `http://localhost:8084`
-* Add/modify code
-* Press `Ctrl+C` to stop the dev server
 
-### Try the API
-* Run: `npm start`
-* Click the "Ping" button or open a browser at `http://localhost:8084/api/ping`. The response should be: `{"ping":"pong!"}`
+#### Verify that SASS HMR works
+* Modify some SASS code, e.g. in `./src/stylesheets/base/_base.scss`
+
+```sass
+a {
+  color: $brand-color;
+  text-decoration: none;
+
+  @include on-event {
+    color: $text-color;
+    text-decoration: underline;
+  }
+}
+```
+* Change link color to green and save.
+```sass
+a {
+  color: green;
+  ...
+}
+```
+* Switch to browser
+* All links should be green
+ 
+#### Verify that JS HMR works
+* Click the `Ping` button and verify that the response is displayed with a date, e.g. `2017-03-15 21:12:26: {"ping":"pong!"}` 
+* Modify `./src/app/ping.js`
+```javascript
+const ping = el => {
+  request(apiPath)
+    .then(response => el.textContent = 
+      `${moment().format('YYYY-MM-DD HH:mm:ss')}: ${JSON.stringify(response)}`)
+    .catch(err => el.textContent = err);
+};
+```
+* Remove date, `YYYY-MM-DD`, from format and save
+```javascript
+const ping = el => {
+  request(apiPath)
+    .then(response => el.textContent = 
+      `${moment().format('HH:mm:ss')}: ${JSON.stringify(response)}`)
+    .catch(err => el.textContent = err);
+};
+```
+* Switch to browser and click the `Ping` button
+* The response should be displayed without a date, e.g. `21:12:26: {"ping":"pong!"}` 
 
 ### Try the bundle
 * `npm run build:prod`

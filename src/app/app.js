@@ -2,15 +2,10 @@ import config from '../config/config';
 import logger from '../logger/logger';
 import ping from './ping';
 
+
 const badFunction = () => {
   const foo = {};
   return foo.bar(); // Throws "Script error"
-  //  throw new Error('Bad function!');
-};
-
-const pingHandler = () => {
-  const el = document.querySelector('#ping-response');
-  ping(el);
 };
 
 const unhandledErrorHandler = () => {
@@ -18,25 +13,31 @@ const unhandledErrorHandler = () => {
   badFunction();
 };
 
-const addListeners = () => {
-  document.querySelector('#btn-ping').removeEventListener('click', pingHandler);
-  document.querySelector('#btn-unhandled-error').removeEventListener('click', unhandledErrorHandler);
-  document.querySelector('#btn-ping').addEventListener('click', pingHandler);
-  document.querySelector('#btn-unhandled-error').addEventListener('click', unhandledErrorHandler);
+const pingHandler = () => {
+  logger.debug('pingHandler');
+  const el = document.querySelector('#ping-response');
+  ping(el);
 };
 
 const run = () => {
-  addListeners();
-  logger.info(`Application loaded, env: ${config.env}, public path: ${config.server.publicPath}, API path: ${config.server.apiPath}`);
-};
+  logger.info(`Application run, env: ${config.env}, public path: ${config.server.publicPath}, API path: ${config.server.apiPath}`);
 
-if (module.hot) {
-  // See e.g. http://andrewhfarmer.com/webpack-hmr-tutorial/
-  module.hot.dispose(() => {
-    // Handle side effects
-    document.querySelector('#btn-ping').removeEventListener('click', pingHandler);
-    document.querySelector('#btn-unhandled-error').removeEventListener('click', unhandledErrorHandler);
-  });
-}
+  const pingButton = document.querySelector('#btn-ping');
+  pingButton.addEventListener('click', pingHandler);
+
+  const unhandledErrorButton = document.querySelector('#btn-unhandled-error');
+  unhandledErrorButton.addEventListener('click', unhandledErrorHandler);
+
+  // Remove the most recently-added event handlers so that when the code runs again and
+  // adds a new event handler, we don't end up with duplicate handlers.
+  // See: http://andrewhfarmer.com/webpack-hmr-tutorial/
+  if (module.hot) {
+    module.hot.dispose(() => {
+      logger.debug('Disposing handlers');
+      pingButton.removeEventListener('click', pingHandler);
+      unhandledErrorButton.removeEventListener('click', unhandledErrorHandler);
+    });
+  }
+};
 
 export default run;
