@@ -78,6 +78,7 @@
     "stylelint-config-standard": "16.0.0",
     "stylelint-webpack-plugin": "0.7.0",
     "supertest": "3.0.0",
+    "uncss-webpack-plugin": "0.1.1",
     "url-loader": "0.5.8",
     "wdio-cucumber-framework": "0.2.16",
     "wdio-mocha-framework": "0.5.9",
