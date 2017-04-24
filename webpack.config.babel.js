@@ -68,7 +68,8 @@ const devPlugins = () => {
 
     const templateContent = () => {
       // Append 'vendor.dll.js' to template
-      const jsdom = require('jsdom');
+      // TODO: Start using jsdom-10.x.x new api
+      const jsdom = require("jsdom/lib/old-api.js")
       const document = jsdom.jsdom(fs.readFileSync(indexHTML, 'utf8').toString());
       document.body.insertAdjacentHTML('beforeend', `<script type="text/javascript" src="${publicPath}vendor.dll.js"></script>`);
       return jsdom.serializeDocument(document);

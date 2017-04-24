@@ -196,7 +196,9 @@ const OTHER_KEYS = [
 const EXPOSED_PROPERTIES = LIVING_KEYS.concat(OTHER_KEYS);
 //const EXPOSED_PROPERTIES = ['window', 'navigator', 'document'];
 const defaultHtml = '<!doctype html><html><head><meta charset="utf-8"></head><body></body></html>';
-const jsdom = require('jsdom');
+
+// TODO: Start using jsdom-10.x.x new api
+const jsdom = require('jsdom/lib/old-api.js');
 
 function storageMock() {
   const storage = {};
