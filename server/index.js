@@ -63,13 +63,13 @@ if (isProxy) {
   }));
 }
 else {
+  // Middleware for handling JSON, Raw, Text and URL encoded form data
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
+
   // Api router. Must be defined before any app.get
   app.use(apiPath, router);
 }
-
-// Middleware for handling JSON, Raw, Text and URL encoded form data
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
 if(webpackCfg.devServer.historyApiFallback) {
   // This rewrites all routes requests to the root /index.html file
