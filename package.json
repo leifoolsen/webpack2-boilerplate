@@ -71,7 +71,7 @@
     "rimraf": "2.6.1",
     "roboto-fontface": "0.7.0",
     "sass-loader": "6.0.3",
-    "selenium-standalone": "6.3.0",
+    "selenium-standalone": "6.4.1",
     "sinon": "2.1.0",
     "style-loader": "0.16.1",
     "stylelint": "7.10.1",
@@ -118,7 +118,7 @@
   "scripts": {
     "clean": "rimraf dist rimraf coverage",
     "setup": "npm run clean && npm install",
-    "postsetup": "selenium-standalone install",
+    "postsetup": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 selenium-standalone install",
     "validate": "npm-run-all lint test:unit",
     "analyze": "webpack --env.prod --json | webpack-bundle-size-analyzer",
     "precommit": "npm run lint",
