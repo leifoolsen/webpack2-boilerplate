@@ -51,10 +51,6 @@ logger.log('Express config:', 'NODE_ENV:', process.env.NODE_ENV,
 const app = express();
 let devMiddleware = null;
 
-// Middleware for handling JSON, Raw, Text and URL encoded form data
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
 if (isProxy) {
   // Proxy middleware
   const proxy = require('http-proxy-middleware'); // eslint-disable-line global-require
@@ -70,6 +66,10 @@ else {
   // Api router. Must be defined before any app.get
   app.use(apiPath, router);
 }
+
+// Middleware for handling JSON, Raw, Text and URL encoded form data
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 if(webpackCfg.devServer.historyApiFallback) {
   // This rewrites all routes requests to the root /index.html file
