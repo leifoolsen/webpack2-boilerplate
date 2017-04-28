@@ -223,8 +223,8 @@ npm run wdio
 >and [here](https://github.com/Matt-B/cucumber-js-selenium-webdriver-example). 
 
 ### Test coverage
-`npm run build:prod`, then browse `./coverage/index.html`, 
-`./coverage/unit/index.html`, `./coverage/integration/index.html`  
+`npm run build:prod`, then browse `./coverage/lcov-report/index.html`, 
+`./coverage/unit/lcov-report/index.html`, `./coverage/integration/lcov-report/index.html`  
 
 ### e2e tests
 e2e tests are not implemented in this boilerplate, but basically they are equal 
