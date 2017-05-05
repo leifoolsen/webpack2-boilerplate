@@ -14,6 +14,11 @@ export default function polyfill() {
     promises.push(import('babel-polyfill'));
   }
 
+  // Object.assign is not part of babel polyfill
+  if (typeof Object.assign !== 'function') {
+    promises.push(import('core-js/fn/object/assign'));
+  }
+
   if (!window.fetch) {
     promises.push(import('whatwg-fetch'));
   }
