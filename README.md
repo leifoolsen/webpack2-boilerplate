@@ -66,7 +66,7 @@ More details about Husky can be found here:
 ```
 
 ### Start coding
-* Open a console (shell) and run: `npm start`
+* Open a console (shell) and type: `npm start`
 * Open a browser at `http://localhost:8084`
 
 #### Verify that SASS HMR works
@@ -236,12 +236,15 @@ using a proxy can be found in the
 To see it in action, run the `test:proxy-example` script.
 
 ## Hot Module Reloading, HMR
-Read [Hot Module Replacement - React](https://webpack.js.org/guides/hmr-react/) 
-Webpack2 documentation, [Tree-shaking with webpack 2 and Babel 6](http://2ality.com/2015/12/webpack-tree-shaking.html)
+Read [Hot Module Replacement - React](https://webpack.js.org/guides/hmr-react/), 
+React Hot Loader [Getting Started](https://gaearon.github.io/react-hot-loader/getstarted/),
+[Tree-shaking with webpack 2 and Babel 6](http://2ality.com/2015/12/webpack-tree-shaking.html)
 and [http://andrewhfarmer.com/webpack-hmr-tutorial/](http://andrewhfarmer.com/webpack-hmr-tutorial/).
 
 ## How to use the boilerplate with React
-The boilerplate may, with a few modifications, be used with React.
+The boilerplate may, with a few modifications, be used with React. 
+More details can be found [here](https://webpack.js.org/guides/hmr-react/) and 
+[here](https://gaearon.github.io/react-hot-loader/getstarted/).
  
 ### Install required packages
 ```bash
@@ -263,7 +266,7 @@ import 'react-dom';
 ```
 
 ### Modify `.babelrc`
-Add "react" and "react-hot-loader/babel"
+Add "react" to presets and "react-hot-loader/babel" to development plugins.
 
 ```json
 {
@@ -359,21 +362,206 @@ app: (!isHot ? [] : [
 ]),
 ```
 
-#### modules.rules.test: /\.js[x]?$/
-Add 'react-hot-loader/babel'
-
+### Create ./src/components/App.js
 ```javascript
-{
-  test: /\.js[x]?$/,
-  include: [src],
-  exclude: [/node_modules/],
-  loader: 'babel-loader',
-  query: {
-    'plugins': isHot ? [
-      'react-hot-loader/babel'
-    ] : []
+import React from 'react';
+
+const superStyles = {
+  backgroundColor: 'green'
+};
+
+const App = () => (
+  <div style={superStyles}>
+    <h1>Hello React!</h1>
+  </div>
+);
+
+export default App;
+```
+
+### Modify ./src/index.js
+```javascript
+import polyfill from './polyfill';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './config/config';
+import logger, {LOG_LEVEL} from './logger/logger';
+import App from './components/App';
+
+import './styles.scss';
+
+if(window) {
+  /**
+   * An event handler for the error event.
+   * When an error is thrown, the following arguments are passed to the function:
+   * @param msg The message associated with the error, e.g. “Uncaught ReferenceError: foo is not defined”
+   * @param url The URL of the script or document associated with the error, e.g. “/dist/app.js”
+   * @param lineNo The line number (if available)
+   * @param columnNo The column number (if available)
+   * @param error The Error object associated with this error (if available)
+   * @return {boolean}
+   * @see https://developer.mozilla.org/en/docs/Web/API/GlobalEventHandlers/onerror
+   * @see https://blog.sentry.io/2016/01/04/client-javascript-reporting-window-onerror.html
+   */
+  window.onerror = function (msg, url, lineNo, columnNo, error) {
+    const err = error || {};
+    const detail = {
+      name: err.name || msg || '',
+      line: lineNo,
+      column: columnNo,
+      url: url || '',
+      stack: err.stack || 'See browser console for detail',
+    };
+
+    logger.remoteLogger.log(LOG_LEVEL.error, msg, detail);
+    return false;
+  };
+
+  /**
+   * Flush logger
+   */
+  window.addEventListener('beforeunload', () => {
+    logger.debug('Before unload. Flushing remote logger');
+    logger.remoteLogger.flush();
+  });
+}
+
+// Add polyfills
+polyfill().catch(err => {
+  logger.error(err);
+});
+
+// Start the app
+if (module.hot) {
+  // AppContainer is a necessary wrapper component for HMR
+  const AppContainer = require('react-hot-loader').AppContainer;
+
+  const render = (Component) => {
+    ReactDOM.render(
+      <AppContainer>
+        <Component/>
+      </AppContainer>,
+      document.getElementById('app')
+    );
+  };
+
+  render(App);
+
+  // Hot Module Replacement API
+  module.hot.accept('./components/App', () => {
+    const NextApp = require('./components/App').default;
+    render(NextApp);
+  });
+}
+else {
+  ReactDOM.render(
+    <App/>,
+    document.getElementById('app')
+  );
+}
+```
+
+### Modify ./src/index.html, e.g.
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>React Webpack2</title>
+</head>
+<body>
+<style>
+  .layout__sidebar-left--demo__footer {
+    width: 100%;
+    -webkit-align-self: flex-end;
+    -ms-flex-item-align: end;
+    align-self: flex-end;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
   }
-},
+  .layout__sidebar-left--demo__footer img {
+    height: 1.4em;
+  }
+
+  .mastfoot--demo {
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+  }
+  .mastfoot--demo p {
+    margin: 0;
+  }
+  .mastfoot--demo span {
+    line-height: 0;
+  }
+  .mastfoot--demo span i {
+    font-size: inherit;
+  }
+</style>
+<div class="layout">
+  <header class="masthead">
+    <div class="masthead__left-section">
+      <div class="masthead__logo"></div>
+    </div>
+    <div class="masthead__diagonal"></div>
+    <div class="masthead__right-section">
+      <h1>React Webpack2</h1>
+    </div>
+  </header>
+
+  <div class="layout__body">
+    <div class="layout__wrapper">
+      <main id="app" class="layout__content layout__content--demo">
+
+        <!-- Display a message if JS has been disabled on the browser. -->
+        <noscript>If you're seeing this message, that means
+          <strong>JavaScript has been disabled on your browser</strong>,
+          please <strong>enable JS</strong> to make this app work.
+        </noscript>
+
+      </main>
+
+      <footer class="mastfoot mastfoot--demo">
+        <p>Material Icons:&nbsp;</p>
+        <span>
+          <i class="material-icons md-dark">face</i>
+          <i class="material-icons md-dark md-inactive">face</i>
+          <i class="material-icons orange600">face</i>
+          <i class="material-icons">all_inclusive</i>
+          <i class="material-icons">share</i>
+          <i class="material-icons">arrow_back</i>
+          <i class="material-icons">arrow_forward</i>
+          <i class="material-icons">check</i>
+          <i class="material-icons">close</i>
+          <i class="material-icons">android</i>
+          <i class="material-icons">menu</i>
+        </span>
+      </footer>
+    </div>
+    <aside class="layout__sidebar-left layout__sidebar-left--demo">
+      <p>Left Sidebar</p>
+
+      <footer class="layout__sidebar-left--demo__footer" role="contentinfo">
+        <img src="/assets/webpack-logo.png" alt="Webpack Logo"/>
+        <img src="/assets/HTML5_logo_and_wordmark.svg" alt="HTML 5 Logo"/>
+        <img src="/assets/js.jpg" alt="JavaScript Logo"/>
+        <img src="/assets/logo-b6e1ef6e.svg" alt="SASS Logo"/>
+        <img src="/assets/HolyGrail.svg.png" alt="Holy Grail Logo"/>
+      </footer>
+    </aside>
+  </div>
+</div>
+</body>
+</html>
 ```
 
 ### Start coding React
