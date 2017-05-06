@@ -472,94 +472,15 @@ else {
   <title>React Webpack2</title>
 </head>
 <body>
-<style>
-  .layout__sidebar-left--demo__footer {
-    width: 100%;
-    -webkit-align-self: flex-end;
-    -ms-flex-item-align: end;
-    align-self: flex-end;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-  }
-  .layout__sidebar-left--demo__footer img {
-    height: 1.4em;
-  }
+<main id="app">
 
-  .mastfoot--demo {
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-  }
-  .mastfoot--demo p {
-    margin: 0;
-  }
-  .mastfoot--demo span {
-    line-height: 0;
-  }
-  .mastfoot--demo span i {
-    font-size: inherit;
-  }
-</style>
-<div class="layout">
-  <header class="masthead">
-    <div class="masthead__left-section">
-      <div class="masthead__logo"></div>
-    </div>
-    <div class="masthead__diagonal"></div>
-    <div class="masthead__right-section">
-      <h1>React Webpack2</h1>
-    </div>
-  </header>
+  <!-- Display a message if JS has been disabled on the browser. -->
+  <noscript>If you're seeing this message, that means
+    <strong>JavaScript has been disabled on your browser</strong>,
+    please <strong>enable JS</strong> to make this app work.
+  </noscript>
 
-  <div class="layout__body">
-    <div class="layout__wrapper">
-      <main id="app" class="layout__content layout__content--demo">
-
-        <!-- Display a message if JS has been disabled on the browser. -->
-        <noscript>If you're seeing this message, that means
-          <strong>JavaScript has been disabled on your browser</strong>,
-          please <strong>enable JS</strong> to make this app work.
-        </noscript>
-
-      </main>
-
-      <footer class="mastfoot mastfoot--demo">
-        <p>Material Icons:&nbsp;</p>
-        <span>
-          <i class="material-icons md-dark">face</i>
-          <i class="material-icons md-dark md-inactive">face</i>
-          <i class="material-icons orange600">face</i>
-          <i class="material-icons">all_inclusive</i>
-          <i class="material-icons">share</i>
-          <i class="material-icons">arrow_back</i>
-          <i class="material-icons">arrow_forward</i>
-          <i class="material-icons">check</i>
-          <i class="material-icons">close</i>
-          <i class="material-icons">android</i>
-          <i class="material-icons">menu</i>
-        </span>
-      </footer>
-    </div>
-    <aside class="layout__sidebar-left layout__sidebar-left--demo">
-      <p>Left Sidebar</p>
-
-      <footer class="layout__sidebar-left--demo__footer" role="contentinfo">
-        <img src="/assets/webpack-logo.png" alt="Webpack Logo"/>
-        <img src="/assets/HTML5_logo_and_wordmark.svg" alt="HTML 5 Logo"/>
-        <img src="/assets/js.jpg" alt="JavaScript Logo"/>
-        <img src="/assets/logo-b6e1ef6e.svg" alt="SASS Logo"/>
-        <img src="/assets/HolyGrail.svg.png" alt="Holy Grail Logo"/>
-      </footer>
-    </aside>
-  </div>
-</div>
+</main>
 </body>
 </html>
 ```
