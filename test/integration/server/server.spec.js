@@ -29,7 +29,7 @@ describe('Express server', () => {
     server.app.on('serverStarted', () => {
       done();
       expect(server.handle).to.not.be.null;
-      expect(server.handle.address()).to.be.an.object;
+      expect(server.handle.address()).to.be.an('object');
     });
   });
 
@@ -47,7 +47,7 @@ describe('Express server', () => {
   describe('Starting and stopping', () => {
     it('should have an Express server up and running', () => {
       expect(server.handle).to.not.be.null;
-      expect(server.handle.address()).to.be.an.object;
+      expect(server.handle.address()).to.be.an('object');
     });
   });
 
