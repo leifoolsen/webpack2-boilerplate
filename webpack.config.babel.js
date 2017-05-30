@@ -2,6 +2,9 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 require("babel-register");
 
+import argsToKeyValue from './server/args-to-key-value';
+import configBuilder from './src/config/config-builder';
+
 const chalk = require('chalk');
 const path = require('path');
 const fs = require('fs');
@@ -14,8 +17,8 @@ const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 //const UnCSSPlugin = require('uncss-webpack-plugin');
 
-const argv = require('./server/args-to-key-value').argsToKeyValue(process.argv.slice(2));
-const config = require('./src/config/config-builder')(process.env.NODE_ENV);
+const argv = argsToKeyValue(process.argv.slice(2));
+const config = configBuilder(process.env.NODE_ENV);
 
 const isTest = process.env.NODE_ENV === 'test' || argv['env.test'] || false;
 const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);
@@ -69,7 +72,7 @@ const devPlugins = () => {
     const templateContent = () => {
       // Append 'vendor.dll.js' to template
       // TODO: Start using jsdom-10.x.x new api
-      const jsdom = require("jsdom/lib/old-api.js")
+      const jsdom = require("jsdom/lib/old-api.js");
       const document = jsdom.jsdom(fs.readFileSync(indexHTML, 'utf8').toString());
       document.body.insertAdjacentHTML('beforeend', `<script type="text/javascript" src="${publicPath}vendor.dll.js"></script>`);
       return jsdom.serializeDocument(document);

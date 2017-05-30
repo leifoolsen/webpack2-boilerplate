@@ -1,4 +1,8 @@
 {
+  "plugins": [
+    "syntax-dynamic-import",
+    "transform-class-properties"
+  ],
   "presets": [
     [
       "env",
@@ -16,13 +20,8 @@
     ],
     "stage-0"
   ],
-  "plugins": [
-  ],
   "env": {
     "test": {
-      "plugins": [
-        "transform-es2015-modules-commonjs"
-      ]
     },
     "development": {
     },

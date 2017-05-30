@@ -3,6 +3,7 @@
 
 import server from '../../../server';
 import joinUrl from '../../../src/utils/join-url';
+import configBuilder from '../../../src/config/config-builder';
 
 const describe = require('mocha').describe;
 const before = require('mocha').before;
@@ -16,7 +17,7 @@ const expect = require('chai').expect;
 // See: https://blog.codeship.com/testing-http-apis-supertest/
 describe('Express server', () => {
 
-  const config = require('../../../src/config/config-builder')('test');
+  const config = configBuilder('test');
 
   // Start server
   before( function (done) {

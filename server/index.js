@@ -12,11 +12,12 @@ import bodyParser from 'body-parser';
 import webpack from 'webpack';
 import router from './router';
 import logger from './logger';
+import argsToKeyValue from './args-to-key-value';
+import configBuilder from '../src/config/config-builder';
 
-const argv = require('./args-to-key-value').argsToKeyValue(process.argv.slice(2));
-const appCfg = require('../src/config/config-builder')(process.env.NODE_ENV);
 const webpackCfg = require('../webpack.config.babel');
-
+const argv = argsToKeyValue(process.argv.slice(2));
+const appCfg = configBuilder(process.env.NODE_ENV);
 const isTest = process.env.NODE_ENV === 'test' || argv['env.test'] || false;
 const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);
 const isProd = !isDev;
@@ -288,5 +289,4 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 // Export for test
-module.exports = server;
 export default server;

@@ -94,5 +94,4 @@ const configBuilder = env => {
   return result;
 };
 
-module.exports = configBuilder;
 export default configBuilder;

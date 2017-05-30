@@ -14,6 +14,5 @@ logger.remoteLogger.level = config.logger.remote.level;
 logger.remoteLogger.batchSize = config.logger.remote.batchSize;
 logger.remoteLogger.url = config.logger.remote.url;
 
-module.exports = config;
 export default config;
 

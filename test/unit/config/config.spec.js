@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-expressions */
 
-import requireUncached from 'require-uncached';
-
+const importFresh = require('import-fresh');
 const before = require('mocha').before;
 const after = require('mocha').after;
 const describe = require('mocha').describe;
@@ -19,21 +18,24 @@ describe('config', () => {
     process.env.NODE_ENV = env;
   });
 
-  it('should have config test', () => {
+  it('should have config test', (done) => {
     process.env.NODE_ENV = 'test';
-    const config = requireUncached('../../../src/config/config');
+    const config = importFresh('../../../src/config/config').default;
     expect(config.env).to.equal('test');
+    done();
   });
 
-  it('should have config development', () => {
+  it('should have config development', (done) => {
     process.env.NODE_ENV = 'development';
-    const config = requireUncached('../../../src/config/config');
+    const config = importFresh('../../../src/config/config').default;
     expect(config.env).to.equal('development');
+    done();
   });
 
-  it('should have config production', () => {
+  it('should have config production', (done) => {
     process.env.NODE_ENV = 'production';
-    const config = requireUncached('../../../src/config/config');
+    const config = importFresh('../../../src/config/config').default;
     expect(config.env).to.equal('production');
+    done();
   });
 });

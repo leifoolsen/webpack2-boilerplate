@@ -2,7 +2,6 @@ import config from '../config/config';
 import logger from '../logger/logger';
 import ping from './ping';
 
-
 const badFunction = () => {
   const foo = {};
   return foo.bar(); // Throws "Script error"
