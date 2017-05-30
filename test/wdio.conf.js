@@ -1,4 +1,5 @@
 require('babel-register');
+const importFresh = require('import-fresh');
 
 let server = null;
 
@@ -191,9 +192,8 @@ exports.config = {
   // eslint-disable-next-line no-unused-vars
   onPrepare: function (config, capabilities) {
     //console.log('*** on prepare'); // eslint-disable-line no-console
-    require('../src/config/config-builder')('test');
-    server = require('../server');
-
+    importFresh('../src/config/config-builder').default('test');
+    server = importFresh('../server').default;
     server.start();
   },
   //
@@ -257,6 +257,7 @@ exports.config = {
     //console.log('*** on complete');  // eslint-disable-line no-console
     if (server && server.handle) {
       server.stop();
+      server = null;
     }
   }
 };
