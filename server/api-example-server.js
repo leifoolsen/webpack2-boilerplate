@@ -44,5 +44,4 @@ const apiServer = {
 
 
 // Export for test
-module.exports = apiServer;
 export default apiServer;

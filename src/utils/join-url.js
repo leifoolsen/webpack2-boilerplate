@@ -8,5 +8,4 @@ const joinUrl = (...parts) => parts
   .join('/')
   .replace(/\/\//g, '/');
 
-module.exports = joinUrl;
 export default joinUrl;

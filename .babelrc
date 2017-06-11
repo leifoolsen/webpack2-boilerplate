@@ -1,15 +1,15 @@
 {
   "plugins": [
+    "syntax-async-functions",
     "syntax-dynamic-import",
-    "transform-class-properties"
+    "transform-async-to-generator",
+    "transform-regenerator",
+    "transform-runtime"
   ],
   "presets": [
     [
       "env",
       {
-        "es2015": {
-          "modules": false
-        },
         "targets": {
           "browsers": [
             "last 2 versions",

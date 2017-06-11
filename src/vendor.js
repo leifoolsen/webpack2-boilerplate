@@ -1,5 +1,5 @@
-// List your vendors
+// List vendors which are not dynamically imported
 
-import 'moment';
+// import 'moment'; // moment is dynamically imported, see "ping.js"
 
-// +++ other 3'rd party
+// +++ other 3'rd party, e.g. React

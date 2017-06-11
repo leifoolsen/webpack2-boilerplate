@@ -46,16 +46,17 @@ More details about Husky can be found here:
 * `precommit`: husky run command for the git pre-commit hook
 
 ## Get started
-* Install Node6 or Node7 (via nvm)
+* Install [Node6 or Node7](https://nodejs.org/en/), preferably using [nvm](https://github.com/creationix/nvm)
+* Optionally install [Yarn](https://yarnpkg.com/en/)
 * Clone this repository: `git clone https://github.com/leifoolsen/webpack2-boilerplate.git` (or download zip)
 * CD to project directory: `cd webpack2-boilerplate`
 * Remove existing git: `rm -rf .git`
 * Init your git: `git init`
-* Install dependencies: `npm install` or `yarn install`
+* Install dependencies: `yarn install` or `npm install` 
 * Build dll: `npm run build:dll`
 * Modify `package.json`, e.g. `name, author, description, repository` 
 * Add your own 3'rd party dependencies  to `package.json`
-* Add those 3'rd party dependencies to `./src/vendor.js`
+* Add those 3'rd party dependencies to `./src/vendor.js`, or use System.import() to import 3'rd party dependencies on demand
 
 >**Note:** Remember to add your own repo to package.json 
 ```
@@ -97,21 +98,34 @@ a {
 * Click the `Ping` button and verify that the response is displayed with a date, e.g. `2017-03-15 21:12:26: {"ping":"pong!"}` 
 * Modify `./src/app/ping.js`
 ```javascript
+import request from '../utils/request';
+import joinUrl from '../utils/join-url';
+
+const apiPath = joinUrl(process.env.PUBLIC_PATH, '/api/ping');
+
+async function determineTime() {
+  const moment = await import('moment');
+  return moment().format('YYYY-MM-DD HH:mm:ss');
+}
+
 const ping = el => {
   request(apiPath)
-    .then(response => el.textContent = 
-      `${moment().format('YYYY-MM-DD HH:mm:ss')}: ${JSON.stringify(response)}`)
+    .then(response => {
+      determineTime()
+        .then(str => el.textContent = `${str}: ${JSON.stringify(response)}`);
+    })
     .catch(err => el.textContent = err);
 };
+
+export default ping;
 ```
+
 * Remove date, `YYYY-MM-DD`, from format and save
 ```javascript
-const ping = el => {
-  request(apiPath)
-    .then(response => el.textContent = 
-      `${moment().format('HH:mm:ss')}: ${JSON.stringify(response)}`)
-    .catch(err => el.textContent = err);
-};
+async function determineTime() {
+  const moment = await import('moment');
+  return moment().format('HH:mm:ss');
+}
 ```
 * Switch to browser and click the `Ping` button
 * The response should be displayed without a date, e.g. `21:12:26: {"ping":"pong!"}` 
@@ -122,14 +136,15 @@ const ping = el => {
 * Open a browser at `http://localhost:8000`
 
 ### 3'rd party dependencies
-Add your 3'rd party dependencies to `vendor.js`.
+Add your 3'rd party dependencies to `vendor.js` - or use System.import() as demonstrated in code above.
+* See: [Webpack: Code Splitting - Async](https://webpack.js.org/guides/code-splitting-async/)
 * See: [OPTIMIZING WEBPACK FOR FASTER REACT BUILDS](http://engineering.invisionapp.com/post/optimizing-webpack/)
 * See: [Optimizing Webpack build times and improving caching with DLL bundles](https://robertknight.github.io/posts/webpack-dll-plugins/)
 * See: [Webpack Plugins we been keepin on the DLL](https://medium.com/@soederpop/webpack-plugins-been-we-been-keepin-on-the-dll-cdfdd6cb8cd7)
 
 ### Polyfills
 Add your polyfills to `polyfill.js`
-* See: [Code Splitting - Using import()](https://webpack.js.org/guides/code-splitting-import/)
+* See: [Webpack: Code Splitting - Async](https://webpack.js.org/guides/code-splitting-async/)
 * See: [WE DON'T NEED YOUR POLYFILLS!](http://anzorb.com/we-dont-need-your-polyfills/)
 * See: [Polyfills: everything you ever wanted to know, or maybe a bit less](https://hackernoon.com/polyfills-everything-you-ever-wanted-to-know-or-maybe-a-bit-less-7c8de164e423)
 * See: [Conditionally load multiple Polyfills using Webpack, Promises and Code Splitting](http://anujnair.com/blog/13-conditionally-load-multiple-polyfills-using-webpack-promises-and-code-splitting)
@@ -176,8 +191,8 @@ acceptance tests using PhantomJS.
 
 #### Required steps to run acceptance tests
 ```bash
-# npm install - just in case
-npm install
+# yarn, or npm install - just in case
+yarn install / npm install
 
 # Make bundle
 npm run build:prod
@@ -249,18 +264,17 @@ More details can be found [here](https://webpack.js.org/guides/hmr-react/) and
 ### Install required packages
 ```bash
 # dependencies
-npm i -S react
-npm i -S react-dom
+yarn add -E react / npm i -S react
+yarn add -E react-dom / npm i -S react-dom
 
 # devdependencies
-npm i -D babel-preset-react 
-npm i -D react-hot-loader@next
-npm i -D eslint-plugin-react
+yarn add -D -E babel-preset-react / npm i -D babel-preset-react 
+yarn add -D -E react-hot-loader@next / npm i -D react-hot-loader@next
+yarn add -D -E eslint-plugin-react / npm i -D eslint-plugin-react
 ```
 
 ### Add React dependencies to `src/vendor.js`
 ```javascript
-import 'moment';
 import 'react';
 import 'react-dom';
 ```
@@ -271,14 +285,15 @@ Add "react" to presets and "react-hot-loader/babel" to development plugins.
 ```json
 {
   "plugins": [
+    "syntax-async-functions",
     "syntax-dynamic-import",
+    "transform-async-to-generator",
+    "transform-regenerator",
+    "transform-runtime",
     "transform-class-properties"
   ],
   "presets": [
     ["env", {
-      "es2015": {
-        "modules": false
-      },
       "targets": {
         "browsers": ["last 2 versions", "ie >= 11"]
       }
@@ -405,38 +420,43 @@ if(window) {
   });
 }
 
-// Add polyfills
-polyfill().catch(err => {
-  logger.error(err);
-});
-
-// Start the app
-if (module.hot) {
-  // AppContainer is a necessary wrapper component for HMR
-  const AppContainer = require('react-hot-loader').AppContainer;
-
-  const render = (Component) => {
+const run = () => {
+  if (module.hot) {
+    // AppContainer is a necessary wrapper component for HMR
+    const AppContainer = require('react-hot-loader').AppContainer;
+  
+    const render = (Component) => {
+      ReactDOM.render(
+        <AppContainer>
+          <Component/>
+        </AppContainer>,
+        document.getElementById('app')
+      );
+    };
+  
+    render(App);
+  
+    // Hot Module Replacement API
+    module.hot.accept('./components/App', () => {
+      const NextApp = require('./components/App').default;
+      render(NextApp);
+    });
+  }
+  else {
     ReactDOM.render(
-      <AppContainer>
-        <Component/>
-      </AppContainer>,
+      <App/>,
       document.getElementById('app')
     );
-  };
+  }
+};
 
-  render(App);
-
-  // Hot Module Replacement API
-  module.hot.accept('./components/App', () => {
-    const NextApp = require('./components/App').default;
-    render(NextApp);
-  });
+// Add polyfills
+try {
+  polyfill()
+    .then( () => run()); // Start the app
 }
-else {
-  ReactDOM.render(
-    <App/>,
-    document.getElementById('app')
-  );
+catch(err) {
+  console.log('Error loading polyfills:', err); // eslint-disable-line no-console
 }
 ```
 
@@ -466,3 +486,6 @@ else {
 
 ### Start coding React
 Enjoy your React coding :-)
+
+Complete react-webpack2-bolierplate example code can be found 
+[here](https://github.com/leifoolsen/my-playground/tree/master/react-webpack2-boilerplate)

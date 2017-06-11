@@ -41,12 +41,14 @@ if(window) {
 }
 
 // Add polyfills
-polyfill().catch(err => {
-  logger.error(err);
-});
+try {
+  polyfill()
+    .then( () => run()); // Start the app
+}
+catch(err) {
+  console.log('Error loading polyfills:', err); // eslint-disable-line no-console
+}
 
-// Start the app
-run();
 
 if (module.hot) {
   // See: http://andrewhfarmer.com/webpack-hmr-tutorial/

@@ -35,6 +35,5 @@ const argsToKeyValue = array => {
   }, {});
 };
 
-//exports.argsToKeyValue = argsToKeyValue;
 export default argsToKeyValue;
 

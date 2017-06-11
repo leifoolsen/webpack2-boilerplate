@@ -5,7 +5,7 @@
 // See: https://robertknight.github.io/posts/webpack-dll-plugins/
 // See: http://odetocode.com/blogs/scott/archive/2016/12/01/building-vendor-and-feature-bundles-with-webpack.aspx
 
-require("babel-register");
+require('babel-register');
 const webpack = require('webpack');
 const path = require('path');
 const dist = path.resolve(process.cwd(), 'dist');
