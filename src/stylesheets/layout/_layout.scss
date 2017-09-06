@@ -45,8 +45,7 @@
   &__sidebar-right {
     background: rgba(126, 126, 126, 0.2);
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
     background-clip: padding-box;  // Prevent background color leak outs
     overflow: hidden;              // Prevent child background color leak outs
   }
