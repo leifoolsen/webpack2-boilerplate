@@ -186,33 +186,32 @@ const cssRules = isHot
           path.resolve(process.cwd(), 'node_modules')
         ],
         use: [
-          'style-loader',
+          {
+            loader: 'style-loader',
+            options: { sourceMap: true }
+          },
           {
             loader: 'css-loader',
 
-            // Uncomment options if you don't want inlines CSS (HMR works for both)
+            // Uncomment options if you don't want inline CSS (HMR works for both)
             /*
             options: {
               url: true,
               sourceMap: true,
-              importLoaders: 1
+              importLoaders: 2
             }
             */
           },
           {
             loader: 'postcss-loader',
-            options: {
-              sourceMap: 'inline',
-            }
+            options: { sourceMap: 'inline' }
           },
           {
             loader: 'resolve-url-loader'
           },
           {
             loader: 'sass-loader',
-            query: {
-              sourceMap: 'expanded'
-            }
+            options: { sourceMap: true }
           },
         ]
       }
@@ -229,30 +228,22 @@ const cssRules = isHot
           use: [
             {
               loader: 'css-loader',
-              options: isDev
-                ? {
-                    url: true,
-                    sourceMap: true,
-                    importLoaders: 1
-                  }
-                : {
-                    url: true
-                  }
+              options: {
+                url: true,
+                sourceMap: true,
+                importLoaders: 2
+              }
             },
             {
               loader: 'postcss-loader',
-              options: isDev
-                ? { sourceMap: 'inline' }
-                : {}
+              options: { sourceMap: true }
             },
             {
               loader: 'resolve-url-loader'
             },
             {
               loader: 'sass-loader',
-              query: {
-                sourceMap: isProd ? 'compressed' : 'expanded'
-              }
+              options: { sourceMap: true }
             },
           ]
         })
