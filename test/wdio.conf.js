@@ -15,7 +15,7 @@ exports.config = {
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
   specs: [
-    './test/features/**/*.feature'
+    `${process.cwd()}/test/features/**/*.feature` //'./test/features/**/*.feature'
   ],
   // Patterns to exclude.
   exclude: [
@@ -77,7 +77,7 @@ exports.config = {
   sync: true,
   //
   // Level of logging verbosity: silent | verbose | command | data | result | error
-  logLevel: 'silent',
+  logLevel: 'error',
   //
   // Enables colors for log output.
   coloredLogs: true,
@@ -160,7 +160,7 @@ exports.config = {
   // If you are using Cucumber you need to specify the location of your step definitions.
   cucumberOpts: {
     require: [
-      './test/features/step_definitions'
+      `${process.cwd()}/test/features/step_definitions/example.steps.js`, //'./test/features/step_definitions'
     ],                  // <string[]> (file/dir) require files before executing features
     backtrace: false,   // <boolean> show full backtrace for errors
     compiler: [
@@ -173,7 +173,7 @@ exports.config = {
     snippets: true,     // <boolean> hide step definition snippets for pending steps
     source: true,       // <boolean> hide source uris
     profile: [],        // <string[]> (name) specify the profile to use
-    strict: false,      // <boolean> fail if there are any undefined or pending steps
+    strict: true,      // <boolean> fail if there are any undefined or pending steps
     tags: [],           // <string[]> (expression) only execute the features or scenarios with tags matching the expression
     timeout: 20000,     // <number> timeout for step definitions
     ignoreUndefinedDefinitions: false, // <boolean> Enable this config to treat undefined definitions as warnings.
@@ -190,8 +190,7 @@ exports.config = {
   //
   // Gets executed once before all workers get launched.
   // eslint-disable-next-line no-unused-vars
-  onPrepare: function (config, capabilities) {
-    //console.log('*** on prepare'); // eslint-disable-line no-console
+  onPrepare: function onPrepare (/*config, capabilities*/) {
     importFresh('../src/config/config-builder').default('test');
     server = importFresh('../server').default;
     server.start();
@@ -204,57 +203,58 @@ exports.config = {
   //
   // Gets executed before test execution begins. At this point you can access all global
   // variables, such as `browser`. It is the perfect place to define custom commands.
-  // before: function (capabilities, specs) {
-  // },
+  before: function before (/*capabilities, specs*/) {
+    const chai = require('chai');
+    global.expect = chai.expect;
+    global.assert = chai.assert;
+    global.should = chai.should();
+  },
   //
   // Hook that gets executed before the suite starts
-  // beforeSuite: function (suite) {
+  // beforeSuite: function beforeSuite(suite) {
   // },
   //
-  // Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
-  // beforeEach in Mocha)
-  // beforeHook: function () {
+  // Hook that gets executed _before_ a hook within the suite starts (e.g.
+  // runs before calling beforeEach in Mocha)
+  // beforeHook: function beforeHook() {
   // },
   //
-  // Hook that gets executed _after_ a hook within the suite starts (e.g. runs after calling
-  // afterEach in Mocha)
-  // afterHook: function () {
+  // Hook that gets executed _after_ a hook within the suite starts (e.g. runs
+  // after calling afterEach in Mocha)
+  // afterHook: function afterHook() {
   // },
   //
-  // Function to be executed before a test (in Mocha/Jasmine) or a step (in Cucumber) starts.
-  // beforeTest: function (test) {
+  // Function to be executed before a test (in Mocha/Jasmine) or a step (in
+  // Cucumber) starts.
+  // beforeTest: function beforeTest(test) {
   // },
   //
   // Runs before a WebdriverIO command gets executed.
-  // beforeCommand: function (commandName, args) {
+  // beforeCommand: function beforeCommand(commandName, args) {
   // },
   //
   // Runs after a WebdriverIO command gets executed
-  // afterCommand: function (commandName, args, result, error) {
+  // afterCommand: function afterCommand(commandName, args, result, error) {
   // },
   //
-  // Function to be executed after a test (in Mocha/Jasmine) or a step (in Cucumber) starts.
-  // afterTest: function (test) {
+  // Function to be executed after a test (in Mocha/Jasmine) or a step (in
+  // Cucumber) starts.
+  // afterTest: function afterTest(test) {
   // },
   //
   // Hook that gets executed after the suite has ended
-  // afterSuite: function (suite) {
+  // afterSuite: function afterSuite(suite) {
   // },
   //
-  // Gets executed after all tests are done. You still have access to all global variables from
-  // the test.
-  // after: function (result, capabilities, specs) {
-  // },
-  //
-  // Gets executed right after terminating the webdriver session.
-  // afterSession: function (config, capabilities, specs) {
+  // Gets executed after all tests are done. You still have access to all
+  // global variables from the test.
+  // after: function after(result, capabilities, specs) {
   // },
   //
   // Gets executed after all workers got shut down and the process is about to exit. It is not
   // possible to defer the end of the process using a promise.
   // eslint-disable-next-line no-unused-vars
-  onComplete: function(exitCode) {
-    //console.log('*** on complete');  // eslint-disable-line no-console
+  onComplete: function onComplete(/*exitCode*/) {
     if (server && server.handle) {
       server.stop();
       server = null;
