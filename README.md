@@ -11,7 +11,7 @@ If I modify some code, JS or SASS, the following error occurs:
 "Server Uncaught Exception  TypeError: Cannot read property 'source' of undefined". Need to rip apart the config file
 to figure out the cause of this error.
 
-Other [pending versions](./pending-versions.md) 
+Other [pending versions](blacklisted-versions.md) 
 
 ## Features
 * ES2015/ES2016
