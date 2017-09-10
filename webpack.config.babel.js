@@ -15,7 +15,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-//const UnCSSPlugin = require('uncss-webpack-plugin');
 
 const argv = argsToKeyValue(process.argv.slice(2));
 const config = configBuilder(process.env.NODE_ENV);
@@ -168,9 +167,6 @@ const prodPlugins = isProd
         },
         sourceMap: true
       }),
-
-      // Remove unused CSS, see: https://github.com/vseventer/uncss-webpack-plugin
-      //new UnCSSPlugin({ /* options */ }),
     ]
   : [];
 
