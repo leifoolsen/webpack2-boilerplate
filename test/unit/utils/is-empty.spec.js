@@ -1,3 +1,5 @@
+/* eslint no-unused-expressions: 0 */
+
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import isEmpty from '../../../src/utils/is-empty';

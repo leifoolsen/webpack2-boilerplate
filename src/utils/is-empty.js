@@ -55,7 +55,7 @@
  */
 
 const isIterable = val =>
-  Symbol && 'iterator' in Symbol && 'function' === typeof val[Symbol.iterator];
+  Symbol && 'iterator' in Symbol && typeof val[Symbol.iterator] === 'function';
 
 const isWeakMap = val => `${WeakMap}` === `${val.constructor}`;
 
@@ -63,29 +63,29 @@ const isWeakSet = val => `${WeakSet}` === `${val.constructor}`;
 
 const isEmpty = val => {
 
-  if(val == null || typeof val === 'undefined') {
+  if (val == null || typeof val === 'undefined') {
     return true;
   }
 
-  if(typeof val === 'string') {
+  if (typeof val === 'string') {
     return !val.trim().length;
   }
 
-  if(Array.isArray(val)) {
+  if (Array.isArray(val)) {
     return !val.length;
   }
 
-  if(isIterable(val)) {
+  if (isIterable(val)) {
     return !val.size;
   }
 
-  if(typeof val === 'object') {
+  if (typeof val === 'object') {
 
-    if(isWeakMap(val)) {
+    if (isWeakMap(val)) {
       throw new ReferenceError('Can not determine if WeakMap is empty');
     }
 
-    if(isWeakSet(val)) {
+    if (isWeakSet(val)) {
       throw new ReferenceError('Can not determine if WeakSet is empty');
     }
 
