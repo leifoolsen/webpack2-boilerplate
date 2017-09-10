@@ -180,7 +180,7 @@ const cssRules = isHot
   ? [
       {
         // Enables HMR. Inlines CSS in html head style tag
-        test: /\.css|\.scss$/,
+        test: /\.(css|scss)$/,
         include: [
           src,
           path.resolve(process.cwd(), 'node_modules')
@@ -194,13 +194,7 @@ const cssRules = isHot
             loader: 'css-loader',
 
             // Uncomment options if you don't want inline CSS (HMR works for both)
-            /*
-            options: {
-              url: true,
-              sourceMap: true,
-              importLoaders: 2
-            }
-            */
+            //options: { url: true, sourceMap: true, importLoaders: 3 }
           },
           {
             loader: 'postcss-loader',
@@ -218,7 +212,7 @@ const cssRules = isHot
     ]
   : [
       {
-        test: /\.css|\.scss$/,
+        test: /\.(css|scss)$/,
         include: [
           src,
           path.resolve(process.cwd(), 'node_modules')
@@ -228,15 +222,11 @@ const cssRules = isHot
           use: [
             {
               loader: 'css-loader',
-              options: {
-                url: true,
-                sourceMap: true,
-                importLoaders: 2
-              }
+              options: { url: true, sourceMap: true, importLoaders: 3 }
             },
             {
               loader: 'postcss-loader',
-              options: { sourceMap: true }
+              options: { sourceMap: true } // { sourceMap: 'inline' } // You can set the sourceMap: 'inline' option to inline the source map within the CSS directly as an annotation comment.
             },
             {
               loader: 'resolve-url-loader'
@@ -290,10 +280,12 @@ module.exports = {
           // NOTE: Not shure if this is really needed. Seems to work OK without
           //'./webpack-public-path.js',
 
-          'webpack-hot-middleware/client',
+          //'webpack-hot-middleware/client',
+
+          //'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
 
           // reload - Set to true to auto-reload the page when webpack gets stuck.
-          //'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
+          'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
 
           // You can use full urls, like:
           //`webpack-hot-middleware/client?http://${host}:${port}${publicPath}`
@@ -408,14 +400,11 @@ module.exports = {
     // Note: NoErrorsPlugin is renamed to NoEmitOnErrorsPlugin
     new webpack.NoEmitOnErrorsPlugin(),
 
-    // No longer needed in Webpack2, on by default
-    //new webpack.optimize.OccurrenceOrderPlugin(),
-
     // Generate an external css file with a hash in the filename
     // allChunks: true -> preserve source maps
     new ExtractTextPlugin({
       filename: isProd ? '[name].[chunkhash].styles.css' : '[name].styles.css',
-      disable: false,
+      disable: isHot,
       allChunks: true,
     }),
 
