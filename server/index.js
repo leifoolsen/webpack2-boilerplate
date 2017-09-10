@@ -50,6 +50,7 @@ logger.log('Express config:', 'NODE_ENV:', process.env.NODE_ENV,
 // Common config
 // ------------------------
 const app = express();
+
 let devMiddleware = null;
 
 if (isProxy) {
@@ -87,6 +88,7 @@ if (isDev || isHot) {
 
   // Step 1: Create & configure a webpack compiler
   const compiler = webpack(webpackCfg);
+  compiler.apply(new webpack.ProgressPlugin());
 
   // Step 2: Attach the dev middleware to the compiler & the server
   const webpackDevMiddleware = require('webpack-dev-middleware'); // eslint-disable-line global-require
@@ -96,7 +98,9 @@ if (isDev || isHot) {
   //  quiet: true,
   //  publicPath: publicPath
   //});
+
   devMiddleware = webpackDevMiddleware(compiler, webpackCfg.devServer);
+
   app.use(devMiddleware);
 
 
@@ -115,7 +119,7 @@ if (isDev || isHot) {
     // }));
 
     // eslint-disable-next-line global-require
-    app.use(require('webpack-hot-middleware')(compiler));
+    app.use(require('webpack-hot-middleware')(compiler, { path: '/__webpack_hmr' }));
   }
 
   app.use(publicPath, express.static(webpackCfg.context));
