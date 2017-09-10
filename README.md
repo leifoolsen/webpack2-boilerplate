@@ -5,6 +5,14 @@
 A Webpack2 boilerplate, partly based on this Egghead.io course; 
 [Using Webpack for Production JavaScript Applications](https://egghead.io/courses/using-webpack-for-production-javascript-applications)
 
+## NOTE
+This boilerplate does not work with webpack3 HMR. 
+If I modify some code, JS or SASS, the following error occurs: 
+"Server Uncaught Exception  TypeError: Cannot read property 'source' of undefined". Need to rip apart the config file
+to figure out the cause of this error.
+
+Other [pending versions](./pending-versions.md) 
+
 ## Features
 * ES2015/ES2016
 * Node6 or Node7
