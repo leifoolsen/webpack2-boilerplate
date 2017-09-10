@@ -3,21 +3,9 @@
  * at a later stage
  */
 
+import isString from '../utils/is-string';
 import request from '../utils/request';
-
-const LOG_LEVEL = {
-  // https://tools.ietf.org/html/rfc5424
-  silent:   -1, // no logging
-  emergency: 0, // system is unusable
-  alert:     1, // action must be taken immediately
-  critical:  2, // action must be taken immediately
-  error:     3, // error conditions
-  warn:      4, // warning conditions
-  notice:    5, // normal but significant condition
-  info:      6, // informational condition
-  debug:     7, // debug condition
-  log:       7, // debug condition
-};
+import LOG_LEVEL from './log-level';
 
 const LOG_COLOR = {
   emergency: 'red',
@@ -32,8 +20,6 @@ const LOG_COLOR = {
 };
 
 const valueToKey = (obj, value) => Object.keys(obj).find(key => obj[key] === value);
-
-const isString = str => str != null && typeof str === 'string';
 
 class AbstractLogger {
   constructor(level) {
@@ -157,4 +143,3 @@ const logger = new Proxy({}, {
 });
 
 export default logger;
-export {LOG_LEVEL};

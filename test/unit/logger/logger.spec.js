@@ -6,7 +6,8 @@ import sinon from 'sinon';
 import { before, after, beforeEach, afterEach, describe, it } from 'mocha';
 import { expect } from 'chai';
 import { setupJsDom, teardownJsDom } from '../../jsdom-init';
-import logger, {LOG_LEVEL} from '../../../src/logger/logger';
+import logger from '../../../src/logger/logger';
+import LOG_LEVEL from '../../../src/logger/log-level';
 
 const jsonOk = body => {
   const mockResponse = new Response(JSON.stringify(body), {
@@ -36,13 +37,13 @@ describe('logger', () => {
 
   describe('console logger', () => {
     before(() => {
-      expect(logger.consoleLogger).to.not.be.undefined;
+      expect(logger.consoleLogger).to.not.equal(undefined);
       logger.remoteLogger.level = 'silent';
     });
 
     it('should set console log level to "info"', () => {
       const cl = logger.consoleLogger;
-      expect(cl).to.not.be.undefined;
+      expect(cl).to.not.equal(undefined);
       cl.level = 'info';
       expect(cl.level).to.equal(LOG_LEVEL.info);
     });
@@ -58,7 +59,7 @@ describe('logger', () => {
       try {
         logger.consoleLogger.level = 'debug';
         logger.debug('logged');
-        expect(console.log.called).to.be.true; //eslint-disable-line no-console
+        expect(console.log.called).to.equal(true); //eslint-disable-line no-console
         expect(console.log.getCall(0).args[2]).to.equal('logged'); //eslint-disable-line no-console
       }
       finally {
@@ -72,7 +73,7 @@ describe('logger', () => {
       try {
         logger.consoleLogger.level = 'info';
         logger.debug('abc');
-        expect(console.log.called).to.be.false; //eslint-disable-line no-console
+        expect(console.log.called).to.equal(false); //eslint-disable-line no-console
       }
       finally {
         stubLog.restore();
@@ -92,7 +93,7 @@ describe('logger', () => {
         logger.critical('critical');
         logger.alert('alert');
         logger.emergency('emergency');
-        expect(console.log.called).to.be.false; //eslint-disable-line no-console
+        expect(console.log.called).to.equal(false); //eslint-disable-line no-console
       }
       finally {
         stubLog.restore();
@@ -105,7 +106,7 @@ describe('logger', () => {
     let fetchStub;
 
     before(() => {
-      expect(logger.remoteLogger).to.not.be.undefined;
+      expect(logger.remoteLogger).to.not.equal(undefined);
       logger.consoleLogger.level = 'silent';
 
       if(!global.fetch) {
@@ -139,8 +140,8 @@ describe('logger', () => {
       logger.remoteLogger.level = 'error';
       logger.remoteLogger.batchSize = 1;
       logger.error('an error msg');
-      expect(spy.called).to.be.true;
-      expect(global.fetch.called).to.be.true;
+      expect(spy.called).to.equal(true);
+      expect(global.fetch.called).to.equal(true);
     });
 
     it('should log a batch of error messages to remote', () => {
@@ -148,20 +149,20 @@ describe('logger', () => {
       logger.remoteLogger.batchSize = 3;
 
       logger.error('error msg #1');
-      expect(global.fetch.called).to.be.false;
+      expect(global.fetch.called).to.equal(false);
 
       logger.error('error msg #2');
-      expect(global.fetch.called).to.be.false;
+      expect(global.fetch.called).to.equal(false);
 
       logger.error('error msg #3');
-      expect(global.fetch.called).to.be.true;
+      expect(global.fetch.called).to.equal(true);
     });
 
     it('should not log debug message to remote', () => {
       logger.remoteLogger.level = 'error';
       logger.debug('a debug msg');
-      expect(spy.called).to.be.true;
-      expect(global.fetch.called).to.be.false;
+      expect(spy.called).to.equal(true);
+      expect(global.fetch.called).to.equal(false);
     });
 
   });

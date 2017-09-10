@@ -6,7 +6,7 @@
 
 import isObject from '../utils/is-object';
 import deepMerge from '../utils/deep-merge';
-import { LOG_LEVEL } from '../logger/logger';
+import LOG_LEVEL from '../logger/log-level';
 
 const cfg = {
   server: {

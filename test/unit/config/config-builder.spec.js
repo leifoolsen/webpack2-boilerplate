@@ -1,6 +1,6 @@
 import { describe, it } from 'mocha';
 import { assert } from 'chai';
-import { LOG_LEVEL } from '../../../src/logger/logger';
+import LOG_LEVEL from '../../../src/logger/log-level';
 import configBuilder from '../../../src/config/config-builder';
 
 const expectedConfigTest = {

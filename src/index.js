@@ -1,6 +1,7 @@
 import polyfill from './polyfill';
 import './config/config';
-import logger, {LOG_LEVEL} from './logger/logger';
+import logger from './logger/logger';
+import LOG_LEVEL from './logger/log-level';
 import run from './app/app';
 import './styles.scss';
 
