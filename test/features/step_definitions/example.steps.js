@@ -1,25 +1,24 @@
 /* eslint-disable no-undef */
+import { defineSupportCode } from 'cucumber';
+import { expect } from 'chai';
 
-const expect = require('chai').expect;
-
-module.exports = function () {
-  this.Given(/^I open the url "([^"]*)"$/, (url) => {
+defineSupportCode(function({ Given, Then, When }) {
+  Given(/^I open the url "([^"]*)"$/, (url) => {
     browser.url(url); // eslint-disable-line no-undef
   });
 
-  this.Then(/^I expect the title of the page to be "([^"]*)"$/, (title) => {
+  Then(/^I expect the title of the page to be "([^"]*)"$/, (title) => {
     expect(browser.getTitle()).to.be.eql(title); // eslint-disable-line no-undef
   });
 
-  this.When(/^I click the Ping button$/, () => {
+  When(/^I click the Ping button$/, () => {
     browser.click('#btn-ping');
   });
 
-  this.Then(/^I expect the response to be "([^"]*)"$/, (response) => {
-
+  Then(/^I expect the response to be "([^"]*)"$/, (response) => {
     browser.waitUntil(() => {
       return browser.getText('#ping-response').indexOf(response) >= 0;
     }, 5000, 'expected ping to return pong');
 
   });
-};
+});
