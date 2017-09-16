@@ -43,6 +43,7 @@
   ],
   "globals": {
     // "componentHandler": true // Material Design Lite
+    "browser": true
   },
   "rules": {
     "compat/compat": 2, // required by eslint-plugin-compat
