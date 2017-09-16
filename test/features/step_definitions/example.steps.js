@@ -1,4 +1,6 @@
-/* eslint-disable no-undef */
+/*eslint no-undef: "error"*/
+/*eslint-env browser*/
+
 import { defineSupportCode } from 'cucumber';
 import { expect } from 'chai';
 
@@ -19,6 +21,5 @@ defineSupportCode(function({ Given, Then, When }) {
     browser.waitUntil(() => {
       return browser.getText('#ping-response').indexOf(response) >= 0;
     }, 5000, 'expected ping to return pong');
-
   });
 });
