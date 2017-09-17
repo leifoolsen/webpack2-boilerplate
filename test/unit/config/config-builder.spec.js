@@ -1,96 +1,125 @@
-import { describe, it } from 'mocha';
-import { assert } from 'chai';
-import LOG_LEVEL from '../../../src/logger/log-level';
+import {describe, it} from 'mocha';
+import {assert} from 'chai';
 import configBuilder from '../../../src/config/config-builder';
 
-const expectedConfigTest = {
-  env: 'test',
-  server: {
-    host: 'localhost',
-    port: 8082,
-    publicPath: '/',
-    apiPath: '/api',
+const cfg = {
+  standard: {
+    logger: {
+      console: {
+        level: 'debug'
+      },
+      remote: {
+        level: 'error',
+        batchSize: 1,
+        url: '/api/log'
+      }
+    },
   },
-  proxyServer: {
-    host: 'localhost',
-    port: 8010,
-    path: '/api',
+  development: {},
+  production: {
+    logger: {
+      console: {
+        level: 'info'
+      }
+    }
   },
+  test: {
+    logger: {
+      remote: {
+        level: 'silent'
+      }
+    }
+  }
+};
+
+const expectedDefaultConfig = {
   logger: {
     console: {
-      level: LOG_LEVEL.debug,
+      level: 'debug'
     },
     remote: {
-      level: LOG_LEVEL.silent,
+      level: 'error',
       batchSize: 1,
-      url: '/api/log',
-    },
+      url: '/api/log'
+    }
   },
 };
 
-const expectedConfigDev = {
-  env: 'development',
-  server: {
-    host: 'localhost',
-    port: 8084,
-    publicPath: '/',
-    apiPath: '/api',
-  },
-  proxyServer: {
-    host: 'localhost',
-    port: 8010,
-    path: '/api',
-  },
+const expectedProductionConfig = {
   logger: {
     console: {
-      level: LOG_LEVEL.debug,
+      level: 'info'
     },
     remote: {
-      level: LOG_LEVEL.error,
+      level: 'error',
       batchSize: 1,
-      url: '/api/log',
-    },
+      url: '/api/log'
+    }
   },
 };
 
-const expectedConfigProd = {
-  env: 'production',
-  server: {
-    host: 'localhost',
-    port: 8000,
-    publicPath: '/',
-    apiPath: '/api',
-  },
-  proxyServer: {
-    host: 'localhost',
-    port: 8010,
-    path: '/api',
-  },
+const expectedTestConfig = {
   logger: {
     console: {
-      level: LOG_LEVEL.info,
+      level: 'debug'
     },
     remote: {
-      level: LOG_LEVEL.error,
+      level: 'silent',
       batchSize: 1,
-      url: '/api/log',
-    },
+      url: '/api/log'
+    }
   },
 };
 
 describe('config-builder', () => {
-  it('should build config for test', () => {
-    const cfg = configBuilder('test');
-    assert.deepEqual(cfg, expectedConfigTest);
+  it('should create a config builder', () => {
+    const builder = configBuilder();
+    assert.isObject(builder);
+    assert.isFunction(builder.build);
   });
 
-  it('should build config for development', () => {
-    const cfg = configBuilder('development');
-    assert.deepEqual(cfg, expectedConfigDev);
+  it('should create a default config', () => {
+    const config = configBuilder(cfg.standard).build();
+    assert.deepEqual(config, expectedDefaultConfig);
   });
 
-  it('should build config for production', () => {
-    const cfg = configBuilder('production');
-    assert.deepEqual(cfg, expectedConfigProd);
+  it('should create a development config', () => {
+    const config = configBuilder(cfg.standard, cfg.developemnt).build();
+    assert.deepEqual(config, expectedDefaultConfig);
+  });
+
+  it('should create a production config', () => {
+    const config = configBuilder(cfg.standard, cfg.production).build();
+    assert.deepEqual(config, expectedProductionConfig);
+  });
+
+  it('should create a test config', () => {
+    const config = configBuilder(cfg.standard, cfg.test).build();
+    assert.deepEqual(config, expectedTestConfig);
+  });
+
+  it('should create a config passing parameters to build', () => {
+    const config = configBuilder().build(cfg.standard, cfg.test);
+    assert.deepEqual(config, expectedTestConfig);
+  });
+
+  it('should create a config passing paramaters to both builder object and build method', () => {
+
+    const expectedFooBarConfig = {
+      foo: {
+        bar: 1,
+        baz: {
+          label: 'baz',
+        },
+        buz: {
+          label: 'buz'
+        }
+      },
+    };
+
+    const config = configBuilder({foo: {bar: 2}}, {foo: {bar: 1}})
+      .build({foo: {baz: {label: 'baz'}}}, {foo: {buz: {label: 'buz'}}});
+
+    assert.deepEqual(config, expectedFooBarConfig);
   });
 });

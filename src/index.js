@@ -47,7 +47,7 @@ try {
     .then( () => run()); // Start the app
 }
 catch(err) {
-  console.log('Error loading polyfills:', err); // eslint-disable-line no-console
+  console.error('Error loading polyfills:', err); // eslint-disable-line no-console
 }
 
 

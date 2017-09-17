@@ -2,7 +2,6 @@
  * Code inspired by https://github.com/mxstbr/react-boilerplate/blob/master/server/middlewares/frontendMiddleware.js
  */
 
-
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 import 'babel-polyfill';
@@ -10,40 +9,46 @@ import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 import webpack from 'webpack';
+
 import router from './router';
 import logger from './logger';
-import argsToKeyValue from './args-to-key-value';
-import configBuilder from '../src/config/config-builder';
 
-const webpackCfg = require('../webpack.config.babel');
-const argv = argsToKeyValue(process.argv.slice(2));
-const appCfg = configBuilder(process.env.NODE_ENV);
-const isTest = process.env.NODE_ENV === 'test' || argv['env.test'] || false;
-const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);
+const nodeEnv = process.env.NODE_ENV;
+const appCfg = require('nconf');
+appCfg
+  .argv()
+  .env()
+  .file( nodeEnv, { file: path.resolve(process.cwd(), `config.${nodeEnv}.json`) })
+  .file( 'default', { file: path.resolve(process.cwd(), 'config.default.json') })
+  .load();
+
+const isTest = nodeEnv === 'test';
+const isDev = !(nodeEnv === 'production' || appCfg.get('prod'));
 const isProd = !isDev;
-const isHot = argv.hot || false;
-
-const host = webpackCfg.devServer.host;
-const port = webpackCfg.devServer.port;
-const publicPath = webpackCfg.devServer.publicPath;
-const apiPath = process.env.API_PATH || argv['api-path'] || appCfg.server.apiPath || '/api';
-
-const isProxy = argv.proxy || false;
+const isHot = appCfg.get('hot') || false;
+const host = appCfg.get('server').host;
+const port = appCfg.get('server').port;
+const publicPath = appCfg.get('server').publicPath;
+const apiPath = appCfg.get('server').apiPath;
+const isProxy = appCfg.get('proxy') || false;
 let proxyHost;
 let proxyPort;
 let proxyPath;
 
 if (isProxy) {
-  proxyHost = process.env.PROXY_HOST || argv['proxy-host'] || appCfg.proxyServer.host || 'localhost';
-  proxyPort = process.env.PROXY_PORT || argv['proxy-port'] || appCfg.proxyServer.port || 8090;
-  proxyPath = process.env.PROXY_PATH || argv['proxy-path'] || appCfg.proxyServer.path || '/api';
+  proxyHost = appCfg.get('proxyServer').host;
+  proxyPort = appCfg.get('proxyServer').port;
+  proxyPath = appCfg.get('proxyServer').path;
 }
+
+const webpackCfg = require('../webpack.config.babel');
 
 // Code is (still) a bit messy. In need of some refactoring :-)
 
-logger.log('Express config:', 'NODE_ENV:', process.env.NODE_ENV,
+logger.log('Express config:', 'NODE_ENV:', nodeEnv,
   'test:', isTest, 'prod:', isProd, 'dev:', isDev,
-  'hot:', isHot, 'public path:', publicPath, 'API path:', apiPath, 'proxy:', isProxy);
+  'hot:', isHot, 'public path:', publicPath,
+  'API path:', apiPath, 'proxy:', isProxy);
 
 
 // ------------------------
@@ -189,7 +194,7 @@ else {
   app.use(compression());
 
   // Eventually override output path in production
-  const outputPath = process.env.OUTPUT_PATH || argv['output-path'] || webpackCfg.output.path;
+  const outputPath = appCfg.get('outputPath') || webpackCfg.output.path;
 
   app.use(publicPath, express.static(outputPath));
 

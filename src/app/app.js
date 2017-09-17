@@ -19,7 +19,7 @@ const pingHandler = () => {
 };
 
 const run = () => {
-  logger.info(`Application run, env: ${config.env}, public path: ${config.server.publicPath}, API path: ${config.server.apiPath}`);
+  logger.info(`Application run, env: ${config.env}, public path: ${config.publicPath}, API path: ${config.apiPath}`);
 
   const pingButton = document.querySelector('#btn-ping');
   pingButton.addEventListener('click', pingHandler);

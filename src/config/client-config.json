@@ -1,0 +1,30 @@
+{
+  "default": {
+    "logger": {
+      "console": {
+        "level": "debug"
+      },
+      "remote": {
+        "level": "error",
+        "batchSize": 1,
+        "url": "/api/log"
+      }
+    }
+  },
+  "development": {
+  },
+  "production": {
+    "logger": {
+      "console": {
+        "level": "info"
+      }
+    }
+  },
+  "test": {
+    "logger": {
+      "remote": {
+        "level": "silent"
+      }
+    }
+  }
+}

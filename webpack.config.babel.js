@@ -2,9 +2,6 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 require("babel-register");
 
-import argsToKeyValue from './server/args-to-key-value';
-import configBuilder from './src/config/config-builder';
-
 const chalk = require('chalk');
 const path = require('path');
 const fs = require('fs');
@@ -16,28 +13,34 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const argv = argsToKeyValue(process.argv.slice(2));
-const config = configBuilder(process.env.NODE_ENV);
+const nodeEnv = process.env.NODE_ENV;
+const appCfg = require('nconf');
+appCfg
+  .argv()
+  .env()
+  .file( nodeEnv, { file: path.resolve(process.cwd(), `config.${nodeEnv}.json`) })
+  .file( 'default', { file: path.resolve(process.cwd(), 'config.default.json') })
+  .load();
 
-const isTest = process.env.NODE_ENV === 'test' || argv['env.test'] || false;
-const isDev = !(process.env.NODE_ENV === 'production' || argv['env.prod']);
+const isTest = nodeEnv === 'test';
+const isDev = !(nodeEnv === 'production' || appCfg.get('prod'));
 const isProd = !isDev;
-const isHot = argv.hot || false;
-
-const host = process.env.HOST || argv.host || config.server.host || 'localhost';
-const port = process.env.PORT || argv.port || config.server.port || 3000;
-const publicPath = process.env.PUBLIC_PATH || argv['public-path'] || config.server.publicPath || '/';
-const apiPath = process.env.API_PATH || argv['api-path'] || config.server.apiPath || '/api';
-
+const isHot = appCfg.get('hot') || false;
+const host = appCfg.get('server').host;
+const port = appCfg.get('server').port;
+const publicPath = appCfg.get('server').publicPath;
+const apiPath = appCfg.get('server').apiPath;
+const isProxy = appCfg.get('proxy') || false;
 const src = path.resolve(process.cwd(), 'src');
 const dist = path.resolve(process.cwd(), 'dist');
 const context = src;
 
 // NOTE: Comment out "console.log" before executing "npm run analyze"
 //eslint-disable-next-line no-console
-console.log('Webpack config:', 'NODE_ENV:', process.env.NODE_ENV,
+console.log('Webpack config:', 'NODE_ENV:', nodeEnv,
   'test:', isTest, 'prod:', isProd, 'dev:', isDev,
-  'hot:', isHot, 'public path:', publicPath, 'API path:', apiPath);
+  'hot:', isHot, 'public path:', publicPath,
+  'API path:', apiPath, 'proxy:', isProxy);
 
 //const removeEmpty = array => array.filter(i => !!i);
 

@@ -1,7 +1,8 @@
+import config from '../config/config';
 import request from '../utils/request';
 import joinUrl from '../utils/join-url';
 
-const apiPath = joinUrl(process.env.PUBLIC_PATH, '/api/ping');
+const pingPath = joinUrl(config.apiPath, '/ping');
 
 async function determineTime() {
   const moment = await import('moment');
@@ -9,7 +10,7 @@ async function determineTime() {
 }
 
 const ping = el => {
-  request(apiPath)
+  request(pingPath)
     .then(response => {
       determineTime()
         .then(str => el.textContent = `${str}: ${JSON.stringify(response)}`);

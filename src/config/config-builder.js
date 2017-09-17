@@ -1,97 +1,50 @@
-/**
- * Build a configuration object for a given environment,
- * e.g.'development', 'production', 'test'
- * @author Leif Olsen
- */
-
-import isObject from '../utils/is-object';
-import deepMerge from '../utils/deep-merge';
-import LOG_LEVEL from '../logger/log-level';
-
-const cfg = {
-  server: {
-    config: {
-      host: 'localhost',
-      port: 8082,
-      publicPath: '/',
-      apiPath: '/api',
-    },
-    development: {
-      port: 8084,
-    },
-    production: {
-      port: 8000,
-    },
-    test: {
-    },
-  },
-  proxyServer: {
-    config: {
-      host: 'localhost',
-      port: 8010,
-      path: '/api',
-    },
-  },
-  logger: {
-    config: {
-      console: {
-        level: LOG_LEVEL.debug,
-      },
-      remote: {
-        level: LOG_LEVEL.error,
-        batchSize: 1,
-        url: '/api/log',
-      },
-    },
-    production: {
-      console: {
-        level: LOG_LEVEL.info,
-      },
-    },
-    test: {
-      remote: {
-        level: LOG_LEVEL.silent,
-      },
-    },
-  },
-};
+import deepMerge from '../../src/utils/deep-merge';
 
 /**
- * Builds a configuration object for a given environment,
- * e.g.'development', 'production', 'test'
- * @param env the config environment
- * @returns {{}} a configuration object for the given environment
- *
- * @example
+ * Builds a configuration object by merging one or more objects
+ * @param configs the objects used to build the resulting configuration object
+ * @return {{}} the resulting configuration object
+ *  * @example
  * // Given
- * {
- *   server: {
- *     config: {
- *       port: 8086
+ * const defaultConfig = {
+ *   logger: {
+ *     console: {
+ *       level: 'debug'
  *     },
- *     production: {
- *       port: 8080
- *     },
- *     test: {
- *       port: 8088
- *     },
- *   }
- * }
+ *     remote: {
+ *       level: 'error',
+ *       batchSize: 1,
+ *       url: '/api/log'
+ *     }
+ *   };
+ * const testConfig = {
+ *   logger: {
+ *     remote: {
+ *       level: 'silent',
+ *     }
+ *   };
  *
- * const c = config('test')
- * // Rerurns { env: 'test', server: { port: 8088 } }
+ * const c = configBuilder(defaultConfig, testConfig).build();
+ * // Returns
+ * {
+ *   logger: {
+ *     console: {
+ *       level: 'debug'
+ *     },
+ *     remote: {
+ *       level: 'silent',
+ *       batchSize: 1,
+ *       url: '/api/log'
+ *     }
+ *   };
  *
  */
-const configBuilder = env => {
-  const result = { env: env };
-  Object.keys(cfg).forEach(key => {
-    if (isObject(cfg[key])) {
-      const a = cfg[key].config;
-      const b = cfg[key][env];
-      result[key] = deepMerge(a, b);
+const configBuilder = (...configs) => {
+  return {
+    build(...moreConfigs) {
+      return deepMerge({}, ...configs, ...moreConfigs);
     }
-  });
-  return result;
+  };
 };
 
 export default configBuilder;

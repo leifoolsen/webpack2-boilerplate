@@ -1,23 +1,28 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable consistent-return */
 
+import path from 'path';
 import server from '../../../server';
 import joinUrl from '../../../src/utils/join-url';
-import configBuilder from '../../../src/config/config-builder';
 
 const describe = require('mocha').describe;
 const before = require('mocha').before;
 const after = require('mocha').after;
 const it = require('mocha').it;
 const expect = require('chai').expect;
-
+const config = require('nconf');
 
 // See: https://mrvautin.com/ensure-express-app-started-before-tests/
 // See: http://developmentnow.com/2015/02/05/make-your-node-js-api-bulletproof-how-to-test-with-mocha-chai-and-supertest/
 // See: https://blog.codeship.com/testing-http-apis-supertest/
 describe('Express server', () => {
 
-  const config = configBuilder('test');
+  config
+    .argv()
+    .env()
+    .file( 'test', { file: path.resolve(process.cwd(), 'config.test.json') })
+    .file( 'default', { file: path.resolve(process.cwd(), 'config.default.json') })
+    .load();
 
   // Start server
   before( function (done) {
@@ -29,7 +34,7 @@ describe('Express server', () => {
 
     server.app.on('serverStarted', () => {
       done();
-      expect(server.handle).to.not.be.null;
+      expect(server.handle).to.not.equal(null);
       expect(server.handle.address()).to.be.an('object');
     });
   });
@@ -47,7 +52,7 @@ describe('Express server', () => {
 
   describe('Starting and stopping', () => {
     it('should have an Express server up and running', () => {
-      expect(server.handle).to.not.be.null;
+      expect(server.handle).to.not.equal(null);
       expect(server.handle.address()).to.be.an('object');
     });
   });
@@ -60,7 +65,7 @@ describe('Express server', () => {
 
       it('should load index.html, .end() version', (done) => {
         agent
-          .get(config.server.publicPath)
+          .get(config.get('server').publicPath)
           .set('Accept', 'text/html')
           .expect('Content-Type', /text/)
           .expect(200)
@@ -82,7 +87,7 @@ describe('Express server', () => {
 
       it('should load index.html, .then/.catch version', (done) => {
         agent
-          .get(config.server.publicPath)
+          .get(config.get('server').publicPath)
           .set('Accept', 'text/html')
           .expect('Content-Type', /text/)
           .expect(200)
@@ -98,7 +103,7 @@ describe('Express server', () => {
 
       it('responds to /api/ping with 200, .end() version', (done) => {
         agent
-          .get(joinUrl(config.server.apiPath, 'ping'))
+          .get(joinUrl(config.get('server').apiPath, 'ping'))
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
           .expect(200)
@@ -118,7 +123,7 @@ describe('Express server', () => {
 
       it('responds to /api/ping with 200, .then/catch version', (done) => {
         agent
-          .get(joinUrl(config.server.apiPath, 'ping'))
+          .get(joinUrl(config.get('server').apiPath, 'ping'))
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
           .expect(200)
@@ -131,7 +136,7 @@ describe('Express server', () => {
 
       it('responds to /api/foobar with 404', (done) => {
         agent
-          .get(joinUrl(config.server.apiPath, 'foobar'))
+          .get(joinUrl(config.get('server').apiPath, 'foobar'))
           .set('Accept', 'application/json')
           .expect(404)
           .end(done);
