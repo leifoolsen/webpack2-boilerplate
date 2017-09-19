@@ -191,7 +191,6 @@ exports.config = {
   // Gets executed once before all workers get launched.
   // eslint-disable-next-line no-unused-vars
   onPrepare: function onPrepare (/*config, capabilities*/) {
-    importFresh('../src/config/config-builder').default('test');
     server = importFresh('../server').default;
     server.start();
   },

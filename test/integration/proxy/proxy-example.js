@@ -6,6 +6,7 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable consistent-return */
 
+import path from 'path';
 import apiServer from '../../../server/api-example-server';
 import server from '../../../server';
 import joinUrl from '../../../src/utils/join-url';
@@ -16,7 +17,14 @@ const after = require('mocha').after;
 const it = require('mocha').it;
 const expect = require('chai').expect;
 
-const config = require('../../../src/config/config-builder')('test');
+const config = require('nconf');
+config
+  .argv()
+  .env()
+  .file( 'test', { file: path.resolve(process.cwd(), 'config.test.json') })
+  .file( 'default', { file: path.resolve(process.cwd(), 'config.default.json') })
+  .load();
+
 
 describe('Proxy to API server example', () => {
 
@@ -55,7 +63,7 @@ describe('Proxy to API server example', () => {
     const agent = request.agent(server.app);
 
     agent
-      .get(joinUrl(config.server.apiPath, 'ping'))
+      .get(joinUrl(config.get('server').apiPath, 'ping'))
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)

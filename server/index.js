@@ -13,6 +13,33 @@ import webpack from 'webpack';
 import router from './router';
 import logger from './logger';
 
+/*
+ * Configuration:
+ * NODE_ENV: 'test' || 'development' || 'production'
+ *
+ * argv (NODE_ENV flags):
+ *   --hot
+ *   --env.dev
+ *   --env.prod
+ *
+ * NODE_ENV + argv flags combined:
+ *   'test' + (env.dev || env.prod)
+ *   'development' + ('' || hot)
+ *   'production' + ''
+ *
+ * isDev  = NODE_ENV === 'development' || (NODE_ENV === 'test' && !env.prod);
+ * isProd = NODE_ENV === 'production'  || (NODE_ENV === 'test' && env.prod);
+ *
+ * config.default.json + (config.test.json || config.development.json || config.production.json)
+ *
+ */
+
+const NODE_ENV = {
+  test: 'test',
+  development: 'development',
+  production: 'production'
+};
+
 const nodeEnv = process.env.NODE_ENV;
 const appCfg = require('nconf');
 appCfg
@@ -22,10 +49,10 @@ appCfg
   .file( 'default', { file: path.resolve(process.cwd(), 'config.default.json') })
   .load();
 
-const isTest = nodeEnv === 'test';
-const isDev = !(nodeEnv === 'production' || appCfg.get('prod'));
-const isProd = !isDev;
-const isHot = appCfg.get('hot') || false;
+// isDev and isProd must not be true at the same time
+const isDev = nodeEnv === NODE_ENV.development || (nodeEnv === NODE_ENV.test && !appCfg.get('env:prod'));
+const isProd = nodeEnv === NODE_ENV.production || (nodeEnv === NODE_ENV.test && appCfg.get('env:prod')) || false;
+const isHot = nodeEnv === (NODE_ENV.development && appCfg.get('hot')) || false;
 const host = appCfg.get('server').host;
 const port = appCfg.get('server').port;
 const publicPath = appCfg.get('server').publicPath;
@@ -46,8 +73,8 @@ const webpackCfg = require('../webpack.config.babel');
 // Code is (still) a bit messy. In need of some refactoring :-)
 
 logger.log('Express config:', 'NODE_ENV:', nodeEnv,
-  'test:', isTest, 'prod:', isProd, 'dev:', isDev,
-  'hot:', isHot, 'public path:', publicPath,
+  'isProd:', isProd, 'isDev:', isDev,
+  'isHot:', isHot, 'public path:', publicPath,
   'API path:', apiPath, 'proxy:', isProxy);
 
 
@@ -288,7 +315,7 @@ const server = {
   },
 };
 
-if (process.env.NODE_ENV !== 'test') {
+if (nodeEnv !== NODE_ENV.test) {
   process.on('uncaughtException', err => {
     logger.error('Server Uncaught Exception ', err.stack);
     process.exit(1);
