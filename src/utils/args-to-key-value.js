@@ -6,7 +6,7 @@
  * // Returns { 'env.dev': true, port: '8084', 'content-base': 'src' }
  * @author Leif Olsen
  */
-export const argsToKeyValue = array => {
+const argsToKeyValue = array => {
 
   //const isString = s => typeof s === 'string';
 
@@ -34,3 +34,5 @@ export const argsToKeyValue = array => {
 
   }, {});
 };
+
+export default argsToKeyValue;
