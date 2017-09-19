@@ -128,7 +128,7 @@
     "build:dll": "webpack --config webpack.config.dll.js",
     "prebuild": "npm-run-all clean lint build:dll && npm run coverage:unit -- --env.dev",
     "postbuild": "npm run coverage:it -- --env.dev && npm-run-all coverage:report check:coverage",
-    "build": "cross-env ./node_modules/.bin/webpack --progress",
+    "build": "webpack --progress",
     "prebuild:prod": "npm-run-all clean lint && npm run coverage:unit -- --env.prod",
     "postbuild:prod": "npm run coverage:it -- --env.prod  && npm-run-all coverage:report check:coverage",
     "build:prod": "cross-env NODE_ENV=production webpack --progress",
