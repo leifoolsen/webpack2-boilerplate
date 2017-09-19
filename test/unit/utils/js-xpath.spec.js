@@ -353,9 +353,13 @@ describe('js-xpath', () => {
         ],
       };
 
-      expect(JsXPath.getValue(obj, '/bars[1]/bar/c')).to.equal(3, 'Expected value to be "3" before changing it');
+      expect(JsXPath.getValue(obj, '/b')).to.equal('b', 'Expected "/" value to be "b" before changing it');
+      JsXPath.setValue(obj, '/b', 'bbbb');
+      expect(JsXPath.getValue(obj, '/b')).to.equal('bbbb', 'Expected "/a" value to be "10" after changing it');
+
+      expect(JsXPath.getValue(obj, '/bars[1]/bar/c')).to.equal(3, 'Expected "bars[1]/bar/c" value to be "3" before changing it');
       JsXPath.setValue(obj, '/bars[1]/bar/c', 10);
-      expect(JsXPath.getValue(obj, '/bars[1]/bar/c')).to.equal(10, 'Expected value to be "10" after changing it');
+      expect(JsXPath.getValue(obj, '/bars[1]/bar/c')).to.equal(10, 'Expected "bars[1]/bar/c" value to be "10" after changing it');
     });
 
     it('should throw TypeError if path is not valid', () => {
@@ -378,27 +382,49 @@ describe('js-xpath', () => {
       const obj = {
         a: 1,
         b: 'b',
+        bars: [
+          {
+            bar: {
+              c: 3,
+            }
+          }
+        ]
       };
 
-      expect(JsXPath.pathExists(obj, '/c')).to.be.false; // eslint-disable-line no-unused-expressions
-      expect(JsXPath.pathExists(obj, '/c/x[1]')).to.be.false; // eslint-disable-line no-unused-expressions
+      expect(JsXPath.pathExists(obj, '/a/b')).to.equal(false);
+      expect(JsXPath.pathExists(obj, '/bars[2]')).to.equal(false);
+      expect(JsXPath.pathExists(obj, '/c')).to.equal(false);
+      expect(JsXPath.pathExists(obj, '/c/d')).to.equal(false);
+      expect(JsXPath.pathExists(obj, '/c/x[1]')).to.equal(false);
     });
 
     it('should return true if path exists', () => {
       const obj = {
         a: 1,
         b: 'b',
+        c: {
+          d: undefined,
+          e: {
+            f: undefined
+          }
+        },
         bars: [
           {
             bar: {
               c: 3,
-              d: 'd'
+              d: 'd',
+              f: undefined
             }
           },
         ],
       };
-      expect(JsXPath.pathExists(obj, '/bars')).to.be.true; // eslint-disable-line no-unused-expressions
-      expect(JsXPath.pathExists(obj, '/bars[1]/bar/c')).to.be.true; // eslint-disable-line no-unused-expressions
+      expect(JsXPath.pathExists(obj, '/c/d')).to.equal(true);
+      expect(JsXPath.pathExists(obj, '/c/e/f')).to.equal(true);
+      expect(JsXPath.pathExists(obj, '/bars')).to.equal(true);
+      expect(JsXPath.pathExists(obj, '/bars[1]')).to.equal(true);
+      expect(JsXPath.pathExists(obj, '/bars[1]/bar')).to.equal(true);
+      expect(JsXPath.pathExists(obj, '/bars[1]/bar/c')).to.equal(true);
+      expect(JsXPath.pathExists(obj, '/bars[1]/bar/f')).to.equal(true);
     });
 
   });

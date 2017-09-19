@@ -184,7 +184,7 @@ const JsXPath = {
   /**
    * Set value for a given XPath expression where the path is a valid (existing) path
    * This function will NOT create intermediate objects/arrays for non existing
-   * paths. Use JavaScript to add/remove elements.
+   * paths. Use JavaScript, e.g. Object.assign, to add elements.
    *
    * @param {Object} obj   The object to set the value for
    * @param {String} xPath The XPath expression
@@ -196,6 +196,7 @@ const JsXPath = {
     const keys = xPath.split('/').filter(key => !!key);
     const last = keys.pop();
 
+    //  Get the next last node of the xPath expression
     const rest = keys.reduce((result, key) => {
       const [k, i] = splitKey(key); // '/a[0]' => ['a', 0], '/a' => ['a', undefined]
       return i !== undefined ? result[k][i - 1] : result[k];
@@ -218,7 +219,24 @@ const JsXPath = {
    */
   pathExists: (obj, xPath) => {
     try {
-      return JsXPath.getValue(obj, xPath) !== undefined;
+      const keys = xPath.split('/').filter(key => !!key);
+      const last = keys.pop();
+
+      //  Get the next last node of the xPath expression
+      const rest = keys.reduce((result, key) => {
+        const [k, i] = splitKey(key); // '/a[0]' => ['a', 0], '/a' => ['a', undefined]
+        return i !== undefined ? result[k][i - 1] : result[k];
+      }, obj);
+
+      const [k, i] = splitKey(last);
+
+      if (rest.hasOwnProperty(k)) {
+        if (i) {
+          return rest[k][i - 1] !== undefined;
+        }
+        return true;
+      }
+      return false;
     }
     catch (TypeError) {
       return false;
