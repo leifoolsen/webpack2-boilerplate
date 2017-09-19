@@ -416,6 +416,9 @@ describe('js-xpath', () => {
               f: undefined
             }
           },
+          {
+            x: 10
+          }
         ],
       };
       expect(JsXPath.pathExists(obj, '/c/d')).to.equal(true);
@@ -425,6 +428,7 @@ describe('js-xpath', () => {
       expect(JsXPath.pathExists(obj, '/bars[1]/bar')).to.equal(true);
       expect(JsXPath.pathExists(obj, '/bars[1]/bar/c')).to.equal(true);
       expect(JsXPath.pathExists(obj, '/bars[1]/bar/f')).to.equal(true);
+      expect(JsXPath.pathExists(obj, '/bars[2]/x')).to.equal(true);
     });
 
   });
