@@ -50,7 +50,7 @@ appCfg
 // isDev and isProd must not be true at the same time
 const isDev = nodeEnv === NODE_ENV.development || (nodeEnv === NODE_ENV.test && !appCfg.get('env:prod'));
 const isProd = nodeEnv === NODE_ENV.production || (nodeEnv === NODE_ENV.test && appCfg.get('env:prod')) || false;
-const isHot = nodeEnv === (NODE_ENV.development && appCfg.get('hot')) || false;
+const isHot = (nodeEnv === NODE_ENV.development && appCfg.get('hot')) || false;
 const host = appCfg.get('server').host;
 const port = appCfg.get('server').port;
 const publicPath = appCfg.get('server').publicPath;
