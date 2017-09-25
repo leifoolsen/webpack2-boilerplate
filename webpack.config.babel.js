@@ -318,7 +318,6 @@ module.exports = {
       : [])
       .concat([
         './index.js',
-        './styles.scss',
       ]),
   }),
   output: {
