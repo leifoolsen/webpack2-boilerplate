@@ -1,9 +1,11 @@
 // OPTIMIZING WEBPACK FOR FASTER BUILDS
 // ------------------------------------------
 // See: http://engineering.invisionapp.com/post/optimizing-webpack/
-// See: https://medium.com/@soederpop/webpack-plugins-been-we-been-keepin-on-the-dll-cdfdd6cb8cd7#.wxanbfcq8
+// See: https://medium.com/@soederpop/webpack-plugins-been-we-been-keepin-on-the-dll-cdfdd6cb8cd7
 // See: https://robertknight.github.io/posts/webpack-dll-plugins/
 // See: http://odetocode.com/blogs/scott/archive/2016/12/01/building-vendor-and-feature-bundles-with-webpack.aspx
+// See: https://engineering.bitnami.com/articles/optimizing-your-webpack-builds.html
+
 
 require('babel-register');
 const webpack = require('webpack');
@@ -22,7 +24,6 @@ module.exports = {
   },
   entry: {
     vendor: [
-      './src/polyfill.js',
       './src/vendor.js'
     ],
   },
