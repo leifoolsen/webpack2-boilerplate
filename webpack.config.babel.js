@@ -38,19 +38,19 @@ const ENV = {
   production: 'production'
 };
 
-const env = process.env.NODE_ENV;
+const nodeEnv = process.env.NODE_ENV;
 const appCfg = require('nconf');
 appCfg
   .argv()
   .env()
-  .file( env, { file: path.resolve(process.cwd(), `config.${env}.json`) })
+  .file( nodeEnv, { file: path.resolve(process.cwd(), `config.${nodeEnv}.json`) })
   .file( 'default', { file: path.resolve(process.cwd(), 'config.default.json') })
   .load();
 
 // isDev and isProd must not be true at the same time
-const isDev = env === ENV.development || (env === ENV.test && !appCfg.get('env:prod'));
-const isProd = env === ENV.production || (env === ENV.test && appCfg.get('env:prod')) || false;
-const isHot = (env === ENV.development && appCfg.get('hot')) || false;
+const isDev = nodeEnv === ENV.development || (nodeEnv === ENV.test && !appCfg.get('env:prod'));
+const isProd = nodeEnv === ENV.production || (nodeEnv === ENV.test && appCfg.get('env:prod')) || false;
+const isHot = (nodeEnv === ENV.development && appCfg.get('hot')) || false;
 const host = appCfg.get('server').host;
 const port = appCfg.get('server').port;
 const publicPath = appCfg.get('server').publicPath;
@@ -62,7 +62,7 @@ const context = src;
 
 // NOTE: Comment out "console.log" before executing "npm run analyze"
 //eslint-disable-next-line no-console
-console.log('Webpack config:', 'NODE_ENV:', env,
+console.log('Webpack config:', 'NODE_ENV:', nodeEnv,
   'isProd:', isProd, 'isDev:', isDev,
   'isHot:', isHot, 'public path:', publicPath,
   'API path:', apiPath, 'proxy:', isProxy);
@@ -117,7 +117,7 @@ const devPlugins = () => {
   return [];
 };
 
-const hotPlugins = isHot && env === ENV.development
+const hotPlugins = isHot && nodeEnv === ENV.development
   ? [
       new webpack.HotModuleReplacementPlugin({
         multiStep: true, // Enable multi-pass compilation for enhanced performance in larger projects.
@@ -384,7 +384,7 @@ module.exports = {
     // inside your code for any environment checks; UglifyJS will automatically
     // drop any unreachable code.
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(env),
+      'process.env.NODE_ENV': JSON.stringify(nodeEnv),
       'process.env.PUBLIC_PATH': JSON.stringify(publicPath),
       'process.env.API_PATH': JSON.stringify(apiPath),
       __DEV__: !isProd

@@ -40,19 +40,19 @@ const ENV = {
   production: 'production'
 };
 
-const env = process.env.NODE_ENV;
+const nodeEnv = process.env.NODE_ENV;
 const appCfg = require('nconf');
 appCfg
   .argv()
   .env()
-  .file( env, { file: path.resolve(process.cwd(), `config.${env}.json`) })
+  .file( nodeEnv, { file: path.resolve(process.cwd(), `config.${nodeEnv}.json`) })
   .file( 'default', { file: path.resolve(process.cwd(), 'config.default.json') })
   .load();
 
 // isDev and isProd must not be true at the same time
-const isDev = env === ENV.development || (env === ENV.test && !appCfg.get('env:prod'));
-const isProd = env === ENV.production || (env === ENV.test && appCfg.get('env:prod')) || false;
-const isHot = (env === ENV.development && appCfg.get('hot')) || false;
+const isDev = nodeEnv === ENV.development || (nodeEnv === ENV.test && !appCfg.get('env:prod'));
+const isProd = nodeEnv === ENV.production || (nodeEnv === ENV.test && appCfg.get('env:prod')) || false;
+const isHot = (nodeEnv === ENV.development && appCfg.get('hot')) || false;
 const host = appCfg.get('server').host;
 const port = appCfg.get('server').port;
 const publicPath = appCfg.get('server').publicPath;
@@ -72,7 +72,7 @@ const webpackCfg = require('../webpack.config.babel');
 
 // Code is (still) a bit messy. In need of some refactoring :-)
 
-logger.log('Express config:', 'NODE_ENV:', env,
+logger.log('Express config:', 'NODE_ENV:', nodeEnv,
   'isProd:', isProd, 'isDev:', isDev,
   'isHot:', isHot, 'public path:', publicPath,
   'API path:', apiPath, 'proxy:', isProxy);
@@ -315,7 +315,7 @@ const server = {
   },
 };
 
-if (env !== ENV.test) {
+if (nodeEnv !== ENV.test) {
   process.on('uncaughtException', err => {
     logger.error('Server Uncaught Exception ', err.stack);
     process.exit(1);
