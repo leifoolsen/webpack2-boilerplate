@@ -32,25 +32,25 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
  *
  */
 
-const NODE_ENV = {
+const ENV = {
   test: 'test',
   development: 'development',
   production: 'production'
 };
 
-const nodeEnv = process.env.NODE_ENV;
+const env = process.env.NODE_ENV;
 const appCfg = require('nconf');
 appCfg
   .argv()
   .env()
-  .file( nodeEnv, { file: path.resolve(process.cwd(), `config.${nodeEnv}.json`) })
+  .file( env, { file: path.resolve(process.cwd(), `config.${env}.json`) })
   .file( 'default', { file: path.resolve(process.cwd(), 'config.default.json') })
   .load();
 
 // isDev and isProd must not be true at the same time
-const isDev = nodeEnv === NODE_ENV.development || (nodeEnv === NODE_ENV.test && !appCfg.get('env:prod'));
-const isProd = nodeEnv === NODE_ENV.production || (nodeEnv === NODE_ENV.test && appCfg.get('env:prod')) || false;
-const isHot = (nodeEnv === NODE_ENV.development && appCfg.get('hot')) || false;
+const isDev = env === ENV.development || (env === ENV.test && !appCfg.get('env:prod'));
+const isProd = env === ENV.production || (env === ENV.test && appCfg.get('env:prod')) || false;
+const isHot = (env === ENV.development && appCfg.get('hot')) || false;
 const host = appCfg.get('server').host;
 const port = appCfg.get('server').port;
 const publicPath = appCfg.get('server').publicPath;
@@ -62,7 +62,7 @@ const context = src;
 
 // NOTE: Comment out "console.log" before executing "npm run analyze"
 //eslint-disable-next-line no-console
-console.log('Webpack config:', 'NODE_ENV:', nodeEnv,
+console.log('Webpack config:', 'NODE_ENV:', env,
   'isProd:', isProd, 'isDev:', isDev,
   'isHot:', isHot, 'public path:', publicPath,
   'API path:', apiPath, 'proxy:', isProxy);
@@ -82,11 +82,12 @@ const removeEmptyKeys = obj => {
 const devPlugins = () => {
 
   if(isDev) {
-    const manifest = path.resolve(dist, 'vendor.json');
+    const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+    const dllManifest = path.resolve(dist, 'vendor.dll.manifest.json');
     const indexHTML = path.resolve(src, 'index.html');
 
-    if (!fs.existsSync(manifest)) {
-      console.error(chalk.red(`The DLL manifest "${manifest}" is missing.`));
+    if (!fs.existsSync(dllManifest)) {
+      console.error(chalk.red(`The DLL manifest "${dllManifest}" is missing.`));
       console.error(chalk.red('Please run'), chalk.green('`npm run build:dll`'));
       process.exit(0);
     }
@@ -96,34 +97,27 @@ const devPlugins = () => {
       process.exit(0);
     }
 
-    const templateContent = () => {
-      // Append 'vendor.dll.js' to template
-      // TODO: Start using jsdom-10.x.x new api
-      const jsdom = require("jsdom/lib/old-api.js");
-      const document = jsdom.jsdom(fs.readFileSync(indexHTML, 'utf8').toString());
-      document.body.insertAdjacentHTML('beforeend', `<script type="text/javascript" src="${publicPath}vendor.dll.js"></script>`);
-      return jsdom.serializeDocument(document);
-    };
-
     return [
       new webpack.DllReferencePlugin({
         context: process.cwd(),
-        manifest: require(manifest)
+        manifest: require(dllManifest)
       }),
 
       new HtmlWebpackPlugin({
-        templateContent: templateContent(),
+        template: './index.html',
         inject: true,
         favicon: 'favicon.png',
-        chunksSortMode: 'none',
         xhtml: true,
+      }),
+      new AddAssetHtmlPlugin({
+        filepath: path.resolve(dist, '*.dll.js'),
       }),
     ];
   }
   return [];
 };
 
-const hotPlugins = isHot && nodeEnv === NODE_ENV.development
+const hotPlugins = isHot && env === ENV.development
   ? [
       new webpack.HotModuleReplacementPlugin({
         multiStep: true, // Enable multi-pass compilation for enhanced performance in larger projects.
@@ -390,7 +384,7 @@ module.exports = {
     // inside your code for any environment checks; UglifyJS will automatically
     // drop any unreachable code.
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(nodeEnv),
+      'process.env.NODE_ENV': JSON.stringify(env),
       'process.env.PUBLIC_PATH': JSON.stringify(publicPath),
       'process.env.API_PATH': JSON.stringify(apiPath),
       __DEV__: !isProd

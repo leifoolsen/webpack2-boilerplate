@@ -14,7 +14,7 @@ const dist = path.resolve(process.cwd(), 'dist');
 
 module.exports = {
   context: process.cwd(),
-  devtool: 'eval',
+  devtool: '#source-map',
   target: 'web', // Make web variables accessible to webpack, e.g. window
   resolve: {
     modules: [
@@ -28,12 +28,12 @@ module.exports = {
     ],
   },
   output: {
-    filename: '[name].dll.js',
     path: dist,
+    filename: '[name].dll.js',
 
     // The name of the global variable which the library's
     // require() function will be assigned to
-    library: '[name]'
+    library: '[name]_[hash]'
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -44,12 +44,12 @@ module.exports = {
       // The path to the manifest file which maps between
       // modules included in a bundle and the internal IDs
       // within that bundle
-      path: path.join(dist, '[name].json'),
+      path: path.join(dist, '[name].dll.manifest.json'),
 
       // The name of the global variable which the library's
       // require function has been assigned to. This must match the
       // output.library option above
-      name: '[name]',
+      name: '[name]_[hash]',
     }),
   ],
   performance: {
