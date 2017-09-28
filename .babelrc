@@ -1,9 +1,7 @@
 {
   "plugins": [
-    "syntax-async-functions",
     "syntax-dynamic-import",
-    "transform-async-to-generator",
-    "transform-regenerator",
+    "transform-object-rest-spread",
     "transform-runtime"
   ],
   "presets": [
@@ -11,14 +9,13 @@
       "env",
       {
         "targets": {
-          "browsers": [
-            "last 2 versions",
-            "ie >= 11"
-          ]
-        }
+          "node": "current",
+          "uglify": true
+        },
+        "useBuiltIns": true,
+        "debug": false
       }
-    ],
-    "stage-0"
+    ]
   ],
   "env": {
     "test": {

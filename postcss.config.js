@@ -7,12 +7,7 @@ const isDev = process.env.NODE_ENV !== 'production';
 module.exports = {
   plugins: [
     require('precss')({ /* ...options */ }),
-    require('autoprefixer')({
-      browsers: [
-        'last 2 versions',
-        'ie >= 11',
-      ],
-    })
+    require('autoprefixer')({ /* ...options */ })
   ].concat(isDev ? [
     require('postcss-reporter')(),
     require('postcss-browser-reporter')(),
