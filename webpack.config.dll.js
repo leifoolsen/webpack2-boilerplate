@@ -7,7 +7,6 @@
 // See: https://engineering.bitnami.com/articles/optimizing-your-webpack-builds.html
 
 
-require('babel-register');
 const webpack = require('webpack');
 const path = require('path');
 const dist = path.resolve(process.cwd(), 'dist');

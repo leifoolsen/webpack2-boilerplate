@@ -1,7 +1,5 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-require("babel-register");
-
 const chalk = require('chalk');
 const path = require('path');
 const fs = require('fs');

@@ -145,8 +145,7 @@
     "test:pattern": "npm run test:single -- --grep $pattern \"./test/unit/**/*.spec.js\"",
     "test:proxy-example": "cross-env NODE_ENV=test mocha --env.dev --proxy --opts ./mocha.opts \"./test/integration/proxy/proxy-example.js\"",
     "wdio": "cross-env NODE_ENV=test cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 wdio ./test/wdio.conf.js --env.prod",
-    "server": "cross-env NODE_ENV=production babel-node ./server",
-    "start": "babel-node ./server --hot",
-    "//build:server": "./node_modules/.bin/babel ./server -s -D -d ./dist/server"
+    "server": "cross-env NODE_ENV=production node ./server",
+    "start": "node ./server --hot"
   }
 }
