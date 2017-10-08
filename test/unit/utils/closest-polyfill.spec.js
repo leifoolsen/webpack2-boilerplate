@@ -72,7 +72,7 @@ describe('closest', () => {
   describe('matches polyfill', () => {
     it('should match class="foo"', () => {
       const p = document.querySelector('.foo');
-      expect(p.matches('.foo')).to.be.true; // eslint-disable-line no-unused-expressions
+      expect(p.matches('.foo')).to.equal(true); // eslint-disable-line no-unused-expressions
     });
   });
 
@@ -80,13 +80,13 @@ describe('closest', () => {
     it('should have parent with tagName section', () => {
       const p = document.querySelector('article p');
       const section = p.closest('section');
-      expect(section).to.not.be.null; // eslint-disable-line no-unused-expressions
+      expect(section).to.not.equal(null); // eslint-disable-line no-unused-expressions
     });
 
     it('should have no parent with given tagName', () => {
       const p = document.querySelector('section p');
       const article = p.closest('article');
-      expect(article).to.be.null; // eslint-disable-line no-unused-expressions
+      expect(article).to.equal(null); // eslint-disable-line no-unused-expressions
     });
 
     it('should find self', () => {

@@ -7,20 +7,20 @@ import isString from '../../../src/utils/is-string';
 describe('isstring', () => {
 
   it('should return true if value is a string', () => {
-    expect(isString('ABC')).to.be.true;
-    expect(isString(new String('def'))).to.be.true;
+    expect(isString('ABC')).to.equal(true);
+    expect(isString(new String('def'))).to.equal(true);
   });
 
   it('should return false if value is not a string', () => {
-    expect(isString(['foo'])).to.be.false;
-    expect(isString(function () {})).to.be.false;
-    expect(isString(101)).to.be.false;
-    expect(isString({})).to.be.false;
-    expect(isString(/re/)).to.be.false;
-    expect(isString(true)).to.be.false;
-    expect(isString(null)).to.be.false;
-    expect(isString(undefined)).to.be.false;
-    expect(isString(new Number(101))).to.be.false;
+    expect(isString(['foo'])).to.equal(false);
+    expect(isString(function () {})).to.equal(false);
+    expect(isString(101)).to.equal(false);
+    expect(isString({})).to.equal(false);
+    expect(isString(/re/)).to.equal(false);
+    expect(isString(true)).to.equal(false);
+    expect(isString(null)).to.equal(false);
+    expect(isString(undefined)).to.equal(false);
+    expect(isString(new Number(101))).to.equal(false);
   });
 
 });
