@@ -38,7 +38,7 @@ describe('Express server', () => {
 
 
   // Stop server
-  after((done) => {
+  after( done => {
     if (server.handle) {
       server.stop(done);
     }
