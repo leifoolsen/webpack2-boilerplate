@@ -1,0 +1,25 @@
+{
+  "apiPath" : "/api",
+  "server": {
+    "host": "localhost",
+    "port": 8082,
+    "compress": false,
+    "contentBase": "src",
+    "publicPath": "/",
+    "historyApiFallback": {
+      "verbose": true,
+      "disableDotRule": false
+    },
+    "proxy": {
+      "/api": {
+        "target": "http://localhost:8010",
+        "changeOrigin": true
+      }
+    }
+  },
+  "logger": {
+    "console": {
+      "level": "debug"
+    }
+  }
+}

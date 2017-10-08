@@ -1,44 +1,43 @@
-// Copy from: https://github.com/mxstbr/react-boilerplate
-// Copyright (c) 2016 Maximilian Stoiber. For more information see LICENSE.md.
+// Use Winston as a console logger
 
+import winston from 'winston';
 
-/* eslint-disable no-console */
+// Set up logger
+const logger = new (winston.Logger)({
+  levels: {
+    // RFC5424 syslog levels
+    // https://tools.ietf.org/html/rfc5424
+    emerg:  0, // system is unusable
+    alert:  1, // action must be taken immediately
+    crit:   2, // action must be taken immediately
+    error:  3, // error conditions
+    warn:   4, // warning conditions
+    notice: 5, // normal but significant condition
+    info:   6, // informational condition
+    debug:  7, // debug condition
 
-const chalk = require('chalk');
-const ip = require('ip');
-
-const divider = chalk.gray('\n---------------------------------------------------------');
-
-/**
- * Logger middleware, you can customize it to make messages more personal
- */
-export default {
-
-  log: (...msg) => {
-    console.log(chalk.white(...msg));
   },
+  transports: [
+    new (winston.transports.Console)({
+      level: 'info',
+      colorize: true,
+      timestamp: () => (new Date()).toISOString(),
+    }),
+  ]
+});
 
-  info: (...msg) => {
-    console.info(chalk.green(...msg));
-  },
+// To change log level do:
+// logger.transports.console.level = 'info';
 
-  // Called whenever there's an error on the server we want to print
-  error: (...err) => {
-    console.error(chalk.red(...err));
-  },
+/*
+logger.emerg ('EMERGENCY LOG, system is unusable');
+logger.alert ('ALERT LOG, action must be taken immediately');
+logger.crit  ('CRIT LOG, action must be taken immediately');
+logger.error ('ERROR LOG, error conditions');
+logger.warn  ('WARNING LOG, warning conditions');
+logger.notice('NOTICE LOG, normal but significant condition');
+logger.info  ('INFO LOG, informational condition');
+logger.debug ('DEBUG LOG, debug condition');
+*/
 
-  // Called when express.js app starts on given port w/o errors
-  serverStarted: (port, proxyPort = null, publicPath = '/', isHot = false) => {
-    console.log(`${isHot ? 'HMR ' : ''}Server started ${chalk.green('✓')}`);
-
-    console.log(`
-${chalk.bold('Access URLs:')}${divider}
-Localhost: ${chalk.magenta(`http://localhost:${port}${publicPath}`)}
-      LAN: ${chalk.magenta(`http://${ip.address()}:${port}${publicPath}`) +
-    (proxyPort ? `\n    Proxy: ${chalk.magenta(`http://localhost:${proxyPort}${publicPath}`)}` : '')}${divider}
-${chalk.blue(`Press ${chalk.italic('CTRL-C')} to stop`)}
-    `);
-  },
-
-};
-
+export default logger;

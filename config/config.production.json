@@ -1,0 +1,16 @@
+{
+  "server": {
+    "port": 8000,
+    "contentBase": "dist",
+    "compress": true,
+    "historyApiFallback": {
+      "verbose": false
+    }
+
+  },
+  "logger": {
+    "console": {
+      "level": "info"
+    }
+  }
+}

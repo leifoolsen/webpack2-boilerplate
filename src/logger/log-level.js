@@ -1,4 +1,5 @@
 const LOG_LEVEL = {
+  // RFC5424 syslog levels
   // https://tools.ietf.org/html/rfc5424
   silent:   -1, // no logging
   emergency: 0, // system is unusable

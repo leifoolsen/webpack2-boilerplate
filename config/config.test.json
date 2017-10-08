@@ -1,0 +1,13 @@
+{
+  "server": {
+    "port": 8082,
+    "historyApiFallback": {
+      "verbose": false
+    }
+  },
+  "logger": {
+    "console": {
+      "level": "error"
+    }
+  }
+}

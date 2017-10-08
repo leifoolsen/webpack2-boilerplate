@@ -1,5 +1,7 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
+import config from './config';
+
 const chalk = require('chalk');
 const path = require('path');
 const fs = require('fs');
@@ -9,61 +11,24 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-/*
- * Configuration:
- * NODE_ENV: 'test' || 'development' || 'production'
- *
- * argv (NODE_ENV flags):
- *   --hot
- *   --env.dev
- *   --env.prod
- *
- * NODE_ENV + argv flags combined:
- *   'test' + (env.dev || env.prod)
- *   'development' + ('' || hot)
- *   'production' + ''
- *
- * isDev  = NODE_ENV === 'development' || (NODE_ENV === 'test' && !env.prod);
- * isProd = NODE_ENV === 'production'  || (NODE_ENV === 'test' && env.prod);
- *
- * config.default.json + (config.test.json || config.development.json || config.production.json)
- *
- */
-
-const ENV = {
-  test: 'test',
-  development: 'development',
-  production: 'production'
-};
-
-const nodeEnv = process.env.NODE_ENV;
-const appCfg = require('nconf');
-appCfg
-  .argv()
-  .env()
-  .file( nodeEnv, { file: path.resolve(process.cwd(), `config.${nodeEnv}.json`) })
-  .file( 'default', { file: path.resolve(process.cwd(), 'config.default.json') })
-  .load();
-
-// isDev and isProd must not be true at the same time
-const isDev = nodeEnv === ENV.development || (nodeEnv === ENV.test && !appCfg.get('env:prod'));
-const isProd = nodeEnv === ENV.production || (nodeEnv === ENV.test && appCfg.get('env:prod')) || false;
-const isHot = (nodeEnv === ENV.development && appCfg.get('hot')) || false;
-const host = appCfg.get('server').host;
-const port = appCfg.get('server').port;
-const publicPath = appCfg.get('server').publicPath;
-const apiPath = appCfg.get('server').apiPath;
-const isProxy = appCfg.get('proxy') || false;
+const { isHot, isDev, isProd, apiPath } = config;
+const { publicPath } = config.server;
 const src = path.resolve(process.cwd(), 'src');
 const dist = path.resolve(process.cwd(), 'dist');
 const context = src;
 
 // NOTE: Comment out "console.log" before executing "npm run analyze"
 //eslint-disable-next-line no-console
-console.log('Webpack config:', 'NODE_ENV:', nodeEnv,
-  'isProd:', isProd, 'isDev:', isDev,
-  'isHot:', isHot, 'public path:', publicPath,
-  'API path:', apiPath, 'proxy:', isProxy);
+console.log('webpack:',
+  `NODE_ENV: "${process.env.NODE_ENV}",`,
+  `isProd: ${config.isProd},`,
+  `isDev: ${config.isDev},`,
+  `isTest: ${config.isTest},`,
+  `isHot: ${config.isHot},`,
+  `loglevel: "${config.logger.console.level}",`,
+  `public: "${publicPath}",`,
+  `api: "${apiPath}"`);
+
 
 //const removeEmpty = array => array.filter(i => !!i);
 
@@ -115,7 +80,7 @@ const devPlugins = () => {
   return [];
 };
 
-const hotPlugins = isHot && nodeEnv === ENV.development
+const hotPlugins = isHot
   ? [
       new webpack.HotModuleReplacementPlugin({
         multiStep: true, // Enable multi-pass compilation for enhanced performance in larger projects.
@@ -382,7 +347,7 @@ module.exports = {
     // inside your code for any environment checks; UglifyJS will automatically
     // drop any unreachable code.
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(nodeEnv),
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       'process.env.PUBLIC_PATH': JSON.stringify(publicPath),
       'process.env.API_PATH': JSON.stringify(apiPath),
       __DEV__: !isProd
@@ -444,33 +409,4 @@ module.exports = {
 
   ].concat(devPlugins()).concat(hotPlugins).concat(prodPlugins),
 
-  // Config options:
-  // see: https://webpack.github.io/docs/webpack-dev-server.html
-  // see: https://webpack.js.org/configuration/dev-server/
-  // see: https://github.com/webpack/webpack-dev-middleware
-  // see: https://github.com/chimurai/http-proxy-middleware
-  // see: https://github.com/bripkens/connect-history-api-fallback
-  // NOTE: Only use options that are compatible with webpack-dev-middleware
-  devServer: {
-    host: host,
-    port: port,
-    publicPath: publicPath,
-    contentBase: context,
-    hot: isHot,
-    compress: true,
-    open: true,
-    noInfo: true,
-    stats: 'errors-only',
-    inline: true,
-    lazy: false,
-    headers: {'Access-Control-Allow-Origin': '*'},
-    watchOptions: {
-      aggregateTimeout: 300,
-      poll: 1000
-    },
-    historyApiFallback: {
-      verbose: isHot,
-      disableDotRule: false,
-    },
-  }
 };

@@ -6,7 +6,8 @@
   "main": "webpack.config.babel.js",
   "engineStrict": true,
   "engines": {
-    "node": ">= 6"
+    "node": ">=6.11.3",
+    "npm": ">=3.10.0"
   },
   "repository": {
     "type": "git",
@@ -47,7 +48,7 @@
     "eslint-loader": "1.9.0",
     "eslint-plugin-compat": "1.0.4",
     "exports-loader": "0.6.4",
-    "express": "4.15.5",
+    "express": "4.16.1",
     "extract-text-webpack-plugin": "2.1.2",
     "file-loader": "0.11.2",
     "html-loader": "0.5.1",
@@ -91,7 +92,8 @@
     "webpack": "2.6.1",
     "webpack-bundle-size-analyzer": "2.7.0",
     "webpack-dev-middleware": "1.12.0",
-    "webpack-hot-middleware": "2.19.1"
+    "webpack-hot-middleware": "2.19.1",
+    "winston": "2.4.0"
   },
   "browserslist": [
     "last 2 versions",
@@ -101,12 +103,10 @@
     "Webpack2",
     "Webpack",
     "JavaScript",
-    "ES6",
-    "ES2015",
-    "ECMASCRIPT 2015",
-    "ES7",
-    "ES2016",
-    "ECMASCRIPT 2016",
+    "es6",
+    "es2015",
+    "es2016",
+    "es2017",
     "Babel",
     "SASS",
     "SASS Boilerplate",
@@ -114,6 +114,8 @@
     "Chai",
     "Istanbul",
     "Node Express",
+    "Winston",
+    "nconf",
     "Cucumber",
     "WebdriverIO"
   ],
@@ -148,6 +150,6 @@
     "test:proxy-example": "cross-env NODE_ENV=test mocha --env.dev --proxy --opts ./mocha.opts \"./test/integration/proxy/proxy-example.js\"",
     "wdio": "cross-env NODE_ENV=test cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 wdio ./test/wdio.conf.js --env.prod",
     "server": "cross-env NODE_ENV=production node ./server",
-    "start": "node ./server --hot"
+    "start": "cross-env NODE_ENV=development node ./server --hot"
   }
 }

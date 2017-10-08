@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable consistent-return */
 
-import path from 'path';
-import server from '../../../server';
+import request from 'supertest';
+import config from '../../../config';
+import server from '../../../server/server';
 import joinUrl from '../../../src/utils/join-url';
 
 const describe = require('mocha').describe;
@@ -10,33 +11,29 @@ const before = require('mocha').before;
 const after = require('mocha').after;
 const it = require('mocha').it;
 const expect = require('chai').expect;
-const config = require('nconf');
 
 // See: https://mrvautin.com/ensure-express-app-started-before-tests/
 // See: http://developmentnow.com/2015/02/05/make-your-node-js-api-bulletproof-how-to-test-with-mocha-chai-and-supertest/
 // See: https://blog.codeship.com/testing-http-apis-supertest/
-describe('Express server', () => {
+// See: https://github.com/vmasto/express-babel
 
-  config
-    .argv()
-    .env()
-    .file( 'test', { file: path.resolve(process.cwd(), 'config.test.json') })
-    .file( 'default', { file: path.resolve(process.cwd(), 'config.default.json') })
-    .load();
+describe('Express server', () => {
 
   // Start server
   before( function (done) {
+    //       ^-- Can't use fat arrow. Need access to this
 
     // webpack may take more than 2000ms to compile
-    this.timeout(10000);
-
-    server.start();
+    this.timeout(20000);
 
     server.app.on('serverStarted', () => {
       done();
       expect(server.handle).to.not.equal(null);
-      expect(server.handle.address()).to.be.an('object');
+      expect(server.handle).to.be.an('object');
     });
+
+    // TODO: Figure out how to run integration tests without webpack
+    server.start();
   });
 
 
@@ -53,93 +50,66 @@ describe('Express server', () => {
   describe('Starting and stopping', () => {
     it('should have an Express server up and running', () => {
       expect(server.handle).to.not.equal(null);
-      expect(server.handle.address()).to.be.an('object');
+      expect(server.handle).to.be.an('object');
     });
   });
 
   describe('Request/Response', () => {
-    const request = require('supertest');
     const agent = request.agent(server.app);
 
-    describe('Public path', () => {
+    describe(`Public path "${config.server.publicPath}"`, () => {
 
-      it('should load index.html, .end() version', (done) => {
-        agent
-          .get(config.get('server').publicPath)
-          .set('Accept', 'text/html')
-          .expect('Content-Type', /text/)
-          .expect(200)
-          .end((err, res) => {
-            if(err) {
-              return done(err);
-            }
-            // NOTE: The AssertionError should be handled to avoid
-            // an Uncaught AssertionError to "bubble" to server
-            try {
-              expect(res.text).to.include('<!DOCTYPE html>');
-            }
-            catch(ae) {
-              return done(ae);
-            }
-            done();
-          });
-      });
-
-      it('should load index.html, .then/.catch version', (done) => {
-        agent
-          .get(config.get('server').publicPath)
+      it('should render index.html', async() => {
+        await agent
+          .get(config.server.publicPath)
           .set('Accept', 'text/html')
           .expect('Content-Type', /text/)
           .expect(200)
           .then(res => {
             expect(res.text).to.include('<!DOCTYPE html>');
-            done();
-          })
-          .catch(done);
-      });
-    });
-
-    describe('API', () => {
-
-      it('responds to /api/ping with 200, .end() version', (done) => {
-        agent
-          .get(joinUrl(config.get('server').apiPath, 'ping'))
-          .set('Accept', 'application/json')
-          .expect('Content-Type', /json/)
-          .expect(200)
-          .end((err, res) => {
-            if (err) {
-              return done(err);
-            }
-            try {
-              expect(res.body.ping).to.equal('pong!');
-            }
-            catch(ae) {
-              return done(ae);
-            }
-            done();
           });
       });
 
-      it('responds to /api/ping with 200, .then/catch version', (done) => {
-        agent
-          .get(joinUrl(config.get('server').apiPath, 'ping'))
+      it(`should render index.html when request url is "${joinUrl(config.server.publicPath, 'foo')}"`, async() => {
+        await agent
+          .get(joinUrl(config.server.publicPath, 'foo'))
+          .set('Accept', 'text/html')
+          .expect('Content-Type', /text/)
+          .expect(200)
+          .then(res => {
+            expect(res.text).to.include('<!DOCTYPE html>');
+          });
+      });
+    });
+
+    describe(`${config.apiPath}`, () => {
+
+      it('/ping should return "pong"', async() => {
+        await agent
+          .get(joinUrl(config.apiPath, 'ping'))
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
           .expect(200)
           .then(res => {
-            expect(res.body.ping).to.equal('pong!');
-            done();
-          })
-          .catch(done);
+            expect(res.body.message).to.equal('pong!');
+          });
       });
 
-      it('responds to /api/foobar with 404', (done) => {
-        agent
-          .get(joinUrl(config.get('server').apiPath, 'foobar'))
+      it('should post message to /log', async() => {
+        await agent
+          .post(joinUrl(config.apiPath, 'log'))
           .set('Accept', 'application/json')
-          .expect(404)
-          .end(done);
+          .send({
+            level: 'debug', message: 'An error message'
+          })
+          .expect(200);
+      });
+
+      it('should return 404 for non-existent URL: /foobar', async() => {
+        await agent
+          .get(joinUrl(config.apiPath, 'foobar'))
+          .set('Accept', 'application/json')
+          .expect(404);
       });
     });
   });
