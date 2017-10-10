@@ -24,7 +24,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 import path from 'path';
 
-const url = (scheme, host, port = '') => `${scheme}://${host}${port ? ':'+port : ''}`;
+const toURL = (scheme, host, port = '') => `${scheme}://${host}${port ? ':'+port : ''}`;
 
 const ENV = {
   test: 'test',
@@ -51,7 +51,7 @@ const isHot = (nodeEnv === ENV.development && nconf.get('hot')) || false;
 const logger = nconf.get('logger');
 const server = nconf.get('server');
 server.contentBase = path.resolve(process.cwd(), server.contentBase);
-server.url = url('http', server.host, server.port);
+server.url = toURL('http', server.host, server.port);
 
 //
 // proxy breakdown
