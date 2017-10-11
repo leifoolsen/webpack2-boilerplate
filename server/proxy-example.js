@@ -18,7 +18,7 @@ const apiServer = {
 
   get handle() { return handle; },
 
-  start: () => {
+  start: (done = () => {}) => {
     if (handle === null) {
       handle = app.listen(8010, 'localhost', (err) => {
         if (err) {
@@ -27,17 +27,25 @@ const apiServer = {
         }
         else {
           console.log('API server stared @ http://localhost:8010'); // eslint-disable-line no-console
-          app.emit('apiStarted');
+          done();
         }
       });
+    }
+    else {
+      done();
     }
   },
 
   stop: (done = () => {}) => {
     if (handle) {
-      handle.close(done);
-      handle = null;
-      console.log('API Server stopped'); // eslint-disable-line no-console
+      handle.close((err) => {
+        handle = null;
+        console.log('API Server stopped', err ? err : ''); // eslint-disable-line no-console
+        done();
+      });
+    }
+    else {
+      done();
     }
   },
 };

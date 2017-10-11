@@ -26,25 +26,24 @@ describe('Express server', () => {
     // webpack may take more than 2000ms to compile
     this.timeout(20000);
 
-    server.app.on('serverStarted', () => {
+    // TODO: Figure out how to run integration tests without webpack
+    server.start(() => {
       done();
       expect(server.handle).to.not.equal(null);
       expect(server.handle).to.be.an('object');
     });
-
-    // TODO: Figure out how to run integration tests without webpack
-    server.start();
   });
 
 
   // Stop server
   after( done => {
-    if (server.handle) {
-      server.stop(done);
-    }
-    else {
+    server.stop(() => {
       done();
-    }
+
+      // mocha-4.0.1 hangs if I do not call process.exit.
+      // mocha-3.5.3 did not need this to exit tests.
+      process.exit(0);
+    });
   });
 
   describe('Starting and stopping', () => {

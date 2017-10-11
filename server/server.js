@@ -1,3 +1,4 @@
+import 'core-js/es6/promise';
 import chalk from 'chalk';
 import config from '../config';
 import logger from './logger';
@@ -9,15 +10,28 @@ const parseURL = url => {
   const pattern = new RegExp('^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?');
   const matches = url.match(pattern);
   const [ host, port = '' ] = matches[4].split(':'); // authority, e.g. localhost:80
-
   return {
     scheme: matches[2],
     host: host,
     port: port,
+    authority: matches[4],
     path: matches[5],
     query: matches[7],
     fragment: matches[9]
   };
+};
+
+const devMiddlewareCheck = (done) => {
+  if (devMiddleware) {
+    // Wait for devMiddleware to finish before starting server
+    devMiddleware.waitUntilValid(() => {
+      logger.debug('webpack is in a valid state ' + `${chalk.green('✓')}`);
+      done();
+    });
+  }
+  else {
+    done();
+  }
 };
 
 const pingProxy = (target) => {
@@ -25,7 +39,9 @@ const pingProxy = (target) => {
   const url = parseURL(target);
 
   ping(url.host, url.port)
-    .then(time => logger.debug(`Proxy response time: ${time}ms`))
+    .then(time => {
+      logger.debug(`Proxy: ${url.authority}. Response time: ${time}ms`);
+    })
     .catch(error => {
       logger.error(`Could not connect to: ${target}. Error: ${error}\n` +
         'Try to restart the proxy server');
@@ -33,11 +49,8 @@ const pingProxy = (target) => {
     });
 };
 
+const proxyCheck = () => {
 
-// Server handle
-let handle = null;
-
-const startServer = () => {
   if(config.proxy) {
     if (Array.isArray(config.proxy)) {
       config.proxy.forEach( p => {
@@ -48,8 +61,17 @@ const startServer = () => {
       pingProxy(config.proxy.options.target);
     }
   }
+};
+
+
+
+// Server handle
+let handle = null;
+
+const startServer = (done) => {
 
   if (handle === null) {
+    // Start server
     const {host, port} = config.server;
 
     handle = app.listen(port, host, (err) => {
@@ -59,12 +81,13 @@ const startServer = () => {
       }
       else {
         infoServerStarted();
+        done();
       }
     });
   }
-  // In integration tests we'll wait for the
-  // serverStarted event to fire before running tests.
-  app.emit('serverStarted');
+  else {
+    done();
+  }
 };
 
 const server = {
@@ -73,26 +96,27 @@ const server = {
 
   get handle() { return handle; },
 
-  start: () => {
-    // Server should wait for devMiddleware to finish before starting
-    if (devMiddleware) {
-      devMiddleware.waitUntilValid(() => {
-        logger.debug('webpack is in a valid state ' + `${chalk.green('✓')}`);
-        startServer();
-      });
-    }
-    else {
-      startServer();
-    }
+  start: (done = () => {}) => {
+    // Integration tests should wait for
+    // the callback before running tests.
+    devMiddlewareCheck(() => {
+      proxyCheck();
+      startServer(done);
+    });
   },
 
   stop: (done = () => {}) => {
-    // Integration tests can stop the server
-    // after a test suite is completed
+    // Integration tests should stop the server
+    // after tests are completed
     if (handle) {
-      handle.close(done);
-      handle = null;
-      logger.info('Server stopped');
+      handle.close((err) => {
+        handle = null;
+        logger.info('Server stopped', err ? err : '');
+        done();
+      });
+    }
+    else {
+      done();
     }
   },
 };

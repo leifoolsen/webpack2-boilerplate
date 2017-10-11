@@ -23,29 +23,24 @@ describe('Proxy to API server example', () => {
     // Fail if starting the servers takes more than 20s
     this.timeout(20000);
 
-    apiServer.app.on('apiStarted', () => {
-
-      server.app.on('serverStarted', () => {
+    apiServer.start(() => {
+      server.start(() => {
         done();
       });
-
-      server.start();
     });
-
-    apiServer.start();
   });
 
-  // Stop server
+  // Stop servers
   after((done) => {
-    if (server.handle) {
-      server.stop();
-    }
-    if (apiServer.handle) {
-      apiServer.stop(done);
-    }
-    else {
-      done();
-    }
+    server.stop(() => {
+      apiServer.stop(() => {
+        done();
+
+        // mocha-4.0.1 hangs if I do not call process.exit.
+        // mocha-3.5.3 did not need this to exit tests.
+        process.exit(0);
+      });
+    });
   });
 
   it('/api/ping should return "pong"', async() => {
