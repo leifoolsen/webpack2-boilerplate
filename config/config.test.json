@@ -7,7 +7,7 @@
   },
   "logger": {
     "console": {
-      "level": "error"
+      "level": "info"
     }
   }
 }

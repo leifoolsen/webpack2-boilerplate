@@ -47,7 +47,7 @@ if (config.proxy) {
     app.use(proxy(proxyConfig.context, {
       ...proxyConfig.options,
       onProxyReq(req) {
-        logger.info(`Proxying to: ${req.path}`);
+        logger.info(`Proxy to: ${req.path}`);
       }
     }));
   };
