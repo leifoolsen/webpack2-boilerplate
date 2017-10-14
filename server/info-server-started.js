@@ -4,7 +4,7 @@ import chalk from 'chalk';
 import config from '../config';
 import logger from './logger';
 
-const { isHot, apiPath, server, proxy } = config;
+const { isTest, isHot, apiPath, server, proxy } = config;
 
 const infoServerStarted = () => {
 
@@ -22,7 +22,7 @@ const infoServerStarted = () => {
     '       Proxy: ' + (proxy ? chalk.magenta(`${proxy.options.target}${proxy.context}\n`) : 'false\n') +
     `Content base: ${server.contentBase}\n` +
     divider +
-    chalk.blue(`Press ${chalk.italic('CTRL-C')} to stop)`);
+    (isTest ? '' : chalk.blue(`Press ${chalk.italic('CTRL-C')} to stop)`));
 
   logger.info(info); // eslint-disable-line no-console
 };

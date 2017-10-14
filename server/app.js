@@ -107,48 +107,35 @@ if (config.isDev || config.isTest) {
   webpackCompiler.apply(new webpack.ProgressPlugin());
 
   // Step 2: Attach the dev middleware to the compiler & the server
+  // Config options:
+  //   see: https://github.com/webpack/webpack-dev-middleware
+  //   see: https://webpack.js.org/configuration/dev-server/
+  //   see: https://webpack.js.org/configuration/stats/
+  //   see: https://webpack.github.io/docs/webpack-dev-server.html
+  //   see: https://github.com/chimurai/http-proxy-middleware
+  //   see: https://github.com/bripkens/connect-history-api-fallback
+  //   NOTE: Only use options compatible with webpack-dev-middleware
   const webpackDevMiddleware = require('webpack-dev-middleware'); // eslint-disable-line global-require
 
-  // Config options:
-  // see: https://webpack.github.io/docs/webpack-dev-server.html
-  // see: https://webpack.js.org/configuration/dev-server/
-  // see: https://github.com/webpack/webpack-dev-middleware
-  // see: https://github.com/chimurai/http-proxy-middleware
-  // see: https://github.com/bripkens/connect-history-api-fallback
-  // NOTE: Only use options compatible with webpack-dev-middleware
   devMiddleware = webpackDevMiddleware(webpackCompiler, {
-    publicPath: config.server.publicPath,
-    contentBase: config.server.contentBase,
+    publicPath: webpackConfig.output.publicPath,
     hot: config.isHot,
-    compress: config.server.compress || false,
     noInfo: true,
     stats: {
+      errors: true,
       colors: true,
     },
-    inline: true,
-    lazy: false,
-    headers: {'Access-Control-Allow-Origin': '*'},
-    watchOptions: {
-      aggregateTimeout: 300,
-      poll: 1000
-    },
-    open: true,
   });
   app.use(devMiddleware);
 
+  // Step 3: Attach the hot middleware to the compiler & the server
+  // Config options:
+  //   See: https://github.com/glenjamin/webpack-hot-middleware
   if (config.isHot) {
-    // Step 3: Attach the hot middleware to the compiler & the server
-    // See: https://github.com/glenjamin/webpack-hot-middleware
-    const webpackHotMiddleware = require('webpack-hot-middleware'); // eslint-disable-line global-require
-    const hotMiddleware = webpackHotMiddleware(webpackCompiler, {
-      path: '/__webpack_hmr'
-      // You can use full urls, like:
-      // path: `http://${host}:${port}${publicPath}/__webpack_hmr`
-      // Remember to update webpack-hot-middleware in ../webpack-config.babel
-    });
-    app.use(hotMiddleware);
+    app.use(require('webpack-hot-middleware')(webpackCompiler));
   }
 
+  // Add public path after step 3
   app.use(config.server.publicPath, express.static(config.server.contentBase));
 
   // Since webpackDevMiddleware uses memory-fs internally to store build

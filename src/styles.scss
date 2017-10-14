@@ -1,39 +1,32 @@
 @charset "UTF-8";
 
 // 1. Configuration and helpers
-@import
-  'stylesheets/abstracts/variables',
-  'stylesheets/abstracts/functions',
-  'stylesheets/abstracts/mixins';
+@import 'stylesheets/abstracts/variables';
+@import 'stylesheets/abstracts/functions';
+@import 'stylesheets/abstracts/mixins';
 
 // 2. Vendors
-@import
-  'stylesheets/vendor/normalize',
-  '~material-design-icons/iconfont/material-icons',
-  'stylesheets/vendor/material-icons-overrides',
-  '~roboto-fontface/css/roboto/sass/roboto-fontface-light';
+@import 'stylesheets/vendor/normalize';
+@import '~material-design-icons/iconfont/material-icons';
+@import 'stylesheets/vendor/material-icons-overrides';
+@import '~roboto-fontface/css/roboto/sass/roboto-fontface-light';
 
 // 3. Base stuff
-@import
-  'stylesheets/base/base',
-  'stylesheets/base/fonts',
-  'stylesheets/base/typography',
-  'stylesheets/base/helpers';
+@import 'stylesheets/base/base';
+@import 'stylesheets/base/fonts';
+@import 'stylesheets/base/typography';
+@import 'stylesheets/base/helpers';
 
 // 4. Layout-related sections
-@import
-  'stylesheets/layout/layout',
-  'stylesheets/layout/header',
-  'stylesheets/layout/footer';
+@import 'stylesheets/layout/layout';
+@import 'stylesheets/layout/header';
+@import 'stylesheets/layout/footer';
 
 // 5. Components
-@import
-  'stylesheets/components/button';
+@import 'stylesheets/components/button';
 
 // 6. Page-specific styles
-@import
-  'stylesheets/pages/home';
+@import 'stylesheets/pages/home';
 
 // 7. Themes
-@import
-  'stylesheets/themes/default';
+@import 'stylesheets/themes/default';

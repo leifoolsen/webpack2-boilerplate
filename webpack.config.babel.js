@@ -1,21 +1,23 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
+import chalk from 'chalk';
+import fs from 'fs';
+import path from 'path';
 import config from './config';
 
-const chalk = require('chalk');
-const path = require('path');
-const fs = require('fs');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const { isHot, isDev, isProd, apiPath } = config;
 const { publicPath } = config.server;
 const src = path.resolve(process.cwd(), 'src');
 const dist = path.resolve(process.cwd(), 'dist');
-const context = src;
+const node_modules = path.resolve(process.cwd(), 'node_modules');
+
+const cssModules = false;
 
 // NOTE: Comment out "console.log" before executing "npm run analyze"
 //eslint-disable-next-line no-console
@@ -30,8 +32,6 @@ console.log('webpack:',
   `api: "${apiPath}"`);
 
 
-//const removeEmpty = array => array.filter(i => !!i);
-
 const removeEmptyKeys = obj => {
   const result = {};
   for (const key in obj) {
@@ -42,12 +42,57 @@ const removeEmptyKeys = obj => {
   return result;
 };
 
-const devPlugins = () => {
+const plugins = () => {
 
-  if(isDev) {
+  const result = [
+    // Expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
+    // inside your code for any environment checks; UglifyJS will automatically
+    // drop any unreachable code.
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      'process.env.PUBLIC_PATH': JSON.stringify(publicPath),
+      'process.env.API_PATH': JSON.stringify(apiPath),
+      __DEV__: isDev,
+    }),
+
+    new webpack.NoEmitOnErrorsPlugin(),
+
+    new ExtractTextPlugin({
+      filename: isProd ? '[name].[chunkhash].styles.css' : '[name].styles.css',
+      allChunks: true,
+      disable: isHot, // Disable css extracting on development
+      ignoreOrder: cssModules,
+    }),
+
+    new StyleLintPlugin({
+      // https://github.com/vieron/stylelint-webpack-plugin
+      // http://stylelint.io/user-guide/example-config/
+      configFile: path.resolve(process.cwd(), '.stylelintrc'),
+      files: '**/*.s?(a|c)ss',
+      syntax: 'scss',
+      failOnError: isProd
+    }),
+
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        eslint: {
+          failOnError: isProd
+        },
+        context: src, // Required for the sourceMap of css/sass loader
+        debug: isDev,
+        minimize: isProd,
+      },
+    }),
+
+    new CopyWebpackPlugin([
+      { from: 'assets', to: 'assets' }
+    ]),
+  ];
+
+  if (isDev) {
     const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
-    const dllManifest = path.resolve(dist, 'vendor.dll.manifest.json');
-    const indexHTML = path.resolve(src, 'index.html');
+    const dllManifest = path.join(dist, 'vendor.dll.manifest.json');
+    const indexHTML = path.join(src, 'index.html');
 
     if (!fs.existsSync(dllManifest)) {
       console.error(chalk.red(`The DLL manifest "${dllManifest}" is missing.`));
@@ -60,9 +105,9 @@ const devPlugins = () => {
       process.exit(0);
     }
 
-    return [
+    result.push(
       new webpack.DllReferencePlugin({
-        context: process.cwd(),
+        context: dist,
         manifest: require(dllManifest)
       }),
 
@@ -72,25 +117,32 @@ const devPlugins = () => {
         favicon: 'favicon.png',
         xhtml: true,
       }),
+
       new AddAssetHtmlPlugin({
         filepath: path.resolve(dist, '*.dll.js'),
       }),
-    ];
+
+      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    );
   }
-  return [];
-};
 
-const hotPlugins = isHot
-  ? [
+  if (isHot) {
+    result.push(
       new webpack.HotModuleReplacementPlugin({
-        multiStep: true, // Enable multi-pass compilation for enhanced performance in larger projects.
+        multiStep: false, // true: Enable multi-pass compilation for enhanced performance in larger projects.
+                          // NOTE: multiStep: true does not work with webpack3, fails with error:
+                          //       "Server Uncaught Exception  TypeError: Cannot read property 'source' of undefined"
       }),
-    ]
-  : [];
 
-const prodPlugins = isProd
-  ? [
-      // Note: do not use '-p' in "build:prod" script
+      // Prints more readable module names in the browser console on HMR updates
+      new webpack.NamedModulesPlugin(),
+    );
+  }
+
+  if (isProd) {
+    // Note: do not use '-p' in "build:prod" script
+
+    result.push(
 
       // CommonsChunk analyzes everything in your bundles, extracts common bits into files together.
       // See: https://webpack.js.org/plugins/commons-chunk-plugin/
@@ -123,16 +175,6 @@ const prodPlugins = isProd
         },
       }),
 
-      // Merge all duplicate modules
-      // No longer needed; default in webpack2
-      //new webpack.optimize.DedupePlugin(),
-
-      new webpack.LoaderOptionsPlugin({
-        minimize: true,
-        debug: false,
-        quiet: true
-      }),
-
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           unused: true,    // Enables tree shaking
@@ -152,48 +194,79 @@ const prodPlugins = isProd
         },
         sourceMap: true
       }),
-    ]
-  : [];
+    );
+  }
 
-// See: https://github.com/rstacruz/webpack-tricks/blob/master/recipes/css.md
-// See: https://github.com/rstacruz/webpack-starter-kit
-const cssRules = isHot
-  ? [
-      {
-        // Enables HMR. Inlines CSS in html head style tag
-        test: /\.(css|scss)$/,
-        include: [
-          src,
-          path.resolve(process.cwd(), 'node_modules')
-        ],
-        use: [
-          {
-            loader: 'style-loader',
-            options: { sourceMap: true }
-          },
-          {
-            loader: 'css-loader',
+  return result;
+};
 
-            // Uncomment options if you don't want inline CSS (HMR works for both)
-            //options: { url: true, sourceMap: true, importLoaders: 3 }
-          },
-          {
-            loader: 'postcss-loader',
-            options: { sourceMap: 'inline' }
-          },
-          {
-            loader: 'resolve-url-loader'
-          },
-          {
-            loader: 'sass-loader',
-            options: { sourceMap: true }
-          },
-        ]
-      }
+
+module.exports = {
+  name: 'client',
+  target: 'web', // Make web variables accessible to webpack, e.g. window. This is a default value; just be aware of it
+  bail: isProd,  // Don't attempt to continue if there are any errors.
+  context: src,
+  cache: isDev,
+  devtool: isDev ? 'inline-source-map' : 'hidden-source-map',
+  resolve: {
+    modules: [
+      src,
+      'node_modules'
+    ],
+    extensions: [
+      '.js',
+      '.sass',
+      '.scss',
+      '.css',
+      '.html'
     ]
-  : [
+  },
+  entry: removeEmptyKeys({
+    vendor: isProd ? ['./vendor.js'] : [],
+    app: (isHot
+      ? [
+        // set reload=true to auto-reload the page when webpack gets stuck.
+        'webpack-hot-middleware/client?reload=true',
+
+        //'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+        //'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
+        // You can use full urls, like:
+        //`webpack-hot-middleware/client?http://${host}:${port}${publicPath}`
+        // Remember to update path in ./server/index.js - see: Step 3 in ./server/app.js
+      ]
+      : [])
+      .concat([
+        './index.js',
+      ]),
+  }),
+  output: {
+    filename: isProd ? '[name].[chunkhash].js' : '[name].js', // Don't use hashes in dev mode
+    chunkFilename: isProd ? '[name].[chunkhash].chunk.js' : '[name].chunk.js',
+    path: dist,
+    publicPath: publicPath,
+    pathinfo: isDev,
+  },
+  plugins: plugins(),
+  module: {
+    rules: [
       {
-        test: /\.(css|scss)$/,
+        test: /\.js?$/,
+        enforce: 'pre',
+        loader: 'eslint-loader',
+        include: [src],
+        exclude: [/node_modules/],
+      },
+      {
+        test: /\.js?$/,
+        include: [src],
+        exclude: [/node_modules/],
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: isDev
+        }
+      },
+      {
+        test: /\.css$/,
         include: [
           src,
           path.resolve(process.cwd(), 'node_modules')
@@ -203,11 +276,51 @@ const cssRules = isHot
           use: [
             {
               loader: 'css-loader',
-              options: { url: true, sourceMap: true, importLoaders: 3 }
+              options: {
+                url: true,
+                sourceMap: true,
+                importLoaders: 2,
+                modules: cssModules,
+                minimize: isProd
+              }
             },
             {
               loader: 'postcss-loader',
-              options: { sourceMap: true } // { sourceMap: 'inline' } // You can set the sourceMap: 'inline' option to inline the source map within the CSS directly as an annotation comment.
+              options: {
+                sourceMap: true, // You can set the sourceMap: 'inline' option to inline
+                                 // the source map within the CSS directly as an annotation comment.
+              }
+            },
+            {
+              loader: 'resolve-url-loader'
+            },
+          ]
+        })
+      },
+      {
+        test: /\.(scss|sass)$/,
+        include: [
+          src,
+          path.resolve(process.cwd(), 'node_modules')
+        ],
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                url: true,
+                sourceMap: true,
+                importLoaders: 3,
+                modules: cssModules,
+                minimize: isProd }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true, // You can set the sourceMap: 'inline' option to inline
+                                 // the source map within the CSS directly as an annotation comment.
+              }
             },
             {
               loader: 'resolve-url-loader'
@@ -219,194 +332,26 @@ const cssRules = isHot
           ]
         })
       },
-    ];
-
-module.exports = {
-  context: context,
-
-  // Developer tool to enhance debugging
-  // see: https://webpack.js.org/configuration/devtool/#devtool
-  // see: https://github.com/rstacruz/webpack-tricks#source-maps-webpack-2
-  // Redux and eval, see: https://twitter.com/dan_abramov/status/706294608603553793
-  //                    : use devtool: eval for React HMR
-  devtool: isProd ? 'hidden-source-map' : 'source-map',
-
-  // See: https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/35
-  stats: {
-    colors: true,
-    children: false,
-    chunks: false,
-    assetsSort: 'name',
-  },
-  cache:   !isProd,
-  bail:    isProd,  // Don't attempt to continue if there are any errors.
-  target:  'web',   // Make web variables accessible to webpack, e.g. window. This is a default value; just be aware of it
-  resolve: {
-    modules: [
-      'src',
-      'node_modules',
-    ],
-    extensions: ['.js', '.jsx', '.json', '.css', '.sass', '.scss', '.html']
-  },
-  entry: removeEmptyKeys({
-    // Correct bundle order: [manifest, vendor, app]
-    // see: http://stackoverflow.com/questions/36796319/webpack-with-commonschunkplugin-results-with-wrong-bundle-order-in-html-file
-    // see: https://github.com/ampedandwired/html-webpack-plugin/issues/481
-    vendor: isProd ? ['./vendor.js'] : [],
-    app: (isHot
-      ? [
-          // Dynamically set the webpack public path at runtime below
-          // Must be first entry to properly set public path
-          // See: http://webpack.github.io/docs/configuration.html#output-publicpath
-          // NOTE: Not shure if this is really needed. Seems to work OK without
-          //'./webpack-public-path.js',
-
-          //'webpack-hot-middleware/client',
-
-          //'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
-
-          // reload - Set to true to auto-reload the page when webpack gets stuck.
-          'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
-
-          // You can use full urls, like:
-          //`webpack-hot-middleware/client?http://${host}:${port}${publicPath}`
-          // Remember to update path in ./server/index.js - see: Step 3 in ./server/index.js
-        ]
-      : [])
-      .concat([
-        './index.js',
-      ]),
-  }),
-  output: {
-    filename: isProd ? '[name].[chunkhash].js' : '[name].js', // Don't use hashes in dev mode
-    chunkFilename: isProd ? '[name].[chunkhash].chunk.js' : '[name].chunk.js',
-    path: dist,
-    publicPath: publicPath,
-    pathinfo: !isProd,
-    devtoolModuleFilenameTemplate: 'webpack:///[absolute-resource-path]',
-  },
-  performance: {
-    hints: isProd ? 'warning' : false,
-  },
-  module: {
-    rules: [
       {
-        test: /\.js[x]?$/,
-        enforce: 'pre',
-        loader: 'eslint-loader',
-        include: [src],
-        exclude: [/node_modules/],
-      },
-      {
-        test: /\.js[x]?$/,
-        include: [src],
-        exclude: [/node_modules/],
-        loader: 'babel-loader',
-      },
-      {
-        // Enables HMR. Extra step is needed in './src/index.js'
-        test: /\.html$/,
-        loader: 'html-loader', // loader: 'html', // loader: 'raw' // html vs raw: what's the difference??
-      },
-      {
-        test: /\.(jpg|jpeg)$/,
-        loader: 'url-loader?name=[name].[ext]&limit=8192&mimetype=image/jpg'
-      },
-      {
-        test: /\.gif$/,
-        loader: 'url-loader?name=[name].[ext]&limit=8192&mimetype=image/gif'
-      },
-      {
-        test: /\.png$/,
-        use: 'url-loader?name=[name].[ext]&limit=8192&mimetype=image/png'
+        test: /\.(jpg|jpeg|gif|png)$/,
+        loader: 'url-loader?name=[name].[ext]&limit=8192&mimetype=image/[ext]'
       },
       {
         test: /\.svg$/,
-        loader: 'url-loader?name=[name].[ext]&limit=8192&mimetype=image/svg+xml'
+        loader: 'url-loader?name=[name].[ext]&limit=10240&mimetype=image/svg+xml'
       },
       {
-        test: /\.woff?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['url-loader?name=[name].[ext]&limit=100000&mimetype=application/font-woff']
-      },
-      {
-        test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['url-loader?name=[name].[ext]&limit=100000&mimetype=application/font-woff2']
+        test: /\.woff[2]?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: ['url-loader?name=[name].[ext]&limit=10240&mimetype=application/font-[ext]']
       },
       {
         test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['file-loader?name=[name].[ext]&limit=100000&mimetype=application/octet-stream']
+        use: ['file-loader?name=[name].[ext]&limit=10240&mimetype=application/octet-stream']
       },
       {
         test: /\.otf(\?.*)?$/,
-        loader: 'file-loader?name=[name].[ext]&limit=10000&mimetype=font/opentype'
+        loader: 'file-loader?name=[name].[ext]&limit=10240&mimetype=font/opentype'
       },
-    ].concat(cssRules)
+    ]
   },
-  plugins: [
-    // Expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
-    // inside your code for any environment checks; UglifyJS will automatically
-    // drop any unreachable code.
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-      'process.env.PUBLIC_PATH': JSON.stringify(publicPath),
-      'process.env.API_PATH': JSON.stringify(apiPath),
-      __DEV__: !isProd
-    }),
-
-    // Hook into the compiler to extract progress information.
-    //new webpack.ProgressPlugin(),
-
-    new webpack.LoaderOptionsPlugin({
-      // See: https://github.com/postcss/postcss-loader/issues/125
-      // See: http://pastebin.com/Lmka3rju
-      minimize: isProd,
-      debug: !isProd,
-      stats: {
-        colors: true
-      },
-      options: {
-        context: src,
-        output: {
-          path: dist,
-        },
-      },
-      eslint: {
-        failOnWarning: false,
-        failOnError: true
-      },
-    }),
-
-    // Avoid publishing files when compilation fails
-    // Note: NoErrorsPlugin is renamed to NoEmitOnErrorsPlugin
-    new webpack.NoEmitOnErrorsPlugin(),
-
-    // Generate an external css file with a hash in the filename
-    // allChunks: true -> preserve source maps
-    new ExtractTextPlugin({
-      filename: isProd ? '[name].[chunkhash].styles.css' : '[name].styles.css',
-      disable: isHot,
-      allChunks: true,
-    }),
-
-    new StyleLintPlugin({
-      // https://github.com/vieron/stylelint-webpack-plugin
-      // http://stylelint.io/user-guide/example-config/
-      configFile: '.stylelintrc',
-      context: src,
-      files: '**/*.s?(a|c)ss',
-      syntax: 'scss',
-      failOnError: false
-    }),
-
-    new CopyWebpackPlugin([
-      //{ from: 'favicon.png' },
-      { from: 'assets', to: 'assets' }
-    ]),
-
-    // Module ids are full names
-    // Outputs more readable module names in the browser console on HMR updates
-    new webpack.NamedModulesPlugin(),
-
-  ].concat(devPlugins()).concat(hotPlugins).concat(prodPlugins),
-
 };

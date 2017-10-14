@@ -5,19 +5,11 @@
 A Webpack2 boilerplate, partly based on this Egghead.io course; 
 [Using Webpack for Production JavaScript Applications](https://egghead.io/courses/using-webpack-for-production-javascript-applications)
 
-## NOTE
-This boilerplate does not work with webpack3 HMR. 
-If I modify some code, JS or SASS, the following error occurs: 
-"Server Uncaught Exception  TypeError: Cannot read property 'source' of undefined". Need to rip apart the config file
-to figure out the cause of this error.
-
-Other [pending versions](blacklisted-versions.md) 
-
 ## Features
-* ES2015/ES2016
-* Node6 or Node7
+* ES2015/ES2016/ES2017
+* Node6, Node7 and Node8
 * Npm as a task/build runner
-* [Webpack2](https://webpack.js.org/) with tree-shaking and hot module replacement (HMR)
+* [Webpack](https://webpack.js.org/) with tree-shaking and hot module replacement (HMR)
 * Webpack [DLL plugin](https://github.com/webpack/docs/wiki/list-of-plugins#dllplugin) for [faster builds](https://robertknight.github.io/posts/webpack-dll-plugins/)
 * Load polyfills on demand using [dynamic import](https://webpack.js.org/guides/code-splitting-import/#dynamic-import)
 * Node Express middleware

@@ -12,6 +12,7 @@ const path = require('path');
 const dist = path.resolve(process.cwd(), 'dist');
 
 module.exports = {
+  name: 'vendor',
   context: process.cwd(),
   devtool: '#source-map',
   target: 'web', // Make web variables accessible to webpack, e.g. window
