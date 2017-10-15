@@ -22,7 +22,7 @@ const infoServerStarted = () => {
     '       Proxy: ' + (proxy ? chalk.magenta(`${proxy.options.target}${proxy.context}\n`) : 'false\n') +
     `Content base: ${server.contentBase}\n` +
     divider +
-    (isTest ? '' : chalk.blue(`Press ${chalk.italic('CTRL-C')} to stop)`));
+    (isTest ? '' : chalk.blue(`Press ${chalk.italic('CTRL-C')} to stop`));
 
   logger.info(info); // eslint-disable-line no-console
 };
