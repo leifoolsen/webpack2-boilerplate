@@ -133,6 +133,17 @@ if (config.isDev || config.isTest) {
   //   See: https://github.com/glenjamin/webpack-hot-middleware
   if (config.isHot) {
     app.use(require('webpack-hot-middleware')(webpackCompiler));
+
+    /*
+    const webpackHotMiddleware = require('webpack-hot-middleware'); // eslint-disable-line global-require
+    const hotMiddleware = webpackHotMiddleware(webpackCompiler, {
+      path: '/__webpack_hmr'
+      // You can use full urls, like:
+      // path: `http://${host}:${port}${publicPath}/__webpack_hmr`
+      // Remember to update webpack-hot-middleware in ../webpack-config.babel
+    });
+    app.use(hotMiddleware);
+    */
   }
 
   // Add public path after step 3
