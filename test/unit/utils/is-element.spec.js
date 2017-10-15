@@ -18,11 +18,16 @@ describe('is-element', () => {
       expect(isElement(dummy)).to.equal(true);
     });
 
+    /*
+    SVG element is unsupported in JsDom.
+    See: https://github.com/tmpvar/jsdom/issues/1986, See: https://github.com/tmpvar/jsdom/issues/2001
+
     it('SVG Element', () => {
       const dummy = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
       document.body.appendChild(dummy);
       expect(isElement(dummy)).to.equal(true);
     });
+    */
   });
 
   describe('is not a DOM element', () => {
