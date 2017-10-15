@@ -132,6 +132,9 @@ const plugins = () => {
         multiStep: false, // true: Enable multi-pass compilation for enhanced performance in larger projects.
                           // NOTE: multiStep: true does not work with webpack3, fails with error:
                           //       "Server Uncaught Exception  TypeError: Cannot read property 'source' of undefined"
+                          // NOTE: options are experimental and may be deprecated. They are typically not necessary and
+                          //       including a new webpack.HotModuleReplacementPlugin() is enough.
+                          //       See: https://webpack.js.org/plugins/hot-module-replacement-plugin/
       }),
 
       // Prints more readable module names in the browser console on HMR updates
@@ -207,7 +210,7 @@ module.exports = {
   bail: isProd,  // Don't attempt to continue if there are any errors.
   context: src,
   cache: isDev,
-  devtool: isDev ? 'inline-source-map' : 'hidden-source-map',
+  devtool: isProd ? 'hidden-source-map' : 'inline-source-map',  // or 'cheap-module-eval-source-map'
   resolve: {
     modules: [
       src,
