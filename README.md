@@ -1,8 +1,8 @@
-# Webpack2 boilerplate
+# Webpack boilerplate
 
 ![webpack2-boilerplate](./webpack2-boilerplate.png)
 
-A Webpack2 boilerplate, partly based on this Egghead.io course; 
+A Webpack boilerplate, partly based on this Egghead.io course; 
 [Using Webpack for Production JavaScript Applications](https://egghead.io/courses/using-webpack-for-production-javascript-applications)
 
 ## Features
@@ -46,7 +46,7 @@ More details about Husky can be found here:
 * `precommit`: husky run command for the git pre-commit hook
 
 ## Get started
-* Install [Node6 or Node7](https://nodejs.org/en/), preferably using [nvm](https://github.com/creationix/nvm)
+* Install [Node6, Node7 or Node8](https://nodejs.org/en/), preferably using [nvm](https://github.com/creationix/nvm)
 * Optionally install [Yarn](https://yarnpkg.com/en/)
 * Clone this repository: `git clone https://github.com/leifoolsen/webpack2-boilerplate.git` (or download zip)
 * CD to project directory: `cd webpack2-boilerplate`
@@ -468,7 +468,7 @@ catch(err) {
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>React Webpack2</title>
+  <title>React Webpack</title>
 </head>
 <body>
 <main id="app">
@@ -487,5 +487,5 @@ catch(err) {
 ### Start coding React
 Enjoy your React coding :-)
 
-Complete react-webpack2-bolierplate example code can be found 
+Complete react-webpack-bolierplate example code can be found 
 [here](https://github.com/leifoolsen/my-playground/tree/master/react-webpack2-boilerplate)

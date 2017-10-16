@@ -6,10 +6,10 @@
 @import 'stylesheets/abstracts/mixins';
 
 // 2. Vendors
-@import 'stylesheets/vendor/normalize';
-@import '~material-design-icons/iconfont/material-icons';
+//@import 'stylesheets/vendor/normalize'; // moved to vendor.js
+//@import '~material-design-icons/iconfont/material-icons'; // moved to vendor.js
+//@import '~roboto-fontface/css/roboto/sass/roboto-fontface-light'; // moved to vendor.js
 @import 'stylesheets/vendor/material-icons-overrides';
-@import '~roboto-fontface/css/roboto/sass/roboto-fontface-light';
 
 // 3. Base stuff
 @import 'stylesheets/base/base';

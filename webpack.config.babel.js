@@ -15,8 +15,8 @@ const { isHot, isDev, isProd, apiPath } = config;
 const { publicPath } = config.server;
 const src = path.resolve(process.cwd(), 'src');
 const dist = path.resolve(process.cwd(), 'dist');
+const dll = dist; //path.join(dist, 'dll');
 const node_modules = path.resolve(process.cwd(), 'node_modules');
-
 const cssModules = false;
 
 // NOTE: Comment out "console.log" before executing "npm run analyze"
@@ -91,7 +91,7 @@ const plugins = () => {
 
   if (isDev) {
     const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
-    const dllManifest = path.join(dist, 'vendor.dll.manifest.json');
+    const dllManifest = path.join(dll, 'vendor.dll.manifest.json');
     const indexHTML = path.join(src, 'index.html');
 
     if (!fs.existsSync(dllManifest)) {
@@ -107,7 +107,7 @@ const plugins = () => {
 
     result.push(
       new webpack.DllReferencePlugin({
-        context: dist,
+        context: dll,
         manifest: require(dllManifest)
       }),
 
@@ -118,9 +118,17 @@ const plugins = () => {
         xhtml: true,
       }),
 
-      new AddAssetHtmlPlugin({
-        filepath: path.resolve(dist, '*.dll.js'),
-      }),
+      new AddAssetHtmlPlugin([
+        {
+          filepath: path.resolve(dll, 'vendor.styles.css'),
+          publicPath: publicPath, //path.join(publicPath, 'dll'),
+          typeOfAsset: 'css'
+        },
+        {
+          filepath: path.resolve(dll, 'vendor.dll.js'),
+          publicPath: publicPath, //path.join(publicPath, 'dll')
+        },
+      ]),
 
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     );
@@ -128,14 +136,16 @@ const plugins = () => {
 
   if (isHot) {
     result.push(
-      new webpack.HotModuleReplacementPlugin({
-        multiStep: false, // true: Enable multi-pass compilation for enhanced performance in larger projects.
-                          // NOTE: multiStep: true does not work with webpack3, fails with error:
-                          //       "Server Uncaught Exception  TypeError: Cannot read property 'source' of undefined"
-                          // NOTE: options are experimental and may be deprecated. They are typically not necessary and
-                          //       including a new webpack.HotModuleReplacementPlugin() is enough.
-                          //       See: https://webpack.js.org/plugins/hot-module-replacement-plugin/
-      }),
+      new webpack.HotModuleReplacementPlugin(
+        //{
+        //multiStep: false, // true: Enable multi-pass compilation for enhanced performance in larger projects.
+        //                  // NOTE: multiStep: true does not work with webpack3, fails with error:
+        //                  //       "Server Uncaught Exception  TypeError: Cannot read property 'source' of undefined"
+        //                  // NOTE: options are experimental and may be deprecated. They are typically not necessary and
+        //                  //       including a new webpack.HotModuleReplacementPlugin() is enough.
+        //                  //       See: https://webpack.js.org/plugins/hot-module-replacement-plugin/
+        //}
+      ),
 
       // Prints more readable module names in the browser console on HMR updates
       new webpack.NamedModulesPlugin(),
@@ -316,7 +326,8 @@ module.exports = {
                 sourceMap: true,
                 importLoaders: 3,
                 modules: cssModules,
-                minimize: isProd }
+                minimize: isProd
+              }
             },
             {
               loader: 'postcss-loader',

@@ -49,9 +49,21 @@ const isDev = nodeEnv === ENV.development || (isTest && !nconf.get('env:prod'));
 const isProd = nodeEnv === ENV.production || (isTest && nconf.get('env:prod')) || false;
 const isHot = (nodeEnv === ENV.development && nconf.get('hot')) || false;
 const logger = nconf.get('logger');
+
 const server = nconf.get('server');
 server.contentBase = path.resolve(process.cwd(), server.contentBase);
 server.url = toURL('http', server.host, server.port);
+if (!server.publicPath.endsWith('/')) {
+  server.publicPath = path.join(server.publicPath, '/');
+}
+if (server.historyApiFallback) {
+  if (!server.historyApiFallback.index) {
+    server.historyApiFallback.index = '/index.html';
+  }
+  if (!server.historyApiFallback.index.startsWith(server.publicPath)) {
+    server.historyApiFallback.index = path.join(server.publicPath, server.historyApiFallback.index);
+  }
+}
 
 //
 // proxy breakdown

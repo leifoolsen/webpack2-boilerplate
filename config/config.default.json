@@ -1,5 +1,5 @@
 {
-  "apiPath" : "/api",
+  "apiPath": "/api",
   "server": {
     "host": "localhost",
     "port": 8082,

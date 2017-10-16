@@ -81,19 +81,20 @@ if (config.isProd && !config.isTest) {
   app.use(config.server.publicPath, express.static(config.server.contentBase));
 
   app.get('*', (req, res, next) => {
-    const filename = req.path.startsWith(config.server.publicPath)
+
+    const reqPath = req.path.startsWith(config.server.publicPath)
       ? req.path.replace(config.server.publicPath, '')
       : req.path;
 
-    const filepath = filename.indexOf('.') > -1
-      ? path.join(config.server.contentBase, filename)
+    const target = reqPath.indexOf('.') > -1
+      ? path.join(config.server.contentBase, reqPath)
       : path.join(config.server.contentBase, 'index.html');
 
-    logger.info('### app.get * from:', req.path, ' to:', filepath);
+    logger.info('### app.get * from:', req.path, 'to:', target);
 
-    res.sendFile(filepath, err => {
+    res.sendFile(target, err => {
       if (err) {
-        next(NotFoundException(filepath));
+        next(NotFoundException(req.path));
       }
     });
   });
@@ -151,36 +152,43 @@ if (config.isDev || config.isTest) {
 
   // Since webpackDevMiddleware uses memory-fs internally to store build
   // artifacts, we use it instead
-  const fs = devMiddleware.fileSystem;
+  const memoryFs = devMiddleware.fileSystem;
 
   app.get('*', (req, res, next) => {
 
-    const filename = req.path.startsWith(config.server.publicPath)
+    const reqPath = req.path.startsWith(config.server.publicPath)
       ? req.path.replace(config.server.publicPath, '')
       : req.path;
 
-    if (filename.indexOf('.') > -1 && !(filename.endsWith('.html') || filename.endsWith('.map') || filename.endsWith('.dll.js'))) {
-      const filepath = path.join(config.server.contentBase, filename);
+    const target = reqPath.indexOf('.') > -1
+      ? path.join(webpackCompiler.outputPath, reqPath)
+      : path.join(webpackCompiler.outputPath, 'index.html');
 
-      logger.info('### app.get * from:', req.path, ' to:', filepath);
-
-      res.sendFile(filepath, err => {
+    if (target.endsWith('.html')) {
+      // 1: Read from memory fs
+      logger.info('1 app.get * from:', req.path, 'to:', target);
+      memoryFs.readFile(target, (err, file) => {
         if (err) {
-          next(NotFoundException(filepath));
+          next(NotFoundException(req.path));
+        } else {
+          res.send(file.toString());
         }
       });
     }
     else {
-      const name = filename.endsWith('.map') || filename.endsWith('.dll.js') ? filename : 'index.html';
-      const filepath = path.join(webpackCompiler.outputPath, name);
-
-      logger.info('@@@ app.get * from:', req.path, ' to:', filepath);
-
-      fs.readFile(filepath, (err, file) => {
+      // 2: Try reading from outputPath, i.e. "dist"
+      logger.info('2 app.get * from:', req.path, 'to:', target);
+      res.sendFile(target, err => {
         if (err) {
-          next(NotFoundException(filepath));
-        } else {
-          res.send(file.toString());
+          // 3: Try reading from src
+          const src = path.join(config.server.contentBase, reqPath);
+          logger.info('3 app.get * from:', req.path, 'to:', src);
+
+          res.sendFile(src, err => {
+            if (err) {
+              next(NotFoundException(req.path));
+            }
+          });
         }
       });
     }
