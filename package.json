@@ -92,7 +92,7 @@
     "webpack": "3.7.1",
     "webpack-bundle-size-analyzer": "2.7.0",
     "webpack-dev-middleware": "1.12.0",
-    "webpack-hot-middleware": "2.19.1",
+    "webpack-hot-middleware": "2.20.0",
     "winston": "2.4.0"
   },
   "browserslist": [
