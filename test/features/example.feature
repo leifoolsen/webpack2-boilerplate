@@ -3,7 +3,7 @@ Feature: Title check
 
   Scenario: Get the title of webpage
     Given I open the url "/"
-    Then I expect the title of the page to be "Webpack2 Boilerplate"
+    Then I expect the title of the page to be "Webpack Boilerplate"
 
   Scenario: Click the Ping button
     Given I open the url "/"
