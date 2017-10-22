@@ -53,6 +53,7 @@
     "no-console": 1,
     "no-restricted-syntax": 1,
     "no-iterator": 1,
+    "no-unused-vars": [2, { "varsIgnorePattern": "h" }], // hyperapp
     "no-var": 1,
     "prefer-const": 1,
     "prefer-rest-params": 1,

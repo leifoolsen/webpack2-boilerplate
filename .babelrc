@@ -4,7 +4,8 @@
   "plugins": [
     "syntax-dynamic-import",
     "transform-object-rest-spread",
-    "transform-runtime"
+    "transform-runtime",
+    ["transform-react-jsx", { "pragma": "h" }]
   ],
   "presets": [
     [

@@ -1,9 +1,9 @@
-import polyfill from './polyfill';
+import './styles.scss';
 import './config/config';
 import logger from './logger/logger';
 import LOG_LEVEL from './logger/log-level';
+import polyfill from './polyfill';
 import run from './app/app';
-import './styles.scss';
 
 if(window) {
   /**
@@ -33,6 +33,14 @@ if(window) {
   };
 
   /**
+   * Display page
+   */
+  window.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('html').style.visibility='visible';
+  }, false);
+
+
+  /**
    * Flush logger
    */
   window.addEventListener('beforeunload', () => {
@@ -41,15 +49,15 @@ if(window) {
   });
 }
 
-// Add polyfills
 try {
+  // Add polyfills
   polyfill()
-    .then( () => run()); // Start the app
+    .then(() => run()); // Start the app
 }
 catch(err) {
+  // We may not have a working logger, use console loger
   console.error('Error loading polyfills:', err); // eslint-disable-line no-console
 }
-
 
 if (module.hot) {
   // See: http://andrewhfarmer.com/webpack-hmr-tutorial/
@@ -58,8 +66,8 @@ if (module.hot) {
   // See: https://webpack.js.org/guides/hmr-react/
 
   // This tells Webpack that this file and all of its dependencies can be replaced.
-  // Normally you should not need this
-  //module.hot.accept();
+  // Normally you should not need "module.hot.accept()"
+  // module.hot.accept();
 
   // Any changes to our App will cause a hotload re-render.
   module.hot.accept('./app/app', () => {

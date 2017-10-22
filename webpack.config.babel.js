@@ -57,6 +57,20 @@ const plugins = () => {
 
     new webpack.NoEmitOnErrorsPlugin(),
 
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        eslint: {
+          failOnError: isProd
+        },
+        context: src, // Required for the sourceMap of css/sass loader
+        debug: isDev,
+        minimize: isProd,
+      },
+    }),
+
+    // https://webpack.js.org/plugins/module-concatenation-plugin/
+    new webpack.optimize.ModuleConcatenationPlugin(),
+
     new ExtractTextPlugin({
       filename: isProd ? '[name].[chunkhash].styles.css' : '[name].styles.css',
       allChunks: true,
@@ -71,17 +85,6 @@ const plugins = () => {
       files: '**/*.s?(a|c)ss',
       syntax: 'scss',
       failOnError: isProd
-    }),
-
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        eslint: {
-          failOnError: isProd
-        },
-        context: src, // Required for the sourceMap of css/sass loader
-        debug: isDev,
-        minimize: isProd,
-      },
     }),
 
     new CopyWebpackPlugin([
@@ -111,11 +114,13 @@ const plugins = () => {
         manifest: require(dllManifest)
       }),
 
+      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+
       new HtmlWebpackPlugin({
         template: './index.html',
+        xhtml: true,
         inject: true,
         favicon: 'favicon.png',
-        xhtml: true,
       }),
 
       new AddAssetHtmlPlugin([
@@ -129,8 +134,6 @@ const plugins = () => {
           publicPath: publicPath, //path.join(publicPath, 'dll')
         },
       ]),
-
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     );
   }
 
@@ -164,30 +167,6 @@ const plugins = () => {
         names: ['vendor', 'manifest'],
       }),
 
-      // Minify and optimize the index.html
-      new HtmlWebpackPlugin({
-        template: './index.html',
-        inject: true,
-        favicon: 'favicon.png',
-        // Correct bundle order: [manifest, vendor, app]
-        // see: http://stackoverflow.com/questions/36796319/webpack-with-commonschunkplugin-results-with-wrong-bundle-order-in-html-file
-        // see: https://github.com/ampedandwired/html-webpack-plugin/issues/481
-        chunksSortMode: 'dependency',
-        xhtml: true,
-        minify: {
-          removeComments: true,
-          collapseWhitespace: true,
-          removeRedundantAttributes: true,
-          useShortDoctype: true,
-          removeEmptyAttributes: true,
-          removeStyleLinkTypeAttributes: true,
-          keepClosingSlash: true,
-          minifyJS: true,
-          minifyCSS: true,
-          minifyURLs: true,
-        },
-      }),
-
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           unused: true,    // Enables tree shaking
@@ -207,6 +186,32 @@ const plugins = () => {
         },
         sourceMap: true
       }),
+
+      // Minify and optimize the index.html
+      new HtmlWebpackPlugin({
+        template: './index.html',
+        xhtml: true,
+        inject: true,
+        favicon: 'favicon.png',
+        // Correct bundle order: [manifest, vendor, app]
+        // see: http://stackoverflow.com/questions/36796319/webpack-with-commonschunkplugin-results-with-wrong-bundle-order-in-html-file
+        // see: https://github.com/ampedandwired/html-webpack-plugin/issues/481
+        chunksSortMode: 'dependency',
+        minify: {
+          removeComments: true,
+          collapseWhitespace: true,
+          removeAttributeQuotes: true,
+          removeEmptyAttributes: true,
+          removeRedundantAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          useShortDoctype: true,
+          keepClosingSlash: true,
+          minifyJS: true,
+          minifyCSS: true,
+          minifyURLs: true,
+        },
+      }),
+
     );
   }
 
