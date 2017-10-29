@@ -1,0 +1,8 @@
+/**
+ * https://github.com/philipwalton/solved-by-flexbox/blob/master/assets/css/base/custom-media.css
+ */
+@custom-media --media-phone (min-width: 480px);
+@custom-media --media-tablet (min-width: 840px);
+@custom-media --media-desktop (min-width: 1024px);
+@custom-media --media-wide (min-width: 1200px);
+@custom-media --high-dppx (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx);

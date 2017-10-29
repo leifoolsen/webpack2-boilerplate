@@ -17,7 +17,7 @@ const src = path.resolve(process.cwd(), 'src');
 const dist = path.resolve(process.cwd(), 'dist');
 const dll = dist; //path.join(dist, 'dll');
 const node_modules = path.resolve(process.cwd(), 'node_modules');
-const cssModules = false;
+const cssModules = true;
 
 // NOTE: Comment out "console.log" before executing "npm run analyze"
 //eslint-disable-next-line no-console
@@ -75,7 +75,7 @@ const plugins = () => {
       filename: isProd ? '[name].[chunkhash].styles.css' : '[name].styles.css',
       allChunks: true,
       disable: isHot, // Disable css extracting on development
-      ignoreOrder: cssModules,
+      ignoreOrder: false,
     }),
 
     new StyleLintPlugin({
@@ -84,6 +84,13 @@ const plugins = () => {
       configFile: path.resolve(process.cwd(), '.stylelintrc'),
       files: '**/*.s?(a|c)ss',
       syntax: 'scss',
+      failOnError: isProd
+    }),
+
+    new StyleLintPlugin({
+      // https://web-design-weekly.com/2016/06/15/integrate-stylelint-workflow-better-css/
+      configFile: path.resolve(process.cwd(), '.stylelintrc'),
+      files: '**/*.css',
       failOnError: isProd
     }),
 
@@ -297,8 +304,9 @@ module.exports = {
               options: {
                 url: true,
                 sourceMap: true,
-                importLoaders: 2,
+                importLoaders: 1,
                 modules: cssModules,
+                localIdentName: isDev ? '[name]__[local].[hash:base64:5]' : '[hash:base64:5]',
                 minimize: isProd
               }
             },
@@ -309,9 +317,9 @@ module.exports = {
                                  // the source map within the CSS directly as an annotation comment.
               }
             },
-            {
-              loader: 'resolve-url-loader'
-            },
+            //{
+            //  loader: 'resolve-url-loader' // Yields warnings in combination with postcss-cssnext and nested CSS classes
+            //},
           ]
         })
       },
@@ -329,8 +337,9 @@ module.exports = {
               options: {
                 url: true,
                 sourceMap: true,
-                importLoaders: 3,
+                importLoaders: 2,
                 modules: cssModules,
+                localIdentName: isDev ? '[name]__[local].[hash:base64:5]' : '[hash:base64:5]',
                 minimize: isProd
               }
             },
@@ -341,12 +350,16 @@ module.exports = {
                                  // the source map within the CSS directly as an annotation comment.
               }
             },
-            {
-              loader: 'resolve-url-loader'
-            },
+            //{
+            //  loader: 'resolve-url-loader'
+            //},
             {
               loader: 'sass-loader',
-              options: { sourceMap: true }
+              options: {
+                outputStyle: 'expanded',
+                sourceMap: true,
+                sourceMapContents: isProd,
+              }
             },
           ]
         })

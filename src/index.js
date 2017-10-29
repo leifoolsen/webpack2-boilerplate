@@ -1,4 +1,7 @@
-import './styles.scss';
+import './styles/base/base.css';
+import './styles/base/typography.css';
+import './styles/base/helpers.css';
+
 import './config/config';
 import logger from './logger/logger';
 import LOG_LEVEL from './logger/log-level';
@@ -34,10 +37,10 @@ if(window) {
 
   /**
    * Display page
-   */
   window.addEventListener('DOMContentLoaded', function() {
     document.querySelector('html').style.visibility='visible';
   }, false);
+   */
 
 
   /**

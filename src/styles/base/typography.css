@@ -1,0 +1,217 @@
+/**
+ * Basic typography style
+ * Code inspired by
+ *   https://www.smashingmagazine.com/2016/05/fluid-typography/
+ *   https://jonathan-harrell.com/unlocking-benefits-css-variables/
+ *   https://github.com/jonathanharrell/hiq
+ *   https://codepen.io/MadeByMike/pen/bEEGvv?editors%3D0100
+ */
+
+@import '../abstracts/custom-media.css';
+
+:root {
+  /* font families */
+  --font-family-roboto: 'Roboto-Light', 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  --font-family-serif: Georgia, 'Times New Roman', Times, serif;
+  --font-family-monospace: Menlo, Monaco, Consolas, 'Courier New', monospace;
+  --font-family: var(--font-family-roboto);
+
+  /* unitless dimewnsion. multiply by 1rem where needed */
+  --baseline: 1.5rem;
+  --min-screen: 30;
+  --max-screen: 52;
+  --min-font: 0.9;
+  --max-font: 1;
+
+  /* should match --min-screen and --max-screen */
+  @custom-media --lower-font-range (min-width: 30rem);
+  @custom-media --upper-font-range (min-width: 52rem);
+
+  /* font sizes */
+  --font-size-1: 2rem;
+  --font-size-2: 1.625rem;
+  --font-size-3: 1.5rem;
+  --font-size-4: 1.125rem;
+  --font-size-5: 1rem;
+  --font-size-6: 0.875rem;
+  --font-size-base: var(--font-size-4);
+  --font-size-large: var(--font-size-3);
+  --font-size-small: var(--font-size-5);
+
+  /* font weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* letter spacing */
+  --letter-spacing: -0.025em;
+
+  /* list variables */
+  --list-margin-left: 1rem;
+  --unordered-list-style: disc;
+}
+
+@media (--high-dppx) {
+  :root {
+    --font-weight-light: 200;
+    --font-weight-normal: 300;
+    --font-weight-medium: 400;
+    --font-weight-semibold: 500;
+    --font-weight-bold: 600;
+  }
+}
+
+html {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-normal);
+  letter-spacing: var(--letter-spacing);
+
+  /* font range */
+  font-size: calc(var(--min-font) * 1rem);
+
+  /* set lower font range limit */
+  @media (--lower-font-range) {
+    /* calc(0.8rem + 1.2 * ((100vw - 20rem) / 30)); */
+    font-size: calc(var(--min-font) * 1rem + (var(--max-font) - var(--min-font)) * ((100vw - var(--min-screen) * 1rem) / (var(--max-screen) - var(--min-screen))));
+  }
+
+  /* set upper font range limit */
+  @media (--upper-font-range) {
+    font-size: calc(var(--max-font) * 1rem);
+  }
+}
+
+body {
+  line-height: var(--baseline);
+  color: #000000;
+  background-color: #ffffff;
+  background-image: linear-gradient(rgba(200, 50, 50, 0.25) 1px, transparent 1px);
+  background-size: 1px var(--baseline);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--baseline);
+}
+
+/* heading sizes and spacing */
+h1 {
+  font-size: var(--font-size-1);
+  line-height: var(--font-size-1);
+  margin-top: calc(var(--baseline) - var(--font-size-1) + var(--baseline) * 2);
+
+  &:first-child {
+    margin-top: calc(var(--baseline) - var(--font-size-1) + var(--baseline));
+  }
+}
+
+h2 {
+  font-size: var(--font-size-2);
+  line-height: var(--font-size-2);
+  margin-top: calc(var(--baseline) - var(--font-size-2) + var(--baseline) * 2);
+
+  &:first-child {
+    margin-top: calc(var(--baseline) - var(--font-size-2) + var(--baseline));
+  }
+}
+
+h3 {
+  font-size: var(--font-size-3);
+  line-height: var(--font-size-3);
+  margin-top: calc(var(--baseline) - var(--font-size-3) + var(--baseline) * 2);
+
+  &:first-child {
+    margin-top: calc(var(--baseline) - var(--font-size-3) + var(--baseline));
+  }
+}
+
+h4 {
+  font-size: var(--font-size-4);
+  line-height: var(--font-size-4);
+  margin-top: calc(var(--baseline) - var(--font-size-4) + var(--baseline) * 2);
+
+  &:first-child {
+    margin-top: calc(var(--baseline) - var(--font-size-4) + var(--baseline));
+  }
+}
+
+h5 {
+  font-size: var(--font-size-5);
+  line-height: var(--font-size-5);
+  margin-top: calc(var(--baseline) - var(--font-size-5) + var(--baseline));
+}
+
+h6 {
+  font-size: var(--font-size-6);
+  line-height: var(--font-size-6);
+  margin-top: calc(var(--baseline) - var(--font-size-6) + var(--baseline));
+}
+
+/* small font size */
+small {
+  font-size: var(--font-size-small);
+}
+
+/* additional font weights */
+b,
+strong {
+  font-weight: var(--font-weight-semibold);
+}
+
+/* block spacing */
+p,
+dl,
+ol,
+ul,
+blockquote,
+figcaption,
+pre {
+  font-size: var(--font-size-5);
+  line-height: var(--baseline);
+  margin-top: var(--baseline);
+  margin-bottom: var(--baseline);
+}
+
+/* definition list styling */
+dt {
+  font-weight: var(--font-weight-semibold);
+}
+
+/* abbreviation */
+abbr[title] {
+  border-bottom: dotted 1px currentColor;
+  text-decoration: none;
+}
+
+/* blockquote */
+blockquote p {
+  &::before { content: '\201c'; }
+  &::after { content: '\201d'; }
+}
+
+/* address */
+address {
+  font-style: normal;
+}
+
+/* list styles */
+ol,
+ul {
+  margin-left: var(--list-margin-left);
+}
+
+/* unordered list bullets */
+ul {
+  list-style: var(--unordered-list-style);
+}

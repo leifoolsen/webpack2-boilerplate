@@ -74,8 +74,9 @@ module.exports = {
               options: {
                 url: true,
                 sourceMap: true,
-                importLoaders: 2,
+                importLoaders: 1,
                 modules: false,
+                localIdentName: '[name]__[local].[hash:base64:5]',
                 minimize: false,
               }
             },
@@ -105,8 +106,9 @@ module.exports = {
               options: {
                 url: true,
                 sourceMap: true,
-                importLoaders: 3,
+                importLoaders: 2,
                 modules: false,
+                localIdentName: '[name]__[local].[hash:base64:5]',
                 minimize: false
               }
             },
@@ -121,7 +123,11 @@ module.exports = {
             },
             {
               loader: 'sass-loader',
-              options: { sourceMap: true }
+              options: {
+                outputStyle: 'expanded',
+                sourceMap: true,
+                sourceMapContents: false,
+              }
             },
           ]
         })

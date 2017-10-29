@@ -21,6 +21,9 @@
     "media-feature-colon-space-before": "never",
     "number-no-trailing-zeros": null,
     "selector-list-comma-space-before": "never",
-    "selector-list-comma-newline-after": "always"
+    "selector-list-comma-newline-after": "always",
+    "selector-pseudo-class-no-unknown": [true, {
+      "ignorePseudoClasses": ["global"]
+    }]
   }
 }
