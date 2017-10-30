@@ -29,6 +29,7 @@
   @custom-media --upper-font-range (min-width: 52rem);
 
   /* font sizes */
+  --font-size-0: 2.5rem;
   --font-size-1: 2rem;
   --font-size-2: 1.625rem;
   --font-size-3: 1.5rem;
