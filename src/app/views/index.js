@@ -5,11 +5,11 @@ import {h} from 'hyperapp';
 
 export const view = (/*state, actions*/) => (
   <div class={layout.layout}>
-    <header class={layout['layout-top']} style={{background: 'hsla(360, 100%, 50%, .7)', color: 'yellow'}}>
+    <header class={layout['layout-top']} role="banner" style={{background: 'hsla(360, 100%, 50%, .7)', color: 'yellow'}}>
       <h1>Header</h1>
     </header>
     <div class={layout['layout-body']}>
-      <main class={layout['layout-main']}>
+      <main class={layout['layout-main']} role="main">
         <h1>H1: Responsive Font Size And Fluid Typography With vh And vw Units</h1>
         <p>Unlike responsive typography, which changes only at set breakpoints,
           fluid typography resizes smoothly to match any device width. It is an
@@ -68,11 +68,11 @@ export const view = (/*state, actions*/) => (
       <section class={layout['layout-sidebar-left']} style={{background: 'hsla(120, 100%, 50%, .8)'}}>
         <p>Nav</p>
       </section>
-      <aside class={layout['layout-sidebar-right']} style={{background: 'hsla(213, 100%, 50%, .8)', color: 'yellow'}}>
+      <aside class={layout['layout-sidebar-right']} role="complementary" style={{background: 'hsla(213, 100%, 50%, .8)', color: 'yellow'}}>
         <p>Ads</p>
       </aside>
     </div>
-    <footer class={layout['layout-bottom']} style={{background: 'hsla(180, 100%, 50%, .8)'}}>
+    <footer class={layout['layout-bottom']} role="contentinfo" style={{background: 'hsla(180, 100%, 50%, .8)'}}>
       <h2>Footer</h2>
     </footer>
   </div>
