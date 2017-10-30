@@ -18,8 +18,12 @@ A Webpack boilerplate, partly based on this Egghead.io course;
 * Integration tests with Node Express server 
 * Acceptance testing with WebdriverIO, Cucumber.js, and Node Express
 * Code coverage and reporting with Istanbul
-* SASS boilerplate with Solved by Flexbox Holy Grail example layout
+* PostCSS/CSSModules
 * Self hosting Google Material Icons and Font Roboto
+* CSS reset using [normalize.css](https://github.com/necolas/normalize.css)
+* Example application built with [HyperApp](https://hyperapp.js.org/)
+* Example layout based on [Solved by Flexbox Holy Grail](https://philipwalton.github.io/solved-by-flexbox/demos/holy-grail/)
+* [Responsive Font Size And Fluid Typography With vh And vw Units](https://www.smashingmagazine.com/2016/05/fluid-typography/)
 * Framework agnostic. No dependencies to frameworks like React or Angular
 * Uses [husky](https://github.com/typicode/husky) to prevent bad commits
 
