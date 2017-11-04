@@ -34,7 +34,7 @@ plugins = () => {
   if (isDev) {
     result.concat([
       require('postcss-reporter')(),
-      require('postcss-browser-reporter')(),
+      require('postcss-browser-reporter')(),                      // Error reporting when the build fails
     ]);
   }
 
