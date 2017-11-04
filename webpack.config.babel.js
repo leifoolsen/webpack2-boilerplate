@@ -304,7 +304,7 @@ module.exports = {
               options: {
                 url: true,
                 sourceMap: true,
-                importLoaders: 1,
+                importLoaders: 1,  // See: https://github.com/webpack-contrib/css-loader#importloaders
                 modules: cssModules,
                 localIdentName: isDev ? '[name]__[local].[hash:base64:5]' : '[hash:base64:5]',
                 minimize: isProd
