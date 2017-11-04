@@ -17,7 +17,7 @@
     "ecmascript": 7,
     "jsx": true,
     "polyfills": [
-      "fetch"
+      "fetch", "promises"
     ]
   },
   "parserOptions": {
@@ -46,7 +46,7 @@
     "browser": true
   },
   "rules": {
-    "compat/compat": 2, // required by eslint-plugin-compat
+    "compat/compat": "error", // required by eslint-plugin-compat
     "indent": [2, 2, {"SwitchCase": 1}],
     "linebreak-style": [2, "unix"],
     "max-statements-per-line": [1, {"max": 1}],
