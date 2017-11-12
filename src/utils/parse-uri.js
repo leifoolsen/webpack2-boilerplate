@@ -6,7 +6,7 @@
  *   \__/   \______________/\_________/ \_________/ \__/
  *   |           |            |            |        |
  *   scheme    authority     path        query   fragment
- *   |   _____________________|__
+ *   |    ____________________|___
  *   / \ /                        \
  *   urn:example:animal:ferret:nose
  *
@@ -16,8 +16,17 @@
  * @return {{scheme: string, host: string, port: string, authority: string, path: string, query: string, fragment: string}}
  * @author Leif Olsen
  * @example
- * // parseURI("http://www.somesite.com/web/page?a=1&b=2"))
+ * // parseURI("http://www.somesite.com:80/web/page?a=1&b=2"))
  * // returns
+ * // {
+ * //   scheme: 'http',
+ * //   host: 'www.somesite.com',
+ * //   port: '80',
+ * //   authority: 'www.somesite.com:80',
+ * //   path: '/web/page',
+ * //   query: 'a=1&b=2',
+ * //   fragment: undefined
+ * // }
  */
 const parseURI = uri => {
   const pattern = new RegExp('^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?');
