@@ -139,12 +139,20 @@ async function determineTime() {
 * `npm run server`
 * Open a browser at `http://localhost:8000`
 
-### 3'rd party dependencies
-Add your 3'rd party dependencies to `vendor.js` - or use System.import() as demonstrated in code above.
-* See: [Webpack: Code Splitting - Async](https://webpack.js.org/guides/code-splitting-async/)
+### Webpack DLL plugin
+The Dll Plugin lets you pre-build the parts of your code that don't often change (such as library code).
+Add code that should be built by the Dll plugin to `vendor.js`. Code built by the the Dll plugin
+does not utilize tree shaking and is therefore only used for development. For a production build,
+the same `vendor.js` file is added as a entry in your webpack project for minification and elimination of dead code.
 * See: [OPTIMIZING WEBPACK FOR FASTER REACT BUILDS](http://engineering.invisionapp.com/post/optimizing-webpack/)
 * See: [Optimizing Webpack build times and improving caching with DLL bundles](https://robertknight.github.io/posts/webpack-dll-plugins/)
 * See: [Webpack Plugins we been keepin on the DLL](https://medium.com/@soederpop/webpack-plugins-been-we-been-keepin-on-the-dll-cdfdd6cb8cd7)
+
+### Lazy loading (System.import())
+If you have (large) libraries that is not needed at application startup, you can use
+lazy loading. Lazy loading (System.import()) is demonstrated in code above.
+* See: [Webpack: Code Splitting - Async](https://webpack.js.org/guides/code-splitting-async/)
+* See: [Lazy Loading](https://webpack.js.org/guides/lazy-loading/)
 
 ### Polyfills
 Add your polyfills to `polyfill.js`

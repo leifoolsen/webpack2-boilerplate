@@ -60,8 +60,8 @@
     --font-weight-light: 200;
     --font-weight-normal: 300;
     --font-weight-medium: 400;
-    --font-weight-semibold: 500;
-    --font-weight-bold: 600;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
   }
 }
 
@@ -92,8 +92,6 @@ body {
   line-height: var(--baseline);
   color: #000000;
   background-color: #ffffff;
-  background-image: linear-gradient(rgba(200, 50, 50, 0.25) 1px, transparent 1px);
-  background-size: 1px var(--baseline);
 }
 
 h1,
@@ -215,4 +213,9 @@ ul {
 /* unordered list bullets */
 ul {
   list-style: var(--unordered-list-style);
+}
+
+:global(.grid-lines) {
+  background-image: linear-gradient(rgba(200, 50, 50, 0.25) 1px, transparent 1px);
+  background-size: 1px var(--baseline);
 }

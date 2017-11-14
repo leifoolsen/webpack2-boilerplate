@@ -1,80 +1,92 @@
-import layout from '../../styles/layout/layout.css';
+import '../styles/base/helpers.css';
+import layout from '../styles/layout/layout.css';
 
 import {h} from 'hyperapp';
 /** @jsx h */
 
-export const view = (/*state, actions*/) => (
-  <div class={layout.layout}>
-    <header class={layout['layout-top']} role="banner" style={{background: 'hsla(360, 100%, 50%, .7)', color: 'yellow'}}>
-      <h1>Header</h1>
+import { Home } from './Home'; // eslint-disable-line no-unused-vars
+import { Typography } from './Typography'; // eslint-disable-line no-unused-vars
+import { Demo } from './Demo'; // eslint-disable-line no-unused-vars
+
+const showPage = (state, actions) => {
+
+  const body = document.querySelector('body');
+  if(state.gridLines) {
+    body.classList.add('grid-lines');
+  }
+  else {
+    body.classList.remove('grid-lines');
+  }
+
+  // The router is not compatible with latest HyperApp
+  // Use this while waiting for the HypoerApp router to catch up
+  const page = state.page;
+  history.pushState(null, null, page);
+
+  if ('/typography' === page) {
+    return <Typography />;
+  }
+  else if ('/demo' === page) {
+    return <Demo />;
+  }
+  return <Home state={state} actions={actions}/>;
+};
+
+export const view = (state, actions) =>
+  <div class={layout.Layout}>
+    <header class={layout['Layout-top']} role="banner" style={{background: 'hsla(360, 100%, 50%, .7)', color: 'yellow'}}>
+      <h1>Webpack Boilerplate</h1>
     </header>
-    <div class={layout['layout-body']}>
-      <main class={layout['layout-main']} role="main">
-        <h1>H1: Responsive Font Size And Fluid Typography With vh And vw Units</h1>
-        <p>Unlike responsive typography, which changes only at set breakpoints,
-          fluid typography resizes smoothly to match any device width. It is an
-          intuitive option for a web in which we have a practically infinite
-          number of screen sizes to support. Yet, for some reason, it is still
-          used far less than responsive techniques.
-        </p>
-        <p>
-          This might be because typography is so deeply rooted in the
-          centuries-old history of typesetting. The concept of having “fluid”
-          anything is often at odds with this tradition. In print, dimensions
-          have always been fixed, but they don’t need to be on the web. That’s
-          why fluid typography could be a perfect match for the web. It’s a
-          different approach for a completely different medium.
-        </p>
-        <p>If you want to know more about this technique, read the Smashing
-          Magazine artiche <a href="https://www.smashingmagazine.com/2016/05/fluid-typography/">
-            Responsive Font Size And Fluid Typography With vh And vw Units</a>
-        </p>
-        <h2>H2: Responsive Font Size And Fluid Typography With vh And vw Units</h2>
-        <p>Unlike responsive typography, which changes only at set breakpoints,
-          fluid typography resizes smoothly to match any device width. It is an
-          intuitive option for a web in which we have a practically infinite
-          number of screen sizes to support. Yet, for some reason, it is still
-          used far less than responsive techniques.
-        </p>
-        <h3>H3: Responsive Font Size And Fluid Typography With vh And vw Units</h3>
-        <p>Unlike responsive typography, which changes only at set breakpoints,
-          fluid typography resizes smoothly to match any device width. It is an
-          intuitive option for a web in which we have a practically infinite
-          number of screen sizes to support. Yet, for some reason, it is still
-          used far less than responsive techniques.
-        </p>
-        <h4>H4: Responsive Font Size And Fluid Typography With vh And vw Units</h4>
-        <p>Unlike responsive typography, which changes only at set breakpoints,
-          fluid typography resizes smoothly to match any device width. It is an
-          intuitive option for a web in which we have a practically infinite
-          number of screen sizes to support. Yet, for some reason, it is still
-          used far less than responsive techniques.
-        </p>
-        <h5>H5: Responsive Font Size And Fluid Typography With vh And vw Units</h5>
-        <p>Unlike responsive typography, which changes only at set breakpoints,
-          fluid typography resizes smoothly to match any device width. It is an
-          intuitive option for a web in which we have a practically infinite
-          number of screen sizes to support. Yet, for some reason, it is still
-          used far less than responsive techniques.
-        </p>
-        <h6>H6: Responsive Font Size And Fluid Typography With vh And vw Units</h6>
-        <p>Unlike responsive typography, which changes only at set breakpoints,
-          fluid typography resizes smoothly to match any device width. It is an
-          intuitive option for a web in which we have a practically infinite
-          number of screen sizes to support. Yet, for some reason, it is still
-          used far less than responsive techniques.
-        </p>
+    <div class={layout['Layout-body']}>
+
+      <main class={layout['Layout-main']} role="main">
+        {
+          showPage(state, actions)
+        }
       </main>
-      <section class={layout['layout-sidebar-left']} style={{background: 'hsla(120, 100%, 50%, .8)'}}>
-        <p>Nav</p>
+
+      <section class={layout['Layout-sidebarLeft']} style={{background: 'hsla(120, 100%, 50%, .8)', display: 'flex', flexDirection: 'column'}}>
+        <p>Menu</p>
+        <ul class="unstyled-list">
+          <li>
+            <a href="/" onclick={actions.page}>Home</a>
+          </li>
+          <li>
+            <a href="/typography" onclick={actions.page}>Typography</a>
+          </li>
+          <li>
+            <a href="/demo" onclick={actions.page}>Demo</a>
+          </li>
+          <li>
+            <a href="" onclick={actions.toggleGridLines}>Toggle grid lines</a>
+          </li>
+        </ul>
+        <footer style={{display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', marginTop: 'auto'}}>
+          <img src="/assets/webpack-logo.png" alt="Webpack Logo" style={{height: '2rem'}} />
+          <img src="/assets/js.jpg" alt="JavaScript Logo" style={{height: '2rem'}} />
+          <img src="/assets/postcss-logo.svg" alt="postcss logo" style={{height: '2rem'}} />
+          <img src="/assets/hyperapp.png" alt="Hyperapp" style={{height: '2rem'}} />
+          <img src="/assets/HolyGrail.svg.png" alt="Holy Grail Logo" style={{height: '2rem'}} />
+        </footer>
       </section>
-      <aside class={layout['layout-sidebar-right']} role="complementary" style={{background: 'hsla(213, 100%, 50%, .8)', color: 'yellow'}}>
+
+      <aside class={layout['Layout-sidebarRight']} role="complementary" style={{background: 'hsla(213, 100%, 50%, .8)', color: 'yellow'}}>
         <p>Ads</p>
       </aside>
     </div>
-    <footer class={layout['layout-bottom']} role="contentinfo" style={{background: 'hsla(180, 100%, 50%, .8)'}}>
-      <h2>Footer</h2>
+    <footer class={layout['Layout-bottom']} role="contentinfo" style={{background: 'hsla(180, 100%, 50%, .8)', display: 'flex', alignItems: 'center'}}>
+      <h2 style={{flex: '1'}}>Footer</h2>
+      <p><strong>Material icons:&nbsp;</strong></p>
+      <span style={{lineHeight: '1'}}>
+        <i class="material-icons">face</i>
+        <i class="material-icons">all_inclusive</i>
+        <i class="material-icons">share</i>
+        <i class="material-icons">arrow_back</i>
+        <i class="material-icons">arrow_forward</i>
+        <i class="material-icons">check</i>
+        <i class="material-icons">close</i>
+        <i class="material-icons">android</i>
+        <i class="material-icons">menu</i>
+      </span>
     </footer>
-  </div>
-);
-
+  </div>;

@@ -9,65 +9,65 @@
  * 3. Use `%` instead of `vh` since `vh` is buggy in older mobile Safari.
  */
 
-.layout {
+.Layout {
   display: flex;
   min-height: 100vh;
   height: 100%; /* 1, 3 */
   flex-direction: column;
 }
 
-.layout-top,
-.layout-bottom {
+.Layout-top,
+.Layout-bottom {
   padding: 0 16px;
   flex: none; /* 2 */
 }
 
-.layout-body {
+.Layout-body {
   display: flex;
   flex: 1 0 auto; /* 2 */
   flex-direction: column;
   padding: 0;
 }
 
-.layout-main {
+.Layout-main {
   padding: 0 16px;
   flex: 1 0 auto; /* 2 */
 }
 
-.layout-sidebar-left {
+.Layout-sidebarLeft {
   /* put the nav on the left */
   order: -1;
 }
 
-.layout-sidebar-left,
-.layout-sidebar-right {
+.Layout-sidebarLeft,
+.Layout-sidebarRight {
   padding: 0 16px;
 }
 
 @media (--media-tablet) {
-  .layout-body {
+  .Layout-body {
     /* flex-direction: row; */
     flex-flow: row wrap;
   }
 
-  .layout-main {
+  .Layout-main {
     flex: 1;
     margin: 0;
   }
 
-  .layout-sidebar-left {
-    /* 14rm is the width of the left column */
-    flex: 0 0 14rem;
+  .Layout-sidebarLeft {
+    /* 16rem is the width of the left column */
+    flex: 0 0 16rem;
   }
 
-  .layout-sidebar-right {
+  .Layout-sidebarRight {
     /* 2rem is the width of the right column */
     flex: 0 0 2rem;
   }
 }
 
 @media (--media-desktop) {
-  .layout-sidebar-right {
+  .Layout-sidebarRight {
     /* 10rem is the width of the right column */
     flex: 0 0 10rem;
   }

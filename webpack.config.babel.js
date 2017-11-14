@@ -68,7 +68,9 @@ const plugins = () => {
       },
     }),
 
-    // https://webpack.js.org/plugins/module-concatenation-plugin/
+    // Enable scope hoisting
+    // See: https://webpack.js.org/plugins/module-concatenation-plugin/
+    // See: https://medium.com/webpack/webpack-3-official-release-15fd2dd8f07b
     new webpack.optimize.ModuleConcatenationPlugin(),
 
     new ExtractTextPlugin({
@@ -166,7 +168,6 @@ const plugins = () => {
     // Note: do not use '-p' in "build:prod" script
 
     result.push(
-
       // CommonsChunk analyzes everything in your bundles, extracts common bits into files together.
       // See: https://webpack.js.org/plugins/commons-chunk-plugin/
       // See: https://webpack.js.org/guides/code-splitting-libraries/
@@ -294,7 +295,12 @@ module.exports = {
         test: /\.css$/,
         include: [
           src,
-          path.resolve(process.cwd(), 'node_modules')
+          node_modules
+        ],
+        exclude: [
+          path.join(node_modules, 'material-design-icons/iconfont/material-icons.css'),
+          path.join(node_modules, 'roboto-fontface/css/roboto/roboto-fontface.css'),
+          path.join(node_modules, 'normalize.css/normalize.css')
         ],
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -324,10 +330,46 @@ module.exports = {
         })
       },
       {
+        test: /\.css$/,
+        include: [
+          path.join(node_modules, 'roboto-fontface/css/roboto/roboto-fontface.css'),
+          path.join(node_modules, 'material-design-icons/iconfont/material-icons.css'),
+          path.join(node_modules, 'normalize.css/normalize.css')
+        ],
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                url: true,
+                sourceMap: true,
+                importLoaders: 1,
+                modules: false,
+                minimize: isProd,
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true,
+              }
+            },
+            {
+              loader: 'resolve-url-loader'
+            },
+          ]
+        })
+      },
+      {
         test: /\.(scss|sass)$/,
         include: [
           src,
-          path.resolve(process.cwd(), 'node_modules')
+          node_modules
+        ],
+        exclude: [
+          path.join(node_modules, 'roboto-fontface/css/roboto/sass/roboto-fontface-light.scss'),
+          path.join(node_modules, 'roboto-fontface/css/roboto/sass/roboto-fontface-regular.scss'),
         ],
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',

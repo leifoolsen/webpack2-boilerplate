@@ -1,6 +1,7 @@
 // Import vendor css
+//import 'roboto-fontface/css/roboto/sass/roboto-fontface-light.scss';
+import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import 'material-design-icons/iconfont/material-icons.css';
-import 'roboto-fontface/css/roboto/sass/roboto-fontface-light.scss';
 import 'normalize.css/normalize.css';
 
 // Import vendor scripts which are not dynamically imported

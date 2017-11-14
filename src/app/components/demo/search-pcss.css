@@ -1,0 +1,44 @@
+.normal {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem auto;
+  padding: 1rem;
+  font-size: 1.25rem;
+  min-width: 10rem;
+  max-width: 30rem;
+  background: #dcdcdc;
+}
+
+.input,
+.submit {
+  border: 1px solid rgba(147, 128, 108, 0.9);
+  padding: 0.5rem 0.75rem;
+}
+
+.input {
+  flex: 1;
+  border-right: 0;
+}
+
+.submit {
+  font-weight: 600;
+  border-left: 0;
+  background: #696969;
+  color: #ffffff;
+}
+
+.vivid {
+  composes: normal;
+  background: linear-gradient(to right, orange, yellow, green, cyan, blue, violet);
+}
+
+.submit-vivid {
+  composes: submit;
+  background: linear-gradient(to bottom, yellow, green);
+  color: #000000;
+
+  &:active {
+    background: linear-gradient(to top, yellow, green);
+  }
+}
+

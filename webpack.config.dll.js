@@ -76,7 +76,6 @@ module.exports = {
                 sourceMap: true,
                 importLoaders: 1,
                 modules: false,
-                localIdentName: '[name]__[local].[hash:base64:5]',
                 minimize: false,
               }
             },
@@ -108,7 +107,6 @@ module.exports = {
                 sourceMap: true,
                 importLoaders: 2,
                 modules: false,
-                localIdentName: '[name]__[local].[hash:base64:5]',
                 minimize: false
               }
             },
