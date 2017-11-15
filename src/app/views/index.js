@@ -49,16 +49,16 @@ export const view = (state, actions) =>
         <p>Menu</p>
         <ul class="unstyled-list">
           <li>
-            <a href="/" onclick={actions.page}>Home</a>
+            <a href="/" onclick={e => actions.page(e)}>Home</a>
           </li>
           <li>
-            <a href="/typography" onclick={actions.page}>Typography</a>
+            <a href="/typography" onclick={e => actions.page(e)}>Typography</a>
           </li>
           <li>
-            <a href="/demo" onclick={actions.page}>Demo</a>
+            <a href="/demo" onclick={e => actions.page(e)}>Demo</a>
           </li>
           <li>
-            <a href="" onclick={actions.toggleGridLines}>Toggle grid lines</a>
+            <a href="#" onclick={e => actions.toggleGridLines(e)}>Toggle grid lines</a>
           </li>
         </ul>
         <footer style={{display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', marginTop: 'auto'}}>
