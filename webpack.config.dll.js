@@ -12,6 +12,7 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+const node_modules = path.resolve(process.cwd(), 'node_modules');
 const src = path.resolve(process.cwd(), 'src');
 const dll = path.resolve(process.cwd(), 'dist');
 
@@ -64,7 +65,6 @@ module.exports = {
         test: /\.css$/,
         include: [
           src,
-          path.resolve(process.cwd(), 'node_modules')
         ],
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -95,7 +95,6 @@ module.exports = {
         test: /\.(scss|sass)$/,
         include: [
           src,
-          path.resolve(process.cwd(), 'node_modules')
         ],
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',

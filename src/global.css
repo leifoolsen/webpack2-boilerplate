@@ -1,0 +1,14 @@
+@import 'normalize.css/normalize.css';
+@import 'material-design-icons/iconfont/material-icons.css';
+
+/* Import all roboto fontfaces */
+@import 'roboto-fontface/css/roboto/roboto-fontface.css';
+
+/* ... or only the fontfaces you actually use
+@import '~roboto-fontface/css/roboto/sass/roboto-fontface-light.scss';
+@import '~roboto-fontface/css/roboto/sass/roboto-fontface-regular.scss';
+*
+* ... but the we need to configure SASS loader as well
+*/
+
+

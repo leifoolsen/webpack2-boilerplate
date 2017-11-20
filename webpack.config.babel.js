@@ -298,9 +298,7 @@ module.exports = {
           node_modules
         ],
         exclude: [
-          path.join(node_modules, 'material-design-icons/iconfont/material-icons.css'),
-          path.join(node_modules, 'roboto-fontface/css/roboto/roboto-fontface.css'),
-          path.join(node_modules, 'normalize.css/normalize.css')
+          path.resolve(process.cwd(), 'src/global.css'),
         ],
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -332,9 +330,7 @@ module.exports = {
       {
         test: /\.css$/,
         include: [
-          path.join(node_modules, 'roboto-fontface/css/roboto/roboto-fontface.css'),
-          path.join(node_modules, 'material-design-icons/iconfont/material-icons.css'),
-          path.join(node_modules, 'normalize.css/normalize.css')
+          path.resolve(process.cwd(), 'src/global.css'),
         ],
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -366,10 +362,6 @@ module.exports = {
         include: [
           src,
           node_modules
-        ],
-        exclude: [
-          path.join(node_modules, 'roboto-fontface/css/roboto/sass/roboto-fontface-light.scss'),
-          path.join(node_modules, 'roboto-fontface/css/roboto/sass/roboto-fontface-regular.scss'),
         ],
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
