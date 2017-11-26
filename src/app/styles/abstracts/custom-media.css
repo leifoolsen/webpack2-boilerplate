@@ -1,8 +1,19 @@
 /**
- * https://github.com/philipwalton/solved-by-flexbox/blob/master/assets/css/base/custom-media.css
+ * Can not use variables in custom media, so remember to keep variables in sync with the media queries
  */
-@custom-media --media-phone (min-width: 480px);
-@custom-media --media-tablet (min-width: 840px);
-@custom-media --media-desktop (min-width: 1024px);
-@custom-media --media-wide (min-width: 1200px);
+
+:root {
+  /* unitless dimensions. multiply by 1rem where needed */
+  --phone-width: 30;
+  --tablet-width: 52;
+  --desktop-width: 64;
+  --wide-width: 75;
+  --ultra-wide-width: 100;
+}
+
+@custom-media --media-phone (min-width: 30rem);
+@custom-media --media-tablet (min-width: 52rem);
+@custom-media --media-desktop (min-width: 64rem);
+@custom-media --media-wide (min-width: 75rem);
+@custom-media --media-ultra-wide (min-width: 100rem);
 @custom-media --high-dppx (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx);

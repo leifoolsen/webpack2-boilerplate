@@ -61,12 +61,12 @@ export const view = (state, actions) =>
             <a href="#" onclick={e => actions.toggleGridLines(e)}>Toggle grid lines</a>
           </li>
         </ul>
-        <footer style={{display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', marginTop: 'auto'}}>
-          <img src="/assets/webpack-logo.png" alt="Webpack Logo" style={{height: '2rem'}} />
-          <img src="/assets/js.jpg" alt="JavaScript Logo" style={{height: '2rem'}} />
-          <img src="/assets/postcss-logo.svg" alt="postcss logo" style={{height: '2rem'}} />
-          <img src="/assets/hyperapp.png" alt="Hyperapp" style={{height: '2rem'}} />
-          <img src="/assets/HolyGrail.svg.png" alt="Holy Grail Logo" style={{height: '2rem'}} />
+        <footer style={{display: 'flex', justifyContent: 'space-between', marginTop: 'auto'}}>
+          <img src="/assets/webpack-logo.png" alt="Webpack Logo" style={{height: '1.5rem'}} />
+          <img src="/assets/js.jpg" alt="JavaScript Logo" style={{height: '1.5rem'}} />
+          <img src="/assets/postcss-logo.svg" alt="postcss logo" style={{height: '1.5rem'}} />
+          <img src="/assets/hyperapp.png" alt="Hyperapp" style={{height: '1.5rem'}} />
+          <img src="/assets/HolyGrail.svg.png" alt="Holy Grail Logo" style={{height: '1.5rem'}} />
         </footer>
       </section>
 

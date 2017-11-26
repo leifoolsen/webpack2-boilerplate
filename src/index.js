@@ -32,14 +32,6 @@ if(window) {
   };
 
   /**
-   * Display page
-  window.addEventListener('DOMContentLoaded', function() {
-    document.querySelector('html').style.visibility='visible';
-  }, false);
-   */
-
-
-  /**
    * Flush logger
    */
   window.addEventListener('beforeunload', () => {

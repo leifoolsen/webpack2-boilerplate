@@ -1,9 +1,6 @@
-import './styles/base/base.css';
 import './styles/base/typography.css';
 import './styles/base/helpers.css';
-
 import {app} from 'hyperapp';
-
 import config from '../config/config';
 import logger from '../logger/logger';
 import { actions } from './actions';

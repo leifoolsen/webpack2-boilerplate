@@ -1,10 +1,14 @@
 /**
- * Basic typography style
  * Code inspired by
  *   https://www.smashingmagazine.com/2016/05/fluid-typography/
+ *   https://madebymike.com.au/writing/precise-control-responsive-typography/
+ *   https://madebymike.com.au/writing/fluid-type-calc-examples/
+ *   https://codepen.io/MadeByMike/pen/bEEGvv?editors%3D0100
  *   https://jonathan-harrell.com/unlocking-benefits-css-variables/
  *   https://github.com/jonathanharrell/hiq
- *   https://codepen.io/MadeByMike/pen/bEEGvv?editors%3D0100
+ *   https://blog.typekit.com/2016/08/17/flexible-typography-with-css-locks/
+ *   https://pilot.co/blog/implementing-baseline-rhythm-in-css/
+ *   https://medium.com/written-in-code/aligning-type-to-baseline-the-right-way-using-sass-e258fce47a9b
  */
 
 @import '../abstracts/custom-media.css';
@@ -16,29 +20,8 @@
   --font-family-serif: Georgia, 'Times New Roman', Times, serif;
   --font-family-monospace: Menlo, Monaco, Consolas, 'Courier New', monospace;
   --font-family: var(--font-family-roboto);
-
-  /* unitless dimewnsion. multiply by 1rem where needed */
-  --baseline: 1.5rem;
-  --min-screen: 30;
-  --max-screen: 52;
-  --min-font: 0.9;
-  --max-font: 1;
-
-  /* should match --min-screen and --max-screen */
-  @custom-media --lower-font-range (min-width: 30rem);
-  @custom-media --upper-font-range (min-width: 52rem);
-
-  /* font sizes */
-  --font-size-0: 2.5rem;
-  --font-size-1: 2rem;
-  --font-size-2: 1.625rem;
-  --font-size-3: 1.5rem;
-  --font-size-4: 1.125rem;
-  --font-size-5: 1rem;
-  --font-size-6: 0.875rem;
-  --font-size-base: var(--font-size-4);
-  --font-size-large: var(--font-size-3);
-  --font-size-small: var(--font-size-5);
+  --letter-spacing: -0.025em;
+  --cap-height: 0.65;
 
   /* font weights */
   --font-weight-light: 300;
@@ -47,16 +30,50 @@
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
 
-  /* letter spacing */
-  --letter-spacing: -0.025em;
+  /* Fluid font */
+  --min-screen: var(--phone-width);
+  --max-screen: var(--tablet-width);
+  --min-line-height: 1.4;
+  --max-line-height: 1.5;
+  --min-font-size: 0.9;
+  --max-font-size: 1;
 
-  /* list variables */
-  --list-margin-left: 1rem;
-  --unordered-list-style: disc;
+  /* Base font */
+  --base-font-size: calc(var(--min-font-size) * 1rem);
+  --base-line-height: calc(var(--min-line-height) * 1rem);
+
+  /* Modular scale
+   * Maybe create a mixin for modular scale using this formula:
+   * ms(n) =  pow($ms-ratio, $n) * $ms-base;
+   * See: https://www.sassmeister.com/gist/10620fefd1ed75189f1b
+   * See: https://www.bhalash.com/archives/13544805638
+   */
+  --ms-base: 1rem;
+  --ms-ratio: 1.2; /* Ratio = 5:6, see: http://www.modularscale.com */
+  --ms0: var(--ms-base);
+  --ms1: calc(var(--ms-ratio) * var(--ms0));
+  --ms2: calc(var(--ms-ratio) * var(--ms1));
+  --ms3: calc(var(--ms-ratio) * var(--ms2));
+  --ms4: calc(var(--ms-ratio) * var(--ms3));
+  --ms5: calc(var(--ms-ratio) * var(--ms4));
+  --ms6: calc(var(--ms-ratio) * var(--ms5));
+  --ms7: calc(var(--ms-ratio) * var(--ms6));
+  --ms-1: calc(var(--ms0) / var(--ms-ratio));
+  --ms-2: calc(var(--ms-1) / var(--ms-ratio));
+
+  /* See: https://medium.com/written-in-code/aligning-type-to-baseline-the-right-way-using-sass-e258fce47a9b */
+  --offset: calc((var(--base-line-height) - var(--cap-height) * var(--base-font-size)) / 2);
+  --offset-ms0: calc((var(--base-line-height) - var(--cap-height) * var(--ms0)) / 2);
+  --offset-ms1: calc((var(--base-line-height) - var(--cap-height) * var(--ms1)) / 2);
+  --offset-ms2: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms2)) / 2);
+  --offset-ms3: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms3)) / 2);
+  --offset-ms4: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms4)) / 2);
+  --offset-ms-1: calc((var(--base-line-height) - var(--cap-height) * var(--ms-1)) / 2);
 }
 
 @media (--high-dppx) {
   :root {
+    /* Font weights high density screens */
     --font-weight-light: 200;
     --font-weight-normal: 300;
     --font-weight-medium: 400;
@@ -65,33 +82,69 @@
   }
 }
 
-html {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  font-family: var(--font-family);
-  font-weight: var(--font-weight-normal);
-  letter-spacing: var(--letter-spacing);
-
-  /* font range */
-  font-size: calc(var(--min-font) * 1rem);
-
-  /* set lower font range limit */
-  @media (--lower-font-range) {
-    /* calc(0.8rem + 1.2 * ((100vw - 20rem) / 30)); */
-    font-size: calc(var(--min-font) * 1rem + (var(--max-font) - var(--min-font)) * ((100vw - var(--min-screen) * 1rem) / (var(--max-screen) - var(--min-screen))));
-  }
-
-  /* set upper font range limit */
-  @media (--upper-font-range) {
-    font-size: calc(var(--max-font) * 1rem);
+@media (--media-tablet) {
+  :root {
+    /* Base font large screen */
+    --base-font-size: calc(var(--max-font-size) * 1rem);
+    --base-line-height: calc(var(--max-line-height) * 1rem);
+    --offset: calc((var(--base-line-height) - var(--cap-height) * var(--base-font-size)) / 2);
+    --offset-ms0: calc((var(--base-line-height) - var(--cap-height) * var(--ms0)) / 2);
+    --offset-ms1: calc((var(--base-line-height) - var(--cap-height) * var(--ms1)) / 2);
+    --offset-ms2: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms2)) / 2);
+    --offset-ms3: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms3)) / 2);
+    --offset-ms4: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms4)) / 2);
+    --offset-ms-1: calc((var(--base-line-height) - var(--cap-height) * var(--ms-1)) / 2);
   }
 }
 
+@media (--media-phone) {
+  :root {
+    /* Base font, fluid for tablet size */
+    --base-font-size: calc(var(--min-font-size) * 1rem + (var(--max-font-size) - var(--min-font-size)) * ((100vw - var(--min-screen) * 1rem) / (var(--max-screen) - var(--min-screen))));
+
+    /* Fluid line height (molten leading) */
+    --base-line-height: calc(var(--min-line-height) * 1rem + (var(--max-line-height) - var(--min-line-height)) * ((100vw - var(--min-screen) * 1rem) / (var(--max-screen) - var(--min-screen))));
+
+    /* -- */
+    --offset: calc((var(--base-line-height) - var(--cap-height) * var(--base-font-size)) / 2);
+    --offset-ms0: calc((var(--base-line-height) - var(--cap-height) * var(--ms0)) / 2);
+    --offset-ms1: calc((var(--base-line-height) - var(--cap-height) * var(--ms1)) / 2);
+    --offset-ms2: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms2)) / 2);
+    --offset-ms3: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms3)) / 2);
+    --offset-ms4: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms4)) / 2);
+    --offset-ms-1: calc((var(--base-line-height) - var(--cap-height) * var(--ms-1)) / 2);
+  }
+}
+
+/* -------------------------------- *
+ * Override/Extend normalize.css    *
+ * -------------------------------- */
+
+*,
+*::before,
+*::after {
+  /**
+   * Make all elements from the DOM inherit from the parent box-sizing
+   * Since `*` has a specificity of 0, it does not override the `html` value
+   * making all elements inheriting from the root box-sizing value
+   * See: https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+   */
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  text-size-adjust: 100%;
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-normal);
+  letter-spacing: var(--letter-spacing);
+}
+
 body {
-  line-height: var(--baseline);
-  color: #000000;
-  background-color: #ffffff;
+  margin: 0;
 }
 
 h1,
@@ -101,121 +154,187 @@ h4,
 h5,
 h6 {
   font-weight: var(--font-weight-bold);
-  margin-bottom: var(--baseline);
 }
 
-/* heading sizes and spacing */
-h1 {
-  font-size: var(--font-size-1);
-  line-height: var(--font-size-1);
-  margin-top: calc(var(--baseline) - var(--font-size-1) + var(--baseline) * 2);
-
-  &:first-child {
-    margin-top: calc(var(--baseline) - var(--font-size-1) + var(--baseline));
-  }
-}
-
-h2 {
-  font-size: var(--font-size-2);
-  line-height: var(--font-size-2);
-  margin-top: calc(var(--baseline) - var(--font-size-2) + var(--baseline) * 2);
-
-  &:first-child {
-    margin-top: calc(var(--baseline) - var(--font-size-2) + var(--baseline));
-  }
-}
-
-h3 {
-  font-size: var(--font-size-3);
-  line-height: var(--font-size-3);
-  margin-top: calc(var(--baseline) - var(--font-size-3) + var(--baseline) * 2);
-
-  &:first-child {
-    margin-top: calc(var(--baseline) - var(--font-size-3) + var(--baseline));
-  }
-}
-
-h4 {
-  font-size: var(--font-size-4);
-  line-height: var(--font-size-4);
-  margin-top: calc(var(--baseline) - var(--font-size-4) + var(--baseline) * 2);
-
-  &:first-child {
-    margin-top: calc(var(--baseline) - var(--font-size-4) + var(--baseline));
-  }
-}
-
-h5 {
-  font-size: var(--font-size-5);
-  line-height: var(--font-size-5);
-  margin-top: calc(var(--baseline) - var(--font-size-5) + var(--baseline));
-}
-
-h6 {
-  font-size: var(--font-size-6);
-  line-height: var(--font-size-6);
-  margin-top: calc(var(--baseline) - var(--font-size-6) + var(--baseline));
-}
-
-/* small font size */
-small {
-  font-size: var(--font-size-small);
-}
-
-/* additional font weights */
 b,
+dt,
 strong {
   font-weight: var(--font-weight-semibold);
 }
 
-/* block spacing */
-p,
-dl,
-ol,
-ul,
-blockquote,
-figcaption,
-pre {
-  font-size: var(--font-size-5);
-  line-height: var(--baseline);
-  margin-top: var(--baseline);
-  margin-bottom: var(--baseline);
-}
-
-/* definition list styling */
-dt {
-  font-weight: var(--font-weight-semibold);
-}
-
-/* abbreviation */
 abbr[title] {
   border-bottom: dotted 1px currentColor;
   text-decoration: none;
 }
 
-/* blockquote */
-blockquote p {
-  &::before { content: '\201c'; }
-  &::after { content: '\201d'; }
-}
-
-/* address */
 address {
   font-style: normal;
 }
 
-/* list styles */
-ol,
-ul {
-  margin-left: var(--list-margin-left);
+button,
+fieldset,
+input:not([type="radio"]):not([type="checkbox"]),
+select,
+textarea {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #808080;
 }
 
-/* unordered list bullets */
-ul {
-  list-style: var(--unordered-list-style);
+iframe {
+  border: 0;
+}
+
+hr {
+  box-sizing: content-box;
+  position: relative;
+  border: 0;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #808080;
+  }
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a:active,
+a:hover {
+  outline-width: 0;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  cursor: pointer;
+}
+
+[disabled] {
+  cursor: default;
+}
+
+legend,
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box;
+}
+
+/* -------------------------------- *
+ * Modular scale + Vertical Rhythm  *
+ * -------------------------------- */
+
+/* stylelint-disable-next-line */
+:root {
+  font-size: var(--base-font-size);
+  line-height: var(--base-line-height);
+}
+
+* {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+li {
+  margin-top: var(--offset);
+}
+
+p,
+dl,
+ol,
+ul,
+li,
+pre,
+form,
+table,
+blockquote,
+figcaption {
+  margin-top: calc(var(--offset) + var(--base-line-height));
+  margin-bottom: calc(var(--offset) * -1);
+
+  &:first-child {
+    margin-top: var(--offset);
+  }
+}
+
+h1 {
+  font-size: var(--ms4);
+
+  /* Line height must be greater or equal to font size and
+   * must be a multiple of base line height
+   */
+  line-height: calc(var(--base-line-height) * 2);
+  margin-top: calc(var(--offset-ms4) + var(--base-line-height));
+  margin-bottom: calc(var(--offset-ms4) * -1);
+
+  &:first-child {
+    margin-top: var(--offset-ms4);
+  }
+}
+
+h2 {
+  font-size: var(--ms3);
+  line-height: calc(var(--base-line-height) * 2);
+  margin-top: calc(var(--offset-ms3) + var(--base-line-height));
+  margin-bottom: calc(var(--offset-ms3) * -1);
+
+  &:first-child {
+    margin-top: var(--offset-ms3);
+  }
+}
+
+h3 {
+  font-size: var(--ms2);
+  line-height: calc(var(--base-line-height) * 2);
+  margin-top: calc(var(--offset-ms2) + var(--base-line-height));
+  margin-bottom: calc(var(--offset-ms2) * -1);
+
+  &:first-child {
+    margin-top: var(--offset-ms2);
+  }
+}
+
+h4 {
+  font-size: var(--ms1);
+  margin-top: calc(var(--offset-ms1) + var(--base-line-height));
+  margin-bottom: calc(var(--offset-ms1) * -1);
+
+  &:first-child {
+    margin-top: var(--offset-ms1);
+  }
+}
+
+h5 {
+  font-size: var(--ms0);
+  margin-top: calc(var(--offset-ms0) + var(--base-line-height));
+  margin-bottom: calc(var(--offset-ms0) * -1);
+
+  &:first-child {
+    margin-top: var(--offset-ms0);
+  }
+}
+
+h6 {
+  font-size: var(--ms-1);
+  margin-top: calc(var(--offset-ms-1) + var(--base-line-height));
+  margin-bottom: calc(var(--offset-ms-1) * -1);
+
+  &:first-child {
+    margin-top: var(--offset-ms-1);
+  }
 }
 
 :global(.grid-lines) {
   background-image: linear-gradient(rgba(200, 50, 50, 0.25) 1px, transparent 1px);
-  background-size: 1px var(--baseline);
+  background-size: 1px var(--base-line-height);
 }

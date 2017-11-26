@@ -5,15 +5,6 @@
  */
 
 /**
- * Clear inner floats
- */
-:global(.clearfix::after) {
-  clear: both;
-  content: '';
-  display: table;
-}
-
-/**
  * Hide text while making it readable for screen readers
  * 1. Needed in WebKit-based browsers because of an implementation bug;
  *    See: https://code.google.com/p/chromium/issues/detail?id=457146
@@ -44,4 +35,13 @@
 :global(.unstyled-list) {
   margin: 0;
   list-style: none;
+}
+
+/**
+ * Clear inner floats
+ */
+:global(.clearfix::after) {
+  clear: both;
+  content: '';
+  display: table;
 }
