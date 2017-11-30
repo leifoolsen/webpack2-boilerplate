@@ -1,0 +1,149 @@
+:root {
+  /*
+   * Primary and secondary colors.
+   * The primary color is used throughout most of the application and components,
+   * as the main color for your application. The secondary color is used for
+   * floating action buttons and other interactive elements, serving as visual
+   * contrast to the primary.
+   * See: https://material.io/components/web/docs/theming/
+   * See: https://material.io/color/
+   */
+  --color-primary: #1976d2;
+  --color-primary-tone: color(white a(98%));
+  --color-primary-light: #63a4ff;
+  --color-primary-light-tone: color(black a(85%));
+  --color-primary-dark: #004ba0;
+  --color-primary-dark-tone: color(white a(90%));
+  --color-secondary: #d84315;
+  --color-secondary-tone: color(black a(93%));
+  --color-secondary-light: #ff7543;
+  --color-secondary-light-tone: color(black a(83%));
+  --color-secondary-dark: #9f0000;
+  --color-secondary-dark-tone: color(white a(98%));
+
+  /*
+   * Primary, used for most text.
+   * Secondary, used for text which is lower in the visual hierarchy.
+   * Hint, used for text hints (such as those in text fields and labels).
+   * Disabled, used for text in disabled components and content.
+   * Icon, used for icons.
+   *
+   * Text on light background */
+  --text-color-dark-primary: color(black a(87%));
+  --text-color-dark-secondary: color(black a(54%));
+  --text-color-dark-hint: color(black a(38%));
+  --text-color-dark-disabled: color(black a(38%));
+  --text-color-dark-icon: color(black a(38%));
+  --text-color-dark-anchor: var(--color-secondary);
+
+  /* Text on dark background */
+  --text-color-light-primary: color(white);
+  --text-color-light-secondary: color(white a(70%));
+  --text-color-light-hint: color(white a(50%));
+  --text-color-light-disabled: color(white a(50%));
+  --text-color-light-icon: color(white a(50%));
+  --text-color-light-anchor: var(--color-secondary-light);
+
+  /* Text color */
+  --background-color: #ffffff;
+  --text-color-primary: var(--text-color-dark-primary);
+  --text-color-secondary: var(--text-color-dark-secondary);
+  --text-color-hint: var(--text-color-dark-hint);
+  --text-color-disabled: var(--text-color-dark-disabled);
+  --text-color-icon: var(--text-color-dark-icon);
+  --text-color-anchor: var(--text-color-dark-anchor);
+}
+
+@define-mixin primary {
+  background-color: var(--color-primary);
+  color: var(--color-primary-tone);
+}
+
+@define-mixin primary-light {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-light-tone);
+}
+
+@define-mixin primary-dark {
+  background-color: var(--color-primary-dark);
+  color: var(--color-primary-dark-tone);
+}
+
+@define-mixin secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-tone);
+}
+
+@define-mixin secondary-light {
+  background-color: var(--color-secondary-light);
+  color: var(--color-secondary-light-tone);
+}
+
+@define-mixin secondary-dark {
+  background-color: var(--color-secondary-dark);
+  color: var(--color-secondary-dark-tone);
+}
+
+@define-mixin text-color-primary {
+  color: var(--text-color-primary);
+}
+
+@define-mixin text-color-secondary {
+  color: var(--text-color-secondary);
+}
+
+@define-mixin text-color-hint {
+  color: var(--text-color-hint);
+}
+
+@define-mixin text-color-disabled {
+  color: var(--text-color-disabled);
+}
+
+@define-mixin text-color-icon {
+  color: var(--text-color-icon);
+}
+
+.primary {
+  @mixin primary;
+}
+
+.primaryLight {
+  @mixin primary-light;
+}
+
+.primaryDark {
+  @mixin primary-dark;
+}
+
+.secondary {
+  @mixin secondary;
+}
+
+.secondaryLight {
+  @mixin secondary-light;
+}
+
+.secondaryDark {
+  @mixin secondary-dark;
+}
+
+.textColorPrimary {
+  @mixin text-color-primary;
+}
+
+.textColorSecondary {
+  @mixin text-color-secondary;
+}
+
+.textColorHint {
+  @mixin text-color-hint;
+}
+
+.textColorDisabled {
+  @mixin text-color-disabled;
+}
+
+.textColorIcon {
+  @mixin text-color-icon;
+}

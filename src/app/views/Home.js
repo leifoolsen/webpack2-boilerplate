@@ -97,7 +97,7 @@ export const Home = ({state, actions}) =>
         <button id="btn-ping" onclick={actions.ping}>Ping</button>
       </div>
       <div class={card['Card-body']}>
-        <p id="ping-response">{state.response}</p>
+        <span id="ping-response">{state.response}</span>
       </div>
     </div>
 
@@ -108,7 +108,7 @@ export const Home = ({state, actions}) =>
         </button>
       </div>
       <div class={card['Card-body']}>
-        <p style={{marginTop: '0', marginBottom: '0'}}>{state.unhandledErrorResponse}</p>
+        <span>{state.unhandledErrorResponse}</span>
       </div>
     </div>
 

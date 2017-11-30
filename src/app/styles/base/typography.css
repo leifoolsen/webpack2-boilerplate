@@ -12,14 +12,19 @@
  */
 
 @import '../abstracts/custom-media.css';
+@import '../colors/colors.css';
 
 :root {
   /* font families */
-  --font-family-roboto: 'Roboto-Light', 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  --font-family-roboto-light: 'Roboto-Light', 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  --font-family-roboto-regular: 'Roboto-Regular', 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   --font-family-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  --font-family-arial: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --font-family-helvetica: 'Helvetica', 'Arial', sans-serif;
   --font-family-serif: Georgia, 'Times New Roman', Times, serif;
   --font-family-monospace: Menlo, Monaco, Consolas, 'Courier New', monospace;
-  --font-family: var(--font-family-roboto);
+  --font-family-heading: var(--font-family-roboto-light);
+  --font-family-body: var(--font-family-roboto-regular);
   --letter-spacing: -0.025em;
   --cap-height: 0.65;
 
@@ -29,46 +34,6 @@
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
-
-  /* Fluid font */
-  --min-screen: var(--phone-width);
-  --max-screen: var(--tablet-width);
-  --min-line-height: 1.4;
-  --max-line-height: 1.5;
-  --min-font-size: 0.9;
-  --max-font-size: 1;
-
-  /* Base font */
-  --base-font-size: calc(var(--min-font-size) * 1rem);
-  --base-line-height: calc(var(--min-line-height) * 1rem);
-
-  /* Modular scale
-   * Maybe create a mixin for modular scale using this formula:
-   * ms(n) =  pow($ms-ratio, $n) * $ms-base;
-   * See: https://www.sassmeister.com/gist/10620fefd1ed75189f1b
-   * See: https://www.bhalash.com/archives/13544805638
-   */
-  --ms-base: 1rem;
-  --ms-ratio: 1.2; /* Ratio = 5:6, see: http://www.modularscale.com */
-  --ms0: var(--ms-base);
-  --ms1: calc(var(--ms-ratio) * var(--ms0));
-  --ms2: calc(var(--ms-ratio) * var(--ms1));
-  --ms3: calc(var(--ms-ratio) * var(--ms2));
-  --ms4: calc(var(--ms-ratio) * var(--ms3));
-  --ms5: calc(var(--ms-ratio) * var(--ms4));
-  --ms6: calc(var(--ms-ratio) * var(--ms5));
-  --ms7: calc(var(--ms-ratio) * var(--ms6));
-  --ms-1: calc(var(--ms0) / var(--ms-ratio));
-  --ms-2: calc(var(--ms-1) / var(--ms-ratio));
-
-  /* See: https://medium.com/written-in-code/aligning-type-to-baseline-the-right-way-using-sass-e258fce47a9b */
-  --offset: calc((var(--base-line-height) - var(--cap-height) * var(--base-font-size)) / 2);
-  --offset-ms0: calc((var(--base-line-height) - var(--cap-height) * var(--ms0)) / 2);
-  --offset-ms1: calc((var(--base-line-height) - var(--cap-height) * var(--ms1)) / 2);
-  --offset-ms2: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms2)) / 2);
-  --offset-ms3: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms3)) / 2);
-  --offset-ms4: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms4)) / 2);
-  --offset-ms-1: calc((var(--base-line-height) - var(--cap-height) * var(--ms-1)) / 2);
 }
 
 @media (--high-dppx) {
@@ -82,43 +47,20 @@
   }
 }
 
-@media (--media-tablet) {
-  :root {
-    /* Base font large screen */
-    --base-font-size: calc(var(--max-font-size) * 1rem);
-    --base-line-height: calc(var(--max-line-height) * 1rem);
-    --offset: calc((var(--base-line-height) - var(--cap-height) * var(--base-font-size)) / 2);
-    --offset-ms0: calc((var(--base-line-height) - var(--cap-height) * var(--ms0)) / 2);
-    --offset-ms1: calc((var(--base-line-height) - var(--cap-height) * var(--ms1)) / 2);
-    --offset-ms2: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms2)) / 2);
-    --offset-ms3: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms3)) / 2);
-    --offset-ms4: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms4)) / 2);
-    --offset-ms-1: calc((var(--base-line-height) - var(--cap-height) * var(--ms-1)) / 2);
-  }
-}
-
-@media (--media-phone) {
-  :root {
-    /* Base font, fluid for tablet size */
-    --base-font-size: calc(var(--min-font-size) * 1rem + (var(--max-font-size) - var(--min-font-size)) * ((100vw - var(--min-screen) * 1rem) / (var(--max-screen) - var(--min-screen))));
-
-    /* Fluid line height (molten leading) */
-    --base-line-height: calc(var(--min-line-height) * 1rem + (var(--max-line-height) - var(--min-line-height)) * ((100vw - var(--min-screen) * 1rem) / (var(--max-screen) - var(--min-screen))));
-
-    /* -- */
-    --offset: calc((var(--base-line-height) - var(--cap-height) * var(--base-font-size)) / 2);
-    --offset-ms0: calc((var(--base-line-height) - var(--cap-height) * var(--ms0)) / 2);
-    --offset-ms1: calc((var(--base-line-height) - var(--cap-height) * var(--ms1)) / 2);
-    --offset-ms2: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms2)) / 2);
-    --offset-ms3: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms3)) / 2);
-    --offset-ms4: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms4)) / 2);
-    --offset-ms-1: calc((var(--base-line-height) - var(--cap-height) * var(--ms-1)) / 2);
-  }
-}
-
 /* -------------------------------- *
  * Override/Extend normalize.css    *
  * -------------------------------- */
+
+html {
+  box-sizing: border-box;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  text-size-adjust: 100%;
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-normal);
+  letter-spacing: var(--letter-spacing);
+}
 
 *,
 *::before,
@@ -132,19 +74,11 @@
   box-sizing: inherit;
 }
 
-html {
-  box-sizing: border-box;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  text-size-adjust: 100%;
-  font-family: var(--font-family);
-  font-weight: var(--font-weight-normal);
-  letter-spacing: var(--letter-spacing);
-}
 
 body {
   margin: 0;
+  background-color: var(--background-color);
+  color: var(--text-color-primary);
 }
 
 h1,
@@ -154,6 +88,7 @@ h4,
 h5,
 h6 {
   font-weight: var(--font-weight-bold);
+  font-family: var(--font-family-heading);
 }
 
 b,
@@ -206,9 +141,13 @@ table {
   border-spacing: 0;
 }
 
-a:active,
-a:hover {
-  outline-width: 0;
+a {
+  color: var(--text-color-anchor);
+
+  &:active,
+  &:hover {
+    outline-width: 0;
+  }
 }
 
 button,
@@ -232,7 +171,84 @@ legend,
  * Modular scale + Vertical Rhythm  *
  * -------------------------------- */
 
-/* stylelint-disable-next-line */
+/* stylelint-disable-next-line no-duplicate-selectors */
+:root {
+  /* Fluid font and line height */
+  --min-screen: var(--phone-width);
+  --max-screen: var(--tablet-width);
+  --min-line-height: 1.4;
+  --max-line-height: 1.5;
+  --min-font-size: 0.9;
+  --max-font-size: 1;
+
+  /* Base font */
+  --base-font-size: calc(var(--min-font-size) * 1rem);
+  --base-line-height: calc(var(--min-line-height) * 1rem);
+
+  /* Modular scale
+   * Maybe create a mixin for modular scale using this formula:
+   * ms(n) =  pow($ms-ratio, $n) * $ms-base;
+   * See: https://www.sassmeister.com/gist/10620fefd1ed75189f1b
+   * See: https://www.bhalash.com/archives/13544805638
+   */
+  --ms-base: 1rem;
+  --ms-ratio: 1.2; /* Ratio = 5:6, see: http://www.modularscale.com */
+  --ms0: var(--ms-base);
+  --ms1: calc(var(--ms-ratio) * var(--ms0));
+  --ms2: calc(var(--ms-ratio) * var(--ms1));
+  --ms3: calc(var(--ms-ratio) * var(--ms2));
+  --ms4: calc(var(--ms-ratio) * var(--ms3));
+  --ms5: calc(var(--ms-ratio) * var(--ms4));
+  --ms6: calc(var(--ms-ratio) * var(--ms5));
+  --ms7: calc(var(--ms-ratio) * var(--ms6));
+  --ms-1: calc(var(--ms0) / var(--ms-ratio));
+  --ms-2: calc(var(--ms-1) / var(--ms-ratio));
+
+  /* See: https://medium.com/written-in-code/aligning-type-to-baseline-the-right-way-using-sass-e258fce47a9b */
+  --offset: calc((var(--base-line-height) - var(--cap-height) * var(--base-font-size)) / 2);
+  --offset-ms0: calc((var(--base-line-height) - var(--cap-height) * var(--ms0)) / 2);
+  --offset-ms1: calc((var(--base-line-height) - var(--cap-height) * var(--ms1)) / 2);
+  --offset-ms2: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms2)) / 2);
+  --offset-ms3: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms3)) / 2);
+  --offset-ms4: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms4)) / 2);
+  --offset-ms-1: calc((var(--base-line-height) - var(--cap-height) * var(--ms-1)) / 2);
+}
+
+@media (--media-tablet) {
+  :root {
+    /* Base font large screen */
+    --base-font-size: calc(var(--max-font-size) * 1rem);
+    --base-line-height: calc(var(--max-line-height) * 1rem);
+    --offset: calc((var(--base-line-height) - var(--cap-height) * var(--base-font-size)) / 2);
+    --offset-ms0: calc((var(--base-line-height) - var(--cap-height) * var(--ms0)) / 2);
+    --offset-ms1: calc((var(--base-line-height) - var(--cap-height) * var(--ms1)) / 2);
+    --offset-ms2: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms2)) / 2);
+    --offset-ms3: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms3)) / 2);
+    --offset-ms4: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms4)) / 2);
+    --offset-ms-1: calc((var(--base-line-height) - var(--cap-height) * var(--ms-1)) / 2);
+  }
+}
+
+@media (--media-phone) {
+  :root {
+    /* Base font, fluid for tablet size */
+    --base-font-size: calc(var(--min-font-size) * 1rem + (var(--max-font-size) - var(--min-font-size)) * ((100vw - var(--min-screen) * 1rem) / (var(--max-screen) - var(--min-screen))));
+
+    /* Fluid line height (molten leading) */
+    --base-line-height: calc(var(--min-line-height) * 1rem + (var(--max-line-height) - var(--min-line-height)) * ((100vw - var(--min-screen) * 1rem) / (var(--max-screen) - var(--min-screen))));
+
+    /* -- */
+    --offset: calc((var(--base-line-height) - var(--cap-height) * var(--base-font-size)) / 2);
+    --offset-ms0: calc((var(--base-line-height) - var(--cap-height) * var(--ms0)) / 2);
+    --offset-ms1: calc((var(--base-line-height) - var(--cap-height) * var(--ms1)) / 2);
+    --offset-ms2: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms2)) / 2);
+    --offset-ms3: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms3)) / 2);
+    --offset-ms4: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms4)) / 2);
+    --offset-ms-1: calc((var(--base-line-height) - var(--cap-height) * var(--ms-1)) / 2);
+  }
+}
+
+/* stylelint-disable-next-line no-duplicate-selectors */
 :root {
   font-size: var(--base-font-size);
   line-height: var(--base-line-height);
@@ -243,10 +259,6 @@ legend,
   margin-bottom: 0;
   padding-top: 0;
   padding-bottom: 0;
-}
-
-li {
-  margin-top: var(--offset);
 }
 
 p,
@@ -265,6 +277,11 @@ figcaption {
   &:first-child {
     margin-top: var(--offset);
   }
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+li {
+  margin-top: var(--offset);
 }
 
 h1 {

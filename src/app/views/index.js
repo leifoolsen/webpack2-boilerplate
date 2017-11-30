@@ -6,6 +6,7 @@ import {h} from 'hyperapp';
 
 import { Home } from './Home'; // eslint-disable-line no-unused-vars
 import { Typography } from './Typography'; // eslint-disable-line no-unused-vars
+import { Colors } from './Colors'; // eslint-disable-line no-unused-vars
 import { Demo } from './Demo'; // eslint-disable-line no-unused-vars
 
 const showPage = (state, actions) => {
@@ -25,6 +26,9 @@ const showPage = (state, actions) => {
 
   if ('/typography' === page) {
     return <Typography />;
+  }
+  else if ('/colors' === page) {
+    return <Colors />;
   }
   else if ('/demo' === page) {
     return <Demo />;
@@ -53,6 +57,9 @@ export const view = (state, actions) =>
           </li>
           <li>
             <a href="/typography" onclick={e => actions.page(e)}>Typography</a>
+          </li>
+          <li>
+            <a href="/colors" onclick={e => actions.page(e)}>Colors</a>
           </li>
           <li>
             <a href="/demo" onclick={e => actions.page(e)}>Demo</a>
