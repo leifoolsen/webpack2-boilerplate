@@ -1,5 +1,5 @@
-@import '../abstracts/custom-media.css';
-@import '../abstracts/space.css';
+@import '../base/custom-media.css';
+@import '../base/space.css';
 
 /**
  * Based on: https://github.com/philipwalton/solved-by-flexbox/blob/master/assets/css/components/holy-grail.css
