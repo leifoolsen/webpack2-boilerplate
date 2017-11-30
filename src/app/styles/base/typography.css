@@ -12,7 +12,7 @@
  */
 
 @import '../abstracts/custom-media.css';
-@import '../colors/colors.css';
+@import './colors.css';
 
 :root {
   /* font families */
@@ -192,7 +192,7 @@ legend,
    * See: https://www.bhalash.com/archives/13544805638
    */
   --ms-base: 1rem;
-  --ms-ratio: 1.2; /* Ratio = 5:6, see: http://www.modularscale.com */
+  --ms-ratio: 1.25; /* Ratio = 4:5, see: http://www.modularscale.com */
   --ms0: var(--ms-base);
   --ms1: calc(var(--ms-ratio) * var(--ms0));
   --ms2: calc(var(--ms-ratio) * var(--ms1));

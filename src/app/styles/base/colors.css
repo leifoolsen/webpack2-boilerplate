@@ -8,18 +8,18 @@
    * See: https://material.io/components/web/docs/theming/
    * See: https://material.io/color/
    */
-  --color-primary: #1976d2;
+  --color-primary: #2196f3;
   --color-primary-tone: color(white a(98%));
-  --color-primary-light: #63a4ff;
-  --color-primary-light-tone: color(black a(85%));
-  --color-primary-dark: #004ba0;
+  --color-primary-light: #6ec6ff;
+  --color-primary-light-tone: color(black a(65%));
+  --color-primary-dark: #0069c0;
   --color-primary-dark-tone: color(white a(90%));
-  --color-secondary: #d84315;
-  --color-secondary-tone: color(black a(93%));
-  --color-secondary-light: #ff7543;
-  --color-secondary-light-tone: color(black a(83%));
-  --color-secondary-dark: #9f0000;
-  --color-secondary-dark-tone: color(white a(98%));
+  --color-secondary: #7b1fa2;
+  --color-secondary-tone: color(white a(83%));
+  --color-secondary-light: #ae52d4;
+  --color-secondary-light-tone: color(black a(93%));
+  --color-secondary-dark: #4a0072;
+  --color-secondary-dark-tone: color(white a(93%));
 
   /*
    * Primary, used for most text.

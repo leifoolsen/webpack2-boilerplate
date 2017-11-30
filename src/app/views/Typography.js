@@ -21,7 +21,7 @@ export const Typography = () =>
       why fluid typography could be a perfect match for the web. It’s a
       different approach for a completely different medium.
     </p>
-    <p>If you want to know more about this technique, read the Smashing
+    <p>If you would like to know more about this technique, read the Smashing
       Magazine artiche <a href="https://www.smashingmagazine.com/2016/05/fluid-typography/">
         Responsive Font Size And Fluid Typography With vh And vw Units</a>
     </p>

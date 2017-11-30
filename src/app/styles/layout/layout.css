@@ -1,4 +1,5 @@
 @import '../abstracts/custom-media.css';
+@import '../abstracts/space.css';
 
 /**
  * Based on: https://github.com/philipwalton/solved-by-flexbox/blob/master/assets/css/components/holy-grail.css
@@ -30,7 +31,7 @@
 }
 
 .Layout-main {
-  padding: 0 16px;
+  padding: 0 var(--space-m);
   flex: 1 0 auto; /* 2 */
 }
 
@@ -41,7 +42,7 @@
 
 .Layout-sidebarLeft,
 .Layout-sidebarRight {
-  padding: 0 16px;
+  padding: 0 var(--space-m);
 }
 
 @media (--media-tablet) {
