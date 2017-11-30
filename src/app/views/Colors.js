@@ -11,6 +11,10 @@ export const Colors = () =>
     <p class={colors.secondary}>Secondary</p>
     <p class={colors.secondaryLight}>Secondary light</p>
     <p class={colors.secondaryDark}>Secondary dark</p>
+    <p class={colors.info}>Info</p>
+    <p class={colors.success}>Success</p>
+    <p class={colors.warning}>Warning</p>
+    <p class={colors.error}>Error</p>
     <p class={colors.textColorPrimary}>Primary text</p>
     <p class={colors.textColorSecondary}>Secondary text</p>
     <p class={colors.textColorDisabled}>Disabled text</p>
