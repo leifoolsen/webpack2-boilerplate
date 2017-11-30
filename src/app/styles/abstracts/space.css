@@ -1,0 +1,21 @@
+@import './custom-media.css';
+
+:root {
+  --space-xs: 2px;
+  --space-s: 4px;
+  --space-m: 8px;
+  --space-l: 16px;
+  --space-xl: 32px;
+  --space-xxl: 64px;
+}
+
+@media (--media-phone) {
+  :root {
+    --space-xs: 4px;
+    --space-s: 8px;
+    --space-m: 16px;
+    --space-l: 32px;
+    --space-xl: 64px;
+    --space-xxl: 128px;
+  }
+}
