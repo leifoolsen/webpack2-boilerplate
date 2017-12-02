@@ -133,11 +133,7 @@ table {
 
 a {
   color: var(--text-color-anchor);
-
-  &:active,
-  &:hover {
-    outline-width: 0;
-  }
+  cursor: pointer;
 }
 
 button,
@@ -341,17 +337,27 @@ h6 {
   }
 }
 
-button,
-fieldset,
+label,
 input:not([type="radio"]):not([type="checkbox"]),
 select,
+button,
+fieldset,
 textarea {
   border-width: 1px;
   border-style: solid;
   border-color: var(--text-color-icon);
+  border-radius: 3px;
   line-height: var(--base-line-height);
   font-family: inherit;
   background: transparent;
+  display: inline-flex; /* Inline elements with negative margins does not work with vertical rhythm */
+  float: left;          /* But floating the element applies the negative margin, and we're into the rhythm again */
+  margin-top: calc(var(--offset) - 1px);
+  margin-bottom: calc((var(--offset) + 1px) * -1);
+}
+
+label {
+  border-color: transparent;
 }
 
 :global(.grid-lines) {

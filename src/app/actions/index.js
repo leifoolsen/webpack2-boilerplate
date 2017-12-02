@@ -24,7 +24,7 @@ export const actions = {
 
   storeState: () => state => storeStateInStorage(state),
 
-  ping: ({e, actions}) => () => {
+  ping: e => () => actions => {
     e.preventDefault();
     pingServer(joinUrl(config.apiPath, '/ping'))
       .then(r => actions.setResponse(r));
@@ -32,7 +32,7 @@ export const actions = {
 
   setResponse: response => ({response}),
 
-  triggerUnhandledError: ({e, actions}) => () => {
+  triggerUnhandledError: e => () => actions => {
 
     const badFunction = () => {
       const foo = {};

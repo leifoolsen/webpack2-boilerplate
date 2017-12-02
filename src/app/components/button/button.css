@@ -1,0 +1,19 @@
+@import '../../styles/base/colors.css';
+@import '../../styles/base/typography.css';
+
+@define-mixin button {
+  display: inline-flex;
+}
+
+/* applying the mixin */
+
+/*
+button,
+[role='button'],
+input[type='submit'],
+input[type='button'],
+input[type='reset'],
+input[type='file'] + label {
+  @mixin button;
+}
+*/
