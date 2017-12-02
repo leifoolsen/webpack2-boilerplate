@@ -94,7 +94,7 @@ export const Home = ({state, actions}) =>
 
     <div class={card.Card}>
       <div class={card['Card-figure']}>
-        <button id="btn-ping" onclick={actions.ping}>Ping</button>
+        <button id="btn-ping" onclick={ e => actions.ping({e, actions})}>Ping</button>
       </div>
       <div class={card['Card-body']}>
         <span id="ping-response">{state.response}</span>
@@ -103,7 +103,7 @@ export const Home = ({state, actions}) =>
 
     <div class={card.Card}>
       <div class={card['Card-figure']}>
-        <button onclick={ e => actions.triggerUnhandledError({e}) }>
+        <button onclick={ e => actions.triggerUnhandledError({e, actions}) }>
           Unhandled error!!!
         </button>
       </div>

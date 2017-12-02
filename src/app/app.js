@@ -1,11 +1,11 @@
 import './styles/base/typography.css';
 import './styles/base/helpers.css';
-import {app} from 'hyperapp';
-import config from '../config/config';
-import logger from '../logger/logger';
+import { app } from 'hyperapp';
 import { actions } from './actions';
 import { state } from './state';
 import { view } from './views';
+import config from '../config/config';
+import logger from '../logger/logger';
 
 const run = () => {
 

@@ -6,8 +6,8 @@
   "main": "webpack.config.babel.js",
   "engineStrict": true,
   "engines": {
-    "node": ">=6.11.3",
-    "npm": ">=3.10.0"
+    "node": ">=6",
+    "npm": ">=3"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
   "dependencies": {
     "babel-polyfill": "6.26.0",
     "harmony-reflect": "1.5.1",
-    "hyperapp": "0.16.0",
+    "hyperapp": "0.16.2",
     "intl": "1.2.5",
     "moment": "2.19.3",
     "whatwg-fetch": "2.0.3"
@@ -29,7 +29,7 @@
     "add-asset-html-webpack-plugin": "2.1.2",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.0",
-    "babel-eslint": "8.0.2",
+    "babel-eslint": "8.0.3",
     "babel-loader": "7.1.2",
     "babel-plugin-__coverage__": "11.0.0",
     "babel-plugin-istanbul": "4.1.5",

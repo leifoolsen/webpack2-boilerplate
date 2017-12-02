@@ -106,16 +106,6 @@ address {
   font-style: normal;
 }
 
-button,
-fieldset,
-input:not([type="radio"]):not([type="checkbox"]),
-select,
-textarea {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #808080;
-}
-
 iframe {
   border: 0;
 }
@@ -349,6 +339,19 @@ h6 {
   &:first-child {
     margin-top: var(--offset-ms-1);
   }
+}
+
+button,
+fieldset,
+input:not([type="radio"]):not([type="checkbox"]),
+select,
+textarea {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--text-color-icon);
+  line-height: var(--base-line-height);
+  font-family: inherit;
+  background: transparent;
 }
 
 :global(.grid-lines) {

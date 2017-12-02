@@ -10,7 +10,7 @@ const getStateFromStorage = () => {
   }
 };
 
-const storeStateInStorage = (state) =>
+const storeStateInStorage = state =>
   window.localStorage.setItem('boilerplate', JSON.stringify(state));
 
 export {getStateFromStorage, storeStateInStorage};

@@ -36,7 +36,7 @@ const showPage = (state, actions) => {
   return <Home state={state} actions={actions}/>;
 };
 
-export const view = (state, actions) =>
+export const view = state => actions =>
   <div class={layout.Layout}>
     <header class={layout['Layout-top']} role="banner" style={{background: 'hsla(360, 100%, 50%, .7)', color: 'yellow'}}>
       <h1>Webpack Boilerplate</h1>
