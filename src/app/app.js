@@ -1,6 +1,5 @@
-import './styles/base/helpers.css';
 import './styles/base/typography.css';
-import './components/button/button.css';
+import './styles/base/helpers.css';
 import { app } from 'hyperapp';
 import { actions } from './actions';
 import { state } from './state';

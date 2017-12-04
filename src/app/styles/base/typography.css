@@ -12,6 +12,7 @@
  */
 
 @import './custom-media.css';
+@import './space.css';
 @import './colors.css';
 
 :root {
@@ -337,11 +338,29 @@ h6 {
   }
 }
 
+legend {
+  padding: 0;
+  display: table;
+}
+
+fieldset {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--text-color-icon);
+  border-radius: 3px;
+  padding: 0.01em 0 calc(var(--base-line-height) - 1px) var(--space-m);
+  margin: 0;
+  min-width: 0;
+}
+
+body:not(:-moz-handler-blocked) fieldset {
+  display: table-cell;
+}
+
 label,
 input:not([type="radio"]):not([type="checkbox"]),
 select,
 button,
-fieldset,
 textarea {
   border-width: 1px;
   border-style: solid;
@@ -350,8 +369,8 @@ textarea {
   line-height: var(--base-line-height);
   font-family: inherit;
   background: transparent;
-  display: inline-flex; /* Inline elements with negative margins does not work with vertical rhythm */
-  float: left;          /* But floating the element applies the negative margin, and we're into the rhythm again */
+  display: inline-block; /* Inline elements with negative margins does not work with vertical rhythm */
+  float: left;           /* But floating the element applies the negative margin, and we're into the rhythm again */
   margin-top: calc(var(--offset) - 1px);
   margin-bottom: calc((var(--offset) + 1px) * -1);
 }
@@ -359,6 +378,87 @@ textarea {
 label {
   border-color: transparent;
 }
+
+/*
+label,
+input:not([type=radio]):not([type=checkbox]),
+button,
+*/
+select:not([multiple]) {
+  /* FireFox needs explicit height */
+  height: calc(var(--base-line-height) + 2px);
+}
+
+option,
+optgroup {
+  height: var(--base-line-height);
+}
+
+select[multiple],
+textarea {
+  height: calc(var(--base-line-height) * 4 + 2px);
+}
+
+[height="1"],
+select[multiple][size="1"],
+textarea[rows="1"] {
+  height: calc(var(--base-line-height) + 2px);
+}
+
+[height="2"],
+select[multiple][size="2"],
+textarea[rows="2"] {
+  height: calc(var(--base-line-height) * 2 + 2px);
+}
+
+[height="3"],
+select[multiple][size="3"],
+textarea[rows="3"] {
+  height: calc(var(--base-line-height) * 3 + 2px);
+}
+
+[height="4"],
+select[multiple][size="4"],
+textarea[rows="4"] {
+  height: calc(var(--base-line-height) * 4 + 2px);
+}
+
+[height="5"],
+select[multiple][size="5"],
+textarea[rows="5"] {
+  height: calc(var(--base-line-height) * 5 + 2px);
+}
+
+[height="6"],
+select[multiple][size="6"],
+textarea[rows="6"] {
+  height: calc(var(--base-line-height) * 6 + 2px);
+}
+
+[height="7"],
+select[multiple][size="7"],
+textarea[rows="7"] {
+  height: calc(var(--base-line-height) * 7 + 2px);
+}
+
+[height="8"],
+select[multiple][size="8"],
+textarea[rows="8"] {
+  height: calc(var(--base-line-height) * 8 + 2px);
+}
+
+[height="9"],
+select[multiple][size="9"],
+textarea[rows="9"] {
+  height: calc(var(--base-line-height) * 9 + 2px);
+}
+
+[height="10"],
+select[multiple][size="10"],
+textarea[rows="10"] {
+  height: calc(var(--base-line-height) * 10 + 2px);
+}
+
 
 :global(.grid-lines) {
   background-image: linear-gradient(rgba(200, 50, 50, 0.25) 1px, transparent 1px);
