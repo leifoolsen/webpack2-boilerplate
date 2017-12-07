@@ -11,9 +11,9 @@
   --ultra-wide-width: 100;
 }
 
-@custom-media --media-phone (min-width: 30rem);
-@custom-media --media-tablet (min-width: 52rem);
-@custom-media --media-desktop (min-width: 64rem);
+@custom-media --media-phone (max-width: 479px); /* 30rem - 1px */
+@custom-media --media-tablet (480px <= width <= 831px); /* 52rem - 1px */
+@custom-media --media-desktop (min-width: 832px); /* 52rem */
 @custom-media --media-wide (min-width: 75rem);
 @custom-media --media-ultra-wide (min-width: 100rem);
 @custom-media --high-dppx (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx);

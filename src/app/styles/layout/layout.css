@@ -1,5 +1,6 @@
 @import '../base/custom-media.css';
 @import '../base/space.css';
+@import '../base/typography.css';
 
 /**
  * Based on: https://github.com/philipwalton/solved-by-flexbox/blob/master/assets/css/components/holy-grail.css
@@ -17,12 +18,6 @@
   flex-direction: column;
 }
 
-.Layout-top,
-.Layout-bottom {
-  padding: 0 16px;
-  flex: none; /* 2 */
-}
-
 .Layout-body {
   display: flex;
   flex: 1 0 auto; /* 2 */
@@ -31,18 +26,24 @@
 }
 
 .Layout-main {
-  padding: 0 var(--space-m);
+  padding: 0 var(--space-m) var(--base-line-height);
   flex: 1 0 auto; /* 2 */
+  overflow: hidden;
 }
 
 .Layout-sidebarLeft {
   /* put the nav on the left */
   order: -1;
+  transition: flex-basis 300ms cubic-bezier(0.4, 0.0, 1, 1);
 }
 
 .Layout-sidebarLeft,
 .Layout-sidebarRight {
-  padding: 0 var(--space-m);
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--space-m) var(--base-line-height);
+  background: var(--light-background-color);
+  overflow: hidden;
 }
 
 @media (--media-tablet) {
@@ -58,7 +59,7 @@
 
   .Layout-sidebarLeft {
     /* 16rem is the width of the left column */
-    flex: 0 0 16rem;
+    flex: 0 0 12rem;
   }
 
   .Layout-sidebarRight {
@@ -68,6 +69,21 @@
 }
 
 @media (--media-desktop) {
+  .Layout-body {
+    /* flex-direction: row; */
+    flex-flow: row wrap;
+  }
+
+  .Layout-main {
+    flex: 1;
+    margin: 0;
+  }
+
+  .Layout-sidebarLeft {
+    /* 16rem is the width of the left column */
+    flex: 0 0 16rem;
+  }
+
   .Layout-sidebarRight {
     /* 10rem is the width of the right column */
     flex: 0 0 10rem;

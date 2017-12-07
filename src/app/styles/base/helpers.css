@@ -33,7 +33,9 @@
 }
 
 :global(.unstyled-list) {
-  margin: 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
   list-style: none;
 }
 

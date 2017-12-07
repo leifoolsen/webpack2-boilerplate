@@ -106,7 +106,7 @@ export const Typography = () =>
       <p><s>This text has a strikethrough</s>.</p>
       <p>Superscript<sup>®</sup>.</p>
       <p>Subscript for things like H<sub>2</sub>O.</p>
-      {/* TODO: Fix styling for this
+      {/* TODO: Fix styling for this. Current styling affects VR
       <p>
         <small>This small text is small for for fine print, etc.</small>
       </p>
@@ -129,55 +129,57 @@ export const Typography = () =>
       <br />
       <fieldset>
         <legend>Input fields</legend>
-        <div class="clearfix">
+        <div>
           <label for="input__text">Text Input:&nbsp;</label>
           <input id="input__text" type="text" placeholder="Text Input"/>
         </div>
         <br/>
-        <div class="clearfix">
+        <div style={{display: 'flex'}}>
           <label for="input__password">Password:&nbsp;</label>
           <input id="input__password" type="password" placeholder="Type your Password"/>
         </div>
         <br/>
-        <div class="clearfix">
+        <div>
           <label for="input__webaddress">Web Address:&nbsp;</label>
           <input id="input__webaddress" type="url" placeholder="http://yoursite.com"/>
         </div>
         <br/>
-        <div class="clearfix">
+        <div>
           <label for="input__emailaddress">Email Address:&nbsp;</label>
           <input id="input__emailaddress" type="email" placeholder="name@email.com"/>
         </div>
         <br/>
-        <div class="clearfix">
+        <div>
           <label for="input__phone">Phone Number:&nbsp;</label>
           <input id="input__phone" type="tel" placeholder="(999) 999-9999"/>
         </div>
         <br/>
-        <div class="clearfix">
+        <div>
           <label for="input__search">Search:&nbsp;</label>
           <input id="input__search" type="search" placeholder="Enter Search Term"/>
         </div>
         <br/>
-        <div class="clearfix">
-          <label for="input__text2">Number Input:&nbsp;</label>
-          <input id="input__text2" type="number" placeholder="Enter a Number"/>
-        </div>
-        <br/>
-        <div class="clearfix">
-          <label for="input__text-disabled">Text Input:&nbsp;</label>
-          <input id="input__text-disabled" type="text" value="Disabled" disabled/>
+        <div style={{display: 'flex'}}>
+          <div>
+            <label for="input__text2">Number Input:&nbsp;</label>
+            <input id="input__text2" type="number" placeholder="Enter a Number"/>
+          </div>
+          <br/>
+          <div>
+            <label for="input__text-disabled">Text Input:&nbsp;</label>
+            <input id="input__text-disabled" type="text" value="Disabled" disabled/>
+          </div>
         </div>
       </fieldset>
 
       <p>It's not required to put form elements inside a fieldset</p>
-      <div class="clearfix">
-        <label for="input__text2">Text Input:&nbsp;</label>
-        <input id="input__text2" type="text" placeholder="Text Input"/>
+      <div>
+        <label for="input__text3">Text Input:&nbsp;</label>
+        <input id="input__text3" type="text" placeholder="Text Input"/>
       </div>
 
       <br/>
-      <fieldset class="clearfix">
+      <fieldset>
         <legend>Textarea</legend>
         <label for="textarea">Textarea:&nbsp;</label>
         <textarea id="textarea" rows="5" placeholder="Enter your message here" />
@@ -185,9 +187,9 @@ export const Typography = () =>
 
       <br/>
 
-      <fieldset class="clearfix">
+      <fieldset>
         <legend>Select menus</legend>
-        <div class="clearfix">
+        <div>
           <label for="select">Select:&nbsp;</label>
           <select id="select">
             <optgroup label="Option Group">
@@ -198,8 +200,8 @@ export const Typography = () =>
           </select>
         </div>
         <br/>
-        <div class="clearfix">
-          <label for="select__multiple">Multiple</label>
+        <div>
+          <label for="select__multiple">Multiple: &nbsp;</label>
           <select id="select__multiple" multiple="multiple" size="5">
             <optgroup label="Option Group">
               <option>Option One</option>
@@ -215,10 +217,10 @@ export const Typography = () =>
       </fieldset>
 
       <br/>
-      <fieldset class="clearfix">
+      <fieldset>
         <legend>Checkboxes and Radiobuttons</legend>
-        <div class="clearfix">
-          <p>Checkboxes</p>
+        <p>Checkboxes</p>
+        <div>
           <label for="checkbox1">
             <input id="checkbox1" type="checkbox" checked="checked"/>&nbsp;Choice 1&nbsp;
           </label>
@@ -230,9 +232,8 @@ export const Typography = () =>
           </label>
         </div>
 
-        <br/>
-        <div class="clearfix">
-          <p>Radiobuttons</p>
+        <p>Radiobuttons</p>
+        <div style={{display: 'flex'}}>
           <label for="radio1">
             <input id="radio1" name="radio__a" type="radio" checked="checked"/>&nbsp;Option 1&nbsp;
           </label>
@@ -246,12 +247,14 @@ export const Typography = () =>
       </fieldset>
 
       <br/>
-      <fieldset class="clearfix">
+      <fieldset>
         <legend>Buttons</legend>
-        <input type="submit" value="Input Submit"/>
-        <button type="submit">Button Submit</button>
-        <button type="button">Button</button>
-        <button type="button" disabled>Disabled</button>
+        <div style={{display: 'flex'}}>
+          <input type="submit" value="Input Submit"/>
+          <button type="submit">Button Submit</button>
+          <button type="button">Button</button>
+          <button type="button" disabled>Disabled</button>
+        </div>
       </fieldset>
     </section>
   </div>;

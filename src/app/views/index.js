@@ -1,5 +1,6 @@
-import '../styles/base/helpers.css';
 import layout from '../styles/layout/layout.css';
+import header from '../styles/app/masthead.css';
+import footer from '../styles/app/mastfoot.css';
 
 import {h} from 'hyperapp';
 /** @jsx h */
@@ -7,7 +8,6 @@ import {h} from 'hyperapp';
 import { Home } from './Home'; // eslint-disable-line no-unused-vars
 import { Typography } from './Typography'; // eslint-disable-line no-unused-vars
 import { Colors } from './Colors'; // eslint-disable-line no-unused-vars
-import { Demo } from './Demo'; // eslint-disable-line no-unused-vars
 
 const showPage = (state, actions) => {
 
@@ -30,20 +30,17 @@ const showPage = (state, actions) => {
   else if ('/colors' === page) {
     return <Colors />;
   }
-  else if ('/form' === page) {
-    return <Form />;
-  }
-  else if ('/demo' === page) {
-    return <Demo />;
-  }
   return <Home state={state} actions={actions}/>;
 };
 
 export const view = state => actions =>
   <div class={layout.Layout}>
-    <header class={layout['Layout-top']} role="banner" style={{background: 'hsla(360, 100%, 50%, .7)', color: 'yellow'}}>
+
+    <header class={header.Masthead} role="banner">
+      <div class={header['Masthead-logo']} role="img" aria-label="Boilerplate logo"></div>
       <h1>Webpack Boilerplate</h1>
     </header>
+
     <div class={layout['Layout-body']}>
 
       <main class={layout['Layout-main']} role="main">
@@ -52,42 +49,28 @@ export const view = state => actions =>
         }
       </main>
 
-      <section class={layout['Layout-sidebarLeft']} style={{background: 'hsla(120, 100%, 50%, .8)', display: 'flex', flexDirection: 'column'}}>
-        <p>Menu</p>
-        <ul class="unstyled-list">
-          <li>
-            <a href="/" onclick={e => actions.page(e)}>Home</a>
-          </li>
-          <li>
-            <a href="/typography" onclick={e => actions.page(e)}>Typography</a>
-          </li>
-          <li>
-            <a href="/colors" onclick={e => actions.page(e)}>Colors</a>
-          </li>
-          <li>
-            <a href="/demo" onclick={e => actions.page(e)}>Demo</a>
-          </li>
-          <li>
-            <a href="#" onclick={e => actions.toggleGridLines(e)}>Toggle grid lines</a>
-          </li>
-        </ul>
-        <footer style={{display: 'flex', justifyContent: 'space-between', marginTop: 'auto'}}>
-          <img src="/assets/webpack-logo.png" alt="Webpack Logo" style={{height: '1.5rem'}} />
-          <img src="/assets/js.jpg" alt="JavaScript Logo" style={{height: '1.5rem'}} />
-          <img src="/assets/postcss-logo.svg" alt="postcss logo" style={{height: '1.5rem'}} />
-          <img src="/assets/hyperapp.png" alt="Hyperapp" style={{height: '1.5rem'}} />
-          <img src="/assets/HolyGrail.svg.png" alt="Holy Grail Logo" style={{height: '1.5rem'}} />
-        </footer>
+      <section class={layout['Layout-sidebarLeft']} style={{opacity: 0.9}}>
+        <div>
+          <ul class="unstyled-list">
+            <li>
+              <a href="/" onclick={e => actions.page(e)}>Home</a>
+            </li>
+            <li>
+              <a href="/typography" onclick={e => actions.page(e)}>Typography</a>
+            </li>
+            <li>
+              <a href="/colors" onclick={e => actions.page(e)}>Colors</a>
+            </li>
+            <li>
+              <a href="#" onclick={e => actions.toggleGridLines(e)}>Toggle grid lines</a>
+            </li>
+          </ul>
+        </div>
       </section>
-
-      <aside class={layout['Layout-sidebarRight']} role="complementary" style={{background: 'hsla(213, 100%, 50%, .8)', color: 'yellow'}}>
-        <p>Ads</p>
-      </aside>
     </div>
-    <footer class={layout['Layout-bottom']} role="contentinfo" style={{background: 'hsla(180, 100%, 50%, .8)', display: 'flex', alignItems: 'center'}}>
-      <h2 style={{flex: '1'}}>Footer</h2>
-      <p><strong>Material icons:&nbsp;</strong></p>
-      <span style={{lineHeight: '1'}}>
+    <footer class={footer.Mastfoot} role="contentinfo">
+      <h3 style={{flex: '1'}}>Footer</h3>
+      <h4>
         <i class="material-icons">face</i>
         <i class="material-icons">all_inclusive</i>
         <i class="material-icons">share</i>
@@ -97,6 +80,6 @@ export const view = state => actions =>
         <i class="material-icons">close</i>
         <i class="material-icons">android</i>
         <i class="material-icons">menu</i>
-      </span>
+      </h4>
     </footer>
   </div>;

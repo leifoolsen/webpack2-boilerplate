@@ -27,7 +27,6 @@
   --font-family-heading: var(--font-family-roboto-light);
   --font-family-body: var(--font-family-roboto-regular);
   --letter-spacing: -0.025em;
-  --cap-height: 0.65;
 
   /* font weights */
   --font-weight-light: 300;
@@ -52,15 +51,10 @@
  * Override/Extend normalize.css    *
  * -------------------------------- */
 
-html {
-  box-sizing: border-box;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  text-size-adjust: 100%;
-  font-family: var(--font-family-body);
-  font-weight: var(--font-weight-normal);
-  letter-spacing: var(--letter-spacing);
+* {
+  font-family: inherit;
+  line-height: inherit;
+  color: inherit;
 }
 
 *,
@@ -75,6 +69,16 @@ html {
   box-sizing: inherit;
 }
 
+html {
+  box-sizing: border-box;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  text-size-adjust: 100%;
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-normal);
+  letter-spacing: var(--letter-spacing);
+}
 
 body {
   margin: 0;
@@ -96,6 +100,14 @@ b,
 dt,
 strong {
   font-weight: var(--font-weight-semibold);
+}
+
+label,
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  font-weight: var(--font-weight-medium);
 }
 
 abbr[title] {
@@ -165,31 +177,47 @@ legend,
   --max-screen: var(--tablet-width);
   --min-line-height: 1.4;
   --max-line-height: 1.5;
-  --min-font-size: 0.9;
-  --max-font-size: 1;
+  --min-font-size: 0.875; /* 0.9375; */
+  --max-font-size: 1; /* 1.125; */
+  --cap-height: 0.64; /* See: https://medium.com/written-in-code/aligning-type-to-baseline-the-right-way-using-sass-e258fce47a9b */
 
   /* Base font */
   --base-font-size: calc(var(--min-font-size) * 1rem);
   --base-line-height: calc(var(--min-line-height) * 1rem);
 
-  /* Modular scale
+  /* Modular type scales, see: http://www.modularscale.com */
+  --minor-second: 1.067;     /* Ratio = 15:16 */
+  --major-second: 1.125;     /* Ratio = 8:9 */
+  --minor-third: 1.2;        /* Ratio = 5:6 */
+  --major-third: 1.25;       /* Ratio = 4:5 */
+  --perfect-fourth: 1.333;   /* Ratio = 3:4 */
+  --augmented-fourth: 1.414; /* Ratio = 1:√2 */
+  --perfect-fifth: 1.5;      /* Ratio = 2:3 */
+  --minor-sixth: 1.6;        /* Ratio = 5:8 */
+  --golden: 1.618;           /* Ratio = 1:1.618 */
+  --major-sixth: 1.667;      /* Ratio = 3:5 */
+  --minor-seventh: 1.778;    /* Ratio = 9:16 */
+  --major-seventh: 1.875;    /* Ratio = 8:15 */
+  --octave: 2;               /* Ratio = 1:2 */
+
+  /*
    * Maybe create a mixin for modular scale using this formula:
    * ms(n) =  pow($ms-ratio, $n) * $ms-base;
    * See: https://www.sassmeister.com/gist/10620fefd1ed75189f1b
    * See: https://www.bhalash.com/archives/13544805638
    */
   --ms-base: 1rem;
-  --ms-ratio: 1.25; /* Ratio = 4:5, see: http://www.modularscale.com */
+  --ms-scale: var(--major-third);
   --ms0: var(--ms-base);
-  --ms1: calc(var(--ms-ratio) * var(--ms0));
-  --ms2: calc(var(--ms-ratio) * var(--ms1));
-  --ms3: calc(var(--ms-ratio) * var(--ms2));
-  --ms4: calc(var(--ms-ratio) * var(--ms3));
-  --ms5: calc(var(--ms-ratio) * var(--ms4));
-  --ms6: calc(var(--ms-ratio) * var(--ms5));
-  --ms7: calc(var(--ms-ratio) * var(--ms6));
-  --ms-1: calc(var(--ms0) / var(--ms-ratio));
-  --ms-2: calc(var(--ms-1) / var(--ms-ratio));
+  --ms1: calc(var(--ms-scale) * var(--ms0));
+  --ms2: calc(var(--ms-scale) * var(--ms1));
+  --ms3: calc(var(--ms-scale) * var(--ms2));
+  --ms4: calc(var(--ms-scale) * var(--ms3));
+  --ms5: calc(var(--ms-scale) * var(--ms4));
+  --ms6: calc(var(--ms-scale) * var(--ms5));
+  --ms7: calc(var(--ms-scale) * var(--ms6));
+  --ms-1: calc(var(--ms0) / var(--ms-scale));
+  --ms-2: calc(var(--ms-1) / var(--ms-scale));
 
   /* See: https://medium.com/written-in-code/aligning-type-to-baseline-the-right-way-using-sass-e258fce47a9b */
   --offset: calc((var(--base-line-height) - var(--cap-height) * var(--base-font-size)) / 2);
@@ -202,21 +230,6 @@ legend,
 }
 
 @media (--media-tablet) {
-  :root {
-    /* Base font large screen */
-    --base-font-size: calc(var(--max-font-size) * 1rem);
-    --base-line-height: calc(var(--max-line-height) * 1rem);
-    --offset: calc((var(--base-line-height) - var(--cap-height) * var(--base-font-size)) / 2);
-    --offset-ms0: calc((var(--base-line-height) - var(--cap-height) * var(--ms0)) / 2);
-    --offset-ms1: calc((var(--base-line-height) - var(--cap-height) * var(--ms1)) / 2);
-    --offset-ms2: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms2)) / 2);
-    --offset-ms3: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms3)) / 2);
-    --offset-ms4: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms4)) / 2);
-    --offset-ms-1: calc((var(--base-line-height) - var(--cap-height) * var(--ms-1)) / 2);
-  }
-}
-
-@media (--media-phone) {
   :root {
     /* Base font, fluid for tablet size */
     --base-font-size: calc(var(--min-font-size) * 1rem + (var(--max-font-size) - var(--min-font-size)) * ((100vw - var(--min-screen) * 1rem) / (var(--max-screen) - var(--min-screen))));
@@ -235,18 +248,41 @@ legend,
   }
 }
 
+@media (--media-desktop) {
+  :root {
+    /* Base font large screen */
+    --base-font-size: calc(var(--max-font-size) * 1rem);
+    --base-line-height: calc(var(--max-line-height) * 1rem);
+    --offset: calc((var(--base-line-height) - var(--cap-height) * var(--base-font-size)) / 2);
+    --offset-ms0: calc((var(--base-line-height) - var(--cap-height) * var(--ms0)) / 2);
+    --offset-ms1: calc((var(--base-line-height) - var(--cap-height) * var(--ms1)) / 2);
+    --offset-ms2: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms2)) / 2);
+    --offset-ms3: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms3)) / 2);
+    --offset-ms4: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms4)) / 2);
+    --offset-ms-1: calc((var(--base-line-height) - var(--cap-height) * var(--ms-1)) / 2);
+  }
+}
+
+
 /* stylelint-disable-next-line no-duplicate-selectors */
 :root {
   font-size: var(--base-font-size);
   line-height: var(--base-line-height);
 }
 
+/* stylelint-disable-next-line no-duplicate-selectors */
 * {
   margin-top: 0;
   margin-bottom: 0;
   padding-top: 0;
   padding-bottom: 0;
 }
+
+/*
+* + * {
+  margin-top: var(--base-line-height);
+}
+*/
 
 p,
 dl,
@@ -347,7 +383,7 @@ fieldset {
   border-width: 1px;
   border-style: solid;
   border-color: var(--text-color-icon);
-  border-radius: 3px;
+  border-radius: 2px;
   padding: 0.01em 0 calc(var(--base-line-height) - 1px) var(--space-m);
   margin: 0;
   min-width: 0;
@@ -369,8 +405,7 @@ textarea {
   line-height: var(--base-line-height);
   font-family: inherit;
   background: transparent;
-  display: inline-block; /* Inline elements with negative margins does not work with vertical rhythm */
-  float: left;           /* But floating the element applies the negative margin, and we're into the rhythm again */
+  display: block;
   margin-top: calc(var(--offset) - 1px);
   margin-bottom: calc((var(--offset) + 1px) * -1);
 }
@@ -399,6 +434,26 @@ textarea {
   height: calc(var(--base-line-height) * 4 + 2px);
 }
 
+/* Focusable elements
+a[href]:not([tabindex^='-']),
+area[href]:not([tabindex^='-']),
+input:not([disabled]):not([tabindex^='-']),
+select:not([disabled]):not([tabindex^='-']),
+textarea:not([disabled]):not([tabindex^='-']),
+button:not([disabled]):not([tabindex^='-']),
+iframe:not([tabindex^='-']),
+[tabindex]:not([tabindex^='-']),
+[contentEditable=true]:not([tabindex^='-']) {
+  outline: none;
+  transition: all 0.20s ease-in-out;
+
+  &:focus {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  }
+}
+*/
+
+/* Heights for input elements with border-top: 1px and border-bottom: 1px */
 [height="1"],
 select[multiple][size="1"],
 textarea[rows="1"] {
@@ -459,6 +514,10 @@ textarea[rows="10"] {
   height: calc(var(--base-line-height) * 10 + 2px);
 }
 
+:global(.material-icons) {
+  font-size: inherit;
+  line-height: inherit;
+}
 
 :global(.grid-lines) {
   background-image: linear-gradient(rgba(200, 50, 50, 0.25) 1px, transparent 1px);

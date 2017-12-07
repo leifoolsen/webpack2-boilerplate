@@ -1,0 +1,12 @@
+@import '../base/space.css';
+@import '../base/colors.css';
+@import '../base/typography.css';
+
+.Mastfoot {
+  display: flex;
+  align-items: baseline;
+  margin: 0;
+  padding: 0 var(--space-m) var(--base-line-height);
+  background-color: gray(70);
+  color: var(--text-color-light-primary);
+}

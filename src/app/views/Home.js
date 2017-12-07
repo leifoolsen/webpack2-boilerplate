@@ -40,6 +40,12 @@ export const Home = ({state, actions}) =>
         </a>
       </figure>
       <figure class={card['Card-figure']}>
+        <a href="https://css4-selectors.com/selectors/"
+          title="Image copied from: http://end3r.com/slides/meet-css4/">
+          <img src="/assets/css4.png" alt="CSS 4 logo"/>
+        </a>
+      </figure>
+      <figure class={card['Card-figure']}>
         <a href="https://github.com/postcss/postcss"
           title="Image copied from: postcss">
           <img src="/assets/postcss-logo.svg" alt="postcss logo"/>

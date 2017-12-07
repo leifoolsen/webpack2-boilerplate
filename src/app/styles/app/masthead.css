@@ -1,0 +1,25 @@
+@import '../base/space.css';
+@import '../base/colors.css';
+@import '../base/typography.css';
+
+:root {
+  --left-width: 16rem;
+  --diagonal-width: 40px;
+}
+
+.Masthead {
+  margin: 0;
+  padding: 0 var(--space-m);
+  display: flex;
+  align-items: stretch;
+  background: var(--color-primary-dark);
+  color: var(--color-primary-dark-tone);
+  height: calc(var(--base-line-height) * 5);
+}
+
+.Masthead-logo {
+  width: 4rem;
+  background: url('/assets/css4.png') no-repeat center;
+  background-size: contain;
+  margin-right: var(--space-m);
+}

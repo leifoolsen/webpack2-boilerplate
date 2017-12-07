@@ -907,7 +907,7 @@ See: [Accessibility: skip links](https://www.youtube.com/watch?v=UnEItq289lU&lis
   position: absolute;
   top: -3em;
 }
-.skip-links a:ficus {
+.skip-links a:focus {
   top: 0;
 }
 ```
@@ -954,6 +954,23 @@ See: [Using the WAI-ARIA aria-expanded state to mark expandable and collapsible 
     Topic 1 is all about being Topic 1 and may or may not have anything to do with other topics.
 </div>
 ```
+
+## Background image
+``` css
+.logo-example {
+  background('./logo.jpg')
+  height: 80px;
+}
+```
+
+```html
+<div class="logo-example" role="img" aria-label="The company logo">
+</div>
+```
+
+## aria-invalid
+https://www.w3.org/TR/wai-aria/states_and_properties#aria-invalid
+
 
 ## Useful links
 
