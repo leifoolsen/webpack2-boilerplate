@@ -514,11 +514,6 @@ textarea[rows="10"] {
   height: calc(var(--base-line-height) * 10 + 2px);
 }
 
-:global(.material-icons) {
-  font-size: inherit;
-  line-height: inherit;
-}
-
 :global(.grid-lines) {
   background-image: linear-gradient(rgba(200, 50, 50, 0.25) 1px, transparent 1px);
   background-size: 1px var(--base-line-height);

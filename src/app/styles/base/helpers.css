@@ -39,6 +39,12 @@
   list-style: none;
 }
 
+
+:global(.material-icons) {
+  font-size: inherit;
+  line-height: inherit;
+}
+
 /*
  * Clearfix: contain floats
  *
