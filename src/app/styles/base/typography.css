@@ -175,7 +175,7 @@ legend,
   /* Fluid font and line height */
   --min-screen: var(--phone-width);
   --max-screen: var(--tablet-width);
-  --min-line-height: 1.4;
+  --min-line-height: 1.375;
   --max-line-height: 1.5;
   --min-font-size: 0.875; /* 0.9375; */
   --max-font-size: 1; /* 1.125; */
@@ -186,9 +186,9 @@ legend,
   --base-line-height: calc(var(--min-line-height) * 1rem);
 
   /* Horizontal spacing */
-  --space-xs: calc(var(--base-line-height) * 0.125);
-  --space-s: calc(var(--base-line-height) * 0.25);
-  --space-m: calc(var(--base-line-height) * 0.5);
+  --space-xs: calc(var(--base-line-height) * 0.25);
+  --space-s: calc(var(--base-line-height) * 0.5);
+  --space-m: calc(var(--base-line-height) * 0.75);
   --space-l: calc(var(--base-line-height) * 1);
   --space-xl: calc(var(--base-line-height) * 2);
   --space-xxl: calc(var(--base-line-height) * 4);
@@ -398,8 +398,8 @@ h6 {
 
 legend {
   display: table;
-  padding: 0 var(--space-s);
-  margin-left: calc(var(--space-s) * -1);
+  padding: 0 var(--space-xs);
+  margin-left: calc(var(--space-xs) * -1);
 }
 
 fieldset {
@@ -407,7 +407,7 @@ fieldset {
   border-style: solid;
   border-color: var(--text-color-icon);
   border-radius: 2px;
-  padding: 0.01em 0 calc(var(--base-line-height) - 1px) var(--space-m);
+  padding: 0.01em 0 calc(var(--base-line-height) - 1px) var(--space-s);
   margin: 0;
   min-width: 0;
 }

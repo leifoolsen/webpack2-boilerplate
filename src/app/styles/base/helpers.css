@@ -1,49 +1,9 @@
 /**
  *-----------------------------------------------------------------------------
- * This file contains global CSS helper classes.
+ * This file contains mixins global CSS helper classes.
  *-----------------------------------------------------------------------------
  */
 
-/**
- * Hide text while making it readable for screen readers
- * 1. Needed in WebKit-based browsers because of an implementation bug;
- *    See: https://code.google.com/p/chromium/issues/detail?id=457146
- */
-:global(.hide-text) {
-  overflow: hidden;
-  padding: 0; /* 1 */
-  text-indent: 101%;
-  white-space: nowrap;
-}
-
-/**
- * Hide element while making it readable for screen readers
- * Shamelessly borrowed from HTML5Boilerplate:
- * https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css#L119-L133
- */
-:global(.visually-hidden) {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
-
-:global(.unstyled-list) {
-  margin-left: 0;
-  margin-right: 0;
-  padding-left: 0;
-  list-style: none;
-}
-
-
-:global(.material-icons) {
-  font-size: inherit;
-  line-height: inherit;
-}
 
 /*
  * Clearfix: contain floats
@@ -56,13 +16,69 @@
  * 2. The use of `table` rather than `block` is only necessary if using
  *    `:before` to contain the top-margins of child elements.
  */
-:global(.clearfix::before),
-:global(.clearfix::after) {
-  content: " "; /* 1 */
-  display: table; /* 2 */
+
+@define-mixin clearfix {
+  &::before,
+  &::after {
+    content: ' '; /* 1 */
+    display: table; /* 2 */
+  }
+
+  &::after {
+    clear: both;
+  }
 }
 
-/* stylelint-disable-next-line no-duplicate-selectors */
-:global(.clearfix::after) {
-  clear: both;
+@define-mixin overflow-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/**
+ * Hide text while making it readable for screen readers
+ * 1. Needed in WebKit-based browsers because of an implementation bug;
+ *    See: https://code.google.com/p/chromium/issues/detail?id=457146
+ */
+@define-mixin hide-text {
+  overflow: hidden;
+  padding: 0; /* 1 */
+  text-indent: 101%;
+  white-space: nowrap;
+}
+
+/**
+ * Hide element while making it readable for screen readers
+ * Shamelessly borrowed from HTML5Boilerplate:
+ * https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css#L119-L133
+ */
+@define-mixin visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+@define-mixin unstyled-list {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+:global(.clearfix) {
+  @mixin clearfix;
+}
+
+:global(.unstyled-list) {
+  @mixin unstyled-list;
+}
+
+:global(.material-icons) {
+  font-size: inherit;
+  line-height: inherit;
 }
