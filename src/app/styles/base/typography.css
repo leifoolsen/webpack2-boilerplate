@@ -12,7 +12,6 @@
  */
 
 @import './custom-media.css';
-@import './space.css';
 @import './colors.css';
 
 :root {
@@ -103,6 +102,7 @@ strong {
 }
 
 label,
+legend,
 button,
 [type="button"],
 [type="reset"],
@@ -185,6 +185,14 @@ legend,
   --base-font-size: calc(var(--min-font-size) * 1rem);
   --base-line-height: calc(var(--min-line-height) * 1rem);
 
+  /* Horizontal spacing */
+  --space-xs: calc(var(--base-line-height) * 0.125);
+  --space-s: calc(var(--base-line-height) * 0.25);
+  --space-m: calc(var(--base-line-height) * 0.5);
+  --space-l: calc(var(--base-line-height) * 1);
+  --space-xl: calc(var(--base-line-height) * 2);
+  --space-xxl: calc(var(--base-line-height) * 4);
+
   /* Modular type scales, see: http://www.modularscale.com */
   --minor-second: 1.067;     /* Ratio = 15:16 */
   --major-second: 1.125;     /* Ratio = 8:9 */
@@ -237,7 +245,15 @@ legend,
     /* Fluid line height (molten leading) */
     --base-line-height: calc(var(--min-line-height) * 1rem + (var(--max-line-height) - var(--min-line-height)) * ((100vw - var(--min-screen) * 1rem) / (var(--max-screen) - var(--min-screen))));
 
-    /* -- */
+    /* Horizontal spacing */
+    --space-xs: calc(var(--base-line-height) * 0.25);
+    --space-s: calc(var(--base-line-height) * 0.5);
+    --space-m: calc(var(--base-line-height) * 1);
+    --space-l: calc(var(--base-line-height) * 2);
+    --space-xl: calc(var(--base-line-height) * 4);
+    --space-xxl: calc(var(--base-line-height) * 8);
+
+    /* Offset */
     --offset: calc((var(--base-line-height) - var(--cap-height) * var(--base-font-size)) / 2);
     --offset-ms0: calc((var(--base-line-height) - var(--cap-height) * var(--ms0)) / 2);
     --offset-ms1: calc((var(--base-line-height) - var(--cap-height) * var(--ms1)) / 2);
@@ -253,6 +269,12 @@ legend,
     /* Base font large screen */
     --base-font-size: calc(var(--max-font-size) * 1rem);
     --base-line-height: calc(var(--max-line-height) * 1rem);
+    --space-xs: calc(var(--base-line-height) * 0.25);
+    --space-s: calc(var(--base-line-height) * 0.5);
+    --space-m: calc(var(--base-line-height) * 1);
+    --space-l: calc(var(--base-line-height) * 2);
+    --space-xl: calc(var(--base-line-height) * 4);
+    --space-xxl: calc(var(--base-line-height) * 8);
     --offset: calc((var(--base-line-height) - var(--cap-height) * var(--base-font-size)) / 2);
     --offset-ms0: calc((var(--base-line-height) - var(--cap-height) * var(--ms0)) / 2);
     --offset-ms1: calc((var(--base-line-height) - var(--cap-height) * var(--ms1)) / 2);
@@ -375,8 +397,9 @@ h6 {
 }
 
 legend {
-  padding: 0;
   display: table;
+  padding: 0 var(--space-s);
+  margin-left: calc(var(--space-s) * -1);
 }
 
 fieldset {

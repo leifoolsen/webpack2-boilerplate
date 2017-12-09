@@ -1,6 +1,5 @@
 import './styles/base/helpers.css';
 import './styles/base/custom-media.css';
-import './styles/base/space.css';
 import './styles/base/colors.css';
 import './styles/base/typography.css';
 import './styles/layout/layout.css';

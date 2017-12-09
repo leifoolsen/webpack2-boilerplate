@@ -38,7 +38,7 @@ export const view = state => actions =>
 
     <header class={header.Masthead} role="banner">
       <div class={header['Masthead-logo']} role="img" aria-label="Boilerplate logo"></div>
-      <h1>Webpack Boilerplate</h1>
+      <h2>Webpack Boilerplate</h2>
     </header>
 
     <div class={layout['Layout-body']}>
