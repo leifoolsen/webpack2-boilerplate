@@ -22,12 +22,20 @@
   --color-secondary-dark-tone: color(white a(93%));
   --color-info: #bbeeff;
   --color-info-tone: color(black a(85%));
+  --color-info-dark: #0069c0;
+  --color-info-dark-tone: color(white a(90%));
   --color-success: #dff2bf;
   --color-success-tone: color(black a(85%));
+  --color-success-dark: #087f23;
+  --color-success-dark-tone: color(white a(85%));
   --color-warning: #feefb3;
   --color-warning-tone: color(black a(85%));
+  --color-warning-dark: #ffeb3b;
+  --color-warning-dark-tone: color(black a(85%));
   --color-error: #ffbaba;
   --color-error-tone: color(black a(85%));
+  --color-error-dark: #c4001d;
+  --color-error-dark-tone: color(white a(85%));
 
   /* Light background */
   --light-background-color: #f7f7f7;
@@ -104,9 +112,19 @@
   color: var(--color-info-tone);
 }
 
+@define-mixin info-dark {
+  background-color: var(--color-info-dark);
+  color: var(--color-info-dark-tone);
+}
+
 @define-mixin success {
   background-color: var(--color-success);
   color: var(--color-success-tone);
+}
+
+@define-mixin success-dark {
+  background-color: var(--color-success-dark);
+  color: var(--color-success-dark-tone);
 }
 
 @define-mixin warning {
@@ -114,9 +132,19 @@
   color: var(--color-warning-tone);
 }
 
+@define-mixin warning-dark {
+  background-color: var(--color-warning-dark);
+  color: var(--color-warning-dark-tone);
+}
+
 @define-mixin error {
   background-color: var(--color-error);
   color: var(--color-error-tone);
+}
+
+@define-mixin error-dark {
+  background-color: var(--color-error-dark);
+  color: var(--color-error-dark-tone);
 }
 
 @define-mixin text-color-primary {
@@ -167,16 +195,32 @@
   @mixin info;
 }
 
+.infoDark {
+  @mixin info-dark;
+}
+
 .success {
   @mixin success;
+}
+
+.successDark {
+  @mixin success-dark;
 }
 
 .warning {
   @mixin warning;
 }
 
+.warningDark {
+  @mixin warning-dark;
+}
+
 .error {
   @mixin error;
+}
+
+.errorDark {
+  @mixin error-dark;
 }
 
 .textColorPrimary {

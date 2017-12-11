@@ -12,14 +12,13 @@ export const Colors = () =>
     <p className={colors.secondaryLight}>Secondary light</p>
     <p className={colors.secondaryDark}>Secondary dark</p>
     <p className={colors.info}>Info</p>
+    <p className={colors.infoDark}>Info dark</p>
     <p className={colors.success}>Success</p>
+    <p className={colors.successDark}>Success dark</p>
     <p className={colors.warning}>Warning</p>
+    <p className={colors.warningDark}>Warning dark</p>
     <p className={colors.error}>Error</p>
-    <p className={colors.textColorPrimary}>Primary text</p>
-    <p className={colors.textColorSecondary}>Secondary text</p>
-    <p className={colors.textColorDisabled}>Disabled text</p>
-    <p className={colors.textColorIcon}>Icon</p>
-
+    <p className={colors.errorDark}>Error dark</p>
     <br/>
     <div style={{display: 'flex'}}>
       <button className={colors.primary} type="button">Primary</button>
@@ -29,6 +28,9 @@ export const Colors = () =>
       <button className={colors.warning} type="button">Warning</button>
       <button className={colors.error} type="button">Error</button>
     </div>
-
+    <p className={colors.textColorPrimary}>Primary text</p>
+    <p className={colors.textColorSecondary}>Secondary text</p>
+    <p className={colors.textColorDisabled}>Disabled text</p>
+    <p className={colors.textColorIcon}>Icon</p>
   </div>
 ;
