@@ -26,11 +26,11 @@
   --color-info-dark-tone: color(white a(90%));
   --color-success: #dff2bf;
   --color-success-tone: color(black a(85%));
-  --color-success-dark: #087f23;
+  --color-success-dark: #00600f;
   --color-success-dark-tone: color(white a(85%));
   --color-warning: #feefb3;
   --color-warning-tone: color(black a(85%));
-  --color-warning-dark: #ffeb3b;
+  --color-warning-dark: #fdd835;
   --color-warning-dark-tone: color(black a(85%));
   --color-error: #ffbaba;
   --color-error-tone: color(black a(85%));
