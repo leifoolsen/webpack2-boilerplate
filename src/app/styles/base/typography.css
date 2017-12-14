@@ -40,8 +40,8 @@
     /* Font weights high density screens */
     --font-weight-light: 200;
     --font-weight-normal: 300;
-    --font-weight-medium: 500;
-    --font-weight-semibold: 600;
+    --font-weight-medium: 400;
+    --font-weight-semibold: 500;
     --font-weight-bold: 700;
   }
 }
