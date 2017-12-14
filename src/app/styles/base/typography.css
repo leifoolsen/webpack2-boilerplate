@@ -40,7 +40,7 @@
     /* Font weights high density screens */
     --font-weight-light: 200;
     --font-weight-normal: 300;
-    --font-weight-medium: 400;
+    --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
   }
@@ -59,7 +59,7 @@
 *,
 *::before,
 *::after {
-  /**
+  /*
    * Make all elements from the DOM inherit from the parent box-sizing
    * Since `*` has a specificity of 0, it does not override the `html` value
    * making all elements inheriting from the root box-sizing value
@@ -68,21 +68,43 @@
   box-sizing: inherit;
 }
 
+/*
+ * 1. Change the default font family in all browsers.
+ * 2. Setting @viewport causes scrollbars to overlap content in IE11 and Edge, so
+ *    we force a non-overlapping, non-auto-hiding scrollbar to counteract.
+ * 3. Change the default tap highlight to be completely transparent in iOS.
+ */
+
 html {
   box-sizing: border-box;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  text-size-adjust: 100%;
-  font-family: var(--font-family-body);
+  font-family: sans-serif; /* 1 */
   font-weight: var(--font-weight-normal);
   letter-spacing: var(--letter-spacing);
+  -ms-overflow-style: scrollbar; /* 2 */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* 3 */
 }
 
+/*
+ * 1. Set an explicit initial text-align value so that we can later use the
+ *    the `inherit` value on things like `<th>` elements.
+ */
 body {
-  margin: 0;
   background-color: var(--page-background-color);
   color: var(--text-color-primary);
+  text-align: left; /* 1 */
+}
+
+/*
+ * IE10+ doesn't honor `<meta name='viewport'>` in some cases
+ * See: https://github.com/twbs/bootstrap/blob/v4-dev/scss/_reboot.scss
+*/
+@at-root {
+  @-ms-viewport {
+    width: device-width;
+  }
 }
 
 h1,
@@ -119,10 +141,6 @@ address {
   font-style: normal;
 }
 
-iframe {
-  border: 0;
-}
-
 hr {
   box-sizing: content-box;
   position: relative;
@@ -144,26 +162,99 @@ table {
   border-spacing: 0;
 }
 
+legend,
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+/*
+ * Avoid 300ms click delay on touch devices that support the `touch-action` CSS property.
+ *
+ * In particular, unlike most other browsers, IE11+Edge on Windows 10 on touch devices and IE Mobile 10-11
+ * DON'T remove the click delay when `<meta name="viewport" content="width=device-width">` is present.
+ * However, they DO support removing the click delay via `touch-action: manipulation`.
+ * See:
+ *   https://getbootstrap.com/docs/4.0/content/reboot/#click-delay-optimization-for-touch
+ *   https://caniuse.com/#feat=css-touch-action
+ *   https://patrickhlauke.github.io/touch/tests/results/#suppressing-300ms-delay
+*/
+a,
+area,
+button,
+[role="button"],
+[type="button"],
+[type="reset"],
+[type="submit"],
+input:not([type="range"]),
+label,
+select,
+summary,
+textarea {
+  touch-action: manipulation;
+}
+
+/*
+ * 1. Textareas should really only resize vertically so they don't break their (horizontal) containers.
+ */
+textarea {
+  resize: vertical; /* 1 */
+}
+
+/*
+ * 1. Prevent button text from being selectable.
+ */
+button,
+[role="button"],
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  cursor: pointer;
+  user-select: none; /* 1 */
+
+  &:focus {
+    /*
+     * Work around a Firefox/IE bug where the transparent `button` background
+     * results in a loss of the default `button` focus styles.
+     */
+    outline: 1px dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+  }
+}
+
 a {
   color: var(--text-color-anchor);
   cursor: pointer;
 }
 
-button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
-  cursor: pointer;
+/*
+ * Undo styles for placeholder links/named anchors (without href)
+ * which have not been made explicitly keyboard-focusable (without tabindex).
+ */
+a:not([href]):not([tabindex]) {
+  color: inherit;
+  text-decoration: none;
 }
 
 [disabled] {
   cursor: default;
+  pointer-events: none;
+  color: var(--text-color-disabled);
 }
 
-legend,
-[type="checkbox"],
-[type="radio"] {
-  box-sizing: border-box;
+/*
+ * Suppress the focus outline on elements that cannot be accessed via keyboard.
+ * This prevents an unwanted focus outline from appearing around elements that
+ * might still respond to pointer events.
+ */
+
+[tabindex^='-']:focus {
+  outline: none !important;
 }
 
 /* -------------------------------- *
@@ -186,12 +277,12 @@ legend,
   --base-line-height: calc(var(--min-line-height) * 1rem);
 
   /* Horizontal spacing */
-  --space-xs: calc(var(--base-line-height) * 0.25);
-  --space-s: calc(var(--base-line-height) * 0.5);
-  --space-m: calc(var(--base-line-height) * 0.75);
+  --space-xs: calc(var(--base-line-height) * 0.1667);
+  --space-s: calc(var(--base-line-height) * 0.3333);
+  --space-m: calc(var(--base-line-height) * 0.6667);
   --space-l: calc(var(--base-line-height) * 1);
-  --space-xl: calc(var(--base-line-height) * 2);
-  --space-xxl: calc(var(--base-line-height) * 4);
+  --space-xl: calc(var(--base-line-height) * 1.3333);
+  --space-xxl: calc(var(--base-line-height) * 2.6667);
 
   /* Modular type scales, see: http://www.modularscale.com */
   --minor-second: 1.067;     /* Ratio = 15:16 */
@@ -246,12 +337,12 @@ legend,
     --base-line-height: calc(var(--min-line-height) * 1rem + (var(--max-line-height) - var(--min-line-height)) * ((100vw - var(--min-screen) * 1rem) / (var(--max-screen) - var(--min-screen))));
 
     /* Horizontal spacing */
-    --space-xs: calc(var(--base-line-height) * 0.25);
-    --space-s: calc(var(--base-line-height) * 0.5);
-    --space-m: calc(var(--base-line-height) * 1);
-    --space-l: calc(var(--base-line-height) * 2);
-    --space-xl: calc(var(--base-line-height) * 4);
-    --space-xxl: calc(var(--base-line-height) * 8);
+    --space-xs: calc(var(--base-line-height) * 0.1667);
+    --space-s: calc(var(--base-line-height) * 0.3333);
+    --space-m: calc(var(--base-line-height) * 0.6667);
+    --space-l: calc(var(--base-line-height) * 1);
+    --space-xl: calc(var(--base-line-height) * 1.3333);
+    --space-xxl: calc(var(--base-line-height) * 2.6667);
 
     /* Offset */
     --offset: calc((var(--base-line-height) - var(--cap-height) * var(--base-font-size)) / 2);
@@ -269,12 +360,12 @@ legend,
     /* Base font large screen */
     --base-font-size: calc(var(--max-font-size) * 1rem);
     --base-line-height: calc(var(--max-line-height) * 1rem);
-    --space-xs: calc(var(--base-line-height) * 0.25);
-    --space-s: calc(var(--base-line-height) * 0.5);
-    --space-m: calc(var(--base-line-height) * 1);
-    --space-l: calc(var(--base-line-height) * 2);
-    --space-xl: calc(var(--base-line-height) * 4);
-    --space-xxl: calc(var(--base-line-height) * 8);
+    --space-xs: calc(var(--base-line-height) * 0.1667);
+    --space-s: calc(var(--base-line-height) * 0.3333);
+    --space-m: calc(var(--base-line-height) * 0.6667);
+    --space-l: calc(var(--base-line-height) * 1);
+    --space-xl: calc(var(--base-line-height) * 1.3333);
+    --space-xxl: calc(var(--base-line-height) * 2.6667);
     --offset: calc((var(--base-line-height) - var(--cap-height) * var(--base-font-size)) / 2);
     --offset-ms0: calc((var(--base-line-height) - var(--cap-height) * var(--ms0)) / 2);
     --offset-ms1: calc((var(--base-line-height) - var(--cap-height) * var(--ms1)) / 2);
@@ -403,9 +494,7 @@ legend {
 }
 
 fieldset {
-  border-width: 1px;
-  border-style: solid;
-  border-color: var(--text-color-icon);
+  border: 1px solid var(--text-color-icon);
   border-radius: 2px;
   padding: 0.01em 0 calc(var(--base-line-height) - 1px) var(--space-s);
   margin: 0;
@@ -416,15 +505,14 @@ body:not(:-moz-handler-blocked) fieldset {
   display: table-cell;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
+button,
 label,
 input:not([type="radio"]):not([type="checkbox"]),
 select,
-button,
 textarea {
-  border-width: 1px;
-  border-style: solid;
-  border-color: var(--text-color-icon);
-  border-radius: 3px;
+  border: 1px solid var(--text-color-icon);
+  border-radius: 2px;
   line-height: var(--base-line-height);
   font-family: inherit;
   background: transparent;
@@ -443,7 +531,6 @@ input:not([type=radio]):not([type=checkbox]),
 button,
 */
 select:not([multiple]) {
-  /* FireFox needs explicit height */
   height: calc(var(--base-line-height) + 2px);
 }
 
@@ -456,25 +543,6 @@ select[multiple],
 textarea {
   height: calc(var(--base-line-height) * 4 + 2px);
 }
-
-/* Focusable elements
-a[href]:not([tabindex^='-']),
-area[href]:not([tabindex^='-']),
-input:not([disabled]):not([tabindex^='-']),
-select:not([disabled]):not([tabindex^='-']),
-textarea:not([disabled]):not([tabindex^='-']),
-button:not([disabled]):not([tabindex^='-']),
-iframe:not([tabindex^='-']),
-[tabindex]:not([tabindex^='-']),
-[contentEditable=true]:not([tabindex^='-']) {
-  outline: none;
-  transition: all 0.20s ease-in-out;
-
-  &:focus {
-    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-  }
-}
-*/
 
 /* Heights for input elements with border-top: 1px and border-bottom: 1px */
 [height="1"],
@@ -541,3 +609,23 @@ textarea[rows="10"] {
   background-image: linear-gradient(rgba(200, 50, 50, 0.25) 1px, transparent 1px);
   background-size: 1px var(--base-line-height);
 }
+
+
+/* Focusable elements
+a[href]:not([tabindex^='-']),
+area[href]:not([tabindex^='-']),
+input:not([disabled]):not([tabindex^='-']),
+select:not([disabled]):not([tabindex^='-']),
+textarea:not([disabled]):not([tabindex^='-']),
+button:not([disabled]):not([tabindex^='-']),
+iframe:not([tabindex^='-']),
+[tabindex]:not([tabindex^='-']),
+[contentEditable=true]:not([tabindex^='-']) {
+  outline: none;
+  transition: all 0.20s ease-in-out;
+
+  &:focus {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  }
+}
+*/

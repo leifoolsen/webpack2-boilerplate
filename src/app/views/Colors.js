@@ -5,32 +5,32 @@ import colors from '../styles/base/colors.css';
 export const Colors = () =>
   <div>
     <h1>Colors</h1>
-    <p className={colors.primary}>Primary</p>
-    <p className={colors.primaryLight}>Primary light</p>
-    <p className={colors.primaryDark}>Primary dark</p>
-    <p className={colors.secondary}>Secondary</p>
-    <p className={colors.secondaryLight}>Secondary light</p>
-    <p className={colors.secondaryDark}>Secondary dark</p>
-    <p className={colors.info}>Info</p>
-    <p className={colors.infoDark}>Info dark</p>
-    <p className={colors.success}>Success</p>
-    <p className={colors.successDark}>Success dark</p>
-    <p className={colors.warning}>Warning</p>
-    <p className={colors.warningDark}>Warning dark</p>
-    <p className={colors.error}>Error</p>
-    <p className={colors.errorDark}>Error dark</p>
+    <p class={colors.primary}>Primary</p>
+    <p class={colors.primaryLight}>Primary light</p>
+    <p class={colors.primaryDark}>Primary dark</p>
+    <p class={colors.secondary}>Secondary</p>
+    <p class={colors.secondaryLight}>Secondary light</p>
+    <p class={colors.secondaryDark}>Secondary dark</p>
+    <p class={colors.info}>Info</p>
+    <p class={colors.infoDark}>Info dark</p>
+    <p class={colors.success}>Success</p>
+    <p class={colors.successDark}>Success dark</p>
+    <p class={colors.warning}>Warning</p>
+    <p class={colors.warningDark}>Warning dark</p>
+    <p class={colors.error}>Error</p>
+    <p class={colors.errorDark}>Error dark</p>
     <br/>
-    <div style={{display: 'flex'}}>
-      <button className={colors.primary} type="button">Primary</button>
-      <button className={colors.secondary} type="button">Secondary</button>
-      <button className={colors.info} type="button">Info</button>
-      <button className={colors.success} type="button">Success</button>
-      <button className={colors.warning} type="button">Warning</button>
-      <button className={colors.error} type="button">Error</button>
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      <button class={colors.primary} type="button">Primary</button>
+      <button class={colors.secondary} type="button">Secondary</button>
+      <button class={colors.info} type="button">Info</button>
+      <button class={colors.success} type="button">Success</button>
+      <button class={colors.warning} type="button">Warning</button>
+      <button class={colors.error} type="button">Error</button>
     </div>
-    <p className={colors.textColorPrimary}>Primary text</p>
-    <p className={colors.textColorSecondary}>Secondary text</p>
-    <p className={colors.textColorDisabled}>Disabled text</p>
-    <p className={colors.textColorIcon}>Icon</p>
+    <p class={colors.textColorPrimary}>Primary text</p>
+    <p class={colors.textColorSecondary}>Secondary text</p>
+    <p class={colors.textColorDisabled}>Disabled text</p>
+    <p class={colors.textColorIcon}>Icon</p>
   </div>
 ;

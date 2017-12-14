@@ -1,0 +1,51 @@
+@import '../styles/base/helpers.css';
+@import '../styles/base/typography.css';
+
+@define-mixin button {
+  @mixin overflow-ellipsis;
+  font-weight: var(--font-weight-medium);
+  position: relative;
+  min-width: calc(var(--base-line-height) * 2.6667); /* ~ 64px */
+  padding-left: var(--space-m);
+  padding-right: var(--space-m);
+  border: none;
+  border-radius: 2px;
+  outline: none;
+  text-align: center;
+  user-select: none;
+  -webkit-appearance: none;
+  text-transform: uppercase;
+  margin-top: calc(var(--offset));
+  margin-bottom: calc((var(--offset)) * -1);
+  color: var(--color-primary-dark);
+  background-color: transparent;
+
+  &:disabled {
+    color: var(--text-color-disabled);
+    background-color: transparent;
+  }
+
+  &:hover:not(:focus) {
+    text-decoration: underline;
+  }
+}
+
+.Button {
+  @mixin button;
+}
+
+.Button-secondary {
+  composes: Button;
+  color: var(--color-secondary);
+}
+
+.Button-compact {
+  padding-left: var(--space-s);
+  padding-right: var(--space-s);
+}
+
+.Button-dense {
+  font-size: var(--ms-1);
+  margin-top: var(--offset-ms-1);
+  margin-bottom: calc(var(--offset-ms-1) * -1);
+}
