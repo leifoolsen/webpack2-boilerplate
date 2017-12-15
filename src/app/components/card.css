@@ -1,6 +1,6 @@
 .Card {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   margin: 1.5rem 0;
 }
 

@@ -199,12 +199,20 @@
   @mixin info-dark;
 }
 
+.infoDark2 {
+  color: var(--color-info-dark);
+}
+
 .success {
   @mixin success;
 }
 
 .successDark {
   @mixin success-dark;
+}
+
+.successDark2 {
+  color: var(--color-success-dark);
 }
 
 .warning {
@@ -215,12 +223,20 @@
   @mixin warning-dark;
 }
 
+.warningDark2 {
+  color: var(--color-warning-dark);
+}
+
 .error {
   @mixin error;
 }
 
 .errorDark {
   @mixin error-dark;
+}
+
+.errorDark2 {
+  color: var(--color-error-dark);
 }
 
 .textColorPrimary {

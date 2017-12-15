@@ -42,6 +42,19 @@
 
 .Button {
   @mixin button;
+
+  & :global(.material-icons) {
+    vertical-align: bottom;
+    font-size: 1.5em;
+  }
+
+  & :global(.material-icons):first-child:not(:only-child) {
+    margin-right: var(--space-s);
+  }
+
+  & :global(.material-icons):last-child:not(:only-child) {
+    margin-left: var(--space-s);
+  }
 }
 
 .Button-primary {
@@ -210,4 +223,3 @@
     @mixin error;
   }
 }
-

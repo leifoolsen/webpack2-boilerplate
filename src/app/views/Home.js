@@ -1,6 +1,8 @@
+import button from '../components/button.css';
 import card from '../components/card.css';
 
 import {h} from 'hyperapp';
+import classnames from '../../utils/classnames';
 /** @jsx h */
 
 export const Home = ({state, actions}) =>
@@ -99,9 +101,15 @@ export const Home = ({state, actions}) =>
     </div>
 
     <div class={card.Card}>
-      <div class={card['Card-figure']}>
-        <button id="btn-ping" type="button" onclick={ e => actions.ping(e)}>Ping</button>
-      </div>
+      <button
+        id="btn-ping"
+        class={classnames(button['Button-primary'], button['Button--stroked'])}
+        type="button"
+        onclick={ e => actions.ping(e)}
+      >
+        Ping
+      </button>
+
       <div class={card['Card-body']}>
         <span id="ping-response">{state.response}</span>
       </div>
@@ -109,7 +117,11 @@ export const Home = ({state, actions}) =>
 
     <div class={card.Card}>
       <div class={card['Card-figure']}>
-        <button type="button" onclick={ e => actions.triggerUnhandledError(e) }>
+        <button
+          class={classnames(button['Button-primary'], button['Button--stroked'])}
+          type="button"
+          onclick={ e => actions.triggerUnhandledError(e) }
+        >
           Unhandled error!!!
         </button>
       </div>

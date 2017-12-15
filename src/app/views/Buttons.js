@@ -2,6 +2,7 @@ import {h} from 'hyperapp';
 /** @jsx h */
 
 import classnames from '../../utils/classnames';
+import colors from '../styles/base/colors.css';
 import button from '../../app/components/button.css';
 
 export const Buttons = () =>
@@ -47,10 +48,18 @@ export const Buttons = () =>
       <button class={classnames(button.Button, button['Button--raised'])} type="button" disabled>Disabled</button>
     </div>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-      <button class={classnames(button['Button-info'], button['Button--raised'])} type="button">Info</button>
-      <button class={classnames(button['Button-success'], button['Button--raised'])} type="button">Success</button>
-      <button class={classnames(button['Button-warning'], button['Button--raised'])} type="button">Warning</button>
-      <button class={classnames(button['Button-error'], button['Button--raised'])} type="button">Error</button>
+      <button class={classnames(button['Button-info'], button['Button--raised'])} type="button">
+        <i class={classnames('material-icons', colors.infoDark2)}>info_outline</i><span>Info</span>
+      </button>
+      <button class={classnames(button['Button-success'], button['Button--raised'])} type="button">
+        <span>Success</span><i class={classnames('material-icons', colors.successDark2)}>check</i>
+      </button>
+      <button class={classnames(button['Button-warning'], button['Button--raised'])} type="button">
+        <span>Warning</span><i class={classnames('material-icons', colors.warningDark2)}>warning</i>
+      </button>
+      <button class={classnames(button['Button-error'], button['Button--raised'])} type="button">
+        <i class={classnames('material-icons', colors.errorDark2)}>error_outline</i><span>Error</span>
+      </button>
     </div>
     <h3>Raised Buttons</h3>
   </div>
