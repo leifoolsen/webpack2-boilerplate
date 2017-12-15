@@ -136,8 +136,8 @@
 
 .Button--dense {
   font-size: var(--ms-1);
-  margin-top: calc(var(--offset) + var(--base-line-height));
-  margin-bottom: calc((var(--offset)) * -1);
+  margin-top: calc(var(--offset-ms-1) + var(--base-line-height) - 2px);
+  margin-bottom: calc((var(--offset-ms-1) + 2px) * -1);
   padding-top: 0;
   padding-bottom: 0;
 }
@@ -153,8 +153,8 @@
 }
 
 .Button--stroked.Button--dense {
-  margin-top: calc(var(--offset) + var(--base-line-height) - 2px);
-  margin-bottom: calc((var(--offset) + 2px) * -1);
+  margin-top: calc(var(--offset-ms-1) + var(--base-line-height) - 2px);
+  margin-bottom: calc((var(--offset-ms-1) + 2px) * -1);
   padding-top: 0;
   padding-bottom: 0;
 }
