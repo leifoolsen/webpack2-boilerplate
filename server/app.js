@@ -121,11 +121,13 @@ if (config.isDev || config.isTest) {
   devMiddleware = webpackDevMiddleware(webpackCompiler, {
     publicPath: webpackConfig.output.publicPath,
     hot: config.isHot,
-    noInfo: true,
+    stats: 'none',
+    /*
     stats: {
       errors: true,
       colors: true,
     },
+    */
   });
   app.use(devMiddleware);
 
