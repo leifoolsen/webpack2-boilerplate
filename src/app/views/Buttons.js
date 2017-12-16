@@ -19,7 +19,9 @@ export const Buttons = () =>
     </div>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <button class={button['Button-info']} type="button">Info</button>
-      <button class={button['Button-success']} type="button">Success</button>
+      <button class={button['Button-success']} type="button">
+        <span>Success</span><i aria-hidden="true" class={classnames('material-icons', colors.successDark2)}>check</i>
+      </button>
       <button class={button['Button-warning']} type="button">Warning</button>
       <button class={button['Button-error']} type="button">Error</button>
     </div>
@@ -35,10 +37,12 @@ export const Buttons = () =>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <button class={classnames(button['Button-info'], button['Button--stroked'])} type="button">Info</button>
       <button class={classnames(button['Button-success'], button['Button--stroked'])} type="button">Success</button>
-      <button class={classnames(button['Button-warning'], button['Button--stroked'])} type="button">Warning</button>
+      <button class={classnames(button['Button-warning'], button['Button--stroked'])} type="button">
+        <i aria-hidden="true" class={classnames('material-icons', colors.warningDark2)}>warning</i><span>Warning</span>
+      </button>
       <button class={classnames(button['Button-error'], button['Button--stroked'])} type="button">Error</button>
     </div>
-    <h3>Unelevated Buttons</h3>
+    <h3>Raised Buttons</h3>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <button class={classnames(button.Button, button['Button--raised'])} type="button">Button</button>
       <button class={classnames(button['Button'], button['Button--raised'], button['Button--compact'])} type="button">Compact</button>
@@ -49,19 +53,41 @@ export const Buttons = () =>
     </div>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <button class={classnames(button['Button-info'], button['Button--raised'])} type="button">
-        <i class={classnames('material-icons', colors.infoDark2)}>info_outline</i><span>Info</span>
+        <i aria-hidden="true" class={classnames('material-icons', colors.infoDark2)}>info_outline</i><span>Info</span>
       </button>
       <button class={classnames(button['Button-success'], button['Button--raised'])} type="button">
-        <span>Success</span><i class={classnames('material-icons', colors.successDark2)}>check</i>
+        <span>Success</span><i aria-hidden="true" class={classnames('material-icons', colors.successDark2)}>check</i>
       </button>
       <button class={classnames(button['Button-warning'], button['Button--raised'])} type="button">
-        <span>Warning</span><i class={classnames('material-icons', colors.warningDark2)}>warning</i>
+        <span>Warning</span><i aria-hidden="true" class={classnames('material-icons', colors.warningDark2)}>warning</i>
       </button>
       <button class={classnames(button['Button-error'], button['Button--raised'])} type="button">
-        <i class={classnames('material-icons', colors.errorDark2)}>error_outline</i><span>Error</span>
+        <i aria-hidden="true" class={classnames('material-icons', colors.errorDark2)}>error_outline</i><span>Error</span>
       </button>
     </div>
-    <h3>Raised Buttons</h3>
+    <h3>Flat Buttons</h3>
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      <button class={classnames(button.Button, button['Button--raised'], button['Button--raised-z0'])} type="button">Button</button>
+      <button class={classnames(button['Button'], button['Button--raised'], button['Button--raised-z0'], button['Button--compact'])} type="button">Compact</button>
+      <button class={classnames(button['Button-primary'], button['Button--raised'], button['Button--raised-z0'], button['Button--dense'])} type="button">Dense</button>
+      <button class={classnames(button['Button-primary'], button['Button--raised'], button['Button--raised-z0'])} type="button">Primary</button>
+      <button class={classnames(button['Button-secondary'], button['Button--raised'], button['Button--raised-z0'])} type="button">Secondary</button>
+      <button class={classnames(button.Button, button['Button--raised'], button['Button--raised-z0'])} type="button" disabled>Disabled</button>
+    </div>
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      <button class={classnames(button['Button-info'], button['Button--raised'], button['Button--raised-z0'])} type="button">
+        <span>Info</span><i aria-hidden="true" class={classnames('material-icons', colors.infoDark2)}>info_outline</i>
+      </button>
+      <button class={classnames(button['Button-success'], button['Button--raised'], button['Button--raised-z0'])} type="button">
+        <i aria-hidden="true" class={classnames('material-icons', colors.successDark2)}>check</i><span>Success</span>
+      </button>
+      <button class={classnames(button['Button-warning'], button['Button--raised'], button['Button--raised-z0'])} type="button">
+        <i aria-hidden="true" class={classnames('material-icons', colors.warningDark2)}>warning</i><span>Warning</span>
+      </button>
+      <button class={classnames(button['Button-error'], button['Button--raised'], button['Button--raised-z0'])} type="button">
+        <span>Error</span><i aria-hidden="true" class={classnames('material-icons', colors.errorDark2)}>error_outline</i>
+      </button>
+    </div>
   </div>
 ;
 

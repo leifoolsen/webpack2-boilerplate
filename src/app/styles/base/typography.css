@@ -80,7 +80,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-family: sans-serif; /* 1 */
+  font-family: var(--font-family-body); /* sans-serif; /* 1 */
   font-weight: var(--font-weight-normal);
   letter-spacing: var(--letter-spacing);
   -ms-overflow-style: scrollbar; /* 2 */
