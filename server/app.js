@@ -120,8 +120,7 @@ if (config.isDev || config.isTest) {
 
   devMiddleware = webpackDevMiddleware(webpackCompiler, {
     publicPath: webpackConfig.output.publicPath,
-    hot: config.isHot,
-    stats: 'none',
+    stats: 'errors-only',
     /*
     stats: {
       errors: true,
