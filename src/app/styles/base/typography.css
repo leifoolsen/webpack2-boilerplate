@@ -128,8 +128,8 @@ small,
 code,
 kbd,
 samp {
-  line-height: inherit;
-  vertical-align: bottom;
+  line-height: 1;
+  vertical-align: baseline;
 }
 
 label,
