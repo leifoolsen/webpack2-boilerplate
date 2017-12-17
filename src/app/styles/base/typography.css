@@ -124,6 +124,14 @@ strong {
   font-weight: var(--font-weight-bold);
 }
 
+small,
+code,
+kbd,
+samp {
+  line-height: inherit;
+  vertical-align: bottom;
+}
+
 label,
 legend,
 button,

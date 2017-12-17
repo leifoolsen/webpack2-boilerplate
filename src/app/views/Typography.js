@@ -86,6 +86,16 @@ export const Typography = () =>
     </section>
 
     <section>
+      <header><h2>Table</h2></header>
+      <p><b>TODO</b></p>
+    </section>
+
+    <section>
+      <header><h2>Image</h2></header>
+      <p><b>TODO</b></p>
+    </section>
+
+    <section>
       <br/>
       <header><h2>Inline elements</h2></header>
       <p><a href="#!">This is a text link</a>.</p>
@@ -105,11 +115,9 @@ export const Typography = () =>
       <p><s>This text has a strikethrough</s>.</p>
       <p>Superscript<sup>®</sup>.</p>
       <p>Subscript for things like H<sub>2</sub>O.</p>
-      {/* TODO: Fix styling for this. Current styling affects VR
-      <p>
-        <small>This small text is small for for fine print, etc.</small>
-      </p>
-      */}
+      <p>Small: <small>The small text is small for for fine print, etc.</small></p>
+      <h4>Small inside heading <small>The small text is small for for fine print, etc.</small></h4>
+      <p><b>Code:</b> The <code>&lt;code&gt;</code> tag defines a piece of computer code</p>
       <p>Abbreviation: <abbr title="HyperText Markup Language">HTML</abbr></p>
       <p><q cite="https://developer.mozilla.org/en-US/docs/HTML/Element/q">This
         text is a short inline quotation.</q></p>

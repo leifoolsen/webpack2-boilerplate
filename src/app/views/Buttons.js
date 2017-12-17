@@ -145,6 +145,14 @@ export const Buttons = () =>
       >
         <i aria-hidden="true" class="material-icons">accessibility</i>
       </button>
+
+      <button
+        class={classnames(button['Button-primary'], button['Button--dense'], button['Button--icon'])}
+        type="button"
+        aria-label="Dense"
+      >
+        <i aria-hidden="true" class="material-icons">accessibility</i>
+      </button>
     </div>
 
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline' }}>

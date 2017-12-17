@@ -22,7 +22,7 @@
     "harmony-reflect": "1.5.1",
     "hyperapp": "0.16.2",
     "intl": "1.2.5",
-    "moment": "2.19.4",
+    "moment": "2.20.0",
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
