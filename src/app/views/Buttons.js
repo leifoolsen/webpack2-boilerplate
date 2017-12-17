@@ -217,6 +217,14 @@ export const Buttons = () =>
       >
         <i aria-hidden="true" class="material-icons">accessibility</i>
       </button>
+
+      <button
+        class={classnames(button['Button'], button['Button--large'], button['Button--icon'])}
+        type="button"
+        aria-label="Menu"
+      >
+        <i aria-hidden="true" class="material-icons">menu</i>
+      </button>
     </div>
 
     <br/>
@@ -248,7 +256,11 @@ export const Buttons = () =>
       </button>
     </div>
 
-    <p>The end</p>
+    <blockquote>
+      <p>This is  the end<br/>Hold your breath and count to ten</p>
+      <p><cite>Skyfall</cite></p>
+    </blockquote>
+
   </div>
 ;
 

@@ -5,6 +5,7 @@
 @define-mixin button {
   @mixin overflow-ellipsis;
   font-weight: var(--font-weight-semibold);
+  display: block;
   position: relative;
   min-width: 1px;
   border: 0 solid var(--text-color-primary);

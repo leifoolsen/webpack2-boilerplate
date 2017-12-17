@@ -61,7 +61,6 @@ export const Typography = () =>
           voluptate commodi. Consequuntur ratione et modi id, magnam reiciendis
           illum maxime minus.</p>
         <p><cite>Citation</cite></p>
-
       </blockquote>
     </section>
 

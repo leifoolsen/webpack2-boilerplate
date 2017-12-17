@@ -1,10 +1,12 @@
 import layout from '../styles/layout/layout.css';
 import header from '../styles/app/masthead.css';
 import footer from '../styles/app/mastfoot.css';
+import button from '../../app/components/button.css';
 
 import {h} from 'hyperapp';
 /** @jsx h */
 
+import classnames from '../../utils/classnames';
 import { Home } from './Home'; // eslint-disable-line no-unused-vars
 import { Typography } from './Typography'; // eslint-disable-line no-unused-vars
 import { Colors } from './Colors'; // eslint-disable-line no-unused-vars
@@ -55,23 +57,41 @@ export const view = state => actions =>
 
       <section class={layout['Layout-sidebarLeft']} style={{opacity: 0.9}}>
         <div>
-          <ul class="unstyled-list">
-            <li>
-              <a href="/" onclick={e => actions.page(e)}>Home</a>
-            </li>
-            <li>
-              <a href="/typography" onclick={e => actions.page(e)}>Typography</a>
-            </li>
-            <li>
-              <a href="/colors" onclick={e => actions.page(e)}>Colors</a>
-            </li>
-            <li>
-              <a href="/buttons" onclick={e => actions.page(e)}>Buttons</a>
-            </li>
-            <li>
-              <a href="#" onclick={e => actions.toggleGridLines(e)}>Toggle grid lines</a>
-            </li>
-          </ul>
+          <a href="/"
+            class={classnames(button['Button-primary'], button['Button--compact'])}
+            style={{width: '100%', textAlign: 'left'}}
+            onclick={e => actions.page(e)}
+          >
+            Home
+          </a>
+          <a href="/typography"
+            class={classnames(button['Button-primary'], button['Button--compact'])}
+            style={{width: '100%', textAlign: 'left'}}
+            onclick={e => actions.page(e)}
+          >
+            Typography
+          </a>
+          <a href="/colors"
+            class={classnames(button['Button-primary'], button['Button--compact'])}
+            style={{width: '100%', textAlign: 'left'}}
+            onclick={e => actions.page(e)}
+          >
+            Colors
+          </a>
+          <a href="/buttons"
+            class={classnames(button['Button-primary'], button['Button--compact'])}
+            style={{width: '100%', textAlign: 'left'}}
+            onclick={e => actions.page(e)}
+          >
+            Buttons
+          </a>
+          <a href="#"
+            class={classnames(button['Button-primary'], button['Button--compact'])}
+            style={{width: '100%', textAlign: 'left'}}
+            onclick={e => actions.toggleGridLines(e)}
+          >
+            Toggle grid lines
+          </a>
         </div>
       </section>
     </div>
