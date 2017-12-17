@@ -257,8 +257,9 @@ export const Buttons = () =>
     </div>
 
     <blockquote>
-      <p>This is  the end<br/>Hold your breath and count to ten</p>
-      <p><cite>Skyfall</cite></p>
+      <p>This is  the end<br/>
+        Hold your breath and count to ten</p>
+      <p><cite>Skyfall, Adele</cite></p>
     </blockquote>
 
   </div>

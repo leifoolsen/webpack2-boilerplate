@@ -256,4 +256,13 @@ export const Typography = () =>
         </div>
       </fieldset>
     </section>
+
+    <blockquote>
+      <p>They sentenced me to twenty years of boredom<br/>
+        For trying to change the system from within<br/>
+        I'm coming now, I'm coming to reward them<br/>
+        First we take Manhattan, then we take Berlin</p>
+      <p><cite>First We Take Manhattan, Leonard Cohen</cite></p>
+    </blockquote>
+
   </div>;

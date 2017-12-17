@@ -13,6 +13,7 @@
 
 @import './custom-media.css';
 @import './colors.css';
+@import './helpers.css';
 
 :root {
   /* font families */
@@ -139,6 +140,24 @@ abbr[title] {
 
 address {
   font-style: normal;
+}
+
+blockquote {
+  display:block;
+  position: relative;
+  margin-left: var(--space-m);
+
+  &::before {
+    position: absolute;
+    left: -14px;
+    top: 5px;
+    content: "\201C";
+    font-size: 2em;
+  }
+
+  &::after {
+    content: "";
+  }
 }
 
 hr {

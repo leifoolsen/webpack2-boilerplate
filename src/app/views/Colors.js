@@ -32,5 +32,12 @@ export const Colors = () =>
     <p class={colors.textColorSecondary}>Secondary text</p>
     <p class={colors.textColorDisabled}>Disabled text</p>
     <p class={colors.textColorIcon}>Icon</p>
+
+    <blockquote>
+      <p>WATCH OUT WHERE THE HUSKIES GO<br/>
+        AN' DON'T YOU EAT THAT YELLOW SNOW</p>
+      <p><cite>Don't Eat The Yellow Snow, Frank Zappa</cite></p>
+    </blockquote>
+
   </div>
 ;
