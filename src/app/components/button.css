@@ -6,7 +6,7 @@
   @mixin overflow-ellipsis;
   font-weight: var(--font-weight-semibold);
   position: relative;
-  min-width: calc(var(--base-line-height) * 2.6667); /* ~ 64px */
+  min-width: 1px;
   border: 0 solid var(--text-color-primary);
   border-radius: 3px;
   text-align: center;
@@ -49,15 +49,15 @@
 
   & :global(.material-icons) {
     vertical-align: bottom;
-    font-size: 1.5em;
+    font-size: 1.4em;
   }
 
   & :global(.material-icons):first-child:not(:only-child) {
-    margin-right: var(--space-s);
+    margin-right: var(--space-xs);
   }
 
   & :global(.material-icons):last-child:not(:only-child) {
-    margin-left: var(--space-s);
+    margin-left: var(--space-xs);
   }
 }
 
@@ -166,6 +166,12 @@
 .Button--filled {
   color: var(--text-color-primary);
   background-color: color(gray a(10%));
+
+  &:disabled {
+    color: var(--text-color-disabled) !important;
+    background-color: color(gray a(10%)) !important;
+    box-shadow: none;
+  }
 }
 
 .Button-primary.Button--filled {
@@ -230,7 +236,7 @@
 
 .Button--raised {
   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 280ms ease-in-out, box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
   will-change: box-shadow;
 
   &:disabled {
@@ -245,5 +251,52 @@
   &:active,
   &:active:focus {
     box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.Button--icon {
+  padding: var(--space-s);
+  border-radius: 50%;
+
+  & :global(.material-icons) { /* stylelint-disable-line */
+    font-size: 1.5em;
+  }
+}
+
+.Button--dense.Button--icon {
+  height: calc(var(--base-line-height) * 1.2);
+  width: calc(var(--base-line-height) * 1.2);
+  padding: 0;
+
+  & :global(.material-icons) { /* stylelint-disable-line */
+    font-size: 1.4em;
+  }
+}
+
+.Button--large.Button--icon {
+  font-size: var(--ms2);
+  line-height: calc(var(--base-line-height) * 2);
+  margin-top: var(--offset-ms2);
+  margin-bottom: calc(var(--offset-ms2) * -1);
+  height: calc(var(--base-line-height) * 2);
+  width: calc(var(--base-line-height) * 2);
+  padding: 0;
+
+  & :global(.material-icons) { /* stylelint-disable-line */
+    font-size: 1.1em;
+  }
+}
+
+.Button--xl.Button--icon {
+  font-size: var(--ms2);
+  line-height: calc(var(--base-line-height) * 3);
+  margin-top: var(--offset-ms2);
+  margin-bottom: calc(var(--offset-ms2) * -1);
+  height: calc(var(--base-line-height) * 3);
+  width: calc(var(--base-line-height) * 3);
+  padding: 0;
+
+  & :global(.material-icons) { /* stylelint-disable-line */
+    font-size: 1.5em;
   }
 }
