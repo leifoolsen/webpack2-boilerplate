@@ -4,6 +4,11 @@
 
 @define-mixin button {
   @mixin overflow-ellipsis;
+
+  /* The two following CSS propertiews removes default button styles */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
   font-weight: var(--font-weight-semibold);
   display: block;
   position: relative;
@@ -12,7 +17,6 @@
   border-radius: 3px;
   text-align: center;
   user-select: none;
-  -webkit-appearance: none;
   text-transform: uppercase;
   color: var(--text-color-primary);
   background-color: transparent;
@@ -20,7 +24,7 @@
   margin-bottom: calc((var(--offset) + var(--space-s)) * -1);
   margin-right: var(--space-s);
   padding: var(--space-s) var(--space-m);
-  transition: all 280ms ease-in-out; /* transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; /*  */
+  transition: all 280ms ease-in-out;
 
   &:last-child {
     margin-right: 0;
