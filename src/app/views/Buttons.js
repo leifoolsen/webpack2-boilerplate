@@ -5,9 +5,25 @@ import classnames from '../../utils/classnames';
 import colors from '../styles/base/colors.css';
 import button from '../../app/components/button.css';
 
+const codeSample = `.Large-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  height: calc(var(--base-line-height) * 3);
+  padding-top: var(--space-s);
+  padding-bottom: var(--space-s);
+
+  & .Button {
+    font-size: 1.1rem;
+    font-family: var(--font-family-heading);
+    font-weight: var(--font-weight-bold);
+  }
+}`;
+
 export const Buttons = () =>
   <div>
     <h1>Buttons</h1>
+
     <h3>Text Buttons</h3>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <button class={button.Button} type="button">Button</button>
@@ -23,6 +39,7 @@ export const Buttons = () =>
       </button>
       <button class={button.Button} type="button" disabled>Disabled</button>
     </div>
+
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <button class={button['Button-info']} type="button">Info</button>
       <button class={button['Button-success']} type="button">
@@ -32,6 +49,7 @@ export const Buttons = () =>
       <button class={button['Button-warning']} type="button">Warning</button>
       <button class={button['Button-error']} type="button">Error</button>
     </div>
+
     <h3>Stroked Buttons</h3>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <button class={classnames(button.Button, button['Button--stroked'])} type="button">Button</button>
@@ -41,6 +59,7 @@ export const Buttons = () =>
       <button class={classnames(button['Button-secondary'], button['Button--stroked'])} type="button">Secondary</button>
       <button class={classnames(button.Button, button['Button--stroked'])} type="button" disabled>Disabled</button>
     </div>
+
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <button class={classnames(button['Button-info'], button['Button--stroked'])} type="button">Info</button>
       <button class={classnames(button['Button-success'], button['Button--stroked'])} type="button">Success</button>
@@ -49,6 +68,7 @@ export const Buttons = () =>
       </button>
       <button class={classnames(button['Button-error'], button['Button--stroked'])} type="button">Error</button>
     </div>
+
     <h3>Filled Buttons</h3>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <button class={classnames(button.Button, button['Button--filled'])} type="button">Button</button>
@@ -58,6 +78,7 @@ export const Buttons = () =>
       <button class={classnames(button['Button-secondary'], button['Button--filled'])} type="button">Secondary</button>
       <button class={classnames(button.Button, button['Button--filled'])} type="button" disabled>Disabled</button>
     </div>
+
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <button class={classnames(button['Button-info'], button['Button--filled'])} type="button">
         <span>Info</span><i aria-hidden="true" class={classnames('material-icons', colors.infoDark2)}>info_outline</i>
@@ -72,6 +93,7 @@ export const Buttons = () =>
         <span>Error</span><i aria-hidden="true" class={classnames('material-icons', colors.errorDark2)}>error_outline</i>
       </button>
     </div>
+
     <h3>Raised Buttons</h3>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <button class={classnames(button.Button, button['Button--filled'], button['Button--raised'])} type="button">Button</button>
@@ -81,6 +103,7 @@ export const Buttons = () =>
       <button class={classnames(button['Button-secondary'], button['Button--filled'], button['Button--raised'])} type="button">Secondary</button>
       <button class={classnames(button.Button, button['Button--filled'], button['Button--raised'])} type="button" disabled>Disabled</button>
     </div>
+
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <button class={classnames(button.Button, button['Button--stroked'], button['Button--raised'])} type="button">Button</button>
       <button class={classnames(button['Button-primary'], button['Button--compact'], button['Button--stroked'], button['Button--raised'])} type="button">Compact</button>
@@ -89,6 +112,7 @@ export const Buttons = () =>
       <button class={classnames(button['Button-secondary'], button['Button--stroked'], button['Button--raised'])} type="button">Secondary</button>
       <button class={classnames(button.Button, button['Button--stroked'], button['Button--raised'])} type="button" disabled>Disabled</button>
     </div>
+
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <button class={classnames(button.Button, button['Button--raised'])} type="button">Button</button>
       <button class={classnames(button.Button, button['Button--raised'], button['Button--compact'])} type="button">Compact</button>
@@ -97,6 +121,7 @@ export const Buttons = () =>
       <button class={classnames(button['Button-secondary'], button['Button--raised'])} type="button">Secondary</button>
       <button class={classnames(button.Button, button['Button--raised'])} type="button" disabled>Disabled</button>
     </div>
+
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <button class={classnames(button['Button-info'], button['Button--filled'], button['Button--raised'])} type="button">
         <i aria-hidden="true" class={classnames('material-icons', colors.infoDark2)}>info_outline</i><span>Info</span>
@@ -112,17 +137,40 @@ export const Buttons = () =>
       </button>
     </div>
 
+    <h3>Large Buttons</h3>
+    <p>You can make the buttons as large as you want by putting them inside a
+      flex container. The buttons does not have a set height; they follow a
+      "natural" height governed by the base line height. You can take advantage
+      of this by creating a flex container and setting the height to a multiple
+      of the base line height and the &nbsp;
+      <b><code>align-items</code></b> property to <b><code>stretch</code>.</b>
+    </p>
+    <pre>{codeSample}</pre>
+
+    <div class={button['Large-buttons']}>
+      <button class={classnames(button['Button-info'], button['Button--filled'], button['Button--raised'])} type="button">
+        <i aria-hidden="true" class={classnames('material-icons', colors.infoDark2)}>info_outline</i><span>Info</span>
+      </button>
+      <button class={classnames(button['Button-success'], button['Button--filled'], button['Button--raised'])} type="button">
+        <span>Success</span><i aria-hidden="true" class={classnames('material-icons', colors.successDark2)}>check</i>
+      </button>
+    </div>
+
+    <p>The text inside a "large" button will not necessarily rest on the grid line,
+      but that's acceptable as long as the button's container has a height that
+      is a multiple of the base line height.</p>
+
     <h3>Icon Buttons</h3>
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline' }}>
       <button
-        class={classnames(button['Button-secondary'], button['Button--stroked'], button['Button--dense'], button['Button--icon'])}
+        class={classnames(button['Button-secondary'], button['Button--stroked'], button['Button--icon-s'])}
         type="button"
         aria-label="Dense"
       >
         <i aria-hidden="true" class="material-icons">accessibility</i>
       </button>
       <button
-        class={classnames(button['Button-primary'], button['Button--filled'], button['Button--dense'], button['Button--icon'])}
+        class={classnames(button['Button-primary'], button['Button--filled'], button['Button--icon-s'])}
         type="button"
         aria-label="Dense"
       >
@@ -130,7 +178,7 @@ export const Buttons = () =>
       </button>
 
       <button
-        class={classnames(button['Button-secondary'], button['Button--raised'], button['Button--filled'], button['Button--dense'], button['Button--icon'])}
+        class={classnames(button['Button-secondary'], button['Button--raised'], button['Button--filled'], button['Button--icon-s'])}
         type="button"
         aria-label="Secondary"
       >
@@ -138,7 +186,7 @@ export const Buttons = () =>
       </button>
 
       <button
-        class={classnames(button['Button-primary'], button['Button--filled'], button['Button--dense'], button['Button--icon'])}
+        class={classnames(button['Button-primary'], button['Button--filled'], button['Button--icon-s'])}
         type="button"
         aria-label="Dense"
         disabled
@@ -147,7 +195,7 @@ export const Buttons = () =>
       </button>
 
       <button
-        class={classnames(button['Button-primary'], button['Button--dense'], button['Button--icon'])}
+        class={classnames(button['Button-primary'], button['Button--icon-s'])}
         type="button"
         aria-label="Dense"
       >
@@ -211,7 +259,7 @@ export const Buttons = () =>
     <br/>
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline' }}>
       <button
-        class={classnames(button['Button-secondary'], button['Button--raised'], button['Button--filled'], button['Button--large'], button['Button--icon'])}
+        class={classnames(button['Button-secondary'], button['Button--raised'], button['Button--filled'], button['Button--icon-l'])}
         type="button"
         aria-label="Secondary"
       >
@@ -219,7 +267,7 @@ export const Buttons = () =>
       </button>
 
       <button
-        class={classnames(button['Button-primary'], button['Button--raised'], button['Button--filled'], button['Button--large'], button['Button--icon'])}
+        class={classnames(button['Button-primary'], button['Button--raised'], button['Button--filled'], button['Button--icon-l'])}
         type="button"
         aria-label="Secondary"
       >
@@ -227,7 +275,7 @@ export const Buttons = () =>
       </button>
 
       <button
-        class={classnames(button['Button'], button['Button--large'], button['Button--icon'])}
+        class={classnames(button['Button'], button['Button--icon-l'])}
         type="button"
         aria-label="Menu"
       >
@@ -238,7 +286,7 @@ export const Buttons = () =>
     <br/>
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline' }}>
       <button
-        class={classnames(button['Button-secondary'], button['Button--raised'], button['Button--filled'], button['Button--xl'], button['Button--icon'])}
+        class={classnames(button['Button-secondary'], button['Button--raised'], button['Button--filled'], button['Button--icon-xl'])}
         type="button"
         aria-label="Secondary"
       >
@@ -246,7 +294,7 @@ export const Buttons = () =>
       </button>
 
       <button
-        class={classnames(button['Button-primary'], button['Button--raised'], button['Button--filled'], button['Button--xl'], button['Button--icon'])}
+        class={classnames(button['Button-primary'], button['Button--raised'], button['Button--filled'], button['Button--icon-xl'])}
         type="button"
         aria-label="Secondary"
       >
@@ -256,7 +304,7 @@ export const Buttons = () =>
 
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline' }}>
       <button
-        class={classnames(button['Button-secondary'], button['Button--filled'], button['Button--dense'], button['Button--icon'])}
+        class={classnames(button['Button-secondary'], button['Button--filled'], button['Button--icon-s'])}
         type="button"
         aria-label="Dense"
       >

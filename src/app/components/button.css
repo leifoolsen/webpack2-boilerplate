@@ -259,16 +259,34 @@
   }
 }
 
-.Button--icon {
-  padding: var(--space-s);
+.Large-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  height: calc(var(--base-line-height) * 3);
+  padding-top: var(--space-s);
+  padding-bottom: var(--space-s);
+
+  & .Button {
+    font-size: 1.1rem;
+    font-family: var(--font-family-heading);
+    font-weight: var(--font-weight-bold);
+  }
+}
+
+.Button--icon,
+.Button--icon-m {
   border-radius: 50%;
+  padding: var(--space-s);
 
   & :global(.material-icons) { /* stylelint-disable-line */
     font-size: 1.5em;
   }
 }
 
-.Button--dense.Button--icon {
+.Button--icon-s {
+  composes: Button--dense;
+  border-radius: 50%;
   height: calc(var(--base-line-height) * 1.2);
   width: calc(var(--base-line-height) * 1.2);
   padding: 0;
@@ -278,7 +296,8 @@
   }
 }
 
-.Button--large.Button--icon {
+.Button--icon-l {
+  border-radius: 50%;
   font-size: var(--ms2);
   line-height: calc(var(--base-line-height) * 2);
   margin-top: var(--offset-ms2);
@@ -292,7 +311,8 @@
   }
 }
 
-.Button--xl.Button--icon {
+.Button--icon-xl {
+  border-radius: 50%;
   font-size: var(--ms2);
   line-height: calc(var(--base-line-height) * 3);
   margin-top: var(--offset-ms2);
