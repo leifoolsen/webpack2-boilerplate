@@ -138,7 +138,7 @@ export const Buttons = () =>
     </div>
 
     <h3>Large Buttons</h3>
-    <p>You can make the buttons as large as you want by putting them inside a
+    <p>You can make the buttons as large (or small) as you want by putting them inside a
       flex container. The buttons does not have a set height; they follow a
       "natural" height governed by the base line height. You can take advantage
       of this by creating a flex container and setting the height to a multiple
