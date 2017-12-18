@@ -268,7 +268,7 @@
   padding-bottom: var(--space-s);
 
   & .Button {
-    font-size: 1.1rem;
+    font-size: calc(var(--ms1) * 0.9);
     font-family: var(--font-family-heading);
     font-weight: var(--font-weight-bold);
   }

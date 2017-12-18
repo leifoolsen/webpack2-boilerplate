@@ -14,7 +14,7 @@ const codeSample = `.Large-buttons {
   padding-bottom: var(--space-s);
 
   & .Button {
-    font-size: 1.1rem;
+    font-size: calc(var(--ms1) * 0.9);
     font-family: var(--font-family-heading);
     font-weight: var(--font-weight-bold);
   }
@@ -145,7 +145,7 @@ export const Buttons = () =>
       of the base line height and the &nbsp;
       <b><code>align-items</code></b> property to <b><code>stretch</code>.</b>
     </p>
-    <pre>{codeSample}</pre>
+    <pre><small>{codeSample}</small></pre>
 
     <div class={button['Large-buttons']}>
       <button class={classnames(button['Button-info'], button['Button--filled'], button['Button--raised'])} type="button">
