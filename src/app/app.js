@@ -5,7 +5,7 @@ import './styles/base/typography.css';
 import './styles/layout/layout.css';
 import './styles/app/masthead.css';
 import './styles/app/mastfoot.css';
-import { h, app } from 'hyperapp';
+import { app } from 'hyperapp';
 import { state } from './state';
 import { actions } from './actions';
 import { view } from './views';

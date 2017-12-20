@@ -4,6 +4,7 @@ export const state = Object.assign(
   {
     page: '/',
     gridLines: true,
+    num: 0,
   },
   getStateFromStorage(),
   {

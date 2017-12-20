@@ -1,0 +1,14 @@
+@import '../styles/base/typography.css';
+
+.CounterBar {
+  display: flex;
+}
+
+.CounterDisplay {
+  font-size: var(--ms4);
+  min-width: var(--space-xxl);
+  text-align: center;
+  padding-right: var(--space-s);
+  margin-bottom: calc(var(--space-xs) * -1);
+  align-self: flex-end;
+}

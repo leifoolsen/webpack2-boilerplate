@@ -1,5 +1,5 @@
-import {h} from 'hyperapp';
 /** @jsx h */
+import {h} from 'hyperapp';
 
 import classnames from '../../utils/classnames';
 import colors from '../styles/base/colors.css';
@@ -259,7 +259,7 @@ export const Buttons = () =>
     <br/>
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline' }}>
       <button
-        class={classnames(button['Button-secondary'], button['Button--raised'], button['Button--filled'], button['Button--icon-l'])}
+        class={classnames(button['Button-primary'], button['Button--raised'], button['Button--filled'], button['Button--icon-l'])}
         type="button"
         aria-label="Secondary"
       >
@@ -267,7 +267,7 @@ export const Buttons = () =>
       </button>
 
       <button
-        class={classnames(button['Button-primary'], button['Button--raised'], button['Button--filled'], button['Button--icon-l'])}
+        class={classnames(button['Button-secondary'], button['Button--raised'], button['Button--filled'], button['Button--icon-l'])}
         type="button"
         aria-label="Secondary"
       >

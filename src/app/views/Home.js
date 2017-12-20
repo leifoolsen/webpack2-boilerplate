@@ -1,9 +1,10 @@
 import button from '../components/button.css';
 import card from '../components/card.css';
 
-import {h} from 'hyperapp';
-import classnames from '../../utils/classnames';
 /** @jsx h */
+import {h} from 'hyperapp';
+import { Counter } from '../components/Counter'; // eslint-disable-line no-unused-vars
+import classnames from '../../utils/classnames';
 
 export const Home = ({state, actions}) =>
   <div>
@@ -100,6 +101,8 @@ export const Home = ({state, actions}) =>
       </div>
     </div>
 
+    <Counter num={state.num} add={actions.add} sub={actions.sub}/>
+
     <div class={card.Card}>
       <button
         id="btn-ping"
@@ -107,7 +110,7 @@ export const Home = ({state, actions}) =>
         type="button"
         onclick={ (e) => actions.ping(e) }
       >
-        Ping
+        Ping Server
       </button>
 
       <div class={card['Card-body']}>

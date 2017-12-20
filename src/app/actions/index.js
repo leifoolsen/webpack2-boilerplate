@@ -24,6 +24,10 @@ export const actions = {
     };
   },
 
+  add: () => ({ num }) => ({ num: num + 1 }),
+
+  sub: () => ({ num }) => ({ num: num - 1 }),
+
   ping: event => (state, actions) => {
     event.preventDefault();
     pingServer(joinUrl(config.apiPath, '/ping'))

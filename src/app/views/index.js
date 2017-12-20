@@ -3,8 +3,8 @@ import header from '../styles/app/masthead.css';
 import footer from '../styles/app/mastfoot.css';
 import button from '../../app/components/button.css';
 
-import {h} from 'hyperapp';
 /** @jsx h */
+import {h} from 'hyperapp';
 
 import classnames from '../../utils/classnames';
 import { Home } from './Home'; // eslint-disable-line no-unused-vars
