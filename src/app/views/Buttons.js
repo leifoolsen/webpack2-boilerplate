@@ -15,7 +15,7 @@ const codeSample = `.Large-buttons {
 
   & .Button {
     font-size: calc(var(--ms1) * 0.9);
-    font-family: var(--font-family-heading);
+    font-family: var(--font-family-body);
     font-weight: var(--font-weight-bold);
   }
 }`;
