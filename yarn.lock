@@ -3478,9 +3478,9 @@ husky@0.14.3:
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
 
-hyperapp@0.16.2:
-  version "0.16.2"
-  resolved "https://registry.yarnpkg.com/hyperapp/-/hyperapp-0.16.2.tgz#1ca686cb9f369f54ba6faed0ac949df82dd22066"
+hyperapp@0.18.0:
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/hyperapp/-/hyperapp-0.18.0.tgz#5b98f9ddd0f3ac70afb592d35da7a18cf4edc5fe"
 
 iconv-lite@0.4.13:
   version "0.4.13"

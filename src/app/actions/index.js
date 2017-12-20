@@ -6,7 +6,9 @@ import pingServer from './pingServer';
 
 export const actions = {
 
-  page: event => () => { // 0.15.x syntax: page: (state, actions, event) => {
+  storeState: () => state => storeStateInStorage(state),
+
+  page: event => () => {
     // The router is not compatible with latest HyperApp
     // Use this while waiting for the HyperApp router to catch up
     event.preventDefault();
@@ -22,24 +24,22 @@ export const actions = {
     };
   },
 
-  storeState: () => state => storeStateInStorage(state),
-
-  ping: e => () => actions => {
-    e.preventDefault();
+  ping: event => (state, actions) => {
+    event.preventDefault();
     pingServer(joinUrl(config.apiPath, '/ping'))
       .then(r => actions.setResponse(r));
   },
 
   setResponse: response => ({response}),
 
-  triggerUnhandledError: e => () => actions => {
+  triggerUnhandledError: event => (state, actions) => {
 
     const badFunction = () => {
       const foo = {};
       return foo.bar(); // Throws "Script error"
     };
 
-    e.preventDefault();
+    event.preventDefault();
 
     // Set message before error is thrown
     actions.setUnhandledErrorResponse();

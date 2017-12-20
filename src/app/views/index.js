@@ -39,7 +39,7 @@ const showPage = (state, actions) => {
   return <Home state={state} actions={actions}/>;
 };
 
-export const view = state => actions =>
+export const view = (state, actions) =>
   <div class={layout.Layout}>
 
     <header class={header.Masthead} role="banner">

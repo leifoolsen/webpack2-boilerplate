@@ -105,7 +105,7 @@ export const Home = ({state, actions}) =>
         id="btn-ping"
         class={classnames(button['Button-primary'], button['Button--stroked'])}
         type="button"
-        onclick={ e => actions.ping(e)}
+        onclick={ (e) => actions.ping(e) }
       >
         Ping
       </button>

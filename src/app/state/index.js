@@ -1,4 +1,4 @@
-import {getStateFromStorage} from './local-storage';
+import { getStateFromStorage } from './local-storage';
 
 export const state = Object.assign(
   {
