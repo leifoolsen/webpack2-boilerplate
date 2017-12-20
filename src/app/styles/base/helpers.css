@@ -80,10 +80,16 @@
 }
 
 @define-mixin unstyled-list {
-  margin-left: 0;
-  margin-right: 0;
-  padding-left: 0;
+  margin: 0;
+  padding: 0;
   list-style: none;
+
+  &:first-child,
+  & > li,
+  & > li:first-child {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 :global(.unstyled-list) {

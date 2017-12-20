@@ -56,43 +56,53 @@ export const view = (state, actions) =>
       </main>
 
       <section class={layout['Layout-sidebarLeft']} style={{opacity: 0.9}}>
-        <div>
-          <a href="/"
-            class={classnames(button['Button-primary'], button['Button--compact'])}
-            style={{width: '100%', textAlign: 'left'}}
-            onclick={e => actions.page(e)}
-          >
-            Home
-          </a>
-          <a href="/typography"
-            class={classnames(button['Button-primary'], button['Button--compact'])}
-            style={{width: '100%', textAlign: 'left'}}
-            onclick={e => actions.page(e)}
-          >
-            Typography
-          </a>
-          <a href="/colors"
-            class={classnames(button['Button-primary'], button['Button--compact'])}
-            style={{width: '100%', textAlign: 'left'}}
-            onclick={e => actions.page(e)}
-          >
-            Colors
-          </a>
-          <a href="/buttons"
-            class={classnames(button['Button-primary'], button['Button--compact'])}
-            style={{width: '100%', textAlign: 'left'}}
-            onclick={e => actions.page(e)}
-          >
-            Buttons
-          </a>
-          <a href="#"
-            class={classnames(button['Button-primary'], button['Button--compact'])}
-            style={{width: '100%', textAlign: 'left'}}
-            onclick={e => actions.toggleGridLines(e)}
-          >
-            Toggle grid lines
-          </a>
-        </div>
+        <ul role="navigation" class="unstyled-list">
+          <li>
+            <a href="/"
+              class={classnames(button['Button-primary'], button['Button--compact'])}
+              style={{width: '100%', textAlign: 'left'}}
+              onclick={e => actions.page(e)}
+            >
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="/typography"
+              class={classnames(button['Button-primary'], button['Button--compact'])}
+              style={{width: '100%', textAlign: 'left'}}
+              onclick={e => actions.page(e)}
+            >
+              Typography
+            </a>
+          </li>
+          <li>
+            <a href="/colors"
+              class={classnames(button['Button-primary'], button['Button--compact'])}
+              style={{width: '100%', textAlign: 'left'}}
+              onclick={e => actions.page(e)}
+            >
+              Colors
+            </a>
+          </li>
+          <li>
+            <a href="/buttons"
+              class={classnames(button['Button-primary'], button['Button--compact'])}
+              style={{width: '100%', textAlign: 'left'}}
+              onclick={e => actions.page(e)}
+            >
+              Buttons
+            </a>
+          </li>
+          <li>
+            <a href="#"
+              class={classnames(button['Button-primary'], button['Button--compact'])}
+              style={{width: '100%', textAlign: 'left'}}
+              onclick={e => actions.toggleGridLines(e)}
+            >
+              Toggle grid lines
+            </a>
+          </li>
+        </ul>
       </section>
     </div>
     <footer class={footer.Mastfoot} role="contentinfo">

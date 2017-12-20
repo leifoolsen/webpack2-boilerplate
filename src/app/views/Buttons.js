@@ -15,15 +15,13 @@ const codeSample = `.Large-buttons {
 
   & .Button {
     font-size: calc(var(--ms1) * 0.9);
-    font-family: var(--font-family-body);
     font-weight: var(--font-weight-bold);
   }
 }`;
 
-export const Buttons = () =>
-  <div>
-    <h1>Buttons</h1>
 
+const textButtons = () =>
+  <section>
     <h3>Text Buttons</h3>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <button class={button.Button} type="button">Button</button>
@@ -49,7 +47,10 @@ export const Buttons = () =>
       <button class={button['Button-warning']} type="button">Warning</button>
       <button class={button['Button-error']} type="button">Error</button>
     </div>
+  </section>;
 
+const strokedButtons = () =>
+  <section>
     <h3>Stroked Buttons</h3>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <button class={classnames(button.Button, button['Button--stroked'])} type="button">Button</button>
@@ -68,7 +69,11 @@ export const Buttons = () =>
       </button>
       <button class={classnames(button['Button-error'], button['Button--stroked'])} type="button">Error</button>
     </div>
+  </section>
+;
 
+const filledButtons = () =>
+  <section>
     <h3>Filled Buttons</h3>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <button class={classnames(button.Button, button['Button--filled'])} type="button">Button</button>
@@ -93,7 +98,11 @@ export const Buttons = () =>
         <span>Error</span><i aria-hidden="true" class={classnames('material-icons', colors.errorDark2)}>error_outline</i>
       </button>
     </div>
+  </section>
+;
 
+const raisedButtons = () =>
+  <section>
     <h3>Raised Buttons</h3>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <button class={classnames(button.Button, button['Button--filled'], button['Button--raised'])} type="button">Button</button>
@@ -136,7 +145,11 @@ export const Buttons = () =>
         <i aria-hidden="true" class={classnames('material-icons', colors.errorDark2)}>error_outline</i><span>Error</span>
       </button>
     </div>
+  </section>
+;
 
+const largeButtons = () =>
+  <section>
     <h3>Large Buttons</h3>
     <p>You can make the buttons as large (or small) as you want by putting them inside a
       flex container. The buttons does not have a set height; they follow a
@@ -159,7 +172,11 @@ export const Buttons = () =>
     <p>The text inside a "large" button will not necessarily rest on the grid line,
       but that's acceptable as long as the button's container has a height that
       is a multiple of the base line height.</p>
+  </section>
+;
 
+const iconButtons = () =>
+  <section>
     <h3>Icon Buttons</h3>
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline' }}>
       <button
@@ -311,13 +328,33 @@ export const Buttons = () =>
         <i aria-hidden="true" class="material-icons">accessibility</i>
       </button>
     </div>
+  </section>
+;
+
+export const Buttons = () =>
+  <div>
+    <h1>Buttons</h1>
+    { textButtons() }
+
+    { strokedButtons() }
+
+    <br/>
+    { filledButtons() }
+
+    <br/>
+    { raisedButtons() }
+
+    <br/>
+    { largeButtons() }
+
+    <br/>
+    { iconButtons() }
 
     <blockquote>
       <p>This is  the end<br/>
         Hold your breath and count to ten</p>
       <p><cite>Skyfall, Adele</cite></p>
     </blockquote>
-
   </div>
 ;
 

@@ -8,7 +8,7 @@ export const state = Object.assign(
   },
   getStateFromStorage(),
   {
-    response: 'Click the Ping button',
+    response: 'Click to check server connection',
     unhandledErrorResponse: 'Click to trigger an unhandled error',
   }
 );

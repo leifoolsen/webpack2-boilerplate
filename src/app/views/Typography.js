@@ -86,12 +86,17 @@ export const Typography = () =>
     </section>
 
     <section>
-      <header><h2>Table</h2></header>
+      <header><h2>&lt;table&gt;</h2></header>
       <p><b>TODO</b></p>
     </section>
 
     <section>
-      <header><h2>Image</h2></header>
+      <header><h2>&lt;img&gt;</h2></header>
+      <p><b>TODO</b></p>
+    </section>
+
+    <section>
+      <header><h2>&lt;figure&gt; / &lt;figcaption&gt;</h2></header>
       <p><b>TODO</b></p>
     </section>
 

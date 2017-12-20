@@ -110,7 +110,7 @@ export const Home = ({state, actions}) =>
         type="button"
         onclick={ (e) => actions.ping(e) }
       >
-        Ping Server
+        Ping
       </button>
 
       <div class={card['Card-body']}>
