@@ -78,7 +78,7 @@ const lists = () =>
 
 const images = () =>
   <section>
-    <header><h2>Images</h2></header>
+    <header><h2>Image</h2></header>
     <p>Set the height of an image to a multiple of the base line height, or
       use a container with a given height.</p>
     <br/>
@@ -87,8 +87,8 @@ const images = () =>
     <img
       height="12"
       src="/assets/polar_fox.jpg"
-      title="Polar Fox. Svalbard, Norway. Copyright &copy; Leif Olsen"
-      alt="Polar Fox. Svalbard, Norway. Copyright &copy; Leif Olsen"
+      title="Arctic Fox. Svalbard, Norway. Copyright &copy; Leif Olsen"
+      alt="Arctic Fox. Svalbard, Norway. Copyright &copy; Leif Olsen"
     />
   </section>
 ;
