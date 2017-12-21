@@ -1,7 +1,7 @@
 @import '../base/typography.css';
 
 .ingress {
-  font-size: calc(var(--ms1) * 0.86);
+  font-size: calc(var(--ms1) * 0.88);
   margin-top: calc(var(--offset-ms1) + var(--base-line-height));
   margin-bottom: calc(var(--offset-ms1) * -1);
   font-style: italic;
