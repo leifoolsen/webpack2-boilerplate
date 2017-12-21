@@ -5,4 +5,4 @@ import './global.css';
 import 'hyperapp';
 import '@hyperapp/router';
 
-// +++ other 3'rd party, e.g. lodash, React
+// +++ other 3'rd party, e.g. lodash

@@ -200,8 +200,7 @@ img {
   max-width: 100%;
   vertical-align: middle;
   height: auto;
-
-  /* consider using display: block; */
+  display: block;
 }
 
 /*
@@ -436,8 +435,7 @@ li,
 pre,
 form,
 table,
-blockquote,
-figcaption {
+blockquote {
   margin-top: calc(var(--offset) + var(--base-line-height));
   margin-bottom: calc(var(--offset) * -1);
 
@@ -449,6 +447,20 @@ figcaption {
 /* stylelint-disable-next-line no-descending-specificity */
 li {
   margin-top: var(--offset);
+}
+
+figure {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+figcaption {
+  font-size: var(--ms-1);
+  font-style: italic;
+  margin-top: var(--offset-ms-1);
+  margin-bottom: calc(var(--offset-ms-1) * -1);
+  flex-basis: 100%;
 }
 
 h1 {
@@ -576,71 +588,129 @@ textarea {
 }
 
 /* Heights for input elements with border-top: 1px and border-bottom: 1px */
-[height="1"],
 select[multiple][size="1"],
 textarea[rows="1"] {
   height: calc(var(--base-line-height) + 2px);
 }
 
-[height="2"],
 select[multiple][size="2"],
 textarea[rows="2"] {
   height: calc(var(--base-line-height) * 2 + 2px);
 }
 
-[height="3"],
 select[multiple][size="3"],
 textarea[rows="3"] {
   height: calc(var(--base-line-height) * 3 + 2px);
 }
 
-[height="4"],
 select[multiple][size="4"],
 textarea[rows="4"] {
   height: calc(var(--base-line-height) * 4 + 2px);
 }
 
-[height="5"],
 select[multiple][size="5"],
 textarea[rows="5"] {
   height: calc(var(--base-line-height) * 5 + 2px);
 }
 
-[height="6"],
 select[multiple][size="6"],
 textarea[rows="6"] {
   height: calc(var(--base-line-height) * 6 + 2px);
 }
 
-[height="7"],
 select[multiple][size="7"],
 textarea[rows="7"] {
   height: calc(var(--base-line-height) * 7 + 2px);
 }
 
-[height="8"],
 select[multiple][size="8"],
 textarea[rows="8"] {
   height: calc(var(--base-line-height) * 8 + 2px);
 }
 
-[height="9"],
 select[multiple][size="9"],
 textarea[rows="9"] {
   height: calc(var(--base-line-height) * 9 + 2px);
 }
 
-[height="10"],
 select[multiple][size="10"],
 textarea[rows="10"] {
   height: calc(var(--base-line-height) * 10 + 2px);
+}
+
+/* Heights for borderless elements */
+[height="1"] {
+  height: var(--base-line-height);
+}
+
+[height="2"] {
+  height: calc(var(--base-line-height) * 2);
+}
+
+[height="3"] {
+  height: calc(var(--base-line-height) * 3);
+}
+
+[height="4"] {
+  height: calc(var(--base-line-height) * 4);
+}
+
+[height="5"] {
+  height: calc(var(--base-line-height) * 5);
+}
+
+[height="6"] {
+  height: calc(var(--base-line-height) * 6);
+}
+
+[height="7"] {
+  height: calc(var(--base-line-height) * 7);
+}
+
+[height="8"] {
+  height: calc(var(--base-line-height) * 8);
+}
+
+[height="9"] {
+  height: calc(var(--base-line-height) * 9);
+}
+
+[height="10"] {
+  height: calc(var(--base-line-height) * 10);
+}
+
+[height="11"] {
+  height: calc(var(--base-line-height) * 11);
+}
+
+[height="12"] {
+  height: calc(var(--base-line-height) * 12);
+}
+
+[height="13"] {
+  height: calc(var(--base-line-height) * 13);
+}
+
+[height="14"] {
+  height: calc(var(--base-line-height) * 14);
+}
+
+[height="16"] {
+  height: calc(var(--base-line-height) * 16);
+}
+
+[height="18"] {
+  height: calc(var(--base-line-height) * 18);
+}
+
+[height="20"] {
+  height: calc(var(--base-line-height) * 20);
 }
 
 :global(.grid-lines) {
   background-image: linear-gradient(rgba(200, 50, 50, 0.25) 1px, transparent 1px);
   background-size: 1px var(--base-line-height);
 }
-
 
 /* Focusable elements
 a[href]:not([tabindex^='-']),

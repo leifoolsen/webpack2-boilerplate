@@ -351,7 +351,7 @@ export const Buttons = () =>
     { iconButtons() }
 
     <blockquote>
-      <p>This is  the end<br/>
+      <p>This is the end<br/>
         Hold your breath and count to ten</p>
       <p><cite>Skyfall, Adele</cite></p>
     </blockquote>
