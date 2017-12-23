@@ -8,7 +8,7 @@ import classnames from '../../utils/classnames';
 
 export const Home = ({state, actions}) =>
   <div>
-    <h2>Demo application built with hyperapp</h2>
+    <h2>Example application built with Hyperapp</h2>
 
     <br/>
     <Counter num={state.num} add={actions.add} sub={actions.sub}/>
