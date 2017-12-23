@@ -1,15 +1,14 @@
 import { location } from '@hyperapp/router';
-//import parseURI from '../../utils/parse-uri';
 import joinUrl from '../../utils/join-url';
 import config from '../../config/config';
-//import {storeStateInStorage} from '../state/local-storage';
+import {storeStateInStorage} from '../state/local-storage';
 import pingServer from './pingServer';
 
 export const actions = {
 
   location: location.actions,
 
-  //storeState: () => state => storeStateInStorage(state),
+  storeState: () => state => storeStateInStorage(state),
 
   toggleGridLines: event => state => {
     event.preventDefault();
