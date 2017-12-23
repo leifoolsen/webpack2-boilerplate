@@ -1,0 +1,78 @@
+:root {
+  /*
+   * Primary and secondary colors.
+   * The primary color is used throughout most of the application and components,
+   * as the main color for your application. The secondary color is used for
+   * floating action buttons and other interactive elements, serving as visual
+   * contrast to the primary.
+   * See: https://material.io/components/web/docs/theming/
+   * See: https://material.io/color/
+   */
+  --color-primary: #2196f3;
+  --color-primary-tone: color(white a(98%));
+  --color-primary-light: #6ec6ff;
+  --color-primary-light-tone: color(black a(85%));
+  --color-primary-dark: #0069c0;
+  --color-primary-dark-tone: color(white a(90%));
+  --color-secondary: #7b1fa2;
+  --color-secondary-tone: color(white a(83%));
+  --color-secondary-light: #ae52d4;
+  --color-secondary-light-tone: color(white a(98%));
+  --color-secondary-dark: #4a0072;
+  --color-secondary-dark-tone: color(white a(93%));
+  --color-info: #bbeeff;
+  --color-info-tone: color(black a(85%));
+  --color-info-dark: #0069c0;
+  --color-info-dark-tone: color(white a(90%));
+  --color-success: #dff2bf;
+  --color-success-tone: color(black a(85%));
+  --color-success-dark: #00600f;
+  --color-success-dark-tone: color(white a(85%));
+  --color-warning: #feefb3;
+  --color-warning-tone: color(black a(85%));
+  --color-warning-dark: #f57f17;
+  --color-warning-dark-tone: color(black a(85%));
+  --color-error: #ffbaba;
+  --color-error-tone: color(black a(85%));
+  --color-error-dark: #c4001d;
+  --color-error-dark-tone: color(white a(85%));
+
+  /* Light background */
+  --light-background-color: #f7f7f7;
+
+  /* Text on light background */
+  --text-color-dark-primary: color(black a(87%));
+  --text-color-dark-secondary: color(black a(54%));
+  --text-color-dark-hint: color(black a(38%));
+  --text-color-dark-disabled: color(black a(38%));
+  --text-color-dark-icon: color(black a(38%));
+  --text-color-dark-anchor: var(--color-secondary);
+
+  /* Dark background */
+  --dark-background-color: #363636;
+
+  /* Text on dark background */
+  --text-color-light-primary: color(white);
+  --text-color-light-secondary: color(white a(70%));
+  --text-color-light-hint: color(white a(50%));
+  --text-color-light-disabled: color(white a(50%));
+  --text-color-light-icon: color(white a(50%));
+  --text-color-light-anchor: var(--color-secondary-light);
+
+  /* Page background color */
+  --page-background-color: #ffffff;
+
+  /*
+   * Primary, used for most text.
+   * Secondary, used for text which is lower in the visual hierarchy.
+   * Hint, used for text hints (such as those in text fields and labels).
+   * Disabled, used for text in disabled components and content.
+   * Icon, used for icons.
+   */
+  --text-color-primary: var(--text-color-dark-primary);
+  --text-color-secondary: var(--text-color-dark-secondary);
+  --text-color-hint: var(--text-color-dark-hint);
+  --text-color-disabled: var(--text-color-dark-disabled);
+  --text-color-icon: var(--text-color-dark-icon);
+  --text-color-anchor: var(--text-color-dark-anchor);
+}

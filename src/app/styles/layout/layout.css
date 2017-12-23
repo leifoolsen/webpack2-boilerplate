@@ -1,5 +1,5 @@
 @import '../base/custom-media.css';
-@import '../base/typography.css';
+@import '../base/typography.variables.css';
 
 /**
  * Based on: https://github.com/philipwalton/solved-by-flexbox/blob/master/assets/css/components/holy-grail.css

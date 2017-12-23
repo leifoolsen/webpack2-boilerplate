@@ -1,10 +1,10 @@
+import colors from '../styles/base/colors.css';
+import button from '../../app/components/button.css';
+
 /** @jsx h */
 import {h} from 'hyperapp';
 
 import classnames from '../../utils/classnames';
-import colors from '../styles/base/colors.css';
-import button from '../../app/components/button.css';
-
 const codeSample = `.Large-buttons {
   display: flex;
   flex-wrap: wrap;

@@ -1,4 +1,4 @@
-@import '../base/typography.css';
+@import '../base/typography.variables.css';
 
 .navlink {
   composes: Button-primary from '../../components/button.css';

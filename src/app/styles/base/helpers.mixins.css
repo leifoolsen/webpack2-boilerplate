@@ -1,0 +1,83 @@
+/**
+ *-----------------------------------------------------------------------------
+ * This file contains helper mixins.
+ *-----------------------------------------------------------------------------
+ */
+
+
+/*
+ * Clearfix: contain floats
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+
+@define-mixin clearfix {
+  &::before,
+  &::after {
+    content: ' '; /* 1 */
+    display: table; /* 2 */
+  }
+
+  &::after {
+    clear: both;
+  }
+}
+
+/**
+ * Mixin for ellipsis overflow
+ */
+@define-mixin overflow-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/**
+ * Hide text while making it readable for screen readers
+ * 1. Needed in WebKit-based browsers because of an implementation bug;
+ *    See: https://code.google.com/p/chromium/issues/detail?id=457146
+ */
+@define-mixin hide-text {
+  overflow: hidden;
+  padding: 0; /* 1 */
+  text-indent: 101%;
+  white-space: nowrap;
+}
+
+/**
+ * Hide element while making it readable for screen readers
+ * Shamelessly borrowed from HTML5Boilerplate:
+ * https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css#L119-L133
+ */
+@define-mixin visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/**
+ * Unstyled list
+ */
+@define-mixin unstyled-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &:first-child,
+  & > li,
+  & > li:first-child {
+    margin: 0;
+    padding: 0;
+  }
+}

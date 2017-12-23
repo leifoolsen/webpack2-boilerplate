@@ -1,4 +1,4 @@
-@import '../styles/base/typography.css';
+@import '../styles/base/typography.variables.css';
 
 .CounterBar {
   display: flex;

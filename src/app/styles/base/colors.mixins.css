@@ -1,0 +1,91 @@
+@import './colors.variables.css';
+
+@define-mixin primary {
+  background-color: var(--color-primary);
+  color: var(--color-primary-tone);
+}
+
+@define-mixin primary-light {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-light-tone);
+}
+
+@define-mixin primary-dark {
+  background-color: var(--color-primary-dark);
+  color: var(--color-primary-dark-tone);
+}
+
+@define-mixin secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-tone);
+}
+
+@define-mixin secondary-light {
+  background-color: var(--color-secondary-light);
+  color: var(--color-secondary-light-tone);
+}
+
+@define-mixin secondary-dark {
+  background-color: var(--color-secondary-dark);
+  color: var(--color-secondary-dark-tone);
+}
+
+@define-mixin info {
+  background-color: var(--color-info);
+  color: var(--color-info-tone);
+}
+
+@define-mixin info-dark {
+  background-color: var(--color-info-dark);
+  color: var(--color-info-dark-tone);
+}
+
+@define-mixin success {
+  background-color: var(--color-success);
+  color: var(--color-success-tone);
+}
+
+@define-mixin success-dark {
+  background-color: var(--color-success-dark);
+  color: var(--color-success-dark-tone);
+}
+
+@define-mixin warning {
+  background-color: var(--color-warning);
+  color: var(--color-warning-tone);
+}
+
+@define-mixin warning-dark {
+  background-color: var(--color-warning-dark);
+  color: var(--color-warning-dark-tone);
+}
+
+@define-mixin error {
+  background-color: var(--color-error);
+  color: var(--color-error-tone);
+}
+
+@define-mixin error-dark {
+  background-color: var(--color-error-dark);
+  color: var(--color-error-dark-tone);
+}
+
+@define-mixin text-color-primary {
+  color: var(--text-color-primary);
+}
+
+@define-mixin text-color-secondary {
+  color: var(--text-color-secondary);
+}
+
+@define-mixin text-color-hint {
+  color: var(--text-color-hint);
+}
+
+@define-mixin text-color-disabled {
+  color: var(--text-color-disabled);
+}
+
+@define-mixin text-color-icon {
+  color: var(--text-color-icon);
+}

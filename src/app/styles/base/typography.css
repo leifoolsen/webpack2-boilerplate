@@ -12,40 +12,9 @@
  */
 
 @import './custom-media.css';
-@import './colors.css';
-@import './helpers.css';
+@import './colors.variables.css';
+@import './typography.variables.css';
 
-:root {
-  /* font families */
-  --font-family-roboto-light: 'Roboto-Light', 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-  --font-family-roboto-regular: 'Roboto-Regular', 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-  --font-family-arial: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  --font-family-helvetica: 'Helvetica', 'Arial', sans-serif;
-  --font-family-serif: Georgia, 'Times New Roman', Times, serif;
-  --font-family-monospace: Menlo, Monaco, Consolas, 'Courier New', monospace;
-  --font-family-heading: var(--font-family-roboto-light);
-  --font-family-body: var(--font-family-roboto-regular);
-  --letter-spacing: -0.025em;
-
-  /* font weights */
-  --font-weight-light: 200;
-  --font-weight-normal: 300;
-  --font-weight-medium: 400;
-  --font-weight-semibold: 500;
-  --font-weight-bold: 700;
-}
-
-@media (--high-dppx) {
-  :root {
-    /* Font weights high density screens */
-    --font-weight-light: 200;
-    --font-weight-normal: 300;
-    --font-weight-medium: 400;
-    --font-weight-semibold: 500;
-    --font-weight-bold: 700;
-  }
-}
 
 /* -------------------------------- *
  * Override/Extend normalize.css    *
@@ -204,7 +173,7 @@ img {
 }
 
 /*
- * Avoid 300ms click delay on touch devices that support the `touch-action` CSS property.
+ * 1. Avoid 300ms click delay on touch devices that support the `touch-action` CSS property.
  *
  * In particular, unlike most other browsers, IE11+Edge on Windows 10 on touch devices and IE Mobile 10-11
  * DON'T remove the click delay when `<meta name="viewport" content="width=device-width">` is present.
@@ -226,7 +195,7 @@ label,
 select,
 summary,
 textarea {
-  touch-action: manipulation;
+  touch-action: manipulation; /* 1 */
 }
 
 /*
@@ -290,122 +259,6 @@ a:not([href]):not([tabindex]) {
 /* -------------------------------- *
  * Modular scale + Vertical Rhythm  *
  * -------------------------------- */
-
-/* stylelint-disable-next-line no-duplicate-selectors */
-:root {
-  /* Fluid font and line height */
-  --min-screen: var(--phone-width);
-  --max-screen: var(--tablet-width);
-  --min-line-height: 1.375;
-  --max-line-height: 1.5;
-  --min-font-size: 0.875; /* 0.9375; */
-  --max-font-size: 1; /* 1.125; */
-  --cap-height: 0.64; /* See: https://medium.com/written-in-code/aligning-type-to-baseline-the-right-way-using-sass-e258fce47a9b */
-
-  /* Base font */
-  --base-font-size: calc(var(--min-font-size) * 1rem);
-  --base-line-height: calc(var(--min-line-height) * 1rem);
-
-  /* Horizontal spacing */
-  --space-xs: calc(var(--base-line-height) * 0.1667);
-  --space-s: calc(var(--base-line-height) * 0.3333);
-  --space-m: calc(var(--base-line-height) * 0.6667);
-  --space-l: calc(var(--base-line-height) * 1);
-  --space-xl: calc(var(--base-line-height) * 1.3333);
-  --space-xxl: calc(var(--base-line-height) * 2.6667);
-
-  /* Modular type scales, see: http://www.modularscale.com */
-  --minor-second: 1.067;     /* Ratio = 15:16 */
-  --major-second: 1.125;     /* Ratio = 8:9 */
-  --minor-third: 1.2;        /* Ratio = 5:6 */
-  --major-third: 1.25;       /* Ratio = 4:5 */
-  --perfect-fourth: 1.333;   /* Ratio = 3:4 */
-  --augmented-fourth: 1.414; /* Ratio = 1:√2 */
-  --perfect-fifth: 1.5;      /* Ratio = 2:3 */
-  --minor-sixth: 1.6;        /* Ratio = 5:8 */
-  --golden: 1.618;           /* Ratio = 1:1.618 */
-  --major-sixth: 1.667;      /* Ratio = 3:5 */
-  --minor-seventh: 1.778;    /* Ratio = 9:16 */
-  --major-seventh: 1.875;    /* Ratio = 8:15 */
-  --octave: 2;               /* Ratio = 1:2 */
-
-  /*
-   * Maybe create a mixin for modular scale using this formula:
-   * ms(n) =  pow($ms-ratio, $n) * $ms-base;
-   * See: https://www.sassmeister.com/gist/10620fefd1ed75189f1b
-   * See: https://www.bhalash.com/archives/13544805638
-   */
-  --ms-base: 1rem;
-  --ms-scale: var(--major-third);
-  --ms0: var(--ms-base);
-  --ms1: calc(var(--ms-scale) * var(--ms0));
-  --ms2: calc(var(--ms-scale) * var(--ms1));
-  --ms3: calc(var(--ms-scale) * var(--ms2));
-  --ms4: calc(var(--ms-scale) * var(--ms3));
-  --ms5: calc(var(--ms-scale) * var(--ms4));
-  --ms6: calc(var(--ms-scale) * var(--ms5));
-  --ms7: calc(var(--ms-scale) * var(--ms6));
-  --ms-1: calc(var(--ms0) / var(--ms-scale));
-  --ms-2: calc(var(--ms-1) / var(--ms-scale));
-
-  /* See: https://medium.com/written-in-code/aligning-type-to-baseline-the-right-way-using-sass-e258fce47a9b */
-  --offset: calc((var(--base-line-height) - var(--cap-height) * var(--base-font-size)) / 2);
-  --offset-ms0: calc((var(--base-line-height) - var(--cap-height) * var(--ms0)) / 2);
-  --offset-ms1: calc((var(--base-line-height) - var(--cap-height) * var(--ms1)) / 2);
-  --offset-ms2: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms2)) / 2);
-  --offset-ms3: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms3)) / 2);
-  --offset-ms4: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms4)) / 2);
-  --offset-ms-1: calc((var(--base-line-height) - var(--cap-height) * var(--ms-1)) / 2);
-}
-
-@media (--media-tablet) {
-  :root {
-    /* Base font, fluid for tablet size */
-    --base-font-size: calc(var(--min-font-size) * 1rem + (var(--max-font-size) - var(--min-font-size)) * ((100vw - var(--min-screen) * 1rem) / (var(--max-screen) - var(--min-screen))));
-
-    /* Fluid line height (molten leading) */
-    --base-line-height: calc(var(--min-line-height) * 1rem + (var(--max-line-height) - var(--min-line-height)) * ((100vw - var(--min-screen) * 1rem) / (var(--max-screen) - var(--min-screen))));
-
-    /* Horizontal spacing */
-    --space-xs: calc(var(--base-line-height) * 0.1667);
-    --space-s: calc(var(--base-line-height) * 0.3333);
-    --space-m: calc(var(--base-line-height) * 0.6667);
-    --space-l: calc(var(--base-line-height) * 1);
-    --space-xl: calc(var(--base-line-height) * 1.3333);
-    --space-xxl: calc(var(--base-line-height) * 2.6667);
-
-    /* Offset */
-    --offset: calc((var(--base-line-height) - var(--cap-height) * var(--base-font-size)) / 2);
-    --offset-ms0: calc((var(--base-line-height) - var(--cap-height) * var(--ms0)) / 2);
-    --offset-ms1: calc((var(--base-line-height) - var(--cap-height) * var(--ms1)) / 2);
-    --offset-ms2: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms2)) / 2);
-    --offset-ms3: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms3)) / 2);
-    --offset-ms4: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms4)) / 2);
-    --offset-ms-1: calc((var(--base-line-height) - var(--cap-height) * var(--ms-1)) / 2);
-  }
-}
-
-@media (--media-desktop) {
-  :root {
-    /* Base font large screen */
-    --base-font-size: calc(var(--max-font-size) * 1rem);
-    --base-line-height: calc(var(--max-line-height) * 1rem);
-    --space-xs: calc(var(--base-line-height) * 0.1667);
-    --space-s: calc(var(--base-line-height) * 0.3333);
-    --space-m: calc(var(--base-line-height) * 0.6667);
-    --space-l: calc(var(--base-line-height) * 1);
-    --space-xl: calc(var(--base-line-height) * 1.3333);
-    --space-xxl: calc(var(--base-line-height) * 2.6667);
-    --offset: calc((var(--base-line-height) - var(--cap-height) * var(--base-font-size)) / 2);
-    --offset-ms0: calc((var(--base-line-height) - var(--cap-height) * var(--ms0)) / 2);
-    --offset-ms1: calc((var(--base-line-height) - var(--cap-height) * var(--ms1)) / 2);
-    --offset-ms2: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms2)) / 2);
-    --offset-ms3: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms3)) / 2);
-    --offset-ms4: calc((var(--base-line-height) * 2 - var(--cap-height) * var(--ms4)) / 2);
-    --offset-ms-1: calc((var(--base-line-height) - var(--cap-height) * var(--ms-1)) / 2);
-  }
-}
-
 
 /* stylelint-disable-next-line no-duplicate-selectors */
 :root {

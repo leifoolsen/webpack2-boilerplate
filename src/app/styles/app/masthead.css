@@ -1,5 +1,5 @@
-@import '../base/colors.css';
-@import '../base/typography.css';
+@import '../base/colors.variables.css';
+@import '../base/typography.variables.css';
 
 .Masthead {
   margin: 0;
