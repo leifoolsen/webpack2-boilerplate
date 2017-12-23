@@ -17,3 +17,10 @@
   background-size: contain;
   margin-right: var(--space-m);
 }
+
+.Masthead-logo2 {
+  flex: 1;
+  background: url('/assets/red_throated_loon.png') no-repeat right center;
+  background-size: contain;
+  margin-left: var(--space-xs);
+}

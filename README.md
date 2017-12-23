@@ -1,9 +1,6 @@
 # Webpack boilerplate
 
-![webpack2-boilerplate](./webpack2-boilerplate.png)
-
-A Webpack boilerplate, partly based on this Egghead.io course; 
-[Using Webpack for Production JavaScript Applications](https://egghead.io/courses/using-webpack-for-production-javascript-applications)
+![webpack-boilerplate](./webpack-boilerplate.png)
 
 ## Features
 * ES2015/ES2016/ES2017

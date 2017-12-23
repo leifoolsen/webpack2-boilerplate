@@ -16,6 +16,7 @@ import classnames from '../../utils/classnames';
 export const Counter = ({ num,  add, sub }) =>
   <section>
     <h3>Counter example</h3>
+    <br/>
     <div class={CounterBar}>
       <button
         class={classnames(button['Button-secondary'], button['Button--raised'], button['Button--filled'], button['Button--icon-l'])}

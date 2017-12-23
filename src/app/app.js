@@ -1,11 +1,6 @@
-import './styles/base/helpers.css';
-import './styles/base/custom-media.css';
-import './styles/base/colors.css';
 import './styles/base/typography.css';
-import './styles/layout/layout.css';
-import './styles/app/masthead.css';
-import './styles/app/mastfoot.css';
 import { app } from 'hyperapp';
+import { location } from '@hyperapp/router';
 import { state } from './state';
 import { actions } from './actions';
 import { view } from './views';
@@ -14,6 +9,7 @@ import logger from '../logger/logger';
 
 const run = () => {
 
+  /*
   const {
     storeState,
   } = app(
@@ -22,8 +18,16 @@ const run = () => {
     view,
     document.body,
   );
+  */
 
-  window.addEventListener('beforeunload', () => storeState());
+  const main = app(state, actions, view, document.body);
+
+  const unsubscribe = location.subscribe(main.location);
+
+  window.addEventListener('beforeunload', () => {
+    main.storeState();
+    unsubscribe();
+  });
 
   logger.info(`Application started, env: ${config.env}, public path: ${config.publicPath}, API path: ${config.apiPath}`);
 };

@@ -1,5 +1,12 @@
 @import '../base/typography.css';
 
+.navlink {
+  composes: Button-primary from '../../components/button.css';
+  composes: Button--compact from '../../components/button.css';
+  width: 100%;
+  text-align: left;
+}
+
 .ingress {
   font-size: calc(var(--ms1) * 0.88);
   margin-top: calc(var(--offset-ms1) + var(--base-line-height));
@@ -7,4 +14,15 @@
   font-style: italic;
   font-family: var(--font-family-body);
   font-weight: var(--font-weight-medium);
+}
+
+.logobar {
+  display: flex;
+  flex-wrap: nowrap;
+  height: calc(var(--base-line-height) * 2);
+
+  & > img {
+    height: 100%;
+    margin-right: var(--space-s);
+  }
 }

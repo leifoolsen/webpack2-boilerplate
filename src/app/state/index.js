@@ -1,8 +1,9 @@
+import { location } from '@hyperapp/router';
 import { getStateFromStorage } from './local-storage';
 
 export const state = Object.assign(
   {
-    page: '/',
+    location: location.state,
     gridLines: true,
     num: 0,
   },

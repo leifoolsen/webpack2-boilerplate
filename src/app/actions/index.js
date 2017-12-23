@@ -1,21 +1,15 @@
-import parseURI from '../../utils/parse-uri';
+import { location } from '@hyperapp/router';
+//import parseURI from '../../utils/parse-uri';
 import joinUrl from '../../utils/join-url';
 import config from '../../config/config';
-import {storeStateInStorage} from '../state/local-storage';
+//import {storeStateInStorage} from '../state/local-storage';
 import pingServer from './pingServer';
 
 export const actions = {
 
-  storeState: () => state => storeStateInStorage(state),
+  location: location.actions,
 
-  page: event => () => {
-    // The router is not compatible with latest HyperApp
-    // Use this while waiting for the HyperApp router to catch up
-    event.preventDefault();
-    return {
-      page: parseURI(event.target.href).path
-    };
-  },
+  //storeState: () => state => storeStateInStorage(state),
 
   toggleGridLines: event => state => {
     event.preventDefault();
