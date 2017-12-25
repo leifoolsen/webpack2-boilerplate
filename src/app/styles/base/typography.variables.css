@@ -80,6 +80,7 @@
    * ms(n) =  pow($ms-ratio, $n) * $ms-base;
    * See: https://www.sassmeister.com/gist/10620fefd1ed75189f1b
    * See: https://www.bhalash.com/archives/13544805638
+   Æ See: https://cloudfour.com/thinks/responsive-guide-to-type-sizing/
    */
   --ms-base: 1rem;
   --ms-scale: var(--major-third);

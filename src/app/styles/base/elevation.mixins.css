@@ -1,0 +1,101 @@
+@import './elevation.variables.css';
+
+@define-mixin z0 {
+  box-shadow: var(--z0);
+}
+
+@define-mixin z1 {
+  box-shadow: var(--z1);
+}
+
+@define-mixin z2 {
+  box-shadow: var(--z2);
+}
+
+@define-mixin z3 {
+  box-shadow: var(--z3);
+}
+
+@define-mixin z4 {
+  box-shadow: var(--z4);
+}
+
+@define-mixin z5 {
+  box-shadow: var(--z5);
+}
+
+@define-mixin z6 {
+  box-shadow: var(--z6);
+}
+
+@define-mixin z7 {
+  box-shadow: var(--z7);
+}
+
+@define-mixin z8 {
+  box-shadow: var(--z8);
+}
+
+@define-mixin z9 {
+  box-shadow: var(--z9);
+}
+
+@define-mixin z10 {
+  box-shadow: var(--z10);
+}
+
+@define-mixin z11 {
+  box-shadow: var(--z11);
+}
+
+@define-mixin z12 {
+  box-shadow: var(--z12);
+}
+
+@define-mixin z13 {
+  box-shadow: var(--z13);
+}
+
+@define-mixin z14 {
+  box-shadow: var(--z14);
+}
+
+@define-mixin z15 {
+  box-shadow: var(--z15);
+}
+
+@define-mixin z16 {
+  box-shadow: var(--z16);
+}
+
+@define-mixin z17 {
+  box-shadow: var(--z17);
+}
+
+@define-mixin z18 {
+  box-shadow: var(--z18);
+}
+
+@define-mixin z19 {
+  box-shadow: var(--z19);
+}
+
+@define-mixin z20 {
+  box-shadow: var(--z20);
+}
+
+@define-mixin z21 {
+  box-shadow: var(--z21);
+}
+
+@define-mixin z22 {
+  box-shadow: var(--z22);
+}
+
+@define-mixin z23 {
+  box-shadow: var(--z23);
+}
+
+@define-mixin z24 {
+  box-shadow: var(--z24);
+}

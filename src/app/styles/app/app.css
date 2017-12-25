@@ -1,3 +1,4 @@
+@import '../base/custom-media.css';
 @import '../base/typography.variables.css';
 
 .navlink {
@@ -24,5 +25,22 @@
   & > img {
     height: 100%;
     margin-right: var(--space-s);
+  }
+}
+
+.elevationdemo {
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  height: calc(var(--base-line-height) * 3);
+  margin-bottom: calc(var(--base-line-height) * 3);
+  text-align: center;
+  margin-right: var(--space-xl);
+  width: calc(100% - var(--space-xl));
+
+  @media (--media-tablet) {
+    width: calc(50% - var(--space-xl));
+  }
+
+  @media (--media-desktop) {
+    width: calc(33.3333% - var(--space-xl));
   }
 }

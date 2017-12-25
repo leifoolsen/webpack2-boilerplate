@@ -1,6 +1,7 @@
-import {h} from 'hyperapp';
-/** @jsx h */
 import colors from '../styles/base/colors.css';
+
+/** @jsx h */
+import {h} from 'hyperapp';
 
 export const Colors = () =>
   <div>

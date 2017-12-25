@@ -10,6 +10,7 @@ import { Home } from './Home'; // eslint-disable-line no-unused-vars
 import { Typography } from './Typography'; // eslint-disable-line no-unused-vars
 import { Colors } from './Colors'; // eslint-disable-line no-unused-vars
 import { Buttons } from './Buttons'; // eslint-disable-line no-unused-vars
+import { Elevations } from './Elevations'; // eslint-disable-line no-unused-vars
 
 export const view = (state, actions) => {
 
@@ -36,6 +37,7 @@ export const view = (state, actions) => {
           <Route path="/" render={() => Home({state, actions})}/>
           <Route path="/typography" render={Typography}/>
           <Route path="/colors" render={Colors}/>
+          <Route path="/elevations" render={Elevations}/>
           <Route path="/buttons" render={Buttons}/>
         </main>
 
@@ -57,6 +59,12 @@ export const view = (state, actions) => {
             class={app.navlink}
           >
             Colors
+          </Link>
+          <Link
+            to="/elevations"
+            class={app.navlink}
+          >
+            Elevation
           </Link>
           <Link
             to="/buttons"

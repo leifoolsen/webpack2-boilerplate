@@ -3,8 +3,8 @@ import button from '../../app/components/button.css';
 
 /** @jsx h */
 import {h} from 'hyperapp';
-
 import classnames from '../../utils/classnames';
+
 const codeSample = `.Large-buttons {
   display: flex;
   flex-wrap: wrap;
