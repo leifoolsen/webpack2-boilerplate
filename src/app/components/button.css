@@ -1,6 +1,7 @@
 @import '../styles/base/helpers.mixins.css';
 @import '../styles/base/colors.variables.css';
 @import '../styles/base/colors.mixins.css';
+@import '../styles/base/elevation.variables.css';
 @import '../styles/base/typography.variables.css';
 @import './button.mixins.css';
 
@@ -24,7 +25,7 @@
 
 .Button-primary {
   composes: Button;
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
   border-color: var(--color-primary);
 
   &:focus,
@@ -196,7 +197,7 @@
 }
 
 .Button--raised {
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: var(--z2);
   transition: all 280ms ease-in-out, box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
   will-change: box-shadow;
 
@@ -206,12 +207,12 @@
 
   &:focus,
   &:hover {
-    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: var(--z4);
   }
 
   &:active,
   &:active:focus {
-    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--z8);
   }
 }
 

@@ -1,5 +1,6 @@
 @import '../base/custom-media.css';
 @import '../base/typography.variables.css';
+@import '../base/elevation.variables.css';
 
 .navlink {
   composes: Button-primary from '../../components/button.css';
@@ -30,7 +31,8 @@
 
 .elevationdemo {
   border: 1px solid rgba(0, 0, 0, 0.23);
-  height: calc(var(--base-line-height) * 3);
+  height: calc(var(--base-line-height) * 3 + 1px);
+  margin-top: -1px;
   margin-bottom: calc(var(--base-line-height) * 3);
   text-align: center;
   margin-right: var(--space-xl);
@@ -42,5 +44,30 @@
 
   @media (--media-desktop) {
     width: calc(33.3333% - var(--space-xl));
+  }
+}
+
+.colordemo {
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  height: calc(var(--base-line-height) * 5 + 1px);
+  margin-top: -1px;
+  margin-bottom: var(--base-line-height);
+  text-align: center;
+  padding-top: calc(var(--base-line-height) * 2);
+  margin-right: 0;
+  width: 100%;
+
+  &:hover {
+    box-shadow: var(--z4);
+  }
+
+  @media (--media-tablet) {
+    margin-right: var(--space-s);
+    width: calc(50% - var(--space-s));
+  }
+
+  @media (--media-desktop) {
+    margin-right: var(--space-s);
+    width: calc(33.3333% - var(--space-s));
   }
 }

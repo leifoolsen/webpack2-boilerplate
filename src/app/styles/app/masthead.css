@@ -23,5 +23,6 @@
   background: url('/assets/red_throated_loon.png') no-repeat right center;
   background-size: contain;
   margin-top: var(--space-s);
+  margin-bottom: var(--space-xs);
   margin-left: var(--space-xs);
 }
