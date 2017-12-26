@@ -1,4 +1,4 @@
-@import './colors.variables.css';
+@import 'color.variables.css';
 
 @define-mixin primary {
   background-color: var(--color-primary);

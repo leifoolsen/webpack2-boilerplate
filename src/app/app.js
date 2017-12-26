@@ -1,5 +1,5 @@
 import './styles/base/helpers.css';
-import './styles/base/colors.css';
+import './styles/base/color.css';
 import './styles/base/typography.css';
 import { app } from 'hyperapp';
 import { location } from '@hyperapp/router';

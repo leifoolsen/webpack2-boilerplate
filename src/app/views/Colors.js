@@ -1,4 +1,4 @@
-import colors from '../styles/base/colors.css';
+import color from '../styles/base/color.css';
 import app from '../styles/app/app.css';
 
 /** @jsx h */
@@ -10,55 +10,55 @@ export const Colors = () =>
     <h1>Colors</h1>
     <br/>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-      <div key="textColorPrimary" class={classnames(app.colordemo, colors.textColorPrimary)}>
+      <div key="textColorPrimary" class={classnames(app.colordemo, color.textColorPrimary)}>
         <h4>Primary text</h4>
       </div>
-      <div key="textColorSecondary" class={classnames(app.colordemo, colors.textColorSecondary)}>
+      <div key="textColorSecondary" class={classnames(app.colordemo, color.textColorSecondary)}>
         <h4>Secondary text</h4>
       </div>
-      <div key="textColorDisabled" class={classnames(app.colordemo, colors.textColorDisabled)}>
+      <div key="textColorDisabled" class={classnames(app.colordemo, color.textColorDisabled)}>
         <h4>Disabled text</h4>
       </div>
-      <div key="primary" class={classnames(app.colordemo, colors.primary)}>
+      <div key="primary" class={classnames(app.colordemo, color.primary)}>
         <h4>Primary</h4>
       </div>
-      <div key="primaryLight" class={classnames(app.colordemo, colors.primaryLight)}>
+      <div key="primaryLight" class={classnames(app.colordemo, color.primaryLight)}>
         <h4>Primary light</h4>
       </div>
-      <div key="primaryDark" class={classnames(app.colordemo, colors.primaryDark)}>
+      <div key="primaryDark" class={classnames(app.colordemo, color.primaryDark)}>
         <h4>Primary dark</h4>
       </div>
-      <div key="secondary" class={classnames(app.colordemo, colors.secondary)}>
+      <div key="secondary" class={classnames(app.colordemo, color.secondary)}>
         <h4>Secondary</h4>
       </div>
-      <div key="secondaryLight" class={classnames(app.colordemo, colors.secondaryLight)}>
+      <div key="secondaryLight" class={classnames(app.colordemo, color.secondaryLight)}>
         <h4>Secondary light</h4>
       </div>
-      <div key="secondaryDark" class={classnames(app.colordemo, colors.secondaryDark)}>
+      <div key="secondaryDark" class={classnames(app.colordemo, color.secondaryDark)}>
         <h4>Secondary dark</h4>
       </div>
-      <div key="info" class={classnames(app.colordemo, colors.info)}>
+      <div key="info" class={classnames(app.colordemo, color.info)}>
         <h4>Info</h4>
       </div>
-      <div key="infoDark" class={classnames(app.colordemo, colors.infoDark)}>
+      <div key="infoDark" class={classnames(app.colordemo, color.infoDark)}>
         <h4>Info dark</h4>
       </div>
-      <div key="success" class={classnames(app.colordemo, colors.success)}>
+      <div key="success" class={classnames(app.colordemo, color.success)}>
         <h4>Success</h4>
       </div>
-      <div key="successDark" class={classnames(app.colordemo, colors.successDark)}>
+      <div key="successDark" class={classnames(app.colordemo, color.successDark)}>
         <h4>Success dark</h4>
       </div>
-      <div key="warning" class={classnames(app.colordemo, colors.warning)}>
+      <div key="warning" class={classnames(app.colordemo, color.warning)}>
         <h4>Warning</h4>
       </div>
-      <div key="warningDark" class={classnames(app.colordemo, colors.warningDark)}>
+      <div key="warningDark" class={classnames(app.colordemo, color.warningDark)}>
         <h4>Warning dark</h4>
       </div>
-      <div key="error" class={classnames(app.colordemo, colors.error)}>
+      <div key="error" class={classnames(app.colordemo, color.error)}>
         <h4>Error</h4>
       </div>
-      <div key="errorDark" class={classnames(app.colordemo, colors.errorDark)}>
+      <div key="errorDark" class={classnames(app.colordemo, color.errorDark)}>
         <h4>Error dark</h4>
       </div>
     </div>

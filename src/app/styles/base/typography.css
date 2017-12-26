@@ -12,7 +12,7 @@
  */
 
 @import './custom-media.css';
-@import './colors.variables.css';
+@import 'color.variables.css';
 @import './typography.variables.css';
 
 

@@ -1,6 +1,6 @@
 @import '../styles/base/helpers.mixins.css';
-@import '../styles/base/colors.variables.css';
-@import '../styles/base/colors.mixins.css';
+@import '../styles/base/color.variables.css';
+@import '../styles/base/color.mixins.css';
 @import '../styles/base/elevation.variables.css';
 @import '../styles/base/typography.variables.css';
 @import './button.mixins.css';

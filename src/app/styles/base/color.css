@@ -1,5 +1,5 @@
-@import './colors.variables.css';
-@import './colors.mixins.css';
+@import 'color.variables.css';
+@import 'color.mixins.css';
 
 .primary {
   @mixin primary;

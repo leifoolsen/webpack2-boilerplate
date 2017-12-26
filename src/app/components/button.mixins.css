@@ -1,5 +1,5 @@
 @import '../styles/base/helpers.mixins.css';
-@import '../styles/base/colors.variables.css';
+@import '../styles/base/color.variables.css';
 @import '../styles/base/typography.variables.css';
 
 @define-mixin button {

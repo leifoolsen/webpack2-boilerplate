@@ -1,4 +1,4 @@
-import colors from '../styles/base/colors.css';
+import color from '../styles/base/color.css';
 import button from '../../app/components/button.css';
 
 /** @jsx h */
@@ -65,7 +65,7 @@ const strokedButtons = () =>
       <button class={classnames(button['Button-info'], button['Button--stroked'])} type="button">Info</button>
       <button class={classnames(button['Button-success'], button['Button--stroked'])} type="button">Success</button>
       <button class={classnames(button['Button-warning'], button['Button--stroked'])} type="button">
-        <i aria-hidden="true" class={classnames('material-icons', colors.warningDark2)}>warning</i><span>Warning</span>
+        <i aria-hidden="true" class={classnames('material-icons', color.warningDark2)}>warning</i><span>Warning</span>
       </button>
       <button class={classnames(button['Button-error'], button['Button--stroked'])} type="button">Error</button>
     </div>
@@ -86,16 +86,16 @@ const filledButtons = () =>
 
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <button class={classnames(button['Button-info'], button['Button--filled'])} type="button">
-        <span>Info</span><i aria-hidden="true" class={classnames('material-icons', colors.infoDark2)}>info_outline</i>
+        <span>Info</span><i aria-hidden="true" class={classnames('material-icons', color.infoDark2)}>info_outline</i>
       </button>
       <button class={classnames(button['Button-success'], button['Button--filled'])} type="button">
-        <i aria-hidden="true" class={classnames('material-icons', colors.successDark2)}>check</i><span>Success</span>
+        <i aria-hidden="true" class={classnames('material-icons', color.successDark2)}>check</i><span>Success</span>
       </button>
       <button class={classnames(button['Button-warning'], button['Button--filled'])} type="button">
-        <i aria-hidden="true" class={classnames('material-icons', colors.warningDark2)}>warning</i><span>Warning</span>
+        <i aria-hidden="true" class={classnames('material-icons', color.warningDark2)}>warning</i><span>Warning</span>
       </button>
       <button class={classnames(button['Button-error'], button['Button--filled'])} type="button">
-        <span>Error</span><i aria-hidden="true" class={classnames('material-icons', colors.errorDark2)}>error_outline</i>
+        <span>Error</span><i aria-hidden="true" class={classnames('material-icons', color.errorDark2)}>error_outline</i>
       </button>
     </div>
   </section>
@@ -133,16 +133,16 @@ const raisedButtons = () =>
 
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <button class={classnames(button['Button-info'], button['Button--filled'], button['Button--raised'])} type="button">
-        <i aria-hidden="true" class={classnames('material-icons', colors.infoDark2)}>info_outline</i><span>Info</span>
+        <i aria-hidden="true" class={classnames('material-icons', color.infoDark2)}>info_outline</i><span>Info</span>
       </button>
       <button class={classnames(button['Button-success'], button['Button--filled'], button['Button--raised'])} type="button">
-        <span>Success</span><i aria-hidden="true" class={classnames('material-icons', colors.successDark2)}>check</i>
+        <span>Success</span><i aria-hidden="true" class={classnames('material-icons', color.successDark2)}>check</i>
       </button>
       <button class={classnames(button['Button-warning'], button['Button--filled'], button['Button--raised'])} type="button">
-        <span>Warning</span><i aria-hidden="true" class={classnames('material-icons', colors.warningDark2)}>warning</i>
+        <span>Warning</span><i aria-hidden="true" class={classnames('material-icons', color.warningDark2)}>warning</i>
       </button>
       <button class={classnames(button['Button-error'], button['Button--filled'], button['Button--raised'])} type="button">
-        <i aria-hidden="true" class={classnames('material-icons', colors.errorDark2)}>error_outline</i><span>Error</span>
+        <i aria-hidden="true" class={classnames('material-icons', color.errorDark2)}>error_outline</i><span>Error</span>
       </button>
     </div>
   </section>
@@ -162,10 +162,10 @@ const largeButtons = () =>
 
     <div class={button['Large-buttons']}>
       <button class={classnames(button['Button-info'], button['Button--filled'], button['Button--raised'])} type="button">
-        <i aria-hidden="true" class={classnames('material-icons', colors.infoDark2)}>info_outline</i><span>Info</span>
+        <i aria-hidden="true" class={classnames('material-icons', color.infoDark2)}>info_outline</i><span>Info</span>
       </button>
       <button class={classnames(button['Button-success'], button['Button--filled'], button['Button--raised'])} type="button">
-        <span>Success</span><i aria-hidden="true" class={classnames('material-icons', colors.successDark2)}>check</i>
+        <span>Success</span><i aria-hidden="true" class={classnames('material-icons', color.successDark2)}>check</i>
       </button>
     </div>
 
@@ -226,28 +226,28 @@ const iconButtons = () =>
         type="button"
         aria-label="Info"
       >
-        <i aria-hidden="true" class={classnames('material-icons', colors.infoDark2)}>info_outline</i>
+        <i aria-hidden="true" class={classnames('material-icons', color.infoDark2)}>info_outline</i>
       </button>
       <button
         class={classnames(button['Button-success'], button['Button--filled'], button['Button--raised'], button['Button--icon'])}
         type="button"
         aria-label="Success"
       >
-        <i aria-hidden="true" class={classnames('material-icons', colors.successDark2)}>check</i>
+        <i aria-hidden="true" class={classnames('material-icons', color.successDark2)}>check</i>
       </button>
       <button
         class={classnames(button['Button-warning'], button['Button--filled'], button['Button--raised'], button['Button--icon'])}
         type="button"
         aria-label="Warning"
       >
-        <i aria-hidden="true" class={classnames('material-icons', colors.warningDark2)}>warning</i>
+        <i aria-hidden="true" class={classnames('material-icons', color.warningDark2)}>warning</i>
       </button>
       <button
         class={classnames(button['Button-error'], button['Button--filled'], button['Button--raised'], button['Button--icon'])}
         type="button"
         aria-label="Error"
       >
-        <i aria-hidden="true" class={classnames('material-icons', colors.errorDark2)}>error_outline</i>
+        <i aria-hidden="true" class={classnames('material-icons', color.errorDark2)}>error_outline</i>
       </button>
       <button
         class={classnames(button['Button-primary'], button['Button--filled'], button['Button--raised'], button['Button--icon'])}
