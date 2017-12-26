@@ -29,6 +29,7 @@ plugins = () => {
     require('postcss-css-variables')({ /* ...options */ }),       // Transform CSS Custom Properties(CSS variables) syntax into a static representation
     //                                                            // The 'postcss-custom-properties' plugin does not support CSS variables inside media queries and the like
     //                                                            // This plugin is required until the 'postcss-custom-properties' supports this feature
+    require('postcss-hexrgba')({ /* ...options */ }),             // Adds shorthand hex methods to rgba() values
   ];
 
   if (isDev) {
