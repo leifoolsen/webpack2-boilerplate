@@ -21,7 +21,7 @@
     "@hyperapp/router": "0.4.1",
     "babel-polyfill": "6.26.0",
     "harmony-reflect": "1.5.1",
-    "hyperapp": "0.18.4",
+    "hyperapp": "1.0.0",
     "intl": "1.2.5",
     "moment": "2.20.1",
     "whatwg-fetch": "2.0.3"
