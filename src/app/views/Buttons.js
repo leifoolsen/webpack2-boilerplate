@@ -24,9 +24,9 @@ const textButtons = () =>
   <section>
     <h3>Text Buttons</h3>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-      <button class={button.Button} type="button">Button</button>
-      <button class={classnames(button.Button, button['Button--compact'])} type="button">Compact</button>
-      <button class={classnames(button.Button, button['Button--dense'])} type="button">
+      <button class={button['Button-default']} type="button">Button</button>
+      <button class={classnames(button['Button-default'], button['Button--compact'])} type="button">Compact</button>
+      <button class={classnames(button['Button-default'], button['Button--dense'])} type="button">
         <span>Dense</span>
         <i aria-hidden="true" class="material-icons">accessibility</i>
       </button>
@@ -35,7 +35,7 @@ const textButtons = () =>
         <i aria-hidden="true" class="material-icons">accessibility</i>
         <span>Secondary</span>
       </button>
-      <button class={button.Button} type="button" disabled>Disabled</button>
+      <button class={button['Button-default']} type="button" disabled>Disabled</button>
     </div>
 
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -53,12 +53,12 @@ const strokedButtons = () =>
   <section>
     <h3>Stroked Buttons</h3>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-      <button class={classnames(button.Button, button['Button--stroked'])} type="button">Button</button>
+      <button class={classnames(button['Button-default'], button['Button--stroked'])} type="button">Button</button>
       <button class={classnames(button['Button-primary'], button['Button--compact'], button['Button--stroked'])} type="button">Compact</button>
       <button class={classnames(button['Button-secondary'], button['Button--stroked'], button['Button--dense'])} type="button">Dense</button>
       <button class={classnames(button['Button-primary'], button['Button--stroked'])} type="button">Primary</button>
       <button class={classnames(button['Button-secondary'], button['Button--stroked'])} type="button">Secondary</button>
-      <button class={classnames(button.Button, button['Button--stroked'])} type="button" disabled>Disabled</button>
+      <button class={classnames(button['Button-default'], button['Button--stroked'])} type="button" disabled>Disabled</button>
     </div>
 
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -76,12 +76,12 @@ const filledButtons = () =>
   <section>
     <h3>Filled Buttons</h3>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-      <button class={classnames(button.Button, button['Button--filled'])} type="button">Button</button>
-      <button class={classnames(button['Button'], button['Button--filled'], button['Button--compact'])} type="button">Compact</button>
+      <button class={classnames(button['Button-default'], button['Button--filled'])} type="button">Button</button>
+      <button class={classnames(button['Button-default'], button['Button--filled'], button['Button--compact'])} type="button">Compact</button>
       <button class={classnames(button['Button-primary'], button['Button--filled'], button['Button--dense'])} type="button">Dense</button>
       <button class={classnames(button['Button-primary'], button['Button--filled'])} type="button">Primary</button>
       <button class={classnames(button['Button-secondary'], button['Button--filled'])} type="button">Secondary</button>
-      <button class={classnames(button.Button, button['Button--filled'])} type="button" disabled>Disabled</button>
+      <button class={classnames(button['Button-default'], button['Button--filled'])} type="button" disabled>Disabled</button>
     </div>
 
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -105,30 +105,30 @@ const raisedButtons = () =>
   <section>
     <h3>Raised Buttons</h3>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-      <button class={classnames(button.Button, button['Button--filled'], button['Button--raised'])} type="button">Button</button>
-      <button class={classnames(button['Button'], button['Button--filled'], button['Button--raised'], button['Button--compact'])} type="button">Compact</button>
-      <button class={classnames(button['Button-primary'], button['Button--filled'], button['Button--raised'], button['Button--dense'])} type="button">Dense</button>
-      <button class={classnames(button['Button-primary'], button['Button--filled'], button['Button--raised'])} type="button">Primary</button>
-      <button class={classnames(button['Button-secondary'], button['Button--filled'], button['Button--raised'])} type="button">Secondary</button>
-      <button class={classnames(button.Button, button['Button--filled'], button['Button--raised'])} type="button" disabled>Disabled</button>
+      <button class={classnames(button['Button-default'], button['Button--raised'])} type="button">Button</button>
+      <button class={classnames(button['Button-default'], button['Button--raised'], button['Button--compact'])} type="button">Compact</button>
+      <button class={classnames(button['Button-default'], button['Button--raised'], button['Button--dense'])} type="button">Dense</button>
+      <button class={classnames(button['Button-primary'], button['Button--raised'])} type="button">Primary</button>
+      <button class={classnames(button['Button-secondary'], button['Button--raised'])} type="button">Secondary</button>
+      <button class={classnames(button['Button-default'], button['Button--raised'])} type="button" disabled>Disabled</button>
     </div>
 
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-      <button class={classnames(button.Button, button['Button--stroked'], button['Button--raised'])} type="button">Button</button>
+      <button class={classnames(button['Button-default'], button['Button--stroked'], button['Button--raised'])} type="button">Button</button>
       <button class={classnames(button['Button-primary'], button['Button--compact'], button['Button--stroked'], button['Button--raised'])} type="button">Compact</button>
       <button class={classnames(button['Button-secondary'], button['Button--stroked'], button['Button--raised'], button['Button--dense'])} type="button">Dense</button>
       <button class={classnames(button['Button-primary'], button['Button--stroked'], button['Button--raised'])} type="button">Primary</button>
       <button class={classnames(button['Button-secondary'], button['Button--stroked'], button['Button--raised'])} type="button">Secondary</button>
-      <button class={classnames(button.Button, button['Button--stroked'], button['Button--raised'])} type="button" disabled>Disabled</button>
+      <button class={classnames(button['Button-default'], button['Button--stroked'], button['Button--raised'])} type="button" disabled>Disabled</button>
     </div>
 
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-      <button class={classnames(button.Button, button['Button--raised'])} type="button">Button</button>
-      <button class={classnames(button.Button, button['Button--raised'], button['Button--compact'])} type="button">Compact</button>
-      <button class={classnames(button.Button, button['Button--raised'], button['Button--dense'])} type="button">Dense</button>
-      <button class={classnames(button['Button-primary'], button['Button--raised'])} type="button">Primary</button>
-      <button class={classnames(button['Button-secondary'], button['Button--raised'])} type="button">Secondary</button>
-      <button class={classnames(button.Button, button['Button--raised'])} type="button" disabled>Disabled</button>
+      <button class={classnames(button['Button-default'], button['Button--filled'], button['Button--raised'])} type="button">Button</button>
+      <button class={classnames(button['Button-default'], button['Button--filled'], button['Button--raised'], button['Button--compact'])} type="button">Compact</button>
+      <button class={classnames(button['Button-primary'], button['Button--filled'], button['Button--raised'], button['Button--dense'])} type="button">Dense</button>
+      <button class={classnames(button['Button-primary'], button['Button--filled'], button['Button--raised'])} type="button">Primary</button>
+      <button class={classnames(button['Button-secondary'], button['Button--filled'], button['Button--raised'])} type="button">Secondary</button>
+      <button class={classnames(button['Button-default'], button['Button--filled'], button['Button--raised'])} type="button" disabled>Disabled</button>
     </div>
 
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -178,6 +178,7 @@ const largeButtons = () =>
 const iconButtons = () =>
   <section>
     <h3>Icon Buttons</h3>
+    <p>Small buttons</p>
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline' }}>
       <button
         class={classnames(button['Button-secondary'], button['Button--stroked'], button['Button--icon-s'])}
@@ -218,7 +219,17 @@ const iconButtons = () =>
       >
         <i aria-hidden="true" class="material-icons">accessibility</i>
       </button>
+
+      <button
+        class={classnames(button['Button-default'], button['Button--icon-s'])}
+        type="button"
+        aria-label="Menu"
+      >
+        <i aria-hidden="true" class="material-icons">menu</i>
+      </button>
     </div>
+
+    <p>Medium buttons</p>
 
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline' }}>
       <button
@@ -271,9 +282,19 @@ const iconButtons = () =>
       >
         <i aria-hidden="true" class="material-icons">accessibility</i>
       </button>
+
+      <button
+        class={classnames(button['Button-default'], button['Button--icon'])}
+        type="button"
+        aria-label="Menu"
+      >
+        <i aria-hidden="true" class="material-icons">menu</i>
+      </button>
     </div>
 
     <br/>
+    <p>Large buttons</p>
+
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline' }}>
       <button
         class={classnames(button['Button-primary'], button['Button--raised'], button['Button--filled'], button['Button--icon-l'])}
@@ -292,7 +313,7 @@ const iconButtons = () =>
       </button>
 
       <button
-        class={classnames(button['Button'], button['Button--icon-l'])}
+        class={classnames(button['Button-default'], button['Button--icon-l'])}
         type="button"
         aria-label="Menu"
       >
@@ -301,6 +322,8 @@ const iconButtons = () =>
     </div>
 
     <br/>
+    <p>Extra large buttons</p>
+
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline' }}>
       <button
         class={classnames(button['Button-secondary'], button['Button--raised'], button['Button--filled'], button['Button--icon-xl'])}
@@ -317,15 +340,13 @@ const iconButtons = () =>
       >
         <i aria-hidden="true" class="material-icons">accessibility</i>
       </button>
-    </div>
 
-    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline' }}>
       <button
-        class={classnames(button['Button-secondary'], button['Button--filled'], button['Button--icon-s'])}
+        class={classnames(button['Button-default'], button['Button--icon-xl'])}
         type="button"
-        aria-label="Dense"
+        aria-label="Menu"
       >
-        <i aria-hidden="true" class="material-icons">accessibility</i>
+        <i aria-hidden="true" class="material-icons">menu</i>
       </button>
     </div>
   </section>
@@ -350,6 +371,7 @@ export const Buttons = () =>
     <br/>
     { iconButtons() }
 
+    <br/>
     <blockquote>
       <p>This is the end<br/>
         Hold your breath and count to ten</p>

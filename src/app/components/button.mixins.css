@@ -1,50 +1,43 @@
-@import '../styles/base/helpers.mixins.css';
-@import '../styles/base/color.variables.css';
-@import '../styles/base/typography.variables.css';
+/**
+ * Mixins for button states
+ */
 
-@define-mixin button {
-  @mixin overflow-ellipsis;
+@define-mixin button-normal $color: red, $bg-color: transparent {
+  color: $color;
+  background-color: $bg-color;
+  border-color: $color;
+  transition: border-color 280ms ease-in-out, background-color 280ms ease-in-out;
+}
 
-  /* The two following CSS propertiews removes default button styles */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  font-weight: var(--font-weight-semibold);
-  display: block;
-  position: relative;
-  min-width: 1px;
-  border: 0 solid var(--text-color-primary);
-  border-radius: 3px;
-  text-align: center;
-  user-select: none;
-  text-transform: uppercase;
-  color: var(--text-color-primary);
-  background-color: transparent;
-  margin-top: calc(var(--offset) + var(--base-line-height) - var(--space-s));
-  margin-bottom: calc((var(--offset) + var(--space-s)) * -1);
-  margin-right: var(--space-s);
-  padding: var(--space-s) var(--space-m);
-  transition: all 280ms ease-in-out;
-
-  &:last-child {
-    margin-right: 0;
-  }
-
+@define-mixin button-disabled $color: red, $bg-color: transparent {
   &:disabled {
-    color: var(--text-color-disabled);
-    border-color: var(--text-color-disabled);
+    color: $color !important;
+    background-color: $bg-color !important;
+    border-color: $color;
   }
+}
 
-  &:focus {
-    background-color: color(lightgray a(40%));
-  }
-
-  &:active {
-    background-color: color(lightgray a(60%));
-  }
-
+@define-mixin button-hover $color: red, $bg-color: transparent {
   &:hover:not(:focus) {
+    color: $color;
+    background-color: $bg-color;
+    border-color: $color;
     text-decoration: underline;
-    background-color: color(lightgray a(30%));
+  }
+}
+
+@define-mixin button-focus $color: red, $bg-color: transparent {
+  &:focus {
+    color: $color;
+    background-color: $bg-color;
+    border-color: $color;
+  }
+}
+
+@define-mixin button-active $color: red, $bg-color: transparent {
+  &:active {
+    color: $color;
+    background-color: $bg-color;
+    border-color: $color;
   }
 }

@@ -5,9 +5,30 @@
 @import '../styles/base/typography.variables.css';
 @import './button.mixins.css';
 
-
 .Button {
-  @mixin button;
+  @mixin overflow-ellipsis;
+
+  /* The two following CSS propertiews removes default button styles */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  font-weight: var(--font-weight-semibold);
+  display: block;
+  position: relative;
+  min-width: 1px;
+  border-radius: 3px;
+  text-align: center;
+  user-select: none;
+  text-transform: uppercase;
+  padding: var(--space-s) var(--space-m);
+  margin-top: calc(var(--offset) + var(--base-line-height) - var(--space-s));
+  margin-bottom: calc((var(--offset) + var(--space-s)) * -1);
+  margin-right: var(--space-s);
+  border: 0 solid transparent;
+
+  &:last-child {
+    margin-right: 0;
+  }
 
   & :global(.material-icons) {
     vertical-align: bottom;
@@ -23,76 +44,67 @@
   }
 }
 
+.Button-default {
+  composes: Button;
+  @mixin button-normal var(--text-color-primary);
+  @mixin button-disabled var(--text-color-disabled);
+  @mixin button-hover var(--text-color-primary), color(lightgray a(30%));
+  @mixin button-focus var(--text-color-primary), color(lightgray a(40%));
+  @mixin button-active var(--text-color-primary), color(lightgray a(60%));
+}
+
 .Button-primary {
   composes: Button;
-  color: var(--color-primary-dark);
-  border-color: var(--color-primary);
-
-  &:focus,
-  &:active,
-  &:hover {
-    border-color: var(--color-primary-dark);
-  }
+  @mixin button-normal var(--color-primary-dark);
+  @mixin button-disabled var(--text-color-disabled);
+  @mixin button-hover var(--color-primary-dark), rgba(var(--color-primary), 0.06);
+  @mixin button-focus var(--color-primary-dark), rgba(var(--color-primary), 0.1);
+  @mixin button-active var(--color-primary-dark), rgba(var(--color-primary), 0.2);
 }
 
 .Button-secondary {
   composes: Button;
-  color: var(--color-secondary);
-  border-color: var(--color-secondary);
-
-  &:focus,
-  &:active,
-  &:hover {
-    border-color: var(--color-secondary-dark);
-  }
+  @mixin button-normal var(--color-secondary);
+  @mixin button-disabled var(--text-color-disabled);
+  @mixin button-hover var(--color-secondary), rgba(var(--color-secondary), 0.05);
+  @mixin button-focus var(--color-secondary), rgba(var(--color-secondary), 0.1);
+  @mixin button-active var(--color-sdecondary), rgba(var(--color-secondary), 0.15);
 }
 
 .Button-info {
   composes: Button;
-  color: var(--color-info-dark);
-  border-color: var(--color-info-dark);
-
-  &:focus,
-  &:active,
-  &:hover {
-    border-color: color(var(--color-info-dark) shade(20%));
-  }
+  @mixin button-normal var(--color-info-dark);
+  @mixin button-disabled var(--text-color-disabled);
+  @mixin button-hover var(--color-info-dark), rgba(var(--color-info), 0.2);
+  @mixin button-focus var(--color-info-dark), rgba(var(--color-info), 0.3);
+  @mixin button-active var(--color-info-dark), rgba(var(--color-info), 0.5);
 }
 
 .Button-success {
   composes: Button;
-  color: var(--color-success-dark);
-  border-color: var(--color-success-dark);
-
-  &:focus,
-  &:active,
-  &:hover {
-    border-color: color(var(--color-success-dark) shade(20%));
-  }
+  @mixin button-normal var(--color-success-dark);
+  @mixin button-disabled var(--text-color-disabled);
+  @mixin button-hover var(--color-success-dark), rgba(var(--color-success), 0.3);
+  @mixin button-focus var(--color-success-dark), rgba(var(--color-success), 0.4);
+  @mixin button-active var(--color-success-dark), rgba(var(--color-success), 0.6);
 }
 
 .Button-warning {
   composes: Button;
-  color: var(--color-warning-dark);
-  border-color: var(--color-warning-dark);
-
-  &:focus,
-  &:active,
-  &:hover {
-    border-color: color(var(--color-warning-dark) shade(20%));
-  }
+  @mixin button-normal var(--color-warning-dark);
+  @mixin button-disabled var(--color-warning-dark);
+  @mixin button-hover var(--color-warning-dark), rgba(var(--color-warning), 0.3);
+  @mixin button-focus var(--color-warning-dark), rgba(var(--color-warning), 0.4);
+  @mixin button-active var(--color-warning-dark), rgba(var(--color-warning), 0.6);
 }
 
 .Button-error {
   composes: Button;
-  color: var(--color-error-dark);
-  border-color: var(--color-error-dark);
-
-  &:focus,
-  &:active,
-  &:hover {
-    border-color: color(var(--color-error-dark) shade(20%));
-  }
+  @mixin button-normal var(--color-error-dark);
+  @mixin button-disabled var(--color-error-dark);
+  @mixin button-hover var(--color-error-dark), rgba(var(--color-error), 0.2);
+  @mixin button-focus var(--color-error-dark), rgba(var(--color-error), 0.3);
+  @mixin button-active var(--color-error-dark), rgba(var(--color-error), 0.5);
 }
 
 .Button--compact {
@@ -125,15 +137,12 @@
   padding-bottom: 0;
 }
 
-.Button--filled {
-  color: var(--text-color-primary);
-  background-color: color(gray a(10%));
-
-  &:disabled {
-    color: var(--text-color-disabled) !important;
-    background-color: color(gray a(10%)) !important;
-    box-shadow: none;
-  }
+.Button-default.Button--filled {
+  @mixin button-normal var(--text-color-primary), color(gray a(10%));
+  @mixin button-disabled var(--text-color-disabled), color(gray a(5%));
+  @mixin button-hover var(--text-color-primary), color(gray a(15%));
+  @mixin button-focus var(--text-color-primary), color(gray a(20%));
+  @mixin button-active var(--text-color-primary), color(gray a(25%));
 }
 
 .Button-primary.Button--filled {
@@ -198,7 +207,7 @@
 
 .Button--raised {
   box-shadow: var(--z2);
-  transition: all 280ms ease-in-out, box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 280ms ease-in-out, border-color 280ms ease-in-out, box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
   will-change: box-shadow;
 
   &:disabled {
@@ -230,12 +239,16 @@
   }
 }
 
+/* -------------
+ * Icon buttons
+ * ------------- */
+
 .Button--icon,
 .Button--icon-m {
   border-radius: 50%;
   padding: var(--space-s);
 
-  & :global(.material-icons) { /* stylelint-disable-line */
+  & :global(.material-icons) { /* stylelint-disable-line no-descending-specificity */
     font-size: 1.5em;
   }
 }
@@ -247,7 +260,7 @@
   width: calc(var(--base-line-height) * 1.2);
   padding: 0;
 
-  & :global(.material-icons) { /* stylelint-disable-line */
+  & :global(.material-icons) { /* stylelint-disable-line no-descending-specificity */
     font-size: 1.4em;
   }
 }
@@ -262,7 +275,7 @@
   width: calc(var(--base-line-height) * 2);
   padding: 0;
 
-  & :global(.material-icons) { /* stylelint-disable-line */
+  & :global(.material-icons) { /* stylelint-disable-line no-descending-specificity */
     font-size: 1.1em;
   }
 }
@@ -277,7 +290,7 @@
   width: calc(var(--base-line-height) * 3);
   padding: 0;
 
-  & :global(.material-icons) { /* stylelint-disable-line */
+  & :global(.material-icons) { /* stylelint-disable-line no-descending-specificity */
     font-size: 1.5em;
   }
 }
