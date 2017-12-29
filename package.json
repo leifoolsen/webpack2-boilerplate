@@ -69,7 +69,7 @@
     "istanbul": "1.1.0-alpha.1",
     "jsdom": "11.5.1",
     "material-design-icons": "3.0.1",
-    "mocha": "4.0.1",
+    "mocha": "4.1.0",
     "nconf": "0.10.0",
     "node-http-ping": "0.2.2",
     "node-sass": "4.7.2",
