@@ -1,9 +1,9 @@
 import { CounterBar, CounterDisplay } from './counter.css';
 import button from './button.css';
 
-import { h } from 'hyperapp';
-import classnames from '../../utils/classnames';
 /** @jsx h */
+import { h } from 'hyperapp';
+import IconButton from './IconButton'; // eslint-disable-line no-unused-vars
 
 /**
  * first object in the store is 'state' (an object - {})
@@ -13,34 +13,39 @@ import classnames from '../../utils/classnames';
  *
  * Based on code from: https://github.com/selfup/hyperapp-one
  */
-export const Counter = ({ num,  add, sub }) =>
+const Counter = ({ num,  add, sub }) =>
   <section>
     <h3>Counter example</h3>
     <br/>
     <div class={CounterBar}>
-      <button
-        class={classnames(button['Button-secondary'], button['Button--raised'], button['Button--filled'], button['Button--icon-l'])}
-        type="button"
-        aria-label="Subtract"
+      <IconButton
+        className={button['Button-secondary']}
+        size="l"
+        raised
+        filled
+        label="Subtract"
         onclick={sub}
         disabled={num < 1}
       >
         <i aria-hidden="true" class="material-icons">remove</i>
-      </button>
+      </IconButton>
 
       <div class={CounterDisplay}>
         {num}
       </div>
 
-      <button
-        class={classnames(button['Button-primary'], button['Button--raised'], button['Button--filled'], button['Button--icon-l'])}
-        type="button"
-        aria-label="Add"
+      <IconButton
+        className={button['Button-primary']}
+        size="l"
+        raised
+        filled
+        label="Add"
         onclick={add}
       >
         <i aria-hidden="true" class="material-icons">add</i>
-      </button>
-
+      </IconButton>
     </div>
   </section>
 ;
+
+export default Counter;

@@ -9,7 +9,7 @@ describe('classnames', () => {
     expect(classnames('foo', 'bar')).to.be.equal('foo bar');
   });
   it('joins strings and objects', () => {
-    expect(classnames('foo', { bar: true, duck: false }, 'baz', { quux: true })).to.be.equal('foo bar baz quux');
+    expect(classnames('foo', { 'bar': true, duck: false }, 'baz', { quux: true })).to.be.equal('foo bar baz quux');
   });
   it('does not join falsy arguments', () => {
     expect(classnames('foo', undefined, null, {})).to.be.equal('foo');

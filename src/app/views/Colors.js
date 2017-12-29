@@ -8,6 +8,14 @@ import classnames from '../../utils/classnames';
 export const Colors = () =>
   <div>
     <h1>Colors</h1>
+    <p class={app.ingress}>Color in Material Design is inspired by bold hues
+      juxtaposed with muted environments, deep shadows, and bright highlights.
+      Colors in Material Design are defined
+      in Material Design Guidelines,&nbsp;
+      <a href="https://material.io/guidelines/style/color.html">
+        Color.
+      </a>
+    </p>
     <br/>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <div key="textColorPrimary" class={classnames(app.colordemo, color.textColorPrimary)}>

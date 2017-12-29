@@ -1,8 +1,11 @@
 import color from '../styles/base/color.css';
+import app from '../styles/app/app.css';
 import button from '../../app/components/button.css';
 
 /** @jsx h */
 import {h} from 'hyperapp';
+import Button from '../components/Button'; // eslint-disable-line no-unused-vars
+import IconButton from '../components/IconButton'; // eslint-disable-line no-unused-vars
 import classnames from '../../utils/classnames';
 
 const codeSample = `.Large-buttons {
@@ -177,7 +180,7 @@ const largeButtons = () =>
 
 const iconButtons = () =>
   <section>
-    <h3>Icon Buttons</h3>
+    <h3>Icon Buttons / FAB Buttons</h3>
     <p>Small buttons</p>
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline' }}>
       <button
@@ -355,6 +358,13 @@ const iconButtons = () =>
 export const Buttons = () =>
   <div>
     <h1>Buttons</h1>
+    <p class={app.ingress}>Buttons communicate the action that will occur when
+      the user touches them. Buttons in Material Design are defined
+      in Material Design Guidelines,&nbsp;
+      <a href="https://material.io/guidelines/components/buttons.html">
+        Buttons.
+      </a>
+    </p>
     { textButtons() }
 
     { strokedButtons() }
@@ -370,6 +380,16 @@ export const Buttons = () =>
 
     <br/>
     { iconButtons() }
+
+    <h3>&lt;Button&gt; component</h3>
+    <Button className={button['Button-primary']} filled raised>
+      Button component
+    </Button>
+
+    <h3>&lt;IconButton&gt; component</h3>
+    <IconButton className={button['Button-secondary']} label="Icon button" size="l" filled raised>
+      <i aria-hidden="true" class="material-icons">menu</i>
+    </IconButton>
 
     <br/>
     <blockquote>

@@ -3,8 +3,8 @@ import button from '../components/button.css';
 
 /** @jsx h */
 import {h} from 'hyperapp';
-import { Counter } from '../components/Counter'; // eslint-disable-line no-unused-vars
-import classnames from '../../utils/classnames';
+import Button from '../components/Button'; // eslint-disable-line no-unused-vars
+import Counter from '../components/Counter'; // eslint-disable-line no-unused-vars
 
 export const Home = ({state, actions}) =>
   <div>
@@ -16,26 +16,17 @@ export const Home = ({state, actions}) =>
     <br/>
     <br/>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-      <button
-        id="btn-ping"
-        class={classnames(button['Button-primary'], button['Button--stroked'])}
-        type="button"
-        onclick={ (e) => actions.ping(e) }
-      >
+      <Button className={button['Button-primary']} stroked onclick={ (e) => actions.ping(e) }>
         Ping
-      </button>
+      </Button>
       <p id="ping-response">{state.response}</p>
     </div>
 
     <br/>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-      <button
-        class={classnames(button['Button-primary'], button['Button--stroked'])}
-        type="button"
-        onclick={ e => actions.triggerUnhandledError(e) }
-      >
-        Unhandled error!!!
-      </button>
+      <Button className={button['Button-primary']} stroked onclick={ (e) => actions.triggerUnhandledError(e) }>
+        Unhandled error!
+      </Button>
       <p>{state.unhandledErrorResponse}</p>
     </div>
 

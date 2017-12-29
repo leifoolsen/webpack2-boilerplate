@@ -6,7 +6,6 @@
   color: $color;
   background-color: $bg-color;
   border-color: $color;
-  transition: border-color 280ms ease-in-out, background-color 280ms ease-in-out;
 }
 
 @define-mixin button-disabled $color: red, $bg-color: transparent {

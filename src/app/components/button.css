@@ -25,6 +25,7 @@
   margin-bottom: calc((var(--offset) + var(--space-s)) * -1);
   margin-right: var(--space-s);
   border: 0 solid transparent;
+  transition: border-color 280ms ease-in-out, background-color 280ms ease-in-out;
 
   &:last-child {
     margin-right: 0;
