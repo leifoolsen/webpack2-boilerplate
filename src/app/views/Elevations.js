@@ -1,3 +1,4 @@
+import '../styles/base/typography.variables.css';
 import elevation from '../styles/base/elevation.css';
 import app from '../styles/app/app.css';
 
@@ -19,7 +20,7 @@ export const Elevations = () =>
     </p>
     <br/>
     <br/>
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div class={app.democontainer}>
       {[...Array(25)].map((x, i) =>
         <div key={`z${i}`} class={classnames(app.elevationdemo, elevation[`z${i}`])}>
           <h3>z{i}</h3>

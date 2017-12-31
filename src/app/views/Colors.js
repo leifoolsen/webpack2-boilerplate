@@ -11,13 +11,13 @@ export const Colors = () =>
     <p class={app.ingress}>Color in Material Design is inspired by bold hues
       juxtaposed with muted environments, deep shadows, and bright highlights.
       Colors in Material Design are defined
-      in Material Design Guidelines,&nbsp;
+      in the Material Design Guidelines,&nbsp;
       <a href="https://material.io/guidelines/style/color.html">
         Color.
       </a>
     </p>
     <br/>
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div class={app.democontainer}>
       <div key="textColorPrimary" class={classnames(app.colordemo, color.textColorPrimary)}>
         <h4>Primary text</h4>
       </div>

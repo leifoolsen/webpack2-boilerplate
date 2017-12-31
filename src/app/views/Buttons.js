@@ -345,6 +345,15 @@ const iconButtons = () =>
       </button>
 
       <button
+        class={classnames(button['Button-primary'], button['Button--raised'], button['Button--filled'], button['Button--icon-xl'])}
+        type="button"
+        disabled
+        aria-label="Secondary"
+      >
+        <i aria-hidden="true" class="material-icons">accessibility</i>
+      </button>
+
+      <button
         class={classnames(button['Button-default'], button['Button--icon-xl'])}
         type="button"
         aria-label="Menu"
@@ -381,13 +390,13 @@ export const Buttons = () =>
     <br/>
     { iconButtons() }
 
-    <h3>&lt;Button&gt; component</h3>
-    <Button className={button['Button-primary']} filled raised>
+    <h3>&lt;Button&gt; component, with ripple</h3>
+    <Button className={button['Button-primary']} filled raised ripple>
       Button component
     </Button>
 
-    <h3>&lt;IconButton&gt; component</h3>
-    <IconButton className={button['Button-secondary']} label="Icon button" size="l" filled raised>
+    <h3>&lt;IconButton&gt; component, with ripple</h3>
+    <IconButton className={button['Button-secondary']} label="Icon button" size="xl" filled raised ripple>
       <i aria-hidden="true" class="material-icons">menu</i>
     </IconButton>
 

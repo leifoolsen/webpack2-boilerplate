@@ -10,8 +10,8 @@
 
 @define-mixin button-disabled $color: red, $bg-color: transparent {
   &:disabled {
-    color: $color !important;
-    background-color: $bg-color !important;
+    color: $color;
+    background-color: $bg-color;
     border-color: $color;
   }
 }

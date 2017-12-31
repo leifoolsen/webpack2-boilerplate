@@ -23,6 +23,7 @@ const Counter = ({ num,  add, sub }) =>
         size="l"
         raised
         filled
+        ripple
         label="Subtract"
         onclick={sub}
         disabled={num < 1}
@@ -39,6 +40,7 @@ const Counter = ({ num,  add, sub }) =>
         size="l"
         raised
         filled
+        ripple
         label="Add"
         onclick={add}
       >

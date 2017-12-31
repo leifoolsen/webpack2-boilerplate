@@ -140,7 +140,7 @@
 
 .Button-default.Button--filled {
   @mixin button-normal var(--text-color-primary), color(gray a(10%));
-  @mixin button-disabled var(--text-color-disabled), color(gray a(5%));
+  @mixin button-disabled var(--text-color-disabled), color(gray a(6%));
   @mixin button-hover var(--text-color-primary), color(gray a(15%));
   @mixin button-focus var(--text-color-primary), color(gray a(20%));
   @mixin button-active var(--text-color-primary), color(gray a(25%));
@@ -251,7 +251,14 @@
 
   & :global(.material-icons) { /* stylelint-disable-line no-descending-specificity */
     font-size: 1.5em;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
+}
+
+.Button--icon.Button--filled,
+.Button--icon-m.Button--filled {
+  @mixin button-disabled var(--text-color-disabled), color(gray a(6%));
 }
 
 .Button--icon-s {
@@ -263,7 +270,13 @@
 
   & :global(.material-icons) { /* stylelint-disable-line no-descending-specificity */
     font-size: 1.4em;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
+}
+
+.Button--icon-s.Button--filled {
+  @mixin button-disabled var(--text-color-disabled), color(gray a(6%));
 }
 
 .Button--icon-l {
@@ -278,7 +291,13 @@
 
   & :global(.material-icons) { /* stylelint-disable-line no-descending-specificity */
     font-size: 1.1em;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
+}
+
+.Button--icon-l.Button--filled {
+  @mixin button-disabled var(--text-color-disabled), color(gray a(6%));
 }
 
 .Button--icon-xl {
@@ -293,5 +312,12 @@
 
   & :global(.material-icons) { /* stylelint-disable-line no-descending-specificity */
     font-size: 1.5em;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 }
+
+.Button--icon-xl.Button--filled {
+  @mixin button-disabled var(--text-color-disabled), color(gray a(6%));
+}
+

@@ -16,7 +16,7 @@ export const Home = ({state, actions}) =>
     <br/>
     <br/>
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-      <Button className={button['Button-primary']} stroked onclick={ (e) => actions.ping(e) }>
+      <Button id="btn-ping" className={button['Button-primary']} stroked onclick={ (e) => actions.ping(e) }>
         Ping
       </Button>
       <p id="ping-response">{state.response}</p>

@@ -4,13 +4,15 @@ import header from '../styles/app/masthead.css';
 import footer from '../styles/app/mastfoot.css';
 
 /** @jsx h */
-import {h} from 'hyperapp';
+import { h } from 'hyperapp';
 import { Link, Route } from '@hyperapp/router'; // eslint-disable-line no-unused-vars
+import Ripple from '../components/Ripple';  // eslint-disable-line no-unused-vars
 import { Home } from './Home'; // eslint-disable-line no-unused-vars
 import { Typography } from './Typography'; // eslint-disable-line no-unused-vars
 import { Colors } from './Colors'; // eslint-disable-line no-unused-vars
 import { Buttons } from './Buttons'; // eslint-disable-line no-unused-vars
 import { Elevations } from './Elevations'; // eslint-disable-line no-unused-vars
+import { Ripples } from './Ripples'; // eslint-disable-line no-unused-vars
 
 export const view = (state, actions) => {
 
@@ -39,6 +41,7 @@ export const view = (state, actions) => {
           <Route path="/colors" render={Colors}/>
           <Route path="/elevations" render={Elevations}/>
           <Route path="/buttons" render={Buttons}/>
+          <Route path="/ripples" render={Ripples}/>
         </main>
 
         <section role="navigation" class={layout['Layout-sidebarLeft']} style={{opacity: 0.9}}>
@@ -47,30 +50,42 @@ export const view = (state, actions) => {
             class={app.navlink}
           >
             Home
+            <Ripple/>
           </Link>
           <Link
             to="/typography"
             class={app.navlink}
           >
             Typography
+            <Ripple/>
           </Link>
           <Link
             to="/colors"
             class={app.navlink}
           >
             Colors
+            <Ripple/>
           </Link>
           <Link
             to="/elevations"
             class={app.navlink}
           >
             Elevation
+            <Ripple/>
           </Link>
           <Link
             to="/buttons"
             class={app.navlink}
           >
             Buttons
+            <Ripple/>
+          </Link>
+          <Link
+            to="/ripples"
+            class={app.navlink}
+          >
+            Ripple
+            <Ripple/>
           </Link>
           <a
             href="#"
@@ -78,6 +93,7 @@ export const view = (state, actions) => {
             onclick={e => actions.toggleGridLines(e)}
           >
             Toggle grid lines
+            <Ripple/>
           </a>
         </section>
       </div>
