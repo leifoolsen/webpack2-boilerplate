@@ -1198,12 +1198,12 @@ browserify-zlib@^0.1.4:
   dependencies:
     pako "~0.2.0"
 
-browserslist@2.10.0:
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-2.10.0.tgz#bac5ee1cc69ca9d96403ffb8a3abdc5b6aed6346"
+browserslist@2.10.1:
+  version "2.10.1"
+  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-2.10.1.tgz#f9dc692b79004a78ec9ba0d012c54de44cc6d7e4"
   dependencies:
-    caniuse-lite "^1.0.30000780"
-    electron-to-chromium "^1.3.28"
+    caniuse-lite "^1.0.30000784"
+    electron-to-chromium "^1.3.30"
 
 browserslist@^1.3.6, browserslist@^1.5.2, browserslist@^1.7.6:
   version "1.7.7"
@@ -1378,9 +1378,9 @@ caniuse-lite@^1.0.30000744:
   version "1.0.30000744"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000744.tgz#860fa5c83ba34fe619397d607f30bb474821671b"
 
-caniuse-lite@^1.0.30000780:
-  version "1.0.30000780"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000780.tgz#1f9095f2efd4940e0ba6c5992ab7a9b64cc35ba4"
+caniuse-lite@^1.0.30000784:
+  version "1.0.30000784"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000784.tgz#129ced74e9a1280a441880b6cd2bce30ef59e6c0"
 
 caseless@~0.11.0:
   version "0.11.0"
@@ -2355,6 +2355,10 @@ ejs@~2.5.6:
   version "2.5.7"
   resolved "https://registry.yarnpkg.com/ejs/-/ejs-2.5.7.tgz#cc872c168880ae3c7189762fd5ffc00896c9518a"
 
+electron-releases@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/electron-releases/-/electron-releases-2.1.0.tgz#c5614bf811f176ce3c836e368a0625782341fd4e"
+
 electron-to-chromium@^1.2.7, electron-to-chromium@^1.3.18:
   version "1.3.22"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.22.tgz#4322d52c151406e3eaef74ad02676883e8416418"
@@ -2363,9 +2367,11 @@ electron-to-chromium@^1.3.24:
   version "1.3.24"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.24.tgz#9b7b88bb05ceb9fa016a177833cc2dde388f21b6"
 
-electron-to-chromium@^1.3.28:
-  version "1.3.28"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.28.tgz#8dd4e6458086644e9f9f0a1cf32e2a1f9dffd9ee"
+electron-to-chromium@^1.3.30:
+  version "1.3.30"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.30.tgz#9666f532a64586651fc56a72513692e820d06a80"
+  dependencies:
+    electron-releases "^2.1.0"
 
 elliptic@^6.0.0:
   version "6.4.0"
@@ -3488,9 +3494,9 @@ husky@0.14.3:
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
 
-hyperapp@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/hyperapp/-/hyperapp-1.0.0.tgz#b5962f928a3a55fc0f69e39eea511e942b97034e"
+hyperapp@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/hyperapp/-/hyperapp-1.0.1.tgz#4acbe3c432709c7ec29fa320d9d2e54a47e6a17f"
 
 iconv-lite@0.4.13:
   version "0.4.13"
@@ -7766,9 +7772,9 @@ watchpack@^1.4.0:
     chokidar "^1.7.0"
     graceful-fs "^4.1.2"
 
-wdio-cucumber-framework@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/wdio-cucumber-framework/-/wdio-cucumber-framework-1.0.2.tgz#96cad58a0dde6af132dfe645a52c1f9dd849b19a"
+wdio-cucumber-framework@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/wdio-cucumber-framework/-/wdio-cucumber-framework-1.0.3.tgz#9ab4ba0885a4b9db651bceec2c95f6c6279b3477"
   dependencies:
     babel-runtime "~6.25.0"
     cucumber "~2.3.1"
