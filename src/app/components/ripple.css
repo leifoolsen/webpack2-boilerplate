@@ -19,7 +19,7 @@
   height: 0;
   width: 0;
   border-radius: 50%;
-  animation: scale-in 380ms ease-in-out;
+  animation: scale-in 280ms ease-in-out;
   pointer-events: none;
 }
 

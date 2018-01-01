@@ -3,6 +3,11 @@ import ripple from './ripple.css';
 /** @jsx h */
 import { h } from 'hyperapp';
 
+/**
+ * Determine ig rgb color is dark tone
+ * @param {Array} rgb
+ * @return {boolean} true if rgb color is dark, otherwise false
+ */
 const isDark = (rgb) => Math.round((
   rgb[0] * 299 +
   rgb[1] * 587 +
@@ -75,7 +80,6 @@ const Ripple = () => {
 
   /**
    * Fires when a given animation ends
-   * @param {Event} event  The event that triggered the action
    */
   const animationEnd = () => {
     animating = false;
@@ -115,14 +119,31 @@ const Ripple = () => {
     // Remove old ink, if present
     removeInk();
 
-    const x = event.layerX || 0; // TODO: layerX is deprecated. Replace with custom function
-    const y = event.layerY || 0; // TODO: layerY is deprecated. Replace with custom function
-    const w = element.parentNode.offsetWidth || 0;
-    const h = element.parentNode.offsetHeight || 0;
-    const offsetX = Math.abs(w / 2 - x);
-    const offsetY = Math.abs(h / 2 - y);
-    const deltaX = w / 2 + offsetX;
-    const deltaY = h / 2 + offsetY;
+    const rect = element.parentNode.getBoundingClientRect();
+    const w = rect.width;
+    const h = rect.height;
+
+    // event.layerX and event.layerY are deprecated
+    let layerX;
+    let layerY;
+
+    if(event.target === element.parentNode) {
+      layerX = event.offsetX || (event.touches !== undefined ? event.touches[0].offsetX : 0);
+      layerY = event.offsetY || (event.touches !== undefined ? event.touches[0].offsetY : 0);
+    }
+    else {
+      layerX = Math.floor(
+        ((event.clientX || (event.touches !== undefined ? event.touches[0].clientX : 0))
+          - rect.left) / (rect.right - rect.left ) * w
+      );
+      layerY = Math.floor(
+        ((event.clientY || (event.touches !== undefined ? event.touches[0].clientY : 0))
+          - rect.top) / (rect.bottom - rect.top ) * h
+      );
+    }
+
+    const deltaX = w / 2 + Math.abs(w / 2 - layerX);
+    const deltaY = h / 2 + Math.abs(h / 2 - layerY);
 
     // Calculate size
     const size = Math.sqrt(Math.pow(deltaX, 2)
@@ -136,7 +157,7 @@ const Ripple = () => {
     window.addEventListener('touchend', mouseUp);
     ink.classList.add(ripple.ink);
     ink.setAttribute('style',
-      `left: ${x}px; top: ${y}px; height: ${size}px; width: ${size}px; background-color: ${inkBgColor}`);
+      `left: ${layerX}px; top: ${layerY}px; height: ${size}px; width: ${size}px; background-color: ${inkBgColor}`);
 
     // Append it to the element that should trigger the ripple
     element.appendChild(ink);
