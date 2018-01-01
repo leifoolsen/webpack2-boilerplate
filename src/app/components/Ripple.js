@@ -4,8 +4,8 @@ import ripple from './ripple.css';
 import { h } from 'hyperapp';
 
 /**
- * Determine ig rgb color is dark tone
- * @param {Array} rgb
+ * Determine if rgb color is dark tone
+ * @param {Array<Number>} rgb
  * @return {boolean} true if rgb color is dark, otherwise false
  */
 const isDark = (rgb) => Math.round((
@@ -15,7 +15,7 @@ const isDark = (rgb) => Math.round((
 
 /**
  * Find the closest element with a background color
- * @param element
+ * @param {Element} element
  * @return {Array<Number>} rgb(a) color of the matching element. Null if no matching element.
  */
 const closestBackgroundColor = element => {
@@ -41,7 +41,7 @@ const closestBackgroundColor = element => {
 
 /**
  * Get ink background color
- * @param element
+ * @param {Element} element
  * @return {string}
  */
 const inkBackgroundColor = element => {
