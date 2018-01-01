@@ -119,7 +119,7 @@ if (config.isDev || config.isTest) {
   const webpackDevMiddleware = require('webpack-dev-middleware'); // eslint-disable-line global-require
 
   devMiddleware = webpackDevMiddleware(webpackCompiler, {
-    publicPath: webpackConfig.output.publicPath,
+    publicPath: config.server.publicPath,
     stats: 'errors-only',
     /*
     stats: {
