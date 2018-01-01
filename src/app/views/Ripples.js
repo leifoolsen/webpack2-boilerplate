@@ -25,8 +25,7 @@ const codeSampleIconButtonComponent = `
   <i aria-hidden="true" class="material-icons">check</i>
 </IconButton>`;
 
-const codeSampleDivElement = `
-<div style={{ position: 'relative' }}>
+const codeSampleDivElement = `<div style={{ position: 'relative' }}>
   <p>Touche moi</p>
   <Ripple/>
 </div>`;
