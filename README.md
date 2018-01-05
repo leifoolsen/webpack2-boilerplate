@@ -4,7 +4,6 @@
 
 ## Features
 * ES2015/ES2016/ES2017
-* Node6, Node7 and Node8
 * Npm as a task/build runner
 * [Webpack](https://webpack.js.org/) with tree-shaking and hot module replacement (HMR)
 * Webpack [DLL plugin](https://github.com/webpack/docs/wiki/list-of-plugins#dllplugin) for [faster builds](https://robertknight.github.io/posts/webpack-dll-plugins/)
@@ -15,7 +14,7 @@
 * Integration tests with Node Express server 
 * Acceptance testing with WebdriverIO, Cucumber.js, and Node Express
 * Code coverage and reporting with Istanbul
-* PostCSS/CSSModules
+* PostCSS/css-next/CSSModules
 * Self hosting Google Material Icons and Font Roboto
 * CSS reset using [normalize.css](https://github.com/necolas/normalize.css)
 * Example application built with [HyperApp](https://hyperapp.js.org/)
@@ -24,42 +23,25 @@
 * Framework agnostic. No dependencies to frameworks like React or Angular
 * Uses [husky](https://github.com/typicode/husky) to prevent bad commits
 
-### Husky
-This project uses [husky](https://github.com/typicode/husky) to run scripts
-before an actual `git commit`
-
-More details about Husky can be found here:
-* [Prevent bad git commits and pushes with Husky](http://www.penta-code.com/prevent-bad-git-commits-and-pushes-with-husky/)
-* [Prevent Bad Commits with husky](https://davidwalsh.name/prevent-bad-commits-husky)
-
-## NPM Scripts
-* `start`: run Express sever with Hot Module Reloading (HMR), eslint and stylelint, serving files at http://localhost:8084
-* `test`: run unit tests and integration tests
-* `test:watch`: run unit tests in watch mode
-* `test:single`: run a single test file in watch mode, e.g.<br/>`npm run test:single test/unit/logger/logger.spec.js`<br/>`npm run test:single test/integration/server/server.spec.js`
-* `test:pattern`: will run tests and suites with names matching the given pattern, e.g.<br/>`pattern=logger npm run test:pattern` will run only the `logger` tests
-* `lint`: lint according to rules in `.eslintrc` and `.stylelintrc`
-* `analyze`: run webpack-bundle-size-analyzer to analyze the output bundle sizes<br/>**Note:** There is a `console.log` statement at the top of the `webpack.config` file that must be removed before this script can be run
-* `clean`: remove dist and coverage directory
-* `build`: bundle the app to the dist dir using development settings
-* `build:prod`: bundle the app to the dist dir using production settings
-* `server`: run Express sever with the generated bundle, serving files at http://localhost:8000
-* `precommit`: husky run command for the git pre-commit hook
-
-## Get started
-* Install [Node6, Node7 or Node8](https://nodejs.org/en/), preferably using [nvm](https://github.com/creationix/nvm)
+## Get Started
+* Install [Node7, Node8 or Node9](https://nodejs.org/en/), preferably using [nvm](https://github.com/creationix/nvm)
 * Optionally install [Yarn](https://yarnpkg.com/en/)
+* CD to your dev directory, e.g. `cd ~/dev`
 * Clone this repository: `git clone https://github.com/leifoolsen/webpack2-boilerplate.git` (or download zip)
-* CD to project directory: `cd webpack2-boilerplate`
-* Remove existing git: `rm -rf .git`
-* Init your git: `git init`
+* CD to project root: `cd webpack2-boilerplate`
 * Install dependencies: `yarn install` or `npm install` 
 * Build dll: `npm run build:dll`
-* Modify `package.json`, e.g. `name, author, description, repository` 
-* Add your own 3'rd party dependencies  to `package.json`
-* Add those 3'rd party dependencies to `./src/vendor.js`, or use System.import() to import 3'rd party dependencies on demand
+* Start dev server: `npm start`
+* Open a browser at `http://localhost:8084`
 
->**Note:** Remember to add your own repo to package.json 
+## Start coding
+* Modify `package.json`, e.g. `name, author, description, repository` 
+* Rename project directory to reflect package name
+* Add your own 3'rd party dependencies
+* Add those 3'rd party dependencies to `./src/vendor.js`, or use System.import() to import 3'rd party dependencies on demand
+* Every time you add or update third party dependenecies, remember to build dll: `npm run build:dll`
+
+>**Note:** Also remember to add your own repo to package.json 
 ```
   "repository": {
     "type": "git",
@@ -67,87 +49,102 @@ More details about Husky can be found here:
   },
 ```
 
-### Start coding
+* Wipe commit history
+```bash
+rm -rf .git
+git init
+git add .
+git commit -m "initial commit"
+```
+* Add your remote: `git remote add origin <ssh_or_https_url>`
 * Open a console (shell) and type: `npm start`
 * Open a browser at `http://localhost:8084`
+* Start coding
 
-#### Verify that SASS HMR works
-* Modify some SASS code, e.g. in `./src/stylesheets/base/_base.scss`
+#### Verify that CSS HMR works
 
-```sass
-a {
-  color: $brand-color;
-  text-decoration: none;
+* Modify some CSS code, e.g. in `./src/app/styles/base/color.css`, modify the `background-color` property
 
-  @include on-event {
-    color: $text-color;
-    text-decoration: underline;
-  }
+```css
+.primary {
+  @mixin primary;
 }
 ```
-* Change link color to green and save.
-```sass
-a {
-  color: green;
-  ...
+
+* Change background color to e.g. `red` and save
+
+```css
+.primary {
+  @mixin primary;
+  background-color: red;
 }
 ```
-* Switch to browser
-* All links should be green
+
+* Switch to your browser and click the `Colors` menu
+* The box with the primary color should be red
+* Delete the `background-color` property and switch back to the browser again
+* The box with the primary color should have the initial color
  
 #### Verify that JS HMR works
-* Click the `Ping` button and verify that the response is displayed with a date, e.g. `2017-03-15 21:12:26: {"ping":"pong!"}` 
-* Modify `./src/app/ping.js`
-```javascript
-import request from '../utils/request';
-import joinUrl from '../utils/join-url';
 
-const apiPath = joinUrl(process.env.PUBLIC_PATH, '/api/ping');
+* Switch to your browser and click the `Home` menu
+* Click the `Ping` button and verify that the response is displayed with a date, e.g.<br/>`2018-01-05 17:44:24: {"status":200, ..."}` 
+* Modify `./src/app/actions/pingServer.js`
+
+```javascript
+import request from '../../utils/request';
 
 async function determineTime() {
   const moment = await import('moment');
   return moment().format('YYYY-MM-DD HH:mm:ss');
 }
-
-const ping = el => {
-  request(apiPath)
+const pingServer = (url) => {
+  return request(url)
     .then(response => {
-      determineTime()
-        .then(str => el.textContent = `${str}: ${JSON.stringify(response)}`);
+      return determineTime()
+        .then(time => {
+          return `${time}: ${JSON.stringify(response)}`;
+        });
     })
-    .catch(err => el.textContent = err);
+    .catch(err => err);
 };
-
-export default ping;
+export default pingServer;
 ```
 
 * Remove date, `YYYY-MM-DD`, from format and save
+
 ```javascript
 async function determineTime() {
   const moment = await import('moment');
   return moment().format('HH:mm:ss');
 }
 ```
-* Switch to browser and click the `Ping` button
-* The response should be displayed without a date, e.g. `21:12:26: {"ping":"pong!"}` 
+* Switch to browser and click the `Ping` button again
+* The response should be displayed without a date, e.g.<br/>`17:47:24: {"status":200, ..."}`  
 
 ### Try the bundle
+The bundled code is minified and optimized code ready for deployment to your 
+preferred webserver. Before deployment you can verify that the code behaves as 
+expected by running the following npm commands.      
+
 * `npm run build:prod`
 * `npm run server`
 * Open a browser at `http://localhost:8000`
 
 ### Webpack DLL plugin
-The Dll Plugin lets you pre-build the parts of your code that don't often change (such as library code).
+The Dll Plugin lets you pre-build the parts of your code that don't often change (such as third party library code).
 Add code that should be built by the Dll plugin to `vendor.js`. Code built by the the Dll plugin
 does not utilize tree shaking and is therefore only used for development. For a production build,
 the same `vendor.js` file is added as a entry in your webpack project for minification and elimination of dead code.
+
 * See: [OPTIMIZING WEBPACK FOR FASTER REACT BUILDS](http://engineering.invisionapp.com/post/optimizing-webpack/)
 * See: [Optimizing Webpack build times and improving caching with DLL bundles](https://robertknight.github.io/posts/webpack-dll-plugins/)
 * See: [Webpack Plugins we been keepin on the DLL](https://medium.com/@soederpop/webpack-plugins-been-we-been-keepin-on-the-dll-cdfdd6cb8cd7)
 
-### Lazy loading (System.import())
+### Lazy loading, System.import()
 If you have (large) libraries that is not needed at application startup, you can use
 lazy loading. Lazy loading (System.import()) is demonstrated in code above.
+
 * See: [Webpack: Code Splitting - Async](https://webpack.js.org/guides/code-splitting-async/)
 * See: [Lazy Loading](https://webpack.js.org/guides/lazy-loading/)
 
@@ -498,3 +495,19 @@ Enjoy your React coding :-)
 
 Complete react-webpack-bolierplate example code can be found 
 [here](https://github.com/leifoolsen/my-playground/tree/master/react-webpack2-boilerplate)
+
+
+## NPM Scripts
+* `start`: run Express sever with Hot Module Reloading (HMR), eslint and stylelint, serving files at http://localhost:8084
+* `test`: run unit tests and integration tests
+* `test:watch`: run unit tests in watch mode
+* `test:single`: run a single test file in watch mode, e.g.<br/>`npm run test:single test/unit/logger/logger.spec.js`<br/>`npm run test:single test/integration/server/server.spec.js`
+* `test:pattern`: will run tests and suites with names matching the given pattern, e.g.<br/>`pattern=logger npm run test:pattern` will run only the `logger` tests
+* `lint`: lint according to rules in `.eslintrc` and `.stylelintrc`
+* `analyze`: run webpack-bundle-size-analyzer to analyze the output bundle sizes<br/>**Note:** There is a `console.log` statement at the top of the `webpack.config` file that must be removed before this script can be run
+* `clean`: remove dist and coverage directory
+* `build`: bundle the app to the dist dir using development settings
+* `build:prod`: bundle the app to the dist dir using production settings
+* `server`: run Express sever with the generated bundle, serving files at http://localhost:8000
+* `precommit`: husky run command for the git pre-commit hook
+
