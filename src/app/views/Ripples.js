@@ -70,6 +70,10 @@ export const Ripples = () =>
             Primary
             <Ripple/>
           </button>
+          <button class={classnames(button['Button-primary'], button['Button--filled'], button['Button--raised'])} type="button">
+            Primary
+            <Ripple/>
+          </button>
         </div>
         <pre><small>{codeSampleButtonElement}</small></pre>
       </div>
@@ -81,6 +85,9 @@ export const Ripples = () =>
             Secondary
           </Button>
           <Button className={button['Button-secondary']} stroked ripple>
+            Secondary
+          </Button>
+          <Button className={button['Button-secondary']} filled ripple>
             Secondary
           </Button>
           <Button className={button['Button-secondary']} filled raised ripple>
