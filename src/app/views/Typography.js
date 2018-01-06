@@ -135,34 +135,34 @@ const inlineElements = () =>
   <section>
     <br/>
     <header><h2>Inline elements</h2></header>
-    <p><a href="#!">This is a text link</a>.</p>
-    <p><strong>&lt;strong&gt; is used to indicate strong importance.</strong></p>
-    <p><em>This text has added emphasis.</em></p>
-    <p>The <b>&lt;b&gt; element</b> is stylistically different text from normal text,
+    <p>&lt;a&gt;: <a href="#!">This is a text link</a>.</p>
+    <p>&lt;strong&gt;: <strong>Strong is used to indicate strong importance.</strong></p>
+    <p>&lt;em&gt;: <em>This text has added emphasis.</em></p>
+    <p>&lt;b&gt;: The <b>b element</b> is stylistically different text from normal text,
       without any special importance.</p>
-    <p>The <i>&lt;i&gt; element</i> is text that is offset from the normal text.</p>
-    <p>The <u>&lt;u&gt; element</u> is text with an unarticulated, though explicitly
+    <p>&lt;i&gt;: The <i>i element</i> is text that is offset from the normal text.</p>
+    <p>&lt;u&gt;: The <u>u element</u> is text with an unarticulated, though explicitly
       rendered, non-textual annotation.</p>
     <p>
-      <del>This text is deleted</del>
+      &lt;del&gt;: <del>This text is deleted</del>
       and
-      <ins>This text is inserted</ins>
+      &lt;ins&gt;: <ins>This text is inserted</ins>
       .
     </p>
-    <p><s>This text has a strikethrough</s>.</p>
-    <p>Superscript<sup>®</sup>.</p>
-    <p>Subscript for things like H<sub>2</sub>O.</p>
-    <p>Small: <small>The small text is small for for fine print, etc.</small></p>
+    <p>&lt;s&gt;: <s>This text has a strikethrough</s>.</p>
+    <p>&lt;sup&gt;: Superscript<sup>®</sup>.</p>
+    <p>&lt;sub&gt;: Subscript for things like H<sub>2</sub>O.</p>
+    <p>&lt;small&gt;: <small>The small text is small for for fine print, etc.</small></p>
     <h4>Small inside heading <small>The small text is small for for fine print, etc.</small></h4>
-    <p><b>Code:</b> The <code>&lt;code&gt;</code> tag defines a piece of computer code</p>
-    <p>Abbreviation: <abbr title="HyperText Markup Language">HTML</abbr></p>
-    <p><q cite="https://developer.mozilla.org/en-US/docs/HTML/Element/q">This
+    <p>&lt;code&gt;: The <code>&lt;code&gt;</code> tag defines a piece of computer code</p>
+    <p>&lt;abbr&gt;: Abbreviation: <abbr title="HyperText Markup Language">HTML</abbr></p>
+    <p>&lt;q&gt;: <q cite="https://developer.mozilla.org/en-US/docs/HTML/Element/q">This
       text is a short inline quotation.</q></p>
-    <p><cite>This is a citation.</cite></p>
-    <p>The <dfn>&lt;dfn&gt; element</dfn> indicates a definition.</p>
-    <p>The <mark>&lt;mark&gt; element</mark> indicates a highlight.</p>
-    <p>The <var>&lt;var&gt; element</var>, such as <var>x</var> = <var>y</var>.</p>
-    <p>The &lt;time&gt; element:&nbsp;
+    <p>&lt;cite&gt;: <cite>This is a citation.</cite></p>
+    <p>&lt;dfn&gt;: The <dfn>dfn element</dfn> indicates a definition.</p>
+    <p>&lt;mark&gt;: The <mark>mark element</mark> indicates a highlight.</p>
+    <p>&lt;var&gt;: The <var>var element</var>, such as <var>x</var> = <var>y</var>.</p>
+    <p>&lt;time&gt;: The time element:&nbsp;
       <time datetime="2013-04-06T12:32+00:00">2 weeks ago</time>
     </p>
   </section>
