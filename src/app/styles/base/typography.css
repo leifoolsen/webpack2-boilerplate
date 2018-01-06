@@ -226,6 +226,12 @@ button,
   }
 }
 
+select,
+[type=checkbox],
+[type=radio] {
+  cursor: pointer;
+}
+
 a {
   color: var(--text-color-anchor);
   cursor: pointer;
@@ -421,11 +427,6 @@ label {
   border-color: transparent;
 }
 
-/*
-label,
-input:not([type=radio]):not([type=checkbox]),
-button,
-*/
 select:not([multiple]) {
   height: calc(var(--base-line-height) + 2px);
 }
