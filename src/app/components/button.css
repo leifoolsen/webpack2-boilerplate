@@ -1,3 +1,6 @@
+/**
+ * CSS based on/inspired by: https://material-components-web.appspot.com/button.html
+ */
 @import '../styles/base/helpers.mixins.css';
 @import '../styles/base/color.variables.css';
 @import '../styles/base/color.mixins.css';

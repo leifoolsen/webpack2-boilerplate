@@ -11,6 +11,8 @@ import { Home } from './Home'; // eslint-disable-line no-unused-vars
 import { Typography } from './Typography'; // eslint-disable-line no-unused-vars
 import { Colors } from './Colors'; // eslint-disable-line no-unused-vars
 import { Buttons } from './Buttons'; // eslint-disable-line no-unused-vars
+import { Checkboxes } from './Checkboxes'; // eslint-disable-line no-unused-vars
+import { RadioButtons } from './RadioButtons'; // eslint-disable-line no-unused-vars
 import { Elevations } from './Elevations'; // eslint-disable-line no-unused-vars
 import { Ripples } from './Ripples'; // eslint-disable-line no-unused-vars
 
@@ -41,6 +43,8 @@ export const view = (state, actions) => {
           <Route path="/colors" render={Colors}/>
           <Route path="/elevations" render={Elevations}/>
           <Route path="/buttons" render={Buttons}/>
+          <Route path="/radiobuttons" render={RadioButtons}/>
+          <Route path="/checkboxes" render={Checkboxes}/>
           <Route path="/ripples" render={Ripples}/>
         </main>
 
@@ -78,6 +82,20 @@ export const view = (state, actions) => {
             class={app.navlink}
           >
             Buttons
+            <Ripple/>
+          </Link>
+          <Link
+            to="/radiobuttons"
+            class={app.navlink}
+          >
+            Radio Buttons
+            <Ripple/>
+          </Link>
+          <Link
+            to="/checkboxes"
+            class={app.navlink}
+          >
+            Checkboxes
             <Ripple/>
           </Link>
           <Link

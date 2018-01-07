@@ -1,0 +1,243 @@
+/**
+ * CSS based on/inspired by: https://material-components-web.appspot.com/checkbox.html
+ */
+@import '../styles/base/helpers.mixins.css';
+@import '../styles/base/color.variables.css';
+@import '../styles/base/typography.variables.css';
+
+.CheckboxGroup {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.CheckboxField {
+  position: relative;
+  display: flex;
+  margin-right: var(--space-s);
+  white-space: nowrap;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  & label {
+    cursor: pointer;
+
+    &:first-child:not(:only-child) {
+      padding-right: var(--space-xs);
+    }
+
+    &:last-child:not(:only-child) {
+      padding-left: var(--space-xs);
+    }
+  }
+}
+
+.CheckboxGroup--vertical {
+  flex-direction: column;
+
+  & .CheckboxField {
+    margin-right: 0;
+  }
+}
+
+.Checkbox {
+  position: relative;
+  height: var(--base-line-height);
+  width: var(--base-line-height);
+
+  & .Checkbox__background {
+    position: absolute;
+    transform: scale(0.8);
+    width: 100%;
+    height: 100%;
+    margin-top: calc(var(--base-line-height) * 0.3);
+    margin-bottom: calc(var(--base-line-height) * -0.3);
+
+    &::before {
+      background-color: var(--text-color-secondary);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform: scale(0, 0);
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+      content: "";
+      transition: background-color 120ms ease, transform 120ms ease;
+    }
+  }
+
+  & .Checkbox__box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--text-color-secondary);
+    border-radius: 3px;
+    transition: border-color 120ms ease;
+  }
+
+  & .Checkbox__checkmark {
+    border-radius: 3px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: scale(0);
+    background-color: var(--text-color-dark-primary);
+    color: var(--text-color-light-primary);
+    transition: transform 120ms ease;
+
+    &::after {
+      @mixin material-icons;
+      font-size: 1.5em;
+      font-weight: bold;
+      content: "check";
+    }
+  }
+
+  & .Checkbox__native {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: calc(var(--base-line-height) * 0.3) 0 calc(var(--base-line-height) * -0.3);
+    padding: 0;
+    opacity: 0;
+    z-index: 1;
+
+    &:disabled + .Checkbox__background {
+      & .Checkbox__box {
+        border-color: var(--text-color-disabled);
+        cursor: default;
+      }
+
+      & .Checkbox__checkmark {
+        color: var(--text-color-disabled);
+        background-color: transparent;
+        cursor: default;
+      }
+    }
+
+    &:checked + .Checkbox__background {
+      & .Checkbox__checkmark {
+        transform: scale(1);
+      }
+    }
+
+    &:hover:not(:disabled) + .Checkbox__background {
+      &::before {
+        transform: scale(2, 2);
+        opacity: 0.12;
+      }
+
+      & .Checkbox__box {
+        border-color: var(--text-color-primary);
+      }
+    }
+
+    &:focus:not(:disabled) + .Checkbox__background {
+      &::before {
+        transform: scale(2, 2);
+        opacity: 0.23;
+      }
+
+      & .Checkbox__box {
+        border-color: var(--text-color-primary);
+      }
+    }
+
+    .Checkbox__native:active:not(:disabled):not(:checked) + .Checkbox__background {
+      &::before {
+        transform: scale(2, 2);
+        opacity: 0.33;
+      }
+    }
+  }
+}
+
+.CheckboxPrimary {
+  composes: Checkbox;
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  & .Checkbox__background {
+    /* stylelint-disable-next-line no-descending-specificity */
+    &::before {
+      background-color: var(--color-primary);
+    }
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  & .Checkbox__box {
+    border-color: var(--color-primary);
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  & .Checkbox__checkmark {
+    color: var(--color-primary-tone);
+    background-color: var(--color-primary);
+  }
+
+  & .Checkbox__native {
+    /* stylelint-disable-next-line no-descending-specificity */
+    &:hover:not(:disabled) + .Checkbox__background {
+      & .Checkbox__box {
+        border-color: var(--color-primary-dark);
+      }
+    }
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    &:focus:not(:disabled) + .Checkbox__background {
+      & .Checkbox__box {
+        border-color: var(--color-primary-dark);
+      }
+    }
+  }
+}
+
+.CheckboxSecondary {
+  composes: Checkbox;
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  & .Checkbox__background {
+    /* stylelint-disable-next-line no-descending-specificity */
+    &::before {
+      background-color: var(--color-secondary);
+    }
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  & .Checkbox__box {
+    border-color: var(--color-secondary);
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  & .Checkbox__checkmark {
+    color: var(--color-secondary-tone);
+    background-color: var(--color-secondary);
+  }
+
+  & .Checkbox__native {
+    /* stylelint-disable-next-line no-descending-specificity */
+    &:hover:not(:disabled) + .Checkbox__background {
+      & .Checkbox__box {
+        border-color: var(--color-secondary-dark);
+      }
+    }
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    &:focus:not(:disabled) + .Checkbox__background {
+      & .Checkbox__box {
+        border-color: var(--color-secondary-dark);
+      }
+    }
+  }
+}

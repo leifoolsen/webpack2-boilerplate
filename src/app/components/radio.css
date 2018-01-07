@@ -1,0 +1,231 @@
+/**
+ * CSS based on/inspired by: https://material-components-web.appspot.com/radio.html
+ */
+@import '../styles/base/color.variables.css';
+@import '../styles/base/typography.variables.css';
+
+.RadioGroup {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.RadioField {
+  position: relative;
+  display: flex;
+  margin-right: var(--space-s);
+  white-space: nowrap;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  & label {
+    cursor: pointer;
+
+    &:first-child:not(:only-child) {
+      padding-right: var(--space-xs);
+    }
+
+    &:last-child:not(:only-child) {
+      padding-left: var(--space-xs);
+    }
+  }
+}
+
+.RadioGroup--vertical {
+  flex-direction: column;
+
+  & .RadioField {
+    margin-right: 0;
+  }
+}
+
+.Radio {
+  position: relative;
+  height: var(--base-line-height);
+  width: var(--base-line-height);
+
+  & .Radio__background {
+    position: absolute;
+    transform: scale(0.8);
+    width: 100%;
+    height: 100%;
+    margin-top: calc(var(--base-line-height) * 0.3);
+    margin-bottom: calc(var(--base-line-height) * -0.3);
+
+    &::before {
+      background-color: var(--text-color-secondary);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform: scale(0, 0);
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+      content: "";
+      transition: background-color 120ms ease, transform 120ms ease;
+    }
+  }
+
+  & .Radio__outerCircle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--text-color-secondary);
+    border-radius: 50%;
+    transition: border-color 120ms ease;
+  }
+
+  & .Radio__innerCircle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transform: scale(0);
+    background-color: var(--text-color-primary);
+    transition: transform 120ms ease;
+  }
+
+  & .Radio__native {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: calc(var(--base-line-height) * 0.3) 0 calc(var(--base-line-height) * -0.3);
+    padding: 0;
+    opacity: 0;
+    z-index: 1;
+
+    &:disabled + .Radio__background {
+      & .Radio__outerCircle {
+        border-color: var(--text-color-disabled);
+        cursor: default;
+      }
+
+      & .Radio__innerCircle {
+        background-color: var(--text-color-disabled);
+        cursor: default;
+      }
+    }
+
+    &:checked + .Radio__background {
+      & .Radio__innerCircle {
+        transform: scale(0.5);
+      }
+    }
+
+    &:hover:not(:disabled) + .Radio__background {
+      &::before {
+        transform: scale(2, 2);
+        opacity: 0.12;
+      }
+
+      & .Radio__outerCircle {
+        border-color: var(--text-color-primary);
+      }
+    }
+
+    &:focus:not(:disabled) + .Radio__background {
+      &::before {
+        transform: scale(2, 2);
+        opacity: 0.23;
+      }
+
+      & .Radio__outerCircle {
+        border-color: var(--text-color-primary);
+      }
+    }
+
+    .Radio__native:active:not(:disabled):not(:checked) + .Radio__background {
+      &::before {
+        transform: scale(2, 2);
+        opacity: 0.33;
+      }
+    }
+  }
+}
+
+.RadioPrimary {
+  composes: Radio;
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  & .Radio__background {
+    /* stylelint-disable-next-line no-descending-specificity */
+    &::before {
+      background-color: var(--color-primary);
+    }
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  & .Radio__outerCircle {
+    border-color: var(--color-primary);
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  & .Radio__innerCircle {
+    background-color: var(--color-primary-dark);
+  }
+
+  & .Radio__native {
+    /* stylelint-disable-next-line no-descending-specificity */
+    &:hover:not(:disabled) + .Radio__background {
+      & .Radio__outerCircle {
+        border-color: var(--color-primary-dark);
+      }
+    }
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    &:focus:not(:disabled) + .Radio__background {
+      & .Radio__outerCircle {
+        border-color: var(--color-primary-dark);
+      }
+    }
+  }
+}
+
+.RadioSecondary {
+  composes: Radio;
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  & .Radio__background {
+    /* stylelint-disable-next-line no-descending-specificity */
+    &::before {
+      background-color: var(--color-secondary);
+    }
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  & .Radio__outerCircle {
+    border-color: var(--color-secondary);
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  & .Radio__innerCircle {
+    background-color: var(--color-secondary-dark);
+  }
+
+  & .Radio__native {
+    /* stylelint-disable-next-line no-descending-specificity */
+    &:hover:not(:disabled) + .Radio__background {
+      & .Radio__outerCircle {
+        border-color: var(--color-secondary-dark);
+      }
+    }
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    &:focus:not(:disabled) + .Radio__background {
+      & .Radio__outerCircle {
+        border-color: var(--color-secondary-dark);
+      }
+    }
+  }
+}

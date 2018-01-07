@@ -71,9 +71,13 @@ export const Colors = () =>
       </div>
     </div>
     <blockquote>
-      <p>WATCH OUT WHERE THE HUSKIES GO<br/>
-        AN' DON'T YOU EAT THAT YELLOW SNOW</p>
-      <p><cite>Don't Eat The Yellow Snow, Frank Zappa</cite></p>
+      <p>
+        Colors are what<br/>
+        Keep me alive<br/>
+        Colors are what<br/>
+        To hold in my head
+      </p>
+      <p><cite>Colours, Hot Chip</cite></p>
     </blockquote>
 
   </div>
