@@ -15,7 +15,7 @@
 * Integration tests with Node Express server 
 * Acceptance testing with WebdriverIO, Cucumber.js, and Node Express
 * Code coverage and reporting with Istanbul
-* PostCSS/css-next/CSSModules
+* PostCSS/css-next/CSS Modules
 * Self hosting Google Material Icons and Font Roboto
 * CSS reset using [normalize.css](https://github.com/necolas/normalize.css)
 * Example application built with [HyperApp](https://hyperapp.js.org/)
