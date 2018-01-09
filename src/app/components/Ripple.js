@@ -25,7 +25,9 @@ const closestBackgroundColor = element => {
   while (el) {
     const cs = window.getComputedStyle(el);
     const bgColor = cs.getPropertyValue('background-color');
-    if (bgColor) {
+
+    // Note: Edge returns 'transparent' while other browsers returns undefined for transparent
+    if (bgColor && bgColor.toLowerCase().startsWith('rgb')) {
       const rgba = bgColor.match(/\d+/g);
       if(rgba.length === 3 || (rgba.length === 4 && rgba[3] > 0)) {
         return rgba;
