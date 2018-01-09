@@ -2,15 +2,17 @@ import radio from '../../app/components/radio.css';
 
 /** @jsx h */
 import { h } from 'hyperapp';
+import Radio from '../../app/components/radio'; // eslint-disable-line no-unused-vars
 import classnames from '../../utils/classnames';
 
 export const RadioButtons = () =>
   <div>
     <h1>Radio Buttons</h1>
+    <p>Radio buttons allow the user to select one option from a set.</p>
     <h3>CSS only</h3>
     <h4>Default</h4>
     <br/>
-    <div class={radio.RadioGroup}>
+    <div class={radio.RadioSet}>
       <div class={radio.RadioField}>
         <div class={radio.Radio}>
           <input class={radio.Radio__native} id="radiod1" name="radio__d" type="radio" value="Radio 1"/>
@@ -58,7 +60,7 @@ export const RadioButtons = () =>
 
     <h4>Primary</h4>
     <br/>
-    <div class={radio.RadioGroup}>
+    <div class={radio.RadioSet}>
       <div class={radio.RadioField}>
         <div class={radio.RadioPrimary}>
           <input class={radio.Radio__native} id="radiop1" name="radio__p" type="radio" value="Radio 1"/>
@@ -106,7 +108,7 @@ export const RadioButtons = () =>
 
     <h4>Secondary</h4>
     <br/>
-    <div class={radio.RadioGroup}>
+    <div class={radio.RadioSet}>
       <div class={radio.RadioField}>
         <div class={radio.RadioSecondary}>
           <input class={radio.Radio__native} id="radios1" name="radio__s" type="radio" value="Radio 1"/>
@@ -154,7 +156,7 @@ export const RadioButtons = () =>
 
     <h4>Verical layout</h4>
     <br/>
-    <div class={classnames(radio.RadioGroup, radio['RadioGroup--vertical'])}>
+    <div class={classnames(radio.RadioSet, radio['RadioSet--vertical'])}>
       <div class={radio.RadioField}>
         <div class={radio.Radio}>
           <input class={radio.Radio__native} id="radiov1" name="radio__v" type="radio" value="default"/>
@@ -199,6 +201,15 @@ export const RadioButtons = () =>
         <label for="radiov4">Disabled</label>
       </div>
     </div>
+
+    <h3>&lt;Radio&gt; component</h3>
+    <Radio name="cb-c" value="default" label="Default"/>
+    <Radio className={radio.RadioPrimary} name="cb-c" value="primary" label="Primary"/>
+    <Radio className={radio.RadioSecondary} name="cb-c" value="secondary" label="Secondary" checked/>
+    <Radio name="cb-c" value="disabled" label="Disabled radiobutton component" disabled />
+
+    <h3>&lt;RadioSet&gt; component</h3>
+    <p>TODO</p>
 
     <br/>
     <blockquote>

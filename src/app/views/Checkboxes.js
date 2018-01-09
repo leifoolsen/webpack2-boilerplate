@@ -2,15 +2,17 @@ import checkbox from '../../app/components/checkbox.css';
 
 /** @jsx h */
 import { h } from 'hyperapp';
+import Checkbox from '../components/Checkbox'; // eslint-disable-line no-unused-vars
 import classnames from '../../utils/classnames';
 
 export const Checkboxes = () =>
   <div>
     <h1>Checkboxes</h1>
+    <p>Checkboxes allow the user to select multiple options from a set.</p>
     <h3>CSS only</h3>
     <h4>Default</h4>
     <br/>
-    <div class={checkbox.CheckboxGroup}>
+    <div class={checkbox.CheckboxSet}>
       <div class={checkbox.CheckboxField}>
         <div class={checkbox.Checkbox}>
           <input class={checkbox.Checkbox__native} id="cb-d1" name="cb-d" type="checkbox" value="cb-1"/>
@@ -58,7 +60,7 @@ export const Checkboxes = () =>
 
     <h4>Primary</h4>
     <br/>
-    <div class={checkbox.CheckboxGroup}>
+    <div class={checkbox.CheckboxSet}>
       <div class={checkbox.CheckboxField}>
         <div class={checkbox.CheckboxPrimary}>
           <input class={checkbox.Checkbox__native} id="cb-p1" name="cb-p" type="checkbox" value="cb-1"/>
@@ -106,7 +108,7 @@ export const Checkboxes = () =>
 
     <h4>Secondary</h4>
     <br/>
-    <div class={checkbox.CheckboxGroup}>
+    <div class={checkbox.CheckboxSet}>
       <div class={checkbox.CheckboxField}>
         <div class={checkbox.CheckboxSecondary}>
           <input class={checkbox.Checkbox__native} id="cb-s1" name="cb-s" type="checkbox" value="cb-1"/>
@@ -154,7 +156,7 @@ export const Checkboxes = () =>
 
     <h4>Vertical layout</h4>
     <br/>
-    <div class={classnames(checkbox.CheckboxGroup, checkbox['CheckboxGroup--vertical'])}>
+    <div class={classnames(checkbox.CheckboxSet, checkbox['CheckboxSet--vertical'])}>
       <div class={checkbox.CheckboxField}>
         <div class={checkbox.Checkbox}>
           <input class={checkbox.Checkbox__native} id="cb-v1" name="cb-v" type="checkbox" value="cb-1"/>
@@ -199,6 +201,16 @@ export const Checkboxes = () =>
         <label for="cb-v4">Disabled</label>
       </div>
     </div>
+
+    <h3>&lt;Checkbox&gt; component</h3>
+    <br/>
+    <Checkbox name="cb-c" value="default" label="Default"/>
+    <Checkbox className={checkbox.CheckboxPrimary} name="cb-c" value="primary" label="Primary"/>
+    <Checkbox className={checkbox.CheckboxSecondary} name="cb-c" value="secondary" label="Secondary" checked/>
+    <Checkbox name="cb-c" value="disabled" label="Disabled checkbox component" disabled />
+
+    <h3>&lt;CheckboxSet&gt; component</h3>
+    <p>TODO</p>
 
     <br/>
     <blockquote>

@@ -4,7 +4,7 @@
 @import '../styles/base/color.variables.css';
 @import '../styles/base/typography.variables.css';
 
-.RadioGroup {
+.RadioSet {
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -30,10 +30,15 @@
     &:last-child:not(:only-child) {
       padding-left: var(--space-xs);
     }
+
+    &.disabled {
+      cursor: default;
+      color: var(--text-color-disabled);
+    }
   }
 }
 
-.RadioGroup--vertical {
+.RadioSet--vertical {
   flex-direction: column;
 
   & .RadioField {

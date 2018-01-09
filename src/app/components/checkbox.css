@@ -5,7 +5,7 @@
 @import '../styles/base/color.variables.css';
 @import '../styles/base/typography.variables.css';
 
-.CheckboxGroup {
+.CheckboxSet {
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -31,10 +31,15 @@
     &:last-child:not(:only-child) {
       padding-left: var(--space-xs);
     }
+
+    &.disabled {
+      cursor: default;
+      color: var(--text-color-disabled);
+    }
   }
 }
 
-.CheckboxGroup--vertical {
+.CheckboxSet--vertical {
   flex-direction: column;
 
   & .CheckboxField {
@@ -155,7 +160,7 @@
       }
     }
 
-    .Checkbox__native:active:not(:disabled):not(:checked) + .Checkbox__background {
+    &:active:not(:disabled):not(:checked) + .Checkbox__background {
       &::before {
         transform: scale(2, 2);
         opacity: 0.33;
