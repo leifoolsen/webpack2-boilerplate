@@ -148,8 +148,7 @@ const Ripple = () => {
     const deltaY = h / 2 + Math.abs(h / 2 - layerY);
 
     // Calculate size
-    const size = Math.sqrt(Math.pow(deltaX, 2)
-      + Math.pow(deltaY, 2)
+    const size = Math.sqrt(deltaX ** 2 + deltaY ** 2
       - 2 * deltaX * deltaY * Math.cos(90 / 180 * Math.PI)) * 2;
 
     // Create a new ink element
