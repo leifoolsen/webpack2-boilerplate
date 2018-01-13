@@ -15,6 +15,7 @@
  * https://github.com/webcomponents/webcomponents-platform/blob/master/webcomponents-platform.js
  * http://stackoverflow.com/questions/28815845/mouseevent-not-working-in-internet-explorer
  * http://stackoverflow.com/questions/26596123/internet-explorer-9-10-11-event-constructor-doesnt-work
+ * https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove
  */
 
 
@@ -88,3 +89,21 @@ if (origMouseEvent) {
   }
 }
 window.MouseEvent.prototype = origMouseEvent.prototype;
+
+// Childnode.remove polyfill
+(function (arr) {
+  arr.forEach(function (item) {
+    if (item.hasOwnProperty('remove')) {
+      return;
+    }
+    Object.defineProperty(item, 'remove', {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function remove() {
+        if (this.parentNode !== null)
+          this.parentNode.removeChild(this);
+      }
+    });
+  });
+})([Element.prototype, CharacterData.prototype, DocumentType.prototype]);

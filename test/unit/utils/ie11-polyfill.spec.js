@@ -6,14 +6,24 @@ import { setupJsDom, teardownJsDom } from '../../jsdom-init';
 
 describe('IE11 polyfill', () => {
   let sandbox;
+  let origRemove;
 
   before(() => {
     sandbox = sinon.sandbox.create();
     setupJsDom();
+
+    if (Element.prototype.hasOwnProperty('remove')) {
+      origRemove = Element.prototype.remove;
+      delete Element.prototype.remove;
+    }
+
     requireUncached('../../../src/utils/ie11-polyfill');
   });
 
   after(() => {
+    if (origRemove) {
+      Element.prototype.remove = origRemove;
+    }
     teardownJsDom();
     sandbox.restore();
   });
@@ -175,6 +185,25 @@ describe('IE11 polyfill', () => {
       button.addEventListener('mousedown', spy);
       button.dispatchEvent(mouseDownEvent);
       assert.isTrue(spy.called, 'Expected "select" event to fire');
+    });
+  });
+
+  describe('ChildNode.remove', () => {
+
+    it('should be defined', () => {
+      assert.isDefined(Element.prototype.remove);
+    });
+
+    it('should remove child element', () => {
+      const element = document.createElement('div');
+      element.id = 'someid';
+      document.body.appendChild(element);
+      let el = document.querySelector('#someid');
+      assert.isNotNull(el);
+
+      el.remove();
+      el = document.querySelector('#someid');
+      assert.isNull(el);
     });
   });
 });
