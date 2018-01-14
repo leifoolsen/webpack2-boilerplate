@@ -92,7 +92,7 @@
     "roboto-fontface": "0.8.0",
     "sass-loader": "6.0.6",
     "selenium-standalone": "6.12.0",
-    "sinon": "4.1.4",
+    "sinon": "4.1.5",
     "style-loader": "0.19.1",
     "stylelint": "8.4.0",
     "stylelint-config-css-modules": "1.1.0",
