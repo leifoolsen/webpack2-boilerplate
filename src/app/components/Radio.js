@@ -15,7 +15,7 @@ import { h } from 'hyperapp';
  */
 const Radio = ({className, value, label, checked, disabled, ...otherProps}) => {
 
-  const {id, ...rest} = otherProps;
+  const {id, key, ...rest} = otherProps;
   const labelClass = disabled ? radio.disabled : null;
 
   /**
@@ -25,12 +25,13 @@ const Radio = ({className, value, label, checked, disabled, ...otherProps}) => {
    */
   const create = (element, id) => {
     const input = element.querySelector('input');
-    input.id = id || `radio.${randomString()}`;
+    input.id = id || `radio-${randomString()}`;
     element.querySelector('label').setAttribute('for', input.id);
   };
 
   return (
     <div
+      key={key}
       class={radio.RadioField}
       oncreate={element => create(element, id)}
     >

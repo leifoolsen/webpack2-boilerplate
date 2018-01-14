@@ -38,7 +38,7 @@
   }
 }
 
-.RadioSet--vertical {
+.RadioSet--column {
   flex-direction: column;
 
   & .RadioField {

@@ -7,7 +7,10 @@ import { h } from 'hyperapp';
 /**
  * Checkboxes allow the user to select multiple options from a set
  * @param className
+ * @param value
  * @param label
+ * @param checked
+ * @param disabled
  * @param otherProps
  * @return {*}
  * @constructor
@@ -15,7 +18,7 @@ import { h } from 'hyperapp';
  */
 const Checkbox = ({className, value, label, checked, disabled, ...otherProps}) => {
 
-  const {id, ...rest} = otherProps;
+  const {id, key, ...rest} = otherProps;
   const labelClass = disabled ? checkbox.disabled : null;
 
   /**
@@ -25,12 +28,13 @@ const Checkbox = ({className, value, label, checked, disabled, ...otherProps}) =
    */
   const create = (element, id) => {
     const input = element.querySelector('input');
-    input.id = id || `checkbox.${randomString()}` ;
+    input.id = id || `checkbox-${randomString()}` ;
     element.querySelector('label').setAttribute('for', input.id);
   };
 
   return (
     <div
+      key={key}
       class={checkbox.CheckboxField}
       oncreate={element => create(element, id)}
     >

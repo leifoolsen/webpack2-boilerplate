@@ -288,7 +288,16 @@ module.exports = {
         exclude: [/node_modules/],
         loader: 'babel-loader',
         options: {
-          cacheDirectory: isDev
+          cacheDirectory: isDev,
+          presets: [
+            [
+              'env',
+              {
+                modules: false,
+                'debug': false,
+              }
+            ]
+          ]
         }
       },
       {

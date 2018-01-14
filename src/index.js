@@ -27,6 +27,7 @@ if(window) {
       stack: err.stack || 'See browser console for detail',
     };
 
+    // Send error log to server
     logger.remoteLogger.log(LOG_LEVEL.error, msg, detail);
     return false;
   };
@@ -43,7 +44,9 @@ if(window) {
 try {
   // Add polyfills
   polyfill()
-    .then(() => run()); // Start the app
+    .then(() => {
+      run(); // Start the app
+    });
 }
 catch(err) {
   // We may not have a working logger, use console loger

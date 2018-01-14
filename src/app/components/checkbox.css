@@ -39,7 +39,7 @@
   }
 }
 
-.CheckboxSet--vertical {
+.CheckboxSet--column {
   flex-direction: column;
 
   & .CheckboxField {

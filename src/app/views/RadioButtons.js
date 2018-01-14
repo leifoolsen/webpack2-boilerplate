@@ -2,7 +2,8 @@ import radio from '../../app/components/radio.css';
 
 /** @jsx h */
 import { h } from 'hyperapp';
-import Radio from '../../app/components/radio'; // eslint-disable-line no-unused-vars
+import Radio from '../../app/components/Radio'; // eslint-disable-line no-unused-vars
+import RadioSet from '../../app/components/RadioSet'; // eslint-disable-line no-unused-vars
 import classnames from '../../utils/classnames';
 
 export const RadioButtons = () =>
@@ -154,9 +155,9 @@ export const RadioButtons = () =>
       </div>
     </div>
 
-    <h4>Verical layout</h4>
+    <h4>Column (verical) layout</h4>
     <br/>
-    <div class={classnames(radio.RadioSet, radio['RadioSet--vertical'])}>
+    <div class={classnames(radio.RadioSet, radio['RadioSet--column'])}>
       <div class={radio.RadioField}>
         <div class={radio.Radio}>
           <input class={radio.Radio__native} id="radiov1" name="radio__v" type="radio" value="default"/>
@@ -203,13 +204,23 @@ export const RadioButtons = () =>
     </div>
 
     <h3>&lt;Radio&gt; component</h3>
+    <br/>
     <Radio name="cb-c" value="default" label="Default"/>
     <Radio className={radio.RadioPrimary} name="cb-c" value="primary" label="Primary"/>
     <Radio className={radio.RadioSecondary} name="cb-c" value="secondary" label="Secondary" checked/>
-    <Radio name="cb-c" value="disabled" label="Disabled radiobutton component" disabled />
+    <Radio name="cb-c" value="disabled" label="Disabled radio button component" disabled />
 
     <h3>&lt;RadioSet&gt; component</h3>
-    <p>TODO</p>
+    <br/>
+    <RadioSet
+      name="rb-component"
+      radioButtons={[
+        {value: 'default', label: 'Default'},
+        {value: 'primary', label: 'Primary', className: radio.RadioPrimary},
+        {value: 'secondary', label: 'Secondary', className: radio.RadioSecondary},
+        {value: 'disabled', label: 'Disabled radio button component', checked: true, disabled: true},
+      ]}
+    />
 
     <br/>
     <blockquote>

@@ -2,6 +2,7 @@ import checkbox from '../../app/components/checkbox.css';
 
 /** @jsx h */
 import { h } from 'hyperapp';
+import CheckboxSet from '../components/CheckboxSet'; // eslint-disable-line no-unused-vars
 import Checkbox from '../components/Checkbox'; // eslint-disable-line no-unused-vars
 import classnames from '../../utils/classnames';
 
@@ -154,9 +155,9 @@ export const Checkboxes = () =>
       </div>
     </div>
 
-    <h4>Vertical layout</h4>
+    <h4>Column (vertical) layout</h4>
     <br/>
-    <div class={classnames(checkbox.CheckboxSet, checkbox['CheckboxSet--vertical'])}>
+    <div class={classnames(checkbox.CheckboxSet, checkbox['CheckboxSet--column'])}>
       <div class={checkbox.CheckboxField}>
         <div class={checkbox.Checkbox}>
           <input class={checkbox.Checkbox__native} id="cb-v1" name="cb-v" type="checkbox" value="cb-1"/>
@@ -210,7 +211,16 @@ export const Checkboxes = () =>
     <Checkbox name="cb-c" value="disabled" label="Disabled checkbox component" disabled />
 
     <h3>&lt;CheckboxSet&gt; component</h3>
-    <p>TODO</p>
+    <br/>
+    <CheckboxSet
+      name="cb-component"
+      checkboxes={[
+        {value: 'default', label: 'Default'},
+        {value: 'primary', label: 'Primary', className: checkbox.CheckboxPrimary},
+        {value: 'secondary', label: 'Secondary', className: checkbox.CheckboxSecondary},
+        {value: 'disabled', label: 'Disabled checkbox component', checked: true, disabled: true},
+      ]}
+    />
 
     <br/>
     <blockquote>
