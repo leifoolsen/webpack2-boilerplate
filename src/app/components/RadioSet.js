@@ -6,6 +6,15 @@ import { h } from 'hyperapp';
 import Radio from './Radio'; // eslint-disable-line no-unused-vars
 import classnames from '../../utils/classnames';
 
+/**
+ * Manages a set of radio buttons
+ * @param name
+ * @param column
+ * @param radioButtons
+ * @param otherProps
+ * @return {*}
+ * @constructor
+ */
 const RadioSet = ({name, column, radioButtons, ...otherProps}) => {
 
   const items = radioButtons

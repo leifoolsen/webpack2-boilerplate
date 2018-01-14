@@ -7,7 +7,7 @@ import Checkbox from './Checkbox';
 import classnames from '../../utils/classnames';
 
 /**
- * Set of checkboxes
+ * Manages a set of checkboxes
  * @param name
  * @param column
  * @param checkboxes
