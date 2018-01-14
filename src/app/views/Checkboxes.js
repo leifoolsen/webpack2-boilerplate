@@ -214,11 +214,25 @@ export const Checkboxes = () =>
     <br/>
     <CheckboxSet
       name="cb-component"
-      checkboxes={[
+      options={[
         {value: 'default', label: 'Default'},
         {value: 'primary', label: 'Primary', className: checkbox.CheckboxPrimary},
         {value: 'secondary', label: 'Secondary', className: checkbox.CheckboxSecondary},
-        {value: 'disabled', label: 'Disabled checkbox component', checked: true, disabled: true},
+        {value: 'disabled', label: 'Disabled', checked: true, disabled: true},
+      ]}
+    />
+
+    <h3>&lt;CheckboxSet&gt;, column layout</h3>
+    <br/>
+    <CheckboxSet
+      name="cb-component-c"
+      checkboxClass={checkbox.CheckboxPrimary}
+      column
+      options={[
+        {value: 'first', label: 'First'},
+        {value: 'second', label: 'Second'},
+        {value: 'third', label: 'Third'},
+        {value: 'disabled', label: 'Disabled', checked: true, disabled: true},
       ]}
     />
 

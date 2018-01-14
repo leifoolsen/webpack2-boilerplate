@@ -214,11 +214,25 @@ export const RadioButtons = () =>
     <br/>
     <RadioSet
       name="rb-component"
-      radioButtons={[
+      options={[
         {value: 'default', label: 'Default'},
         {value: 'primary', label: 'Primary', className: radio.RadioPrimary},
         {value: 'secondary', label: 'Secondary', className: radio.RadioSecondary},
         {value: 'disabled', label: 'Disabled radio button component', checked: true, disabled: true},
+      ]}
+    />
+
+    <h3>&lt;RadioSet&gt;, column layout</h3>
+    <br/>
+    <RadioSet
+      name="rb-component-c"
+      radioClass={radio.RadioSecondary}
+      column
+      options={[
+        {value: 'first', label: 'First'},
+        {value: 'second', label: 'Second'},
+        {value: 'third', label: 'Third'},
+        {value: 'disabled', label: 'Disabled', checked: true, disabled: true},
       ]}
     />
 

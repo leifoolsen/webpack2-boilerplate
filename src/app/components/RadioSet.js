@@ -7,18 +7,19 @@ import Radio from './Radio'; // eslint-disable-line no-unused-vars
 import classnames from '../../utils/classnames';
 
 /**
- * Manages a set of radio buttons
+ * Manages a set of radio button options
  * @param name
  * @param column
- * @param radioButtons
+ * @param radioClass
+ * @param options
  * @param otherProps
  * @return {*}
  * @constructor
  */
-const RadioSet = ({name, column, radioButtons, ...otherProps}) => {
+const RadioSet = ({name, column, radioClass, options, ...otherProps}) => {
 
-  const items = radioButtons
-    ? radioButtons
+  const items = options
+    ? options
       .map(item => {
         const {
           id=`radio-${randomString()}`,
@@ -34,7 +35,7 @@ const RadioSet = ({name, column, radioButtons, ...otherProps}) => {
           <Radio
             key={id}
             id={id}
-            className={className}
+            className={className || radioClass}
             name={name}
             value={value}
             label={label}

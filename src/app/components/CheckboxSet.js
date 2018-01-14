@@ -7,18 +7,19 @@ import Checkbox from './Checkbox';
 import classnames from '../../utils/classnames';
 
 /**
- * Manages a set of checkboxes
+ * Manages a set of checkbox options
  * @param name
  * @param column
- * @param checkboxes
+ * @param checkboxClass
+ * @param options
  * @param otherProps
  * @return {*}
  * @constructor
  */
-const CheckboxSet = ({name, column, checkboxes, ...otherProps}) => {
+const CheckboxSet = ({name, column, checkboxClass, options, ...otherProps}) => {
 
-  const items = checkboxes
-    ? checkboxes
+  const items = options
+    ? options
       .map(item => {
         const {
           id=`checkbox-${randomString()}`,
@@ -34,7 +35,7 @@ const CheckboxSet = ({name, column, checkboxes, ...otherProps}) => {
           <Checkbox
             key={id}
             id={id}
-            className={className}
+            className={className || checkboxClass}
             name={name}
             value={value}
             label={label}
