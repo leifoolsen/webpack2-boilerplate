@@ -2,6 +2,7 @@ import switchcss from '../../app/components/switch.css';
 
 /** @jsx h */
 import { h } from 'hyperapp';
+import Switch from '../../app/components/Switch'; // eslint-disable-line no-unused-vars
 
 export const Switches = () =>
   <div>
@@ -96,5 +97,13 @@ export const Switches = () =>
       </div>
       <label for="switch-disabled-off">Disabled off</label>
     </div>
+
+    <h3>&lt;Switch&gt; component</h3>
+    <br/>
+    <Switch
+      className={switchcss.SwitchPrimary}
+      label="Switch component"
+    />
+
   </div>;
 
