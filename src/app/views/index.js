@@ -6,15 +6,16 @@ import footer from '../styles/app/mastfoot.css';
 /** @jsx h */
 import { h } from 'hyperapp';
 import { Link, Route } from '@hyperapp/router'; // eslint-disable-line no-unused-vars
-import Ripple from '../components/Ripple';  // eslint-disable-line no-unused-vars
-import { Home } from './Home'; // eslint-disable-line no-unused-vars
-import { Typography } from './Typography'; // eslint-disable-line no-unused-vars
-import { Colors } from './Colors'; // eslint-disable-line no-unused-vars
-import { Buttons } from './Buttons'; // eslint-disable-line no-unused-vars
-import { Checkboxes } from './Checkboxes'; // eslint-disable-line no-unused-vars
+import Ripple from '../components/Ripple';     // eslint-disable-line no-unused-vars
+import { Home } from './Home';                 // eslint-disable-line no-unused-vars
+import { Typography } from './Typography';     // eslint-disable-line no-unused-vars
+import { Colors } from './Colors';             // eslint-disable-line no-unused-vars
+import { Elevations } from './Elevations';     // eslint-disable-line no-unused-vars
+import { Buttons } from './Buttons';           // eslint-disable-line no-unused-vars
+import { Checkboxes } from './Checkboxes';     // eslint-disable-line no-unused-vars
 import { RadioButtons } from './RadioButtons'; // eslint-disable-line no-unused-vars
-import { Elevations } from './Elevations'; // eslint-disable-line no-unused-vars
-import { Ripples } from './Ripples'; // eslint-disable-line no-unused-vars
+import { Switches } from './Switches';         // eslint-disable-line no-unused-vars
+import { Ripples } from './Ripples';           // eslint-disable-line no-unused-vars
 
 export const view = (state, actions) => {
 
@@ -38,14 +39,15 @@ export const view = (state, actions) => {
       <div class={layout['Layout-body']}>
 
         <main class={layout['Layout-main']} role="main">
-          <Route path="/" render={() => Home({state, actions})}/>
-          <Route path="/typography" render={Typography}/>
-          <Route path="/colors" render={Colors}/>
-          <Route path="/elevations" render={Elevations}/>
-          <Route path="/buttons" render={Buttons}/>
-          <Route path="/radiobuttons" render={RadioButtons}/>
-          <Route path="/checkboxes" render={Checkboxes}/>
-          <Route path="/ripples" render={Ripples}/>
+          <Route path="/" render={() => Home({state, actions})} />
+          <Route path="/typography" render={Typography} />
+          <Route path="/colors" render={Colors} />
+          <Route path="/elevations" render={Elevations} />
+          <Route path="/buttons" render={Buttons} />
+          <Route path="/radiobuttons" render={RadioButtons} />
+          <Route path="/checkboxes" render={Checkboxes} />
+          <Route path="/switches" render={Switches} />
+          <Route path="/ripples" render={Ripples} />
         </main>
 
         <section role="navigation" class={layout['Layout-sidebarLeft']} style={{opacity: 0.9}}>
@@ -96,6 +98,13 @@ export const view = (state, actions) => {
             class={app.navlink}
           >
             Checkboxes
+            <Ripple/>
+          </Link>
+          <Link
+            to="/switches"
+            class={app.navlink}
+          >
+            Switches
             <Ripple/>
           </Link>
           <Link
