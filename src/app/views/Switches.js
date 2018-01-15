@@ -102,8 +102,30 @@ export const Switches = () =>
     <br/>
     <Switch
       className={switchcss.SwitchPrimary}
+      value="switch-component"
+      checked
       label="Switch component"
     />
+    <br/>
+    <Switch
+      className={switchcss.SwitchPrimary}
+      value="disabled-switch-component"
+      disabled
+      label="Disabled switch component"
+    />
+
+    <br/>
+    <blockquote>
+      <p>
+        Turn it off if you want to<br/>
+        Switch it off it will go away<br/>
+        Turn it off if you want to<br/>
+        Switch it off or look away<br/>
+        Switch it off<br/>
+        Turn it off<br/>
+      </p>
+      <p><cite>Long Long Way to Go, Phil Collins</cite></p>
+    </blockquote>
 
   </div>;
 
