@@ -4,6 +4,7 @@
  * @See http://anzorb.com/we-dont-need-your-polyfills/
  * @see https://hackernoon.com/polyfills-everything-you-ever-wanted-to-know-or-maybe-a-bit-less-7c8de164e423
  * @see http://anujnair.com/blog/13-conditionally-load-multiple-polyfills-using-webpack-promises-and-code-splitting
+ * @see http://2ality.com/2017/02/babel-preset-env.html
  */
 import 'core-js/es6/promise';
 

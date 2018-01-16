@@ -64,7 +64,7 @@ export const Switches = () =>
           <div class={switchcss.Switch__knob} />
         </div>
       </div>
-      <label for="switch-secondary-on">Primary on</label>
+      <label for="switch-secondary-on">Secondary on</label>
     </div>
     <br/>
     <div class={switchcss.SwitchField}>
