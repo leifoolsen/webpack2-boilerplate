@@ -4,12 +4,11 @@ import chalk from 'chalk';
 import fs from 'fs';
 import path from 'path';
 import config from './config';
-
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const StyleLintPlugin = require('stylelint-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import webpack from 'webpack';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import StyleLintPlugin from 'stylelint-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const { isHot, isDev, isProd, apiPath } = config;
 const { publicPath } = config.server;
