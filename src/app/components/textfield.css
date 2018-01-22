@@ -1,0 +1,109 @@
+/**
+ * Text fields allow users to input, edit, and select text.
+ * See: https://material.io/guidelines/components/text-fields.html
+ * CSS based on/inspired by: https://material-components-web.appspot.com/text-field.html
+ */
+
+@import '../styles/base/helpers.mixins.css';
+@import '../styles/base/color.variables.css';
+@import '../styles/base/typography.variables.css';
+
+.TextField {
+  display: flex;
+  flex: 1;
+  position: relative;
+  min-width: 1px;
+  border: 0 solid transparent;
+  border-radius: 3px;
+  padding: var(--space-s) 0;
+  margin-top: calc(var(--offset) + var(--base-line-height) - var(--space-s));
+  margin-bottom: calc((var(--offset) + var(--space-s)) * -1);
+
+  & .TextField__input:not([type="radio"]):not([type="checkbox"]) {
+    position: relative;
+    flex: 1;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    appearance: none;
+    background: none;
+    z-index: 2;
+
+    &:invalid {
+      box-shadow: none;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: var(--text-color-hint);
+      opacity: 0;
+      transition: opacity 120ms ease-in-out;
+    }
+
+    &:focus::placeholder {
+      opacity: 1;
+    }
+  }
+
+  & .TextField__label {
+    @mixin overflow-ellipsis;
+    cursor: pointer;
+    user-select: none;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 0;
+    color: var(--text-color-primary);
+    font-size: calc(var(--base-font-size) * 0.94);
+    top: calc(var(--base-font-size) * -0.94);
+    transition: top 120ms ease-in-out, font-size 90ms ease-in-out;
+  }
+
+  & .TextField__label--inline {
+    top: var(--space-s);
+    color: var(--text-color-secondary);
+    font-size: var(--base-font-size);
+  }
+
+  & .TextField__bottom-line {
+    display: block;
+    position: absolute;
+    bottom: var(--space-xs);
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    border-bottom: 1px solid var(--text-color-secondary);
+
+    &::after {
+      display: block;
+      content: '';
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      transform: scaleX(0);
+      border-bottom: 1px solid var(--color-primary);
+      transition: transform 180ms ease-in-out;
+    }
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity, no-duplicate-selectors */
+  & .TextField__input:not([type="radio"]):not([type="checkbox"]) {
+    &:disabled ~ .TextField__label {
+      cursor: default;
+      pointer-events: none;
+      color: var(--text-color-disabled);
+    }
+
+    &:disabled ~ .TextField__bottom-line {
+      border-bottom-color: var(--text-color-disabled);
+    }
+
+    &:focus ~ .TextField__bottom-line::after {
+      transform: scaleX(1);
+    }
+  }
+}

@@ -425,6 +425,13 @@ textarea {
   margin-bottom: calc((var(--offset) + 1px) * -1);
 }
 
+input:not([type="radio"]):not([type="checkbox"]),
+select,
+textarea {
+  padding-right: var(--space-xs);
+  padding-left: var(--space-xs);
+}
+
 label {
   border-color: transparent;
 }

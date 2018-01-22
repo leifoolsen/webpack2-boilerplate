@@ -16,6 +16,7 @@ import { Checkboxes } from './Checkboxes';     // eslint-disable-line no-unused-
 import { RadioButtons } from './RadioButtons'; // eslint-disable-line no-unused-vars
 import { Switches } from './Switches';         // eslint-disable-line no-unused-vars
 import { Ripples } from './Ripples';           // eslint-disable-line no-unused-vars
+import { TextFields } from './TextFields';     // eslint-disable-line no-unused-vars
 
 export const view = (state, actions) => {
 
@@ -41,13 +42,14 @@ export const view = (state, actions) => {
         <main class={layout['Layout-main']} role="main">
           <Route path="/" render={() => Home({state, actions})} />
           <Route path="/typography" render={Typography} />
+          <Route path="/buttons" render={Buttons} />
+          <Route path="/checkboxes" render={Checkboxes} />
           <Route path="/colors" render={Colors} />
           <Route path="/elevations" render={Elevations} />
-          <Route path="/buttons" render={Buttons} />
           <Route path="/radiobuttons" render={RadioButtons} />
-          <Route path="/checkboxes" render={Checkboxes} />
-          <Route path="/switches" render={Switches} />
           <Route path="/ripples" render={Ripples} />
+          <Route path="/switches" render={Switches} />
+          <Route path="/textfields" render={TextFields} />
         </main>
 
         <section role="navigation" class={layout['Layout-sidebarLeft']} style={{opacity: 0.9}}>
@@ -66,6 +68,20 @@ export const view = (state, actions) => {
             <Ripple/>
           </Link>
           <Link
+            to="/buttons"
+            class={app.navlink}
+          >
+            Buttons
+            <Ripple/>
+          </Link>
+          <Link
+            to="/checkboxes"
+            class={app.navlink}
+          >
+            Checkboxes
+            <Ripple/>
+          </Link>
+          <Link
             to="/colors"
             class={app.navlink}
           >
@@ -80,13 +96,6 @@ export const view = (state, actions) => {
             <Ripple/>
           </Link>
           <Link
-            to="/buttons"
-            class={app.navlink}
-          >
-            Buttons
-            <Ripple/>
-          </Link>
-          <Link
             to="/radiobuttons"
             class={app.navlink}
           >
@@ -94,10 +103,10 @@ export const view = (state, actions) => {
             <Ripple/>
           </Link>
           <Link
-            to="/checkboxes"
+            to="/ripples"
             class={app.navlink}
           >
-            Checkboxes
+            Ripple
             <Ripple/>
           </Link>
           <Link
@@ -108,10 +117,10 @@ export const view = (state, actions) => {
             <Ripple/>
           </Link>
           <Link
-            to="/ripples"
+            to="/textfields"
             class={app.navlink}
           >
-            Ripple
+            Text Fields
             <Ripple/>
           </Link>
           <a
