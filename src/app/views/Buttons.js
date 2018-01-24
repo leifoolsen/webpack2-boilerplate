@@ -158,8 +158,8 @@ const largeButtons = () =>
       flex container. The buttons does not have a set height; they follow a
       "natural" height governed by the base line height. You can take advantage
       of this by creating a flex container and setting the height to a multiple
-      of the base line height and the &nbsp;
-      <b><code>align-items</code></b> property to <b><code>stretch</code>.</b>
+      of the base line height and the <b><code>align-items</code></b> property
+      to <b><code>stretch</code>.</b>
     </p>
     <pre><small>{codeSample}</small></pre>
 
@@ -369,10 +369,7 @@ export const Buttons = () =>
     <h1>Buttons</h1>
     <p class={app.ingress}>Buttons communicate the action that will occur when
       the user touches them. Buttons in Material Design are defined
-      in Material Design Guidelines,&nbsp;
-      <a href="https://material.io/guidelines/components/buttons.html">
-        Buttons.
-      </a>
+      in Material Design Guidelines, <a href="https://material.io/guidelines/components/buttons.html">Buttons.</a>
     </p>
     { textButtons() }
 
