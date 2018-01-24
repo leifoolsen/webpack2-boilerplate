@@ -9,14 +9,22 @@ export const TextFields = () =>
     <h1>Text Fields</h1>
     <p>Text fields allow users to input, edit, and select text.</p>
     <h3>CSS only</h3>
+
     <br/>
     <div class={textfield.TextField}>
       <input class={textfield.TextField__input} id="input_text" type="text" placeholder="Type some text"/>
       <label class={textfield.TextField__label} for="input_text">Text Input</label>
       <div class={textfield['TextField__bottom-line']} />
     </div>
-    <br/>
 
+    <br/>
+    <div class={textfield.TextField}>
+      <input class={textfield.TextField__input} id="input_text_required" type="text" placeholder="Required input" required/>
+      <label class={textfield.TextField__label} for="input_text_requirec">Required Input</label>
+      <div class={textfield['TextField__bottom-line']} />
+    </div>
+
+    <br/>
     <div class={textfield.TextField}>
       <input class={textfield.TextField__input} id="input__text_d" type="text" value="A disabled text" disabled/>
       <label class={textfield.TextField__label} for="input__text_d">Disabled Text field</label>
@@ -34,7 +42,7 @@ export const TextFields = () =>
 
     <h3>&lt;TextField&gt; component</h3>
     <br/>
-    <TextField floatingLabel label="TextField label" placeholder="Type some letters"/>
+    <TextField floatingLabel label="TextField label" placeholder="Type some letters" style={{width: '300px'}}/>
 
     <br/>
     <blockquote>

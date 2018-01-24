@@ -2,6 +2,7 @@ import textfield from './textfield.css';
 
 /** @jsx h */
 import { h } from 'hyperapp';
+import Ripple from './Ripple'; // eslint-disable-line no-unused-vars
 import randomString from '../../utils/random-string';
 
 const TextField = ({
@@ -14,6 +15,8 @@ const TextField = ({
   disabled,
   label,
   floatingLabel,
+  style,
+  ripple,
   ...otherProps }) => {
 
   const create = element => {
@@ -55,6 +58,7 @@ const TextField = ({
     <div
       key={key}
       class={textfield.TextField}
+      style={style}
       oncreate={element => create(element)}
     >
       <input
@@ -68,6 +72,7 @@ const TextField = ({
       />
       <label class={textfield.TextField__label}>{label}</label>
       <div class={textfield['TextField__bottom-line']} />
+      {ripple && <Ripple/>}
     </div>
   );
 };

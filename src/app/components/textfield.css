@@ -92,6 +92,11 @@
 
   /* stylelint-disable-next-line no-descending-specificity, no-duplicate-selectors */
   & .TextField__input:not([type="radio"]):not([type="checkbox"]) {
+    &:required ~ .TextField__label::after {
+      margin-left: 2px;
+      content: "*";
+    }
+
     &:disabled ~ .TextField__label {
       cursor: default;
       pointer-events: none;
