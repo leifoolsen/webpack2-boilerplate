@@ -1,4 +1,5 @@
 import textfield from '../components/textfield.css';
+import app from '../styles/app/app.css';
 
 /** @jsx h */
 import { h } from 'hyperapp';
@@ -20,7 +21,7 @@ export const TextFields = () =>
     <br/>
     <div class={textfield.TextField}>
       <input class={textfield.TextField__input} id="input_text_required" type="text" placeholder="Required input" required/>
-      <label class={textfield.TextField__label} for="input_text_requirec">Required Input</label>
+      <label class={textfield.TextField__label} for="input_text_required">Required Input</label>
       <div class={textfield['TextField__bottom-line']} />
     </div>
 
@@ -42,7 +43,28 @@ export const TextFields = () =>
 
     <h3>&lt;TextField&gt; component</h3>
     <br/>
-    <TextField floatingLabel label="TextField label" placeholder="Type some letters" style={{width: '300px'}}/>
+
+    <div class={app.democontainer}>
+      <div class={app.textfielddemo}>
+        <code>&lt;TextField/&gt;</code>
+        <TextField label="TextField label" placeholder="Type some letters" style={{maxWidth: '300px'}}/>
+      </div>
+
+      <div class={app.textfielddemo}>
+        <code>&lt;TextField floatingLabel/&gt;</code>
+        <TextField floatingLabel label="TextField label" placeholder="Type some letters" style={{maxWidth: '300px'}}/>
+      </div>
+
+      <div class={app.textfielddemo}>
+        <code>&lt;TextField ripple/&gt;</code>
+        <TextField ripple floatingLabel label="TextField label" placeholder="Type some letters" style={{maxWidth: '300px'}}/>
+      </div>
+
+      <div class={app.textfielddemo}>
+        <code>&lt;TextField required/&gt;</code>
+        <TextField required floatingLabel label="TextField label" placeholder="Type some letters" style={{maxWidth: '300px'}}/>
+      </div>
+    </div>
 
     <br/>
     <blockquote>

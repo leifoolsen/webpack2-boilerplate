@@ -84,3 +84,18 @@
     width: calc(33.3333% - var(--space-xl));
   }
 }
+
+.textfielddemo {
+  margin-right: var(--space-xl);
+  height: calc(var(--base-line-height) * 5);
+  width: calc(100% - var(--space-xl));
+
+  @media (--media-tablet) {
+    width: calc(50% - var(--space-xl));
+  }
+
+  @media (--media-desktop) {
+    width: calc(50% - var(--space-xl));
+  }
+
+}

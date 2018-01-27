@@ -41,6 +41,13 @@ const TextField = ({
             label.classList.add(textfield['TextField__label--inline']);
           }
         });
+
+        label.addEventListener('mousedown', () => {
+          if (!label.classList.contains(textfield['TextField__label--inline']) && document.activeElement === input) {
+            event.preventDefault();
+            input.focus();
+          }
+        });
       }
     }
     else if (id) {
