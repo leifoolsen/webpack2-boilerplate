@@ -47,22 +47,55 @@ export const TextFields = () =>
     <div class={app.democontainer}>
       <div class={app.textfielddemo}>
         <code>&lt;TextField/&gt;</code>
-        <TextField label="TextField label" placeholder="Type some letters" style={{maxWidth: '300px'}}/>
+        <TextField
+          label="TextField label"
+          placeholder="Type some letters"
+          style={{maxWidth: '300px'}}
+        />
       </div>
 
       <div class={app.textfielddemo}>
         <code>&lt;TextField floatingLabel/&gt;</code>
-        <TextField floatingLabel label="TextField label" placeholder="Type some letters" style={{maxWidth: '300px'}}/>
+        <TextField
+          floatingLabel
+          label="TextField label"
+          placeholder="Type some letters"
+          style={{maxWidth: '300px'}}
+        />
       </div>
 
       <div class={app.textfielddemo}>
         <code>&lt;TextField ripple/&gt;</code>
-        <TextField ripple floatingLabel label="TextField label" placeholder="Type some letters" style={{maxWidth: '300px'}}/>
+        <TextField
+          ripple
+          floatingLabel
+          label="TextField label"
+          placeholder="Type some letters"
+          style={{maxWidth: '300px'}}
+        />
       </div>
 
       <div class={app.textfielddemo}>
         <code>&lt;TextField required/&gt;</code>
-        <TextField required floatingLabel label="TextField label" placeholder="Type some letters" style={{maxWidth: '300px'}}/>
+        <TextField
+          required
+          floatingLabel
+          label="TextField label"
+          placeholder="Type some letters"
+          title="A text field title"
+          style={{maxWidth: '300px'}}/>
+      </div>
+
+      <div class={app.textfielddemo}>
+        <code>&lt;TextField required invalid/&gt;</code>
+        <TextField
+          required
+          invalid
+          floatingLabel
+          label="TextField label"
+          placeholder="Type some letters"
+          title="A text field title"
+          style={{maxWidth: '300px'}}/>
       </div>
     </div>
 

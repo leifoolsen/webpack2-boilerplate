@@ -15,8 +15,10 @@ const TextField = ({
   disabled,
   label,
   floatingLabel,
-  style,
+  title,
+  invalid,
   ripple,
+  style,
   ...otherProps }) => {
 
   const create = element => {
@@ -77,10 +79,19 @@ const TextField = ({
         disabled={disabled}
         required={required}
         placeholder={placeholder}
+        title={title}
+        aria-invalid={invalid}
         {...otherProps}
       />
-      <label class={textfield.TextField__label}>{label}</label>
-      <div class={textfield['TextField__bottom-line']} />
+      <label
+        class={textfield.TextField__label}
+        title={title}
+      >
+        {label}
+      </label>
+      <div
+        class={textfield['TextField__bottom-line']}
+      />
       {ripple && <Ripple/>}
     </div>
   );

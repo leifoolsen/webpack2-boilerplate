@@ -110,5 +110,22 @@
     &:focus ~ .TextField__bottom-line::after {
       transform: scaleX(1);
     }
+
+    &[aria-invalid="true"]:not(:disabled) ~ .TextField__label {
+      color: var(--color-error-dark);
+
+      &.TextField__label--inline {
+        opacity: 0.7;
+      }
+    }
+
+    &[aria-invalid="true"]:not(:disabled) ~ .TextField__bottom-line {
+      border-bottom-color: var(--color-error-dark);
+
+      &::after {
+        border-bottom-color: var(--color-error-dark);
+      }
+    }
+
   }
 }
