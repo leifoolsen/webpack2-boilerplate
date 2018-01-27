@@ -42,7 +42,7 @@ const TextField = ({
           }
         });
 
-        label.addEventListener('mousedown', () => {
+        label.addEventListener('mousedown', (event) => {
           if (!label.classList.contains(textfield['TextField__label--inline']) && document.activeElement === input) {
             event.preventDefault();
             input.focus();
