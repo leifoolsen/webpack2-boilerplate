@@ -111,13 +111,13 @@ export const TextFields = () =>
       </div>
     </div>
 
-    <h3>&lt;TextField outlineBorder&gt;</h3>
+    <h3>&lt;TextField stroked&gt;</h3>
     <br/>
 
     <div class={app.democontainer}>
       <div class={app.textfielddemo}>
         <TextField
-          outlineBorder
+          stroked
           label="TextField label"
           placeholder="Type some letters"
           style={{maxWidth: '300px'}}
@@ -126,7 +126,7 @@ export const TextFields = () =>
 
       <div class={app.textfielddemo}>
         <TextField
-          outlineBorder
+          stroked
           raised
           floatingLabel
           label="TextField label"
@@ -137,7 +137,7 @@ export const TextFields = () =>
 
       <div class={app.textfielddemo}>
         <TextField
-          outlineBorder
+          stroked
           raised
           ripple
           required
@@ -150,7 +150,7 @@ export const TextFields = () =>
 
       <div class={app.textfielddemo}>
         <TextField
-          outlineBorder
+          stroked
           required
           floatingLabel
           label="TextField label"
@@ -161,7 +161,7 @@ export const TextFields = () =>
 
       <div class={app.textfielddemo}>
         <TextField
-          outlineBorder
+          stroked
           required
           invalid
           floatingLabel
@@ -173,7 +173,7 @@ export const TextFields = () =>
 
       <div class={app.textfielddemo}>
         <TextField
-          outlineBorder
+          stroked
           disabled
           floatingLabel
           label="TextField label"

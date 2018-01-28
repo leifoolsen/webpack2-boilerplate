@@ -17,7 +17,7 @@ import classnames from '../../utils/classnames';
  * @param disabled
  * @param label
  * @param floatingLabel
- * @param outlineBorder
+ * @param stroked
  * @param title
  * @param invalid
  * @param ripple
@@ -37,7 +37,7 @@ const TextField = ({
   disabled,
   label,
   floatingLabel,
-  outlineBorder,
+  stroked,
   title,
   invalid,
   ripple,
@@ -100,7 +100,7 @@ const TextField = ({
       <input
         class={classnames(
           textfield.TextField__input, {
-            [textfield['TextField__outline--padding']]: outlineBorder,
+            [textfield['TextField__outline--padding']]: stroked,
           })}
         type={type}
         value={value}
@@ -112,11 +112,11 @@ const TextField = ({
         {...otherProps}
       />
       {
-        !outlineBorder && <div class={textfield['TextField__bottom-line']} />
+        !stroked && <div class={textfield['TextField__bottom-line']} />
       }
 
       {
-        !outlineBorder && <label
+        !stroked && <label
           class={textfield.TextField__label}
           title={title}
         >
@@ -125,7 +125,7 @@ const TextField = ({
       }
 
       {
-        outlineBorder && <div class={classnames(
+        stroked && <div class={classnames(
           textfield['TextField__outline'], {
             [textfield['raised']]: raised,
           })}>
@@ -133,7 +133,7 @@ const TextField = ({
             <label
               class={classnames(
                 textfield.TextField__outline__label, {
-                  [textfield['TextField__outline--padding']]: outlineBorder,
+                  [textfield['TextField__outline--padding']]: stroked,
                 })}
               title={title}
             >
