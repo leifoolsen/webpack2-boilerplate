@@ -4,7 +4,28 @@ import textfield from './textfield.css';
 import { h } from 'hyperapp';
 import Ripple from './Ripple'; // eslint-disable-line no-unused-vars
 import randomString from '../../utils/random-string';
+import classnames from '../../utils/classnames';
 
+/**
+ * Text fields allow users to input, edit, and select text.
+ * @param id
+ * @param key
+ * @param value
+ * @param type
+ * @param placeholder
+ * @param required
+ * @param disabled
+ * @param label
+ * @param floatingLabel
+ * @param outlineBorder
+ * @param title
+ * @param invalid
+ * @param ripple
+ * @param style
+ * @param otherProps
+ * @return {*}
+ * @constructor
+ */
 const TextField = ({
   id,
   key,
@@ -15,6 +36,7 @@ const TextField = ({
   disabled,
   label,
   floatingLabel,
+  outlineBorder,
   title,
   invalid,
   ripple,
@@ -45,6 +67,7 @@ const TextField = ({
         });
       }
 
+      /*
       label.addEventListener('mousedown', (event) => {
         if (document.activeElement === input &&
           !label.classList.contains(textfield['TextField__label--inline'])) {
@@ -53,15 +76,15 @@ const TextField = ({
           input.focus();
         }
       });
+      */
     }
     else if (id) {
       input.id = id;
     }
 
-    element.addEventListener('click', (event) => {
-      if(event.target === element) {
-        input.focus();
-      }
+    element.addEventListener('mousedown', (event) => {
+      event.preventDefault();
+      input.focus();
     });
   };
 
@@ -73,7 +96,10 @@ const TextField = ({
       oncreate={element => create(element)}
     >
       <input
-        class={textfield.TextField__input}
+        class={classnames(
+          textfield.TextField__input, {
+            [textfield['TextField__outline--padding']]: outlineBorder,
+          })}
         type={type}
         value={value}
         disabled={disabled}
@@ -83,15 +109,34 @@ const TextField = ({
         aria-invalid={invalid}
         {...otherProps}
       />
-      <label
-        class={textfield.TextField__label}
-        title={title}
-      >
-        {label}
-      </label>
-      <div
-        class={textfield['TextField__bottom-line']}
-      />
+      {
+        !outlineBorder && <div class={textfield['TextField__bottom-line']} />
+      }
+
+      {
+        !outlineBorder && <label
+          class={textfield.TextField__label}
+          title={title}
+        >
+          {label}
+        </label>
+      }
+
+      {
+        outlineBorder && <div class={textfield['TextField__outline']}>
+          <div class={textfield['TextField__outline__top']}>
+            <label
+              class={classnames(
+                textfield.TextField__outline__label, {
+                  [textfield['TextField__outline--padding']]: outlineBorder,
+                })}
+              title={title}
+            >
+              {label}
+            </label>
+          </div>
+        </div>
+      }
       {ripple && <Ripple/>}
     </div>
   );

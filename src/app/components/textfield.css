@@ -2,6 +2,9 @@
  * Text fields allow users to input, edit, and select text.
  * See: https://material.io/guidelines/components/text-fields.html
  * CSS based on/inspired by: https://material-components-web.appspot.com/text-field.html
+ *
+ * Note to self: Code is a bit messy and need some refactoring - but sufficient for POC
+ *               Should use same CSS for bottom border and outline border
  */
 
 @import '../styles/base/helpers.mixins.css';
@@ -13,8 +16,7 @@
   flex: 1;
   position: relative;
   min-width: 1px;
-  border: 0 solid transparent;
-  border-radius: 3px;
+  border: 0;
   padding: var(--space-s) 0;
   margin-top: calc(var(--offset) + var(--base-line-height) - var(--space-s));
   margin-bottom: calc((var(--offset) + var(--space-s)) * -1);
@@ -40,7 +42,7 @@
     &::placeholder {
       color: var(--text-color-hint);
       opacity: 0;
-      transition: opacity 120ms ease-in-out;
+      transition: opacity 180ms ease-in-out;
     }
 
     &:focus::placeholder {
@@ -50,6 +52,7 @@
 
   & .TextField__label {
     @mixin overflow-ellipsis;
+    z-index: 2;
     cursor: pointer;
     user-select: none;
     border: 0;
@@ -58,7 +61,6 @@
     position: absolute;
     left: 0;
     max-width: 100%;
-    text-overflow: ellipsis;
     color: var(--text-color-primary);
     font-size: calc(var(--base-font-size) * 0.94);
     top: calc(var(--base-font-size) * -0.94);
@@ -92,9 +94,98 @@
     }
   }
 
+  & .TextField__outline {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    bottom: var(--space-xs);
+    border-radius: 3px;
+    border-right: 1px solid var(--text-color-secondary);
+    border-bottom: 1px solid var(--text-color-secondary);
+    border-left: 1px solid var(--text-color-secondary);
+
+    &::after {
+      display: block;
+      content: '';
+      position: absolute;
+      bottom: 0;
+      height: 100%;
+      width: 100%;
+      border-right: 1px solid var(--color-primary);
+      border-bottom: 1px solid var(--color-primary);
+      border-left: 1px solid var(--color-primary);
+      transform: scaleX(0);
+      transition: transform 120ms ease-in-out;
+    }
+  }
+
+  & .TextField__outline__top {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    &::before {
+      border-radius: 3px 0 0 0;
+      display: block;
+      content: "";
+      flex: var(--space-s) 0 0;
+      height: 1px;
+      border-top: 1px solid var(--text-color-secondary);
+      transition: border 180ms ease-in-out;
+    }
+
+    &::after {
+      border-radius: 0 3px 0 0;
+      display: block;
+      content: "";
+      flex: 1 0 0;
+      height: 1px;
+      border-top: 1px solid var(--text-color-secondary);
+      transition: border 180ms ease-in-out;
+    }
+  }
+
+  & .TextField__outline__label {
+    @mixin overflow-ellipsis;
+    flex: 0 0 auto;
+    z-index: 2;
+    cursor: pointer;
+    user-select: none;
+    max-width: 100%;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    font-size: calc(var(--base-font-size) * 0.94);
+    top: calc(var(--base-font-size) * -0.74);
+    transition: top 120ms ease-in-out, font-size 90ms ease-in-out;
+  }
+
+  & .TextField__outline__label.TextField__label--inline.TextField__label--inline {
+    position: absolute;
+    top: calc(var(--base-font-size) * 0.76);
+    font-size: var(--base-font-size);
+  }
+
+  & .TextField__outline--padding:not([type="radio"]):not([type="checkbox"]) {
+    padding-right: var(--space-s);
+    padding-left: var(--space-s);
+  }
+
   /* stylelint-disable-next-line no-descending-specificity, no-duplicate-selectors */
   & .TextField__input:not([type="radio"]):not([type="checkbox"]) {
     &:required ~ .TextField__label::after {
+      margin-left: 2px;
+      content: "*";
+    }
+
+    &:required ~ .TextField__outline .TextField__outline__label::after {
       margin-left: 2px;
       content: "*";
     }
@@ -109,8 +200,40 @@
       border-bottom-color: var(--text-color-disabled);
     }
 
+    &:disabled ~ .TextField__outline {
+      border-color: var(--text-color-disabled);
+    }
+
+    &:disabled ~ .TextField__outline .TextField__outline__top::before {
+      border-color: var(--text-color-disabled);
+    }
+
+    &:disabled ~ .TextField__outline .TextField__outline__top::after {
+      border-color: var(--text-color-disabled);
+    }
+
+    &:disabled ~ .TextField__outline .TextField__outline__label {
+      cursor: default;
+      pointer-events: none;
+      color: var(--text-color-disabled);
+    }
+
     &:focus ~ .TextField__bottom-line::after {
       transform: scaleX(1);
+    }
+
+    &:focus ~ .TextField__outline::after {
+      transform: scaleX(1);
+    }
+
+    &:focus ~ .TextField__outline .TextField__outline__top::before {
+      border-top-width: 2px;
+      border-color: var(--color-primary);
+    }
+
+    &:focus ~ .TextField__outline .TextField__outline__top::after {
+      border-top-width: 2px;
+      border-color: var(--color-primary);
     }
 
     &[aria-invalid="true"]:not(:disabled) ~ .TextField__label {
@@ -129,5 +252,24 @@
       }
     }
 
+    &[aria-invalid="true"]:not(:disabled) ~ .TextField__outline {
+      border-color: var(--color-error-dark);
+
+      &::after {
+        border-color: var(--color-error-dark);
+      }
+    }
+
+    &[aria-invalid="true"]:not(:disabled) ~ .TextField__outline .TextField__outline__top::before {
+      border-color: var(--color-error-dark);
+    }
+
+    &[aria-invalid="true"]:not(:disabled) ~ .TextField__outline .TextField__outline__top::after {
+      border-color: var(--color-error-dark);
+    }
+
+    &[aria-invalid="true"]:not(:disabled) ~ .TextField__outline .TextField__outline__label {
+      color: var(--color-error-dark);
+    }
   }
 }

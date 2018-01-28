@@ -87,7 +87,7 @@ export const TextFields = () =>
       </div>
 
       <div class={app.textfielddemo}>
-        <code>&lt;TextField required invalid/&gt;</code>
+        <code>&lt;TextField invalid/&gt;</code>
         <TextField
           required
           invalid
@@ -97,6 +97,90 @@ export const TextFields = () =>
           title="A text field title"
           style={{maxWidth: '300px'}}/>
       </div>
+
+      <div class={app.textfielddemo}>
+        <code>&lt;TextField disabled/&gt;</code>
+        <TextField
+          disabled
+          floatingLabel
+          label="TextField label"
+          placeholder="Type some letters"
+          title="A text field title"
+          value="A disabled value"
+          style={{maxWidth: '300px'}}/>
+      </div>
+    </div>
+
+    <h3>&lt;TextField outlineBorder&gt;</h3>
+    <br/>
+
+    <div class={app.democontainer}>
+      <div class={app.textfielddemo}>
+        <TextField
+          outlineBorder
+          label="TextField label"
+          placeholder="Type some letters"
+          style={{maxWidth: '300px'}}
+        />
+      </div>
+
+      <div class={app.textfielddemo}>
+        <TextField
+          outlineBorder
+          floatingLabel
+          label="TextField label"
+          placeholder="Type some letters"
+          style={{maxWidth: '300px'}}
+        />
+      </div>
+
+      <div class={app.textfielddemo}>
+        <TextField
+          outlineBorder
+          ripple
+          required
+          floatingLabel
+          label="TextField label"
+          placeholder="Type some letters"
+          style={{maxWidth: '300px'}}
+        />
+      </div>
+
+      <div class={app.textfielddemo}>
+        <TextField
+          outlineBorder
+          required
+          floatingLabel
+          label="TextField label"
+          placeholder="Type some letters"
+          title="A text field title"
+          style={{maxWidth: '300px'}}/>
+      </div>
+
+      <div class={app.textfielddemo}>
+        <TextField
+          outlineBorder
+          required
+          invalid
+          floatingLabel
+          label="TextField label"
+          placeholder="Type some letters"
+          title="A text field title"
+          style={{maxWidth: '300px'}}/>
+      </div>
+
+      <div class={app.textfielddemo}>
+        <TextField
+          outlineBorder
+          disabled
+          floatingLabel
+          label="TextField label"
+          placeholder="Type some letters"
+          title="A text field title"
+          value="A disabled value"
+          style={{maxWidth: '300px'}}/>
+      </div>
+
     </div>
 
     <br/>
