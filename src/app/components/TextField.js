@@ -21,6 +21,7 @@ import classnames from '../../utils/classnames';
  * @param title
  * @param invalid
  * @param ripple
+ * @param raised
  * @param style
  * @param otherProps
  * @return {*}
@@ -40,6 +41,7 @@ const TextField = ({
   title,
   invalid,
   ripple,
+  raised,
   style,
   ...otherProps }) => {
 
@@ -123,7 +125,10 @@ const TextField = ({
       }
 
       {
-        outlineBorder && <div class={textfield['TextField__outline']}>
+        outlineBorder && <div class={classnames(
+          textfield['TextField__outline'], {
+            [textfield['raised']]: raised,
+          })}>
           <div class={textfield['TextField__outline__top']}>
             <label
               class={classnames(

@@ -127,6 +127,7 @@ export const TextFields = () =>
       <div class={app.textfielddemo}>
         <TextField
           outlineBorder
+          raised
           floatingLabel
           label="TextField label"
           placeholder="Type some letters"
@@ -137,6 +138,7 @@ export const TextFields = () =>
       <div class={app.textfielddemo}>
         <TextField
           outlineBorder
+          raised
           ripple
           required
           floatingLabel
