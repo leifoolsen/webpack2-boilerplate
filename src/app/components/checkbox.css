@@ -104,6 +104,9 @@
       @mixin material-icons;
       font-size: 1.5em;
       font-weight: bold;
+      display: block;
+      line-height: var(--base-line-height);
+      text-align: center;
       content: "check";
     }
   }
