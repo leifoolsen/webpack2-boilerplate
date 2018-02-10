@@ -6,29 +6,20 @@
 // See: https://github.com/feross/eslint-config-standard
 
 {
-  "extends": [
-    "eslint:recommended"
-    //"plugin:flowtype/recommended" // Will not use flow. See: https://github.com/facebook/flow/issues/869#issuecomment-256643823
+  "plugins": [
+    "compat"      // Allow configuration of target browser/s (npm i -D eslint-plugin-compat)
+    //"react"     // React specific linting rules (npm i -D eslint-plugin-react)
+    //"flowtype"  // Will not use flow. See: https://github.com/facebook/flow/issues/869#issuecomment-256643823
   ],
-
-  "parser": "babel-eslint",
-
-  "settings": {
-    "ecmascript": 7,
-    "jsx": true,
-    "polyfills": [
-      "fetch", "promises"
-    ]
-  },
   "parserOptions": {
-    "ecmaVersion": 7,
+    "ecmaVersion": 2018,
+    "sourceType": "module",
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
       "globalReturn": true,
       "jsx": true,
       "modules": true
-    },
-    "sourceType": "module"
+    }
   },
   "env": {
     "browser": true, // browser global variables
@@ -36,19 +27,49 @@
     "mocha": true,   // adds all of the Mocha testing global variables
     "es6": true      // ECMAScript 6
   },
-  "plugins": [
-    "compat"     // Allow configuration of target browser/s (npm i -D eslint-plugin-compat)
-    //"react"    // React specific linting rules (npm i -D eslint-plugin-react)
-    //"flowtype" // Will not use flow. See: https://github.com/facebook/flow/issues/869#issuecomment-256643823
+  "extends": [
+    "eslint:recommended"
+    //"plugin:react/recommended"
+    //"plugin:flowtype/recommended" // Will not use flow. See: https://github.com/facebook/flow/issues/869#issuecomment-256643823
   ],
+
+  "parser": "babel-eslint",
+
+  "settings": {
+    "ecmascript": 2018,
+    "jsx": true,
+    "polyfills": [
+      "fetch", "promises"
+    ]
+  },
   "globals": {
     // "componentHandler": true // Material Design Lite
     "browser": true
   },
   "rules": {
     "compat/compat": "error", // required by eslint-plugin-compat
-    "indent": [2, 2, {"SwitchCase": 1}],
-    "linebreak-style": 0,
+    "indent": [
+      2, 2, {
+        "SwitchCase": 1,
+        "VariableDeclarator": 2,
+        "ignoredNodes": [
+          "JSXElement",
+          "JSXElement > *",
+          "JSXOpeningElement",
+          "JSXClosingElement",
+          "JSXAttribute",
+          "JSXIdentifier",
+          "JSXNamespacedName",
+          "JSXMemberExpression",
+          "JSXSpreadAttribute",
+          "JSXExpressionContainer",
+          "JSXText",
+          "JSXEmptyExpression",
+          "JSXSpreadChild"
+        ]
+      }
+    ],
+    "linebreak-style": ["error", "unix"],
     "max-statements-per-line": [1, {"max": 1}],
     "no-console": 1,
     "no-restricted-syntax": 1,

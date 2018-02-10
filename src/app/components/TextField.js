@@ -116,19 +116,21 @@ const TextField = ({
       }
 
       {
-        !stroked && <label
+        !stroked &&
+        <label
           class={textfield.TextField__label}
-          title={title}
-        >
+          title={title}>
           {label}
         </label>
       }
 
       {
-        stroked && <div class={classnames(
+        stroked &&
+        <div class={classnames(
           textfield['TextField__outline'], {
             [textfield['raised']]: raised,
           })}>
+
           <div class={textfield['TextField__outline__top']}>
             <label
               class={classnames(
