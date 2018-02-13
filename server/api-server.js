@@ -29,7 +29,7 @@ const start = (done = () => {}) => {
 
 if (module.hot) {
   module.hot.accept('./api-app', () => {
-    logger.info('🔁 HMR Reloading...'); //eslint-disable-line no-console
+    logger.info('🔁 HMR Reloading...');
 
     server.removeListener('request', currentApp);
     server.on('request', app);
@@ -37,11 +37,11 @@ if (module.hot) {
   });
 
   start(() => {
-    logger.info('✅ Server-side HMR Enabled!'); //eslint-disable-line no-console
+    logger.info('✅ Server-side HMR Enabled!');
   });
 }
 else {
-  logger.info('❌ Server-side HMR Not Enabled!'); //eslint-disable-line no-console
+  logger.info('❌ Server-side HMR Not Enabled!');
 }
 
-export {start};
+export default start;

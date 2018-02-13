@@ -1,11 +1,11 @@
 import path from 'path';
 import express from 'express';
-import bodyParser from 'body-parser';
 import config from '../config';
 import logger from './logger/logger';
 import api from './middleware/api';
 import { notFound, logErrors, clientErrorHandler, errorHandler } from './middleware/error-handlers';
 import { NotFoundException } from './middleware/exceptions';
+import normalizeProxy from './utils/normalize-proxy-config';
 
 // Set Winston console log level
 logger.transports.console.level = config.logger.console.level;
@@ -27,10 +27,6 @@ let devMiddleware = null;
 const app = express();
 app.disable('x-powered-by');
 
-// Middleware for handling JSON, Raw, Text and URL encoded form data
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
 if (config.server.compress) {
   // compression middleware compresses your server responses which makes them
   // smaller (applies also to assets). You can read more about that technique
@@ -39,27 +35,17 @@ if (config.server.compress) {
   app.use(compression());
 }
 
-if (config.proxy) {
+if (config.useProxy) {
   // Proxy to api server
   const proxy = require('http-proxy-middleware'); // eslint-disable-line global-require
+  const {context, options} = normalizeProxy(config.server.proxy);
 
-  const useProxy = (proxyConfig) => {
-    app.use(proxy(proxyConfig.context, {
-      ...proxyConfig.options,
-      onProxyReq(req) {
-        logger.info(`Proxy to: ${req.path}`);
-      }
-    }));
-  };
-
-  if (Array.isArray(config.proxy)) {
-    config.proxy.forEach( p => {
-      useProxy(p);
-    });
-  }
-  else {
-    useProxy(config.proxy);
-  }
+  app.use(proxy(context, {
+    ...options,
+    onProxyReq(req) {
+      logger.info(`Proxy to: ${req.path}`);
+    }
+  }));
 }
 else {
   // Api routes

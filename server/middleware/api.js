@@ -2,10 +2,20 @@
 import { Router } from 'express';
 import logger from '../logger/logger';
 import { notFound } from './error-handlers';
+import bodyParser from 'body-parser';
 
 const time = () => (new Date()).toISOString();
 
 const api = Router();
+
+// Middleware for handling JSON, Raw, Text and URL encoded form data
+api.use(bodyParser.urlencoded({ extended: true }));
+api.use(bodyParser.json());
+
+api.use(function (req, res, next) {
+  logger.debug(`Incoming request for ${req.url}`);
+  next();
+});
 
 api.get('/', (req, res) => res.type('json').json({
   status: 200,
@@ -21,14 +31,17 @@ api.get('/ping', (req, res) => res.type('json').json({
 
 api.post('/log', (req, res) => {
   // Choose at strategy for logging.
-  // Logging only to console to keep it simple in boilerplate
-  const level = req.body.level || 'error';
+  // Just dumping body to log to keep it simple in boilerplate
+  const level = req.body && req.body.level || 'error';
 
-  logger.log(level, JSON.stringify(req.body));
+  if(req.body) {
+    logger.log(level, JSON.stringify(req.body));
+  }
 
-  res.status(200).send({
-    status: 200,
-    message: 'OK',
+  const status = req.body ? 200 : 204;
+  res.status(status).send({
+    status: status,
+    message: req.body ? 'Messages logged' : 'No content',
     time: time()
   });
 });

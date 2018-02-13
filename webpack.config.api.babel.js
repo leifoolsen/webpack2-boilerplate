@@ -6,25 +6,25 @@
  * @see https://github.com/ericclemmons/webpack-hot-server-example
  */
 
-const webpack = require("webpack");
-const path = require("path");
-const nodeExternals = require("webpack-node-externals");
-const StartServerPlugin = require("start-server-webpack-plugin");
+const webpack = require('webpack');
+const path = require('path');
+const nodeExternals = require('webpack-node-externals');
+const StartServerPlugin = require('start-server-webpack-plugin');
 
 module.exports = {
-  devtool: "inline-sourcemap",
+  devtool: 'inline-sourcemap',
   name: 'server',
   watch: true,
-  target: "node",
+  target: 'node',
   node: {
     __filename: true,
     __dirname: true
   },
-  externals: [nodeExternals({whitelist: ["webpack/hot/poll?1000"]})],
+  externals: [nodeExternals({whitelist: ['webpack/hot/poll?1000']})],
   entry: {
     'api-server': [
-      "webpack/hot/poll?1000",
-      "./server/api-server.js",
+      'webpack/hot/poll?1000',
+      './server/api-server.js',
     ],
   },
   module: {
@@ -53,9 +53,9 @@ module.exports = {
   },
   output: {
     path: path.resolve(process.cwd(), 'build'),
-    filename: "[name].js",
+    filename: '[name].js',
     chunkFilename: '[name].chunk.js',
-    devtoolModuleFilenameTemplate: "[absolute-resource-path]",
+    devtoolModuleFilenameTemplate: '[absolute-resource-path]',
     pathinfo: true,
   },
   plugins: [
@@ -64,7 +64,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
-      "process.env": {BUILD_TARGET: JSON.stringify("server")},
+      'process.env': {BUILD_TARGET: JSON.stringify('server')},
     }),
   ],
 };

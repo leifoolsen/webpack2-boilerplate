@@ -1,18 +1,31 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import config from '../config';
 import logger from './logger/logger';
-import { notFound, logErrors, clientErrorHandler, errorHandler } from './middleware/error-handlers';
 import api from './middleware/api';
+import {
+  notFound,
+  logErrors,
+  clientErrorHandler,
+  errorHandler
+} from './middleware/error-handlers';
 
 // Set Winston console log level
 logger.transports.console.level = config.logger.console.level;
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// app.use(function (req, res, next) {
+//   logger.debug(`Incoming request for ${req.url}`);
+//   next();
+// });
+
 app.use('/api', api);
+
+app.get('/', (req, res) => res.type('json').json({
+  status: 200,
+  message: 'OK',
+  time: (new Date()).toISOString()
+}));
 
 // Catch 404 and forward to error handler
 app.use(notFound);

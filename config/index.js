@@ -24,9 +24,6 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 import path from 'path';
 
-// eslint-disable-next-line prefer-template
-const toURL = (scheme, host, port = '') => `${scheme}://${host}${port ? ':'+port : ''}`;
-
 const ENV = {
   test: 'test',
   development: 'development',
@@ -49,15 +46,24 @@ const isTest = nodeEnv === ENV.test;
 const isDev = nodeEnv === ENV.development || (isTest && !nconf.get('env:prod'));
 const isProd = nodeEnv === ENV.production || (isTest && nconf.get('env:prod')) || false;
 const isHot = (nodeEnv === ENV.development && nconf.get('hot')) || false;
+
+// logger
 const logger = nconf.get('logger');
 
+// server
 const server = nconf.get('server');
-server.contentBase = path.resolve(process.cwd(), server.contentBase);
-server.url = toURL('http', server.host, server.port);
+server.scheme = server.scheme || 'http';
+
+if(!server.contentBase.startsWith('/')) {
+  server.contentBase = path.resolve(process.cwd(), server.contentBase);
+}
+
 server.apiPath = server.apiPath || '/api';
+
 if (!server.publicPath.endsWith('/')) {
   server.publicPath = path.join(server.publicPath, '/');
 }
+
 if (server.historyApiFallback) {
   if (!server.historyApiFallback.index) {
     server.historyApiFallback.index = '/index.html';
@@ -67,102 +73,17 @@ if (server.historyApiFallback) {
   }
 }
 
-//
-// proxy breakdown
-// see: https://github.com/chimurai/http-proxy-middleware
-// see: https://webpack.js.org/configuration/dev-server/#devserver-proxy
-//
-// proxy: {
-//   "/api": "http://localhost:3000"
-// }
-//
-// proxy: {
-//   "/api": {
-//     target: "http://localhost:3000"
-//     ...rest
-//   }
-// }
-//
-// proxy: [{
-//   context: ["/auth", "/api"],
-//   target: "http://localhost:3000",
-//   ...rest
-// }]
-//
-// transforms to
-//
-// proxy: {
-//   context: "/api",
-//   options: {
-//     target: "http://localhost:3000"
-//     ...rest
-//   }
-// }
-//
-// or
-//
-// proxy: [
-//   {
-//     context: ["/auth", "/api"],
-//     options: {
-//       target: "http://localhost:3000"
-//       ...rest
-//     }
-//   }
-// ]
-
-const normalizeProxyConfig = config => {
-  let context = Object.keys(config)[0];       // e.g. "/api" or 'context'
-  const val = config[Object.keys(config)[0]]; // e.g. "http://localhost:3000"  or ["/auth", "/api"] or an object
-  let options = {};
-
-  if (context === 'context') {
-    context = val;
-    Object.keys(config).forEach((key, index) => {
-      if (index > 0) {
-        options[key] = config[key];
-      }
-    });
-  }
-  else {
-    options = (typeof val === 'string' || val instanceof String)
-      ? { target: val }
-      : val;
-  }
-
-  return {
-    context: context,
-    options: options
-  };
-};
-
 const useProxy = nconf.get('proxy') || false;
-const proxyConfig = server.proxy;
-let _proxy = null;
-
-if (proxyConfig) {
-  if (Array.isArray(proxyConfig)) {
-    _proxy = [];
-    proxyConfig.forEach( p => {
-      _proxy.push(normalizeProxyConfig(p));
-    });
-  }
-  else {
-    _proxy = normalizeProxyConfig(proxyConfig);
-  }
-}
-
-const proxy = useProxy ? _proxy : null;
-
 const apiServer = nconf.get('apiServer');
+apiServer.scheme = apiServer.scheme || 'http';
 
 export default Object.freeze({
   isTest,
   isDev,
   isProd,
   isHot,
-  server,
-  proxy,
-  apiServer,
   logger,
+  server,
+  useProxy,
+  apiServer,
 });

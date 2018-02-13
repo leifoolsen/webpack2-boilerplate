@@ -13,7 +13,9 @@
     "proxy": {
       "/api": {
         "target": "http://localhost:8010",
-        "changeOrigin": true
+        "changeOrigin": true,
+        "secure": false,
+        "logLevel": "debug"
       }
     }
   },
@@ -25,6 +27,9 @@
   "logger": {
     "console": {
       "level": "debug"
+    },
+    "file": {
+      "level": "error"
     }
   }
 }

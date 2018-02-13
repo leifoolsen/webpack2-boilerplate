@@ -5,6 +5,7 @@ import logger from './logger/logger';
 import parseURI from './utils/parse-uri';
 import app, { devMiddleware } from './app';
 import infoServerStarted from './info-server-started';
+import normalizeProxy from './utils/normalize-proxy-config';
 
 const devMiddlewareCheck = (done) => {
   if (devMiddleware) {
@@ -35,16 +36,9 @@ const pingProxy = (target) => {
 };
 
 const proxyCheck = () => {
-
-  if(config.proxy) {
-    if (Array.isArray(config.proxy)) {
-      config.proxy.forEach( p => {
-        pingProxy(p.options.target);
-      });
-    }
-    else {
-      pingProxy(config.proxy.options.target);
-    }
+  if(config.useProxy) {
+    const {options} = normalizeProxy(config.server.proxy);
+    pingProxy(options.target);
   }
 };
 
