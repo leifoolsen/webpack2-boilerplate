@@ -2,10 +2,10 @@ import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 import config from '../config';
-import logger from './logger';
-import apiRouter from './api-router';
-import { notFound, logErrors, clientErrorHandler, errorHandler } from './error-handlers';
-import { NotFoundException } from './exceptions';
+import logger from './logger/logger';
+import api from './middleware/api';
+import { notFound, logErrors, clientErrorHandler, errorHandler } from './middleware/error-handlers';
+import { NotFoundException } from './middleware/exceptions';
 
 // Set Winston console log level
 logger.transports.console.level = config.logger.console.level;
@@ -20,7 +20,7 @@ console.log('express:',
   `isHot: ${config.isHot},`,
   `loglevel: "${config.logger.console.level}",`,
   `public: "${config.server.publicPath}",`,
-  `api: "${config.apiPath}"`);
+  `api: "${config.server.apiPath}"`);
 
 let devMiddleware = null;
 
@@ -63,7 +63,7 @@ if (config.proxy) {
 }
 else {
   // Api routes
-  app.use(config.apiPath, apiRouter);
+  app.use(config.server.apiPath, api);
 }
 
 // Uncomment to disable historyApiFallback without modifying config files

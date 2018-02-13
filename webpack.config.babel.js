@@ -10,8 +10,8 @@ import StyleLintPlugin from 'stylelint-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-const { isHot, isDev, isProd, apiPath } = config;
-const { publicPath } = config.server;
+const { isHot, isDev, isProd } = config;
+const { publicPath, apiPath } = config.server;
 const src = path.resolve(process.cwd(), 'src');
 const dist = path.resolve(process.cwd(), 'dist');
 const dll = dist; //path.join(dist, 'dll');

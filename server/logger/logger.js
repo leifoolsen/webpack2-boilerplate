@@ -23,7 +23,8 @@ const logger = new (winston.Logger)({
       colorize: true,
       timestamp: () => (new Date()).toISOString(),
     }),
-  ]
+  ],
+  exitOnError: false
 });
 
 // To change log level do:

@@ -12,7 +12,7 @@
     //"flowtype"  // Will not use flow. See: https://github.com/facebook/flow/issues/869#issuecomment-256643823
   ],
   "parserOptions": {
-    "ecmaVersion": 2018,
+    "ecmaVersion": 2017,
     "sourceType": "module",
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
@@ -36,7 +36,7 @@
   "parser": "babel-eslint",
 
   "settings": {
-    "ecmascript": 2018,
+    "ecmascript": 2017,
     "jsx": true,
     "polyfills": [
       "fetch", "promises"

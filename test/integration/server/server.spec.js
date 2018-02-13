@@ -81,11 +81,11 @@ describe('Express server', () => {
       });
     });
 
-    describe(`${config.apiPath}`, () => {
+    describe(`${config.server.apiPath}`, () => {
 
       it('/ping should return "pong"', async() => {
         await agent
-          .get(joinUrl(config.apiPath, 'ping'))
+          .get(joinUrl(config.server.apiPath, 'ping'))
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
           .expect(200)
@@ -96,7 +96,7 @@ describe('Express server', () => {
 
       it('should post message to /log', async() => {
         await agent
-          .post(joinUrl(config.apiPath, 'log'))
+          .post(joinUrl(config.server.apiPath, 'log'))
           .set('Accept', 'application/json')
           .send({
             level: 'debug', message: 'An error message'
@@ -106,7 +106,7 @@ describe('Express server', () => {
 
       it('should return 404 for non-existent URL: /foobar', async() => {
         await agent
-          .get(joinUrl(config.apiPath, 'foobar'))
+          .get(joinUrl(config.server.apiPath, 'foobar'))
           .set('Accept', 'application/json')
           .expect(404);
       });

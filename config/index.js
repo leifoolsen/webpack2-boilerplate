@@ -24,6 +24,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 import path from 'path';
 
+// eslint-disable-next-line prefer-template
 const toURL = (scheme, host, port = '') => `${scheme}://${host}${port ? ':'+port : ''}`;
 
 const ENV = {
@@ -53,6 +54,7 @@ const logger = nconf.get('logger');
 const server = nconf.get('server');
 server.contentBase = path.resolve(process.cwd(), server.contentBase);
 server.url = toURL('http', server.host, server.port);
+server.apiPath = server.apiPath || '/api';
 if (!server.publicPath.endsWith('/')) {
   server.publicPath = path.join(server.publicPath, '/');
 }
@@ -137,7 +139,6 @@ const normalizeProxyConfig = config => {
 const useProxy = nconf.get('proxy') || false;
 const proxyConfig = server.proxy;
 let _proxy = null;
-let apiPath; // Note: apiPath is overwritten by proxy.context
 
 if (proxyConfig) {
   if (Array.isArray(proxyConfig)) {
@@ -151,23 +152,17 @@ if (proxyConfig) {
   }
 }
 
-// Modify if you use multiple api paths (return an array)
-if (_proxy) {
-  apiPath = (Array.isArray(_proxy) ? _proxy[0].context : _proxy.context) || '/api';
-}
-else {
-  apiPath = nconf.get('apiPath') || '/api';
-}
-
 const proxy = useProxy ? _proxy : null;
+
+const apiServer = nconf.get('apiServer');
 
 export default Object.freeze({
   isTest,
   isDev,
   isProd,
   isHot,
-  apiPath,
   server,
   proxy,
+  apiServer,
   logger,
 });

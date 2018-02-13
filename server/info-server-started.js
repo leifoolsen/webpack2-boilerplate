@@ -2,9 +2,9 @@
 import ip from 'ip';
 import chalk from 'chalk';
 import config from '../config';
-import logger from './logger';
+import logger from './logger/logger';
 
-const { isTest, isHot, apiPath, server, proxy } = config;
+const { isTest, isHot, server, proxy } = config;
 
 const infoServerStarted = () => {
 
@@ -18,7 +18,7 @@ const infoServerStarted = () => {
     '        Host: ' + chalk.magenta(`${server.url}${server.publicPath}\n`) +
     '         LAN: ' + chalk.magenta(`http://${ip.address()}:${server.port}${server.publicPath}\n`) +
     ` Public path: ${server.publicPath}\n` +
-    `    Api path: ${apiPath}\n` +
+    `    Api path: ${server.apiPath}\n` +
     '       Proxy: ' + (proxy ? chalk.magenta(`${proxy.options.target}${proxy.context}\n`) : 'false\n') +
     `Content base: ${server.contentBase}\n` +
     divider +

@@ -1,11 +1,11 @@
 {
-  "apiPath": "/api",
   "server": {
     "host": "localhost",
     "port": 8082,
     "compress": false,
     "contentBase": "src",
     "publicPath": "/",
+    "apiPath": "/api",
     "historyApiFallback": {
       "verbose": true,
       "disableDotRule": false
@@ -16,6 +16,11 @@
         "changeOrigin": true
       }
     }
+  },
+  "apiServer": {
+    "host": "localhost",
+    "port": 8010,
+    "apiPath": "/api"
   },
   "logger": {
     "console": {

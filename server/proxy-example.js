@@ -1,13 +1,13 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import apiRouter from './api-router';
+import api from './middleware/api';
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use('/api', apiRouter);
+app.use('/api', api);
 
 // Server handle
 let handle = null;

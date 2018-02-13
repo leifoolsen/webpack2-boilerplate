@@ -1,4 +1,5 @@
 # Project
+.build/
 build/
 bundle/
 dist/
