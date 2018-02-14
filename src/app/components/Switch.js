@@ -2,7 +2,7 @@ import switchcss from './switch.css';
 import randomString from '../../utils/random-string';
 
 /** @jsx h */
-import { h } from 'hyperapp';
+import {h} from 'hyperapp';
 
 /**
  * On/off switches toggle the state of a single settings option.
@@ -37,7 +37,7 @@ const Switch = ({className, value, label, checked, disabled, ...otherProps}) => 
     <div
       key={key}
       class={switchcss.SwitchField}
-      oncreate={element => create(element, id)}
+      oncreate={(element) => create(element, id)}
     >
       <div class={className || switchcss.Switch}>
         <input

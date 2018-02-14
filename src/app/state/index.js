@@ -1,5 +1,5 @@
-import { location } from '@hyperapp/router';
-import { getStateFromStorage } from './local-storage';
+import {location} from '@hyperapp/router';
+import {getStateFromStorage} from './local-storage';
 
 export const state = Object.assign(
   {

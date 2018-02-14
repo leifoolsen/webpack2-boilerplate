@@ -1,7 +1,7 @@
 /* eslint no-unused-expressions: 0 */
 
-import { describe, it } from 'mocha';
-import { expect } from 'chai';
+import {describe, it} from 'mocha';
+import {expect} from 'chai';
 import isEmpty from '../../../src/utils/is-empty';
 
 describe('is-empty', () => {
@@ -40,7 +40,7 @@ describe('is-empty', () => {
   });
 
   it('should return false if object is not a empty', () => {
-    expect(isEmpty({ 'foo': 1, 'bar': 2 })).to.equal(false);
+    expect(isEmpty({'foo': 1, 'bar': 2})).to.equal(false);
   });
 
   it('should return true if Map is a empty', () => {
@@ -92,8 +92,8 @@ describe('is-empty', () => {
 
   it('should throw ReferenceError when value is a non empty WeakSet', () => {
     const weakSet = new WeakSet();
-    const foo = { foo: 'foo' };
-    const bar = { bar: 'bar' };
+    const foo = {foo: 'foo'};
+    const bar = {bar: 'bar'};
     weakSet.add(foo);
     weakSet.add(bar);
 

@@ -36,7 +36,7 @@ describe('Express server', () => {
 
 
   // Stop server
-  after( done => {
+  after( (done) => {
     server.stop(() => {
       done();
 
@@ -64,7 +64,7 @@ describe('Express server', () => {
           .set('Accept', 'text/html')
           .expect('Content-Type', /text/)
           .expect(200)
-          .then(res => {
+          .then((res) => {
             expect(res.text).to.include('<!DOCTYPE html>');
           });
       });
@@ -75,7 +75,7 @@ describe('Express server', () => {
           .set('Accept', 'text/html')
           .expect('Content-Type', /text/)
           .expect(200)
-          .then(res => {
+          .then((res) => {
             expect(res.text).to.include('<!DOCTYPE html>');
           });
       });
@@ -89,7 +89,7 @@ describe('Express server', () => {
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
           .expect(200)
-          .then(res => {
+          .then((res) => {
             expect(res.body.message).to.equal('pong!');
           });
       });

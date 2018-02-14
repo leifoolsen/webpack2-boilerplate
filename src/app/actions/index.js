@@ -1,4 +1,4 @@
-import { location } from '@hyperapp/router';
+import {location} from '@hyperapp/router';
 import joinUrl from '../../utils/join-url';
 import config from '../../config/config';
 import {storeStateInStorage} from '../state/local-storage';
@@ -8,28 +8,28 @@ export const actions = {
 
   location: location.actions,
 
-  storeState: () => state => storeStateInStorage(state),
+  storeState: () => (state) => storeStateInStorage(state),
 
-  toggleGridLines: event => state => {
+  toggleGridLines: (event) => (state) => {
     event.preventDefault();
     return {
       gridLines: !state.gridLines
     };
   },
 
-  add: () => ({ num }) => ({ num: num + 1 }),
+  add: () => ({num}) => ({num: num + 1}),
 
-  sub: () => ({ num }) => ({ num: num - 1 }),
+  sub: () => ({num}) => ({num: num - 1}),
 
-  ping: event => (state, actions) => {
+  ping: (event) => (state, actions) => {
     event.preventDefault();
     pingServer(joinUrl(config.apiPath, '/ping'))
-      .then(r => actions.setResponse(r));
+      .then((r) => actions.setResponse(r));
   },
 
-  setResponse: response => ({response}),
+  setResponse: (response) => ({response}),
 
-  triggerUnhandledError: event => (state, actions) => {
+  triggerUnhandledError: (event) => (state, actions) => {
 
     const badFunction = () => {
       const foo = {};

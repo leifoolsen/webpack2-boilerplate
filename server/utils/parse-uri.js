@@ -28,7 +28,7 @@
  * //   fragment: undefined
  * // }
  */
-const parseURI = uri => {
+const parseURI = (uri) => {
   const pattern = new RegExp('^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?');
   const matches = uri.match(pattern);
   const [ host = undefined, port = undefined ] = matches[4] ? matches[4].split(':') : [undefined, undefined]; // authority, e.g. localhost:80

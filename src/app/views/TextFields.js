@@ -2,7 +2,7 @@ import textfield from '../components/textfield.css';
 import app from '../styles/app/app.css';
 
 /** @jsx h */
-import { h } from 'hyperapp';
+import {h} from 'hyperapp';
 import TextField from '../../app/components/TextField'; // eslint-disable-line no-unused-vars
 
 export const TextFields = () =>

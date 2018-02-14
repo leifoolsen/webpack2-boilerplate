@@ -1,14 +1,14 @@
 import button from './button.css';
 
 /** @jsx h */
-import { h } from 'hyperapp';
+import {h} from 'hyperapp';
 import Ripple from './Ripple'; // eslint-disable-line no-unused-vars
 import classnames from '../../utils/classnames';
 
 
-const Button = ({ className, compact, dense, filled, stroked, raised, ripple, ...otherProps }, children) => {
+const Button = ({className, compact, dense, filled, stroked, raised, ripple, ...otherProps}, children) => {
 
-  const { type='button', ...rest } = otherProps;
+  const {type='button', ...rest} = otherProps;
 
   return (
     <button

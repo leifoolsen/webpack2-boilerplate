@@ -8,7 +8,7 @@ import normalizeProxy from './utils/normalize-proxy-config';
 // eslint-disable-next-line prefer-template
 const toURL = (scheme, host, port = '') => `${scheme}://${host}${port ? ':' + port : ''}`;
 
-const { isTest, isHot, server, useProxy } = config;
+const {isTest, isHot, server, useProxy} = config;
 
 const infoServerStarted = () => {
 

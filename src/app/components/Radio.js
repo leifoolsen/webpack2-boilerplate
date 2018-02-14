@@ -2,7 +2,7 @@ import radio from './radio.css';
 import randomString from '../../utils/random-string';
 
 /** @jsx h */
-import { h } from 'hyperapp';
+import {h} from 'hyperapp';
 
 /**
  * Radio buttons allow the user to select one option from a set.
@@ -33,7 +33,7 @@ const Radio = ({className, value, label, checked, disabled, ...otherProps}) => {
     <div
       key={key}
       class={radio.RadioField}
-      oncreate={element => create(element, id)}
+      oncreate={(element) => create(element, id)}
     >
       <div class={className || radio.Radio}>
         <input

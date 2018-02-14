@@ -41,7 +41,7 @@ process.on('unhandledRejection', (reason, p) => {
 });
 
 // See: https://nodejs.org/api/process.html#process_event_uncaughtexception
-process.on('uncaughtException', err => {
+process.on('uncaughtException', (err) => {
   logger.error('Server Uncaught Exception ', err);
   process.exit(1);
 });

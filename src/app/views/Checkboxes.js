@@ -1,7 +1,7 @@
 import checkbox from '../../app/components/checkbox.css';
 
 /** @jsx h */
-import { h } from 'hyperapp';
+import {h} from 'hyperapp';
 import CheckboxSet from '../components/CheckboxSet'; // eslint-disable-line no-unused-vars
 import Checkbox from '../components/Checkbox'; // eslint-disable-line no-unused-vars
 import classnames from '../../utils/classnames';

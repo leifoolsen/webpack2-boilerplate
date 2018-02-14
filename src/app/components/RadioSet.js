@@ -2,7 +2,7 @@ import radio from './radio.css';
 import randomString from '../../utils/random-string';
 
 /** @jsx h */
-import { h } from 'hyperapp';
+import {h} from 'hyperapp';
 import Radio from './Radio'; // eslint-disable-line no-unused-vars
 import classnames from '../../utils/classnames';
 
@@ -20,7 +20,7 @@ const RadioSet = ({name, column, radioClass, options, ...otherProps}) => {
 
   const items = options
     ? options
-      .map(item => {
+      .map((item) => {
         const {
           id=`radio-${randomString()}`,
           className,

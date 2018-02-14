@@ -3,8 +3,8 @@ import express from 'express';
 import config from '../config';
 import logger from './logger/logger';
 import api from './middleware/api';
-import { notFound, logErrors, clientErrorHandler, errorHandler } from './middleware/error-handlers';
-import { NotFoundException } from './middleware/exceptions';
+import {notFound, logErrors, clientErrorHandler, errorHandler} from './middleware/error-handlers';
+import {NotFoundException} from './middleware/exceptions';
 import normalizeProxy from './utils/normalize-proxy-config';
 
 // Set Winston console log level
@@ -78,7 +78,7 @@ if (config.isProd && !config.isTest) {
 
     logger.info('### app.get * from:', req.path, 'to:', target);
 
-    res.sendFile(target, err => {
+    res.sendFile(target, (err) => {
       if (err) {
         next(NotFoundException(req.path));
       }
@@ -165,13 +165,13 @@ if (config.isDev || config.isTest) {
     else {
       // 2: Try reading from outputPath, i.e. "dist"
       logger.info('2 app.get * from:', req.path, 'to:', target);
-      res.sendFile(target, err => {
+      res.sendFile(target, (err) => {
         if (err) {
           // 3: Try reading from src
           const src = path.join(config.server.contentBase, reqPath);
           logger.info('3 app.get * from:', req.path, 'to:', src);
 
-          res.sendFile(src, err => {
+          res.sendFile(src, (err) => {
             if (err) {
               next(NotFoundException(req.path));
             }
@@ -196,10 +196,10 @@ process.on('unhandledRejection', (reason, p) => {
 });
 
 // See: https://nodejs.org/api/process.html#process_event_uncaughtexception
-process.on('uncaughtException', err => {
+process.on('uncaughtException', (err) => {
   logger.error('Server Uncaught Exception ', err);
   process.exit(1);
 });
 
 export default app;
-export { devMiddleware };
+export {devMiddleware};

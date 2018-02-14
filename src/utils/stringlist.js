@@ -12,18 +12,18 @@
  */
 const stringlist = (...args) => {
 
-  const isString = str => str != null && typeof str === 'string';
+  const isString = (str) => str != null && typeof str === 'string';
 
-  const flatten = list => list.reduce((a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []);
+  const flatten = (list) => list.reduce((a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []);
 
-  const objectToStrings = arg =>
+  const objectToStrings = (arg) =>
     Object.keys(arg)
-      .filter(key => arg[key])
-      .map(key => key);
+      .filter((key) => arg[key])
+      .map((key) => key);
 
   return args
-    .filter(arg => !!arg)
-    .map(arg => isString(arg) ? arg : objectToStrings(arg))
+    .filter((arg) => !!arg)
+    .map((arg) => isString(arg) ? arg : objectToStrings(arg))
     .reduce((result, arg) => result.concat(Array.isArray(arg) ? flatten(arg) : arg), []);
 };
 

@@ -15,7 +15,7 @@ export const Home = ({state, actions}) =>
 
     <br/>
     <br/>
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div style={{display: 'flex', flexWrap: 'wrap'}}>
       <Button id="btn-ping" className={button['Button-primary']} stroked onclick={ (e) => actions.ping(e) }>
         Ping
       </Button>
@@ -23,7 +23,7 @@ export const Home = ({state, actions}) =>
     </div>
 
     <br/>
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div style={{display: 'flex', flexWrap: 'wrap'}}>
       <Button className={button['Button-primary']} stroked onclick={ (e) => actions.triggerUnhandledError(e) }>
         Unhandled error!
       </Button>

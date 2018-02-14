@@ -59,7 +59,7 @@
 // ]
 //
 
-const normalizeProxyConfig = proxyConfig => {
+const normalizeProxyConfig = (proxyConfig) => {
   let context = Object.keys(proxyConfig)[0];            // -> "/api" or 'context'
   const val = proxyConfig[Object.keys(proxyConfig)[0]]; // -> "http://localhost:3000"  or ["/auth", "/api"] or an object
   let options = {};
@@ -72,7 +72,7 @@ const normalizeProxyConfig = proxyConfig => {
   }
   else {
     options = (typeof val === 'string' || val instanceof String)
-      ? { target: val }
+      ? {target: val}
       : val;
   }
 

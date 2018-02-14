@@ -1,7 +1,7 @@
 // Sample REST API
-import { Router } from 'express';
+import {Router} from 'express';
 import logger from '../logger/logger';
-import { notFound } from './error-handlers';
+import {notFound} from './error-handlers';
 import bodyParser from 'body-parser';
 
 const time = () => (new Date()).toISOString();
@@ -9,7 +9,7 @@ const time = () => (new Date()).toISOString();
 const api = Router();
 
 // Middleware for handling JSON, Raw, Text and URL encoded form data
-api.use(bodyParser.urlencoded({ extended: true }));
+api.use(bodyParser.urlencoded({extended: true}));
 api.use(bodyParser.json());
 
 api.use(function (req, res, next) {

@@ -2,7 +2,7 @@ import checkbox from './checkbox.css';
 import randomString from '../../utils/random-string';
 
 /** @jsx h */
-import { h } from 'hyperapp';
+import {h} from 'hyperapp';
 import Checkbox from './Checkbox';
 import classnames from '../../utils/classnames';
 
@@ -20,7 +20,7 @@ const CheckboxSet = ({name, column, checkboxClass, options, ...otherProps}) => {
 
   const items = options
     ? options
-      .map(item => {
+      .map((item) => {
         const {
           id=`checkbox-${randomString()}`,
           className,

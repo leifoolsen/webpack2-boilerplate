@@ -1,8 +1,8 @@
-import { CounterBar, CounterDisplay } from './counter.css';
+import {CounterBar, CounterDisplay} from './counter.css';
 import button from './button.css';
 
 /** @jsx h */
-import { h } from 'hyperapp';
+import {h} from 'hyperapp';
 import IconButton from './IconButton'; // eslint-disable-line no-unused-vars
 
 /**
@@ -13,7 +13,7 @@ import IconButton from './IconButton'; // eslint-disable-line no-unused-vars
  *
  * Based on code from: https://github.com/selfup/hyperapp-one
  */
-const Counter = ({ num,  add, sub }) =>
+const Counter = ({num, add, sub}) =>
   <section>
     <h3>Counter example</h3>
     <br/>

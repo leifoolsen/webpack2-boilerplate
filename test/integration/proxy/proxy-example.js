@@ -53,7 +53,7 @@ describe('Proxy to API server example', () => {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
-      .then(res => {
+      .then((res) => {
         expect(res.body.message).to.equal('pong!');
       });
   });

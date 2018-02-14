@@ -23,7 +23,7 @@
 const origEvent = window.Event;
 
 // eslint-disable-next-line func-names
-window.Event = function (inType, params = { bubbles: false, cancelable: false }) {
+window.Event = function (inType, params = {bubbles: false, cancelable: false}) {
   const e = document.createEvent('Event');
   e.initEvent(inType, Boolean(params.bubbles), Boolean(params.cancelable));
   return e;
@@ -58,7 +58,7 @@ Event.prototype.preventDefault = function () {
 
 // CustomEvent constructor shim
 // eslint-disable-next-line func-names
-window.CustomEvent = function (inType, params = { bubbles: false, cancelable: false, detail: null }) {
+window.CustomEvent = function (inType, params = {bubbles: false, cancelable: false, detail: null}) {
   const ce = document.createEvent('CustomEvent');
   ce.initCustomEvent(inType, Boolean(params.bubbles), Boolean(params.cancelable), params.detail);
   return ce;

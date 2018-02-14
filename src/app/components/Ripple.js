@@ -1,7 +1,7 @@
 import ripple from './ripple.css';
 
 /** @jsx h */
-import { h } from 'hyperapp';
+import {h} from 'hyperapp';
 
 /**
  * Determine if rgb color is dark tone
@@ -18,7 +18,7 @@ const isDark = (rgb) => Math.round((
  * @param {Element} element
  * @return {Array<Number>} rgb(a) color of the matching element. Null if no matching element.
  */
-const closestBackgroundColor = element => {
+const closestBackgroundColor = (element) => {
 
   let el = element;
 
@@ -46,7 +46,7 @@ const closestBackgroundColor = element => {
  * @param {Element} element
  * @return {string}
  */
-const inkBackgroundColor = element => {
+const inkBackgroundColor = (element) => {
   const rgba = closestBackgroundColor(element);
   if (rgba) {
     if(isDark(rgba)) {
@@ -170,7 +170,7 @@ const Ripple = () => {
    * Initialize component
    * @param {Element} element
    */
-  const create = element => {
+  const create = (element) => {
 
     // Determine ink background color
     const inkBgColor = inkBackgroundColor(element.parentNode);
@@ -188,7 +188,7 @@ const Ripple = () => {
   return (
     <div
       class={ripple.ripple}
-      oncreate={element => create(element)}
+      oncreate={(element) => create(element)}
     />
   );
 };

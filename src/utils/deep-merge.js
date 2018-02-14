@@ -26,19 +26,19 @@ const deepMerge = (target = {}, ...sources) => {
 
     const source = sources[i];
     if (source) {
-      Object.keys(source).forEach(key => {
+      Object.keys(source).forEach((key) => {
 
         if (isObject(source[key])) {
 
           if (!(key in result)) {
-            Object.assign(result, { [key]: source[key] });
+            Object.assign(result, {[key]: source[key]});
           }
           else {
             result[key] = deepMerge(result[key], source[key]);
           }
         }
         else {
-          Object.assign(result, { [key]: source[key] });
+          Object.assign(result, {[key]: source[key]});
         }
       });
     }

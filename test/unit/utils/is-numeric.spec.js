@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 
-import { describe, it } from 'mocha';
-import { expect } from 'chai';
+import {describe, it} from 'mocha';
+import {expect} from 'chai';
 import isNumeric from '../../../src/utils/is-numeric';
 
 describe('is-numeric', () => {

@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import config from '../config';
 import logger from './logger/logger';
 import parseURI from './utils/parse-uri';
-import app, { devMiddleware } from './app';
+import app, {devMiddleware} from './app';
 import infoServerStarted from './info-server-started';
 import normalizeProxy from './utils/normalize-proxy-config';
 
@@ -25,10 +25,10 @@ const pingProxy = (target) => {
   const uri = parseURI(target);
 
   ping(uri.host, uri.port)
-    .then(time => {
+    .then((time) => {
       logger.debug(`Proxy: ${uri.authority}. Response time: ${time}ms`);
     })
-    .catch(error => {
+    .catch((error) => {
       logger.error(`Could not connect to: ${target}. Error: ${error}\n` +
         'Try to restart the proxy server');
       process.exit(1);

@@ -1,5 +1,5 @@
-import { describe, it } from 'mocha';
-import { expect } from 'chai';
+import {describe, it} from 'mocha';
+import {expect} from 'chai';
 import isObject from '../../../src/utils/is-object';
 
 describe('is-object', () => {
@@ -7,7 +7,7 @@ describe('is-object', () => {
   it('should return true if value is an object', () => {
     expect(isObject([])).to.equal(true); // eslint-disable-line no-unused-expressions
     expect(isObject({})).to.equal(true); // eslint-disable-line no-unused-expressions
-    expect(isObject({ a: 1 })).to.equal(true); // eslint-disable-line no-unused-expressions
+    expect(isObject({a: 1})).to.equal(true); // eslint-disable-line no-unused-expressions
 
   });
 

@@ -5,7 +5,7 @@
  * @return true if val is an object, otherwise false
  * @see http://reactivex.io/rxjs/file/es6/util/isNumeric.js.html
  */
-const isNumeric = val =>
+const isNumeric = (val) =>
   // parseFloat NaNs numeric-cast false positives (null|true|false|"")
   // ...but misinterprets leading-number strings, particularly hex literals ("0x...")
   // subtraction forces infinities to NaN

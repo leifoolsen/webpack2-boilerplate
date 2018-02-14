@@ -225,7 +225,7 @@ function storageMock() {
 
 function teardownJsDom() {
   //console.log('Cleaning up jsdom');
-  EXPOSED_PROPERTIES.forEach(key => delete global[key]);
+  EXPOSED_PROPERTIES.forEach((key) => delete global[key]);
 }
 
 function setupJsDom(markup = defaultHtml, options = {}) {
@@ -240,13 +240,13 @@ function setupJsDom(markup = defaultHtml, options = {}) {
   }
 
   //const opts = Object.assign({}, options, {virtualConsole: jsdom.createVirtualConsole().sendTo(console)});
-  const opts = { ...options, ...{ virtualConsole: jsdom.createVirtualConsole().sendTo(console) } };
+  const opts = {...options, ...{virtualConsole: jsdom.createVirtualConsole().sendTo(console)}};
   const doc = jsdom.jsdom(markup, opts);
 
   global.document = doc;
   global.window = doc.defaultView;
 
-  EXPOSED_PROPERTIES.forEach(key => {
+  EXPOSED_PROPERTIES.forEach((key) => {
     global[key] = window[key];
   });
 
@@ -284,4 +284,4 @@ function setupJsDom(markup = defaultHtml, options = {}) {
   return global.document.destroy;
 }
 
-export { setupJsDom, teardownJsDom };
+export {setupJsDom, teardownJsDom};

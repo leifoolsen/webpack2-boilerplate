@@ -1,7 +1,7 @@
 import requireUncached from 'require-uncached';
-import { before, after, describe, it } from 'mocha';
-import { expect } from 'chai';
-import { setupJsDom, teardownJsDom } from '../../jsdom-init';
+import {before, after, describe, it} from 'mocha';
+import {expect} from 'chai';
+import {setupJsDom, teardownJsDom} from '../../jsdom-init';
 
 describe('closest', () => {
 

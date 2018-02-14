@@ -19,7 +19,7 @@ const LOG_COLOR = {
   log:       'blue',
 };
 
-const valueToKey = (obj, value) => Object.keys(obj).find(key => obj[key] === value);
+const valueToKey = (obj, value) => Object.keys(obj).find((key) => obj[key] === value);
 
 class AbstractLogger {
   constructor(level) {
@@ -118,7 +118,7 @@ const remoteLogger = new RemoteLogger(consoleLogger);
 LOG_LEVEL.remoteLogger = remoteLogger;
 
 
-const log = level => {
+const log = (level) => {
   return (...args) => {
     consoleLogger.log(LOG_LEVEL[level], ...args);
     remoteLogger.log(LOG_LEVEL[level], ...args);

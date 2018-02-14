@@ -4,7 +4,7 @@
  * @return {String} the joined URL
  */
 const joinUrl = (...parts) => parts
-  .map(part => part.replace(/\/$/, ''))
+  .map((part) => part.replace(/\/$/, ''))
   .join('/')
   .replace(/\/\//g, '/');
 

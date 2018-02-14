@@ -54,14 +54,14 @@
  * isEmpty(new WeakMap())
  */
 
-const isIterable = val =>
+const isIterable = (val) =>
   Symbol && 'iterator' in Symbol && typeof val[Symbol.iterator] === 'function';
 
-const isWeakMap = val => `${WeakMap}` === `${val.constructor}`;
+const isWeakMap = (val) => `${WeakMap}` === `${val.constructor}`;
 
-const isWeakSet = val => `${WeakSet}` === `${val.constructor}`;
+const isWeakSet = (val) => `${WeakSet}` === `${val.constructor}`;
 
-const isEmpty = val => {
+const isEmpty = (val) => {
 
   if (val == null || typeof val === 'undefined') {
     return true;

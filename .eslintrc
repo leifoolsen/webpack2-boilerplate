@@ -7,7 +7,8 @@
 
 {
   "plugins": [
-    "compat"      // Allow configuration of target browser/s (npm i -D eslint-plugin-compat)
+    "compat",     // Allow configuration of target browser/s (npm i -D eslint-plugin-compat)
+    "import"
     //"react"     // React specific linting rules (npm i -D eslint-plugin-react)
     //"flowtype"  // Will not use flow. See: https://github.com/facebook/flow/issues/869#issuecomment-256643823
   ],
@@ -28,7 +29,9 @@
     "es6": true      // ECMAScript 6
   },
   "extends": [
-    "eslint:recommended"
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings"
     //"plugin:react/recommended"
     //"plugin:flowtype/recommended" // Will not use flow. See: https://github.com/facebook/flow/issues/869#issuecomment-256643823
   ],
@@ -47,7 +50,12 @@
     "browser": true
   },
   "rules": {
+    "arrow-parens": ["error", "always"],
+    "brace-style": 0,
+    "comma-dangle": 0,
     "compat/compat": "error", // required by eslint-plugin-compat
+    "import/no-extraneous-dependencies": 0,
+    "import/prefer-default-export": 0,
     "indent": [
       2, 2, {
         "SwitchCase": 1,
@@ -70,12 +78,17 @@
       }
     ],
     "linebreak-style": 0,
+    //"max-len": ["error", {"code": 120, "ignoreUrls": true, "ignoreComments": true}],
     "max-statements-per-line": [1, {"max": 1}],
     "no-console": 1,
+    "no-multi-spaces": ["error", {"ignoreEOLComments": true}],
     "no-restricted-syntax": 1,
     "no-iterator": 1,
-    "no-unused-vars": [2, { "varsIgnorePattern": "h" }], // hyperapp
+    "no-underscore-dangle": 0,
+    "no-unused-vars": ["error", {"varsIgnorePattern": "h"}],
     "no-var": 1,
+    "object-curly-newline": ["error", {"consistent": true}],
+    "object-curly-spacing": ["error", "never"],
     "prefer-const": 1,
     "prefer-rest-params": 1,
     "prefer-spread": 1,

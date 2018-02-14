@@ -1,5 +1,5 @@
-import { describe, it } from 'mocha';
-import { expect } from 'chai';
+import {describe, it} from 'mocha';
+import {expect} from 'chai';
 import JsXPath from '../../../src/utils/js-xpath';
 
 describe('js-xpath', () => {
@@ -31,7 +31,7 @@ describe('js-xpath', () => {
         '/objectToTransform/b': 'b',
       };
 
-      const result = JsXPath.objectToXPath({ objectToTransform });
+      const result = JsXPath.objectToXPath({objectToTransform});
       expect(result).to.have.all.keys(Object.keys(expectedXPaths));
       expect(result).to.deep.equal(expectedXPaths);
     });
@@ -79,7 +79,7 @@ describe('js-xpath', () => {
         }
       ];
 
-      const result = JsXPath.objectToXPath({ foo }, { bar });
+      const result = JsXPath.objectToXPath({foo}, {bar});
       expect(result).to.have.all.keys(Object.keys(expectedXPaths));
       expect(result).to.deep.equal(expectedXPaths);
     });
@@ -100,7 +100,7 @@ describe('js-xpath', () => {
         '/z': 'z'
       };
 
-      const result = JsXPath.objectToXPath({ ...foo, ...bar });
+      const result = JsXPath.objectToXPath({...foo, ...bar});
       expect(result).to.have.all.keys(Object.keys(expectedXPaths));
       expect(result).to.deep.equal(expectedXPaths);
     });
@@ -121,7 +121,7 @@ describe('js-xpath', () => {
         '/bar/z': 'z'
       };
 
-      const result = JsXPath.objectToXPath({ foo, bar });
+      const result = JsXPath.objectToXPath({foo, bar});
       expect(result).to.have.all.keys(Object.keys(expectedXPaths));
       expect(result).to.deep.equal(expectedXPaths);
     });
@@ -249,7 +249,7 @@ describe('js-xpath', () => {
         '/buz/y': 25,
         '/buz/z': 'z'
       };
-      Object.keys(xPaths).forEach(key => {
+      Object.keys(xPaths).forEach((key) => {
         expect(JsXPath.getValue(obj, key)).to.deep.equal(xPaths[key]);
       });
     });

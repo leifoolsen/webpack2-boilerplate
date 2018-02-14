@@ -1,5 +1,5 @@
-import { describe, it } from 'mocha';
-import { assert } from 'chai';
+import {describe, it} from 'mocha';
+import {assert} from 'chai';
 import joinUrl from '../../../src/utils/join-url';
 
 describe('join-url', () => {

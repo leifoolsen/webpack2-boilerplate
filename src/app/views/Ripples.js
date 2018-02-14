@@ -3,7 +3,7 @@ import button from '../../app/components/button.css';
 import app from '../styles/app/app.css';
 
 /** @jsx h */
-import { h } from 'hyperapp';
+import {h} from 'hyperapp';
 import Button from '../components/Button'; // eslint-disable-line no-unused-vars
 import IconButton from '../components/IconButton'; // eslint-disable-line no-unused-vars
 import Ripple from '../components/Ripple'; // eslint-disable-line no-unused-vars
@@ -57,7 +57,7 @@ export const Ripples = () =>
     <div class={app.democontainer} style={{marginBottom: '2px'}}>
       <div class={app.rippledemo}>
         <h5>&lt;button&gt; element with ripple</h5>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <div style={{display: 'flex', flexWrap: 'wrap'}}>
           <button class={button['Button-primary']} type="button">
             Primary
             <Ripple/>
@@ -80,7 +80,7 @@ export const Ripples = () =>
 
       <div class={app.rippledemo}>
         <h5>&lt;Button&gt; component with ripple</h5>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <div style={{display: 'flex', flexWrap: 'wrap'}}>
           <Button className={button['Button-secondary']} ripple>
             Secondary
           </Button>

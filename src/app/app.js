@@ -1,11 +1,11 @@
 import './styles/base/helpers.css';
 import './styles/base/color.css';
 import './styles/base/typography.css';
-import { app } from 'hyperapp';
-import { location } from '@hyperapp/router';
-import { state } from './state';
-import { actions } from './actions';
-import { view } from './views';
+import {app} from 'hyperapp';
+import {location} from '@hyperapp/router';
+import {state} from './state';
+import {actions} from './actions';
+import {view} from './views';
 import config from '../config/config';
 import logger from '../logger/logger';
 

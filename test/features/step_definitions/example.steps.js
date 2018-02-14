@@ -1,10 +1,10 @@
 /*eslint no-undef: "error"*/
 /*eslint-env browser*/
 
-import { defineSupportCode } from 'cucumber';
-import { expect } from 'chai';
+import {defineSupportCode} from 'cucumber';
+import {expect} from 'chai';
 
-defineSupportCode(function({ Given, Then, When }) {
+defineSupportCode(function({Given, Then, When}) {
   Given(/^I open the url "([^"]*)"$/, (url) => {
     browser.url(url); // eslint-disable-line no-undef
   });

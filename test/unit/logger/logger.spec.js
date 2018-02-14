@@ -1,15 +1,15 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable consistent-return */
 
-import { Response } from 'whatwg-fetch';
+import {Response} from 'whatwg-fetch';
 import sinon from 'sinon';
-import { before, after, beforeEach, afterEach, describe, it } from 'mocha';
-import { expect } from 'chai';
-import { setupJsDom, teardownJsDom } from '../../jsdom-init';
+import {before, after, beforeEach, afterEach, describe, it} from 'mocha';
+import {expect} from 'chai';
+import {setupJsDom, teardownJsDom} from '../../jsdom-init';
 import logger from '../../../src/logger/logger';
 import LOG_LEVEL from '../../../src/logger/log-level';
 
-const jsonOk = body => {
+const jsonOk = (body) => {
   const mockResponse = new Response(JSON.stringify(body), {
     status: 200,
     headers: {

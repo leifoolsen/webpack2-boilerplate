@@ -1,14 +1,14 @@
 import button from './button.css';
 
 /** @jsx h */
-import { h } from 'hyperapp';
+import {h} from 'hyperapp';
 import Ripple from './Ripple'; // eslint-disable-line no-unused-vars
 import classnames from '../../utils/classnames';
 
-const IconButton = ({ className, filled, stroked, raised, size, label, ripple, ...otherProps }, children) => {
+const IconButton = ({className, filled, stroked, raised, size, label, ripple, ...otherProps}, children) => {
   const sz = size ? `-${size}` : '';
   const iconButtonClass = `Button--icon${sz}`;
-  const { type='button', ...rest } = otherProps;
+  const {type='button', ...rest} = otherProps;
 
   return (
     <button

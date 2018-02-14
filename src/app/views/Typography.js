@@ -295,7 +295,7 @@ const formElements = () =>
     <br/>
     <fieldset>
       <legend>Buttons</legend>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      <div style={{display: 'flex', flexWrap: 'wrap'}}>
         <input type="submit" value="Input Submit"/>
         <button type="submit">Button Submit</button>
         <button type="button">Button</button>

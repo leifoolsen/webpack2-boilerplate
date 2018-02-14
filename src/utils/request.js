@@ -12,7 +12,7 @@
  * @param response
  * @return {Error}
  */
-const apiError = response => {
+const apiError = (response) => {
   const error = new Error(response.statusText);
   error.response = response;
   return error;
@@ -29,7 +29,7 @@ const apiError = response => {
  *
  * @see https://github.com/github/fetch/issues/257
  */
-const handleResponseError = err => {
+const handleResponseError = (err) => {
   // Re-throw with response status
   let response;
   if(err.response) {
@@ -58,7 +58,7 @@ const handleResponseError = err => {
  *
  * @return {object|undefined} Returns either the response, or throws an error
  */
-const checkResponse = response => {
+const checkResponse = (response) => {
   if (!response.ok) {
     throw apiError(response);
   }
@@ -72,7 +72,7 @@ const checkResponse = response => {
  *
  * @return {object} The parsed body from the request
  */
-const toContentType = response => {
+const toContentType = (response) => {
   if (response.headers.get('Content-Type').indexOf('application/json') > -1) {
     return response.json();
   }

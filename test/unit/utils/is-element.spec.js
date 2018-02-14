@@ -1,6 +1,6 @@
-import { describe, it } from 'mocha';
-import { expect } from 'chai';
-import { setupJsDom, teardownJsDom } from '../../jsdom-init';
+import {describe, it} from 'mocha';
+import {expect} from 'chai';
+import {setupJsDom, teardownJsDom} from '../../jsdom-init';
 import isElement from '../../../src/utils/is-element';
 
 describe('is-element', () => {

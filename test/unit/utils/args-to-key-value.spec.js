@@ -1,5 +1,5 @@
-import { describe, it } from 'mocha';
-import { expect } from 'chai';
+import {describe, it} from 'mocha';
+import {expect} from 'chai';
 import argsToKeyValue from '../../../src/utils/args-to-key-value';
 
 describe('args-to-key-value', () => {

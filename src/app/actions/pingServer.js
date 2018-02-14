@@ -7,13 +7,13 @@ async function determineTime() {
 
 const pingServer = (url) => {
   return request(url)
-    .then(response => {
+    .then((response) => {
       return determineTime()
-        .then(time => {
+        .then((time) => {
           return `${time}: ${JSON.stringify(response)}`;
         });
     })
-    .catch(err => err);
+    .catch((err) => err);
 };
 
 export default pingServer;

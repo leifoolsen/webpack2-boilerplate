@@ -10,13 +10,13 @@ describe('stringlist', () => {
     expect(stringlist('foo', 'bar')).to.include.members(['foo', 'bar']);
   });
   it('joins strings and objects', () => {
-    expect(stringlist('foo', { bar: true, duck: false }, 'baz', { quux: true })).to.include.members(['foo', 'bar', 'baz', 'quux']);
+    expect(stringlist('foo', {bar: true, duck: false}, 'baz', {quux: true})).to.include.members(['foo', 'bar', 'baz', 'quux']);
   });
   it('does not join falsy arguments', () => {
     expect(stringlist('foo', undefined, null, {})).to.include.members(['foo']);
   });
   it('returns an empty array if all arguments are falsy', () => {
-    assert.isEmpty(stringlist('', undefined, null, {}, { bar: false, duck: false }));
+    assert.isEmpty(stringlist('', undefined, null, {}, {bar: false, duck: false}));
     assert.isEmpty(stringlist(''));
     assert.isEmpty(stringlist(null));
     assert.isEmpty(stringlist(undefined));

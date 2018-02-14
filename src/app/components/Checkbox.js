@@ -2,7 +2,7 @@ import checkbox from './checkbox.css';
 import randomString from '../../utils/random-string';
 
 /** @jsx h */
-import { h } from 'hyperapp';
+import {h} from 'hyperapp';
 
 /**
  * Checkboxes allow the user to select multiple options from a set
@@ -36,7 +36,7 @@ const Checkbox = ({className, value, label, checked, disabled, ...otherProps}) =
     <div
       key={key}
       class={checkbox.CheckboxField}
-      oncreate={element => create(element, id)}
+      oncreate={(element) => create(element, id)}
     >
       <div class={className || checkbox.Checkbox}>
         <input

@@ -1,5 +1,5 @@
-import { describe, it } from 'mocha';
-import { expect, should } from 'chai';
+import {describe, it} from 'mocha';
+import {expect, should} from 'chai';
 should();
 
 describe('Async', () => {
@@ -30,12 +30,12 @@ describe('Async', () => {
     process.on('rejectionHandled', () => {});
 
     it('promise resolves', async() => {
-      const result = await resolvingPromise.catch( err => err.message );
+      const result = await resolvingPromise.catch( (err) => err.message );
       expect(result).to.equal('promise resolved');
     });
 
     it('promise rejects', async() => {
-      const result = await rejectingPromise.catch( err => err.message );
+      const result = await rejectingPromise.catch( (err) => err.message );
       expect(result).to.equal('promise rejected');
     });
 

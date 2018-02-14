@@ -1,5 +1,5 @@
-import { describe, it } from 'mocha';
-import { expect } from 'chai';
+import {describe, it} from 'mocha';
+import {expect} from 'chai';
 import parseURI from '../../../src/utils/parse-uri';
 
 describe('parse-uri', () => {

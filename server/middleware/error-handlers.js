@@ -2,7 +2,7 @@
 // http://expressjs.com/en/guide/error-handling.html
 
 import logger from '../logger/logger';
-import { NotFoundException } from './exceptions';
+import {NotFoundException} from './exceptions';
 
 //  Catch 404 and forward to error handler
 const notFound = (req, res, next) => {

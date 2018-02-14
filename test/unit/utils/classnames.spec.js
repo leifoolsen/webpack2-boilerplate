@@ -9,13 +9,13 @@ describe('classnames', () => {
     expect(classnames('foo', 'bar')).to.be.equal('foo bar');
   });
   it('joins strings and objects', () => {
-    expect(classnames('foo', { 'bar': true, duck: false }, 'baz', { quux: true })).to.be.equal('foo bar baz quux');
+    expect(classnames('foo', {'bar': true, duck: false}, 'baz', {quux: true})).to.be.equal('foo bar baz quux');
   });
   it('does not join falsy arguments', () => {
     expect(classnames('foo', undefined, null, {})).to.be.equal('foo');
   });
   it('returns an empty string if all arguments are falsy', () => {
-    expect(classnames('', undefined, null, {}, { bar: false, duck: false })).to.be.equal('');
+    expect(classnames('', undefined, null, {}, {bar: false, duck: false})).to.be.equal('');
   });
   it('should be eqal: [string, string] === [string, object]', () => {
     expect(classnames('foo-1', 'bar-2')).to.be.equal(classnames('foo-1', {'bar-2': true}));

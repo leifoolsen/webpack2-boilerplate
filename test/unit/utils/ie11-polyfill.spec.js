@@ -1,8 +1,8 @@
 import requireUncached from 'require-uncached';
-import { before, after, describe, it } from 'mocha';
-import { assert } from 'chai';
+import {before, after, describe, it} from 'mocha';
+import {assert} from 'chai';
 import sinon from 'sinon';
-import { setupJsDom, teardownJsDom } from '../../jsdom-init';
+import {setupJsDom, teardownJsDom} from '../../jsdom-init';
 
 describe('IE11 polyfill', () => {
   let sandbox;
@@ -36,7 +36,7 @@ describe('IE11 polyfill', () => {
 
     it('should create an event', () => {
       assert.doesNotThrow(() => {
-        let e = new window.Event('foo', { bubbles: true, cancelable: true });
+        let e = new window.Event('foo', {bubbles: true, cancelable: true});
         assert(e);
         assert.equal(e.type, 'foo');
         assert.isTrue(e.bubbles);
@@ -68,7 +68,7 @@ describe('IE11 polyfill', () => {
   describe('Event defaultPrevented', () => {
 
     it('should prevent default', () => {
-      const e = new window.Event('foo', { cancelable: true });
+      const e = new window.Event('foo', {cancelable: true});
       e.preventDefault();
       assert.isTrue(e.defaultPrevented);
     });
@@ -89,7 +89,7 @@ describe('IE11 polyfill', () => {
 
     it('should create a customevent', () => {
       assert.doesNotThrow(() => {
-        const e = new window.CustomEvent('cat', { bubbles: true, cancelable: true, detail: {} });
+        const e = new window.CustomEvent('cat', {bubbles: true, cancelable: true, detail: {}});
         assert.isNotNull(e);
       }, Error);
     });
@@ -103,7 +103,7 @@ describe('IE11 polyfill', () => {
     });
 
     it('should create a CustomEvent with bubbles:true', () => {
-      const ce = new window.CustomEvent('cat', { bubbles: true });
+      const ce = new window.CustomEvent('cat', {bubbles: true});
       assert.equal(ce.type, 'cat');
       assert.equal(ce.bubbles, true);
       assert.equal(ce.cancelable, false);
@@ -111,7 +111,7 @@ describe('IE11 polyfill', () => {
     });
 
     it('should create a CustomEvent instance with a detail object', () => {
-      const ce = new window.CustomEvent('cat', { detail: { sound: 'meow' } });
+      const ce = new window.CustomEvent('cat', {detail: {sound: 'meow'}});
       assert.equal(ce.type, 'cat');
       assert.equal(ce.bubbles, false);
       assert.equal(ce.cancelable, false);
@@ -119,7 +119,7 @@ describe('IE11 polyfill', () => {
     });
 
     it('should work', () => {
-      const ce = new window.CustomEvent('sound', { bubbles: false, detail: { species: 'bird', sound: 'tweet' } });
+      const ce = new window.CustomEvent('sound', {bubbles: false, detail: {species: 'bird', sound: 'tweet'}});
       const spy = sinon.spy();
       document.body.addEventListener('sound', spy);
       document.body.dispatchEvent(ce);
@@ -127,7 +127,7 @@ describe('IE11 polyfill', () => {
     });
 
     it('should prevent default', () => {
-      const ce = new window.CustomEvent('music', { cancelable: true });
+      const ce = new window.CustomEvent('music', {cancelable: true});
       assert.isDefined(ce.preventDefault);
       ce.preventDefault();
       assert.isTrue(ce.defaultPrevented);

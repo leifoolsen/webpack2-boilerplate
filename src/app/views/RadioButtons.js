@@ -1,7 +1,7 @@
 import radio from '../../app/components/radio.css';
 
 /** @jsx h */
-import { h } from 'hyperapp';
+import {h} from 'hyperapp';
 import Radio from '../../app/components/Radio'; // eslint-disable-line no-unused-vars
 import RadioSet from '../../app/components/RadioSet'; // eslint-disable-line no-unused-vars
 import classnames from '../../utils/classnames';

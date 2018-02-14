@@ -26,7 +26,7 @@ const codeSample = `.Large-buttons {
 const textButtons = () =>
   <section>
     <h3>Text Buttons</h3>
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div style={{display: 'flex', flexWrap: 'wrap'}}>
       <button class={button['Button-default']} type="button">Button</button>
       <button class={classnames(button['Button-default'], button['Button--compact'])} type="button">Compact</button>
       <button class={classnames(button['Button-default'], button['Button--dense'])} type="button">
@@ -41,7 +41,7 @@ const textButtons = () =>
       <button class={button['Button-default']} type="button" disabled>Disabled</button>
     </div>
 
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div style={{display: 'flex', flexWrap: 'wrap'}}>
       <button class={button['Button-info']} type="button">Info</button>
       <button class={button['Button-success']} type="button">
         <span>Success</span>
@@ -55,7 +55,7 @@ const textButtons = () =>
 const strokedButtons = () =>
   <section>
     <h3>Stroked Buttons</h3>
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div style={{display: 'flex', flexWrap: 'wrap'}}>
       <button class={classnames(button['Button-default'], button['Button--stroked'])} type="button">Button</button>
       <button class={classnames(button['Button-primary'], button['Button--compact'], button['Button--stroked'])} type="button">Compact</button>
       <button class={classnames(button['Button-secondary'], button['Button--stroked'], button['Button--dense'])} type="button">Dense</button>
@@ -64,7 +64,7 @@ const strokedButtons = () =>
       <button class={classnames(button['Button-default'], button['Button--stroked'])} type="button" disabled>Disabled</button>
     </div>
 
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div style={{display: 'flex', flexWrap: 'wrap'}}>
       <button class={classnames(button['Button-info'], button['Button--stroked'])} type="button">Info</button>
       <button class={classnames(button['Button-success'], button['Button--stroked'])} type="button">Success</button>
       <button class={classnames(button['Button-warning'], button['Button--stroked'])} type="button">
@@ -78,7 +78,7 @@ const strokedButtons = () =>
 const filledButtons = () =>
   <section>
     <h3>Filled Buttons</h3>
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div style={{display: 'flex', flexWrap: 'wrap'}}>
       <button class={classnames(button['Button-default'], button['Button--filled'])} type="button">Button</button>
       <button class={classnames(button['Button-default'], button['Button--filled'], button['Button--compact'])} type="button">Compact</button>
       <button class={classnames(button['Button-primary'], button['Button--filled'], button['Button--dense'])} type="button">Dense</button>
@@ -87,7 +87,7 @@ const filledButtons = () =>
       <button class={classnames(button['Button-default'], button['Button--filled'])} type="button" disabled>Disabled</button>
     </div>
 
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div style={{display: 'flex', flexWrap: 'wrap'}}>
       <button class={classnames(button['Button-info'], button['Button--filled'])} type="button">
         <span>Info</span><i aria-hidden="true" class={classnames('material-icons', color.infoDark2)}>info_outline</i>
       </button>
@@ -107,7 +107,7 @@ const filledButtons = () =>
 const raisedButtons = () =>
   <section>
     <h3>Raised Buttons</h3>
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div style={{display: 'flex', flexWrap: 'wrap'}}>
       <button class={classnames(button['Button-default'], button['Button--raised'])} type="button">Button</button>
       <button class={classnames(button['Button-default'], button['Button--raised'], button['Button--compact'])} type="button">Compact</button>
       <button class={classnames(button['Button-default'], button['Button--raised'], button['Button--dense'])} type="button">Dense</button>
@@ -116,7 +116,7 @@ const raisedButtons = () =>
       <button class={classnames(button['Button-default'], button['Button--raised'])} type="button" disabled>Disabled</button>
     </div>
 
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div style={{display: 'flex', flexWrap: 'wrap'}}>
       <button class={classnames(button['Button-default'], button['Button--stroked'], button['Button--raised'])} type="button">Button</button>
       <button class={classnames(button['Button-primary'], button['Button--compact'], button['Button--stroked'], button['Button--raised'])} type="button">Compact</button>
       <button class={classnames(button['Button-secondary'], button['Button--stroked'], button['Button--raised'], button['Button--dense'])} type="button">Dense</button>
@@ -125,7 +125,7 @@ const raisedButtons = () =>
       <button class={classnames(button['Button-default'], button['Button--stroked'], button['Button--raised'])} type="button" disabled>Disabled</button>
     </div>
 
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div style={{display: 'flex', flexWrap: 'wrap'}}>
       <button class={classnames(button['Button-default'], button['Button--filled'], button['Button--raised'])} type="button">Button</button>
       <button class={classnames(button['Button-default'], button['Button--filled'], button['Button--raised'], button['Button--compact'])} type="button">Compact</button>
       <button class={classnames(button['Button-primary'], button['Button--filled'], button['Button--raised'], button['Button--dense'])} type="button">Dense</button>
@@ -134,7 +134,7 @@ const raisedButtons = () =>
       <button class={classnames(button['Button-default'], button['Button--filled'], button['Button--raised'])} type="button" disabled>Disabled</button>
     </div>
 
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div style={{display: 'flex', flexWrap: 'wrap'}}>
       <button class={classnames(button['Button-info'], button['Button--filled'], button['Button--raised'])} type="button">
         <i aria-hidden="true" class={classnames('material-icons', color.infoDark2)}>info_outline</i><span>Info</span>
       </button>
@@ -182,7 +182,7 @@ const iconButtons = () =>
   <section>
     <h3>Icon Buttons / FAB Buttons</h3>
     <p>Small buttons</p>
-    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline' }}>
+    <div style={{display: 'flex', flexWrap: 'wrap', alignItems: 'baseline'}}>
       <button
         class={classnames(button['Button-secondary'], button['Button--stroked'], button['Button--icon-s'])}
         type="button"
@@ -234,7 +234,7 @@ const iconButtons = () =>
 
     <p>Medium buttons</p>
 
-    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline' }}>
+    <div style={{display: 'flex', flexWrap: 'wrap', alignItems: 'baseline'}}>
       <button
         class={classnames(button['Button-info'], button['Button--filled'], button['Button--raised'], button['Button--icon'])}
         type="button"
@@ -298,7 +298,7 @@ const iconButtons = () =>
     <br/>
     <p>Large buttons</p>
 
-    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline' }}>
+    <div style={{display: 'flex', flexWrap: 'wrap', alignItems: 'baseline'}}>
       <button
         class={classnames(button['Button-primary'], button['Button--raised'], button['Button--filled'], button['Button--icon-l'])}
         type="button"
@@ -327,7 +327,7 @@ const iconButtons = () =>
     <br/>
     <p>Extra large buttons</p>
 
-    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline' }}>
+    <div style={{display: 'flex', flexWrap: 'wrap', alignItems: 'baseline'}}>
       <button
         class={classnames(button['Button-secondary'], button['Button--raised'], button['Button--filled'], button['Button--icon-xl'])}
         type="button"

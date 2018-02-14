@@ -48,7 +48,7 @@ exports.config = {
     // grid with only 5 firefox instances available you can make sure that not more than
     // 5 instances get started at a time.
     maxInstances: 5,
-    loggingPrefs: { browser: 'ALL', driver: 'ALL' },
+    loggingPrefs: {browser: 'ALL', driver: 'ALL'},
     //
     // browserName: 'firefox'
     // browserName: 'phantomjs', // Do not use PhantomJS v2.1, it's BUGGY. Hopefully next version will work?

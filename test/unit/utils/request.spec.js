@@ -1,11 +1,11 @@
-import { Response } from 'whatwg-fetch';
+import {Response} from 'whatwg-fetch';
 import sinon from 'sinon';
-import { before, after, beforeEach, afterEach, describe, it } from 'mocha';
-import { expect } from 'chai';
-import { setupJsDom, teardownJsDom } from '../../jsdom-init';
+import {before, after, beforeEach, afterEach, describe, it} from 'mocha';
+import {expect} from 'chai';
+import {setupJsDom, teardownJsDom} from '../../jsdom-init';
 import request from '../../../src/utils/request';
 
-const jsonOk = body => {
+const jsonOk = (body) => {
   const mockResponse = new Response(JSON.stringify(body), {
     status: 200,
     headers: {
@@ -15,7 +15,7 @@ const jsonOk = body => {
   return Promise.resolve(mockResponse);
 };
 
-const textOk = body => {
+const textOk = (body) => {
   const mockResponse = new Response(body, {
     status: 200,
     headers: {

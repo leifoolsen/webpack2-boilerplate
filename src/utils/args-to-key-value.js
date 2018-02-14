@@ -6,11 +6,11 @@
  * // Returns { 'env.dev': true, port: '8084', 'content-base': 'src' }
  * @author Leif Olsen
  */
-const argsToKeyValue = array => {
+const argsToKeyValue = (array) => {
 
   //const isString = s => typeof s === 'string';
 
-  const argToKey = arg => String(arg).trim().startsWith('-') ? arg.trim().replace(/^[-]+/, '') : false;
+  const argToKey = (arg) => String(arg).trim().startsWith('-') ? arg.trim().replace(/^[-]+/, '') : false;
 
   return array.reduce( (prev, current, index, arr) => {
 

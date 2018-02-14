@@ -1,7 +1,7 @@
 import switchcss from '../../app/components/switch.css';
 
 /** @jsx h */
-import { h } from 'hyperapp';
+import {h} from 'hyperapp';
 import Switch from '../../app/components/Switch'; // eslint-disable-line no-unused-vars
 
 export const Switches = () =>

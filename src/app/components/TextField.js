@@ -1,7 +1,7 @@
 import textfield from './textfield.css';
 
 /** @jsx h */
-import { h } from 'hyperapp';
+import {h} from 'hyperapp';
 import Ripple from './Ripple'; // eslint-disable-line no-unused-vars
 import randomString from '../../utils/random-string';
 import classnames from '../../utils/classnames';
@@ -27,8 +27,7 @@ import classnames from '../../utils/classnames';
  * @return {*}
  * @constructor
  */
-const TextField = ({
-  id,
+const TextField = ({id,
   key,
   value,
   type = 'text',
@@ -43,9 +42,9 @@ const TextField = ({
   ripple,
   raised,
   style,
-  ...otherProps }) => {
+  ...otherProps}) => {
 
-  const create = element => {
+  const create = (element) => {
     const input = element.querySelector('input');
     const label = element.querySelector('label');
 
@@ -95,7 +94,7 @@ const TextField = ({
       key={key}
       class={textfield.TextField}
       style={style}
-      oncreate={element => create(element)}
+      oncreate={(element) => create(element)}
     >
       <input
         class={classnames(
