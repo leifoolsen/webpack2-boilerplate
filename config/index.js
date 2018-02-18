@@ -37,8 +37,8 @@ const nconf = require('nconf');
 nconf
   .argv()
   .env()
-  .file( nodeEnv, { file: path.resolve(process.cwd(), 'config', `config.${nodeEnv}.json`) })
-  .file( 'default', { file: path.resolve(process.cwd(), 'config', 'config.default.json') })
+  .file(nodeEnv, {file: path.resolve(process.cwd(), 'config', `config.${nodeEnv}.json`)})
+  .file('default', {file: path.resolve(process.cwd(), 'config', 'config.default.json')})
   .load();
 
 // isDev and isProd should not be true at the same time

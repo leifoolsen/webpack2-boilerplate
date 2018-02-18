@@ -20,7 +20,13 @@ export const TextFields = () =>
 
     <br/>
     <div class={textfield.TextField}>
-      <input class={textfield.TextField__input} id="input_text_required" type="text" placeholder="Required input" required/>
+      <input
+        class={textfield.TextField__input}
+        id="input_text_required"
+        type="text"
+        placeholder="Required input"
+        required
+      />
       <label class={textfield.TextField__label} for="input_text_required">Required Input</label>
       <div class={textfield['TextField__bottom-line']} />
     </div>

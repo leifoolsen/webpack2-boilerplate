@@ -70,7 +70,10 @@ export const Ripples = () =>
             Primary
             <Ripple/>
           </button>
-          <button class={classnames(button['Button-primary'], button['Button--filled'], button['Button--raised'])} type="button">
+          <button
+            class={classnames(button['Button-primary'], button['Button--filled'], button['Button--raised'])}
+            type="button"
+          >
             Primary
             <Ripple/>
           </button>

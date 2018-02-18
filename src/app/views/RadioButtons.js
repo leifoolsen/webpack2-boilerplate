@@ -49,7 +49,15 @@ export const RadioButtons = () =>
 
       <div class={radio.RadioField}>
         <div class={radio.Radio}>
-          <input class={radio.Radio__native} id="radiod4" name="radio__d" type="radio" value="Radio 4" checked disabled/>
+          <input
+            class={radio.Radio__native}
+            id="radiod4"
+            name="radio__d"
+            type="radio"
+            value="Radio 4"
+            checked
+            disabled
+          />
           <div class={radio.Radio__background}>
             <div class={radio.Radio__outerCircle} />
             <div class={radio.Radio__innerCircle} />
@@ -97,7 +105,15 @@ export const RadioButtons = () =>
 
       <div class={radio.RadioField}>
         <div class={radio.RadioPrimary}>
-          <input class={radio.Radio__native} id="radiop4" name="radio__p" type="radio" value="Radio 4" checked disabled/>
+          <input
+            class={radio.Radio__native}
+            id="radiop4"
+            name="radio__p"
+            type="radio"
+            value="Radio 4"
+            checked
+            disabled
+          />
           <div class={radio.Radio__background}>
             <div class={radio.Radio__outerCircle} />
             <div class={radio.Radio__innerCircle} />

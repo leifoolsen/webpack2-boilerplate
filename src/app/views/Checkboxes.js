@@ -49,7 +49,15 @@ export const Checkboxes = () =>
 
       <div class={checkbox.CheckboxField}>
         <div class={checkbox.Checkbox}>
-          <input class={checkbox.Checkbox__native} id="cd-d4" name="cb-d" type="checkbox" value="cb-4" checked disabled/>
+          <input
+            class={checkbox.Checkbox__native}
+            id="cd-d4"
+            name="cb-d"
+            type="checkbox"
+            value="cb-4"
+            checked
+            disabled
+          />
           <div class={checkbox.Checkbox__background}>
             <div class={checkbox.Checkbox__box} />
             <div class={checkbox.Checkbox__checkmark} />
@@ -97,7 +105,15 @@ export const Checkboxes = () =>
 
       <div class={checkbox.CheckboxField}>
         <div class={checkbox.CheckboxPrimary}>
-          <input class={checkbox.Checkbox__native} id="cd-p4" name="cb-p" type="checkbox" value="cb-4" checked disabled/>
+          <input
+            class={checkbox.Checkbox__native}
+            id="cd-p4"
+            name="cb-p"
+            type="checkbox"
+            value="cb-4"
+            checked
+            disabled
+          />
           <div class={checkbox.Checkbox__background}>
             <div class={checkbox.Checkbox__box} />
             <div class={checkbox.Checkbox__checkmark} />
@@ -193,7 +209,15 @@ export const Checkboxes = () =>
 
       <div class={checkbox.CheckboxField}>
         <div class={checkbox.CheckboxSecondary}>
-          <input class={checkbox.Checkbox__native} id="cd-v4" name="cb-v" type="checkbox" value="cb-4" checked disabled/>
+          <input
+            class={checkbox.Checkbox__native}
+            id="cd-v4"
+            name="cb-v"
+            type="checkbox"
+            value="cb-4"
+            checked
+            disabled
+          />
           <div class={checkbox.Checkbox__background}>
             <div class={checkbox.Checkbox__box} />
             <div class={checkbox.Checkbox__checkmark} />

@@ -17,7 +17,14 @@ export const Switches = () =>
     <br/>
     <div class={switchcss.SwitchField}>
       <div class={switchcss.Switch}>
-        <input class={switchcss.Switch__native} id="switch-default-on" name="switch" type="checkbox" value="default-on" checked />
+        <input
+          class={switchcss.Switch__native}
+          id="switch-default-on"
+          name="switch"
+          type="checkbox"
+          value="default-on"
+          checked
+        />
         <div class={switchcss.Switch__background}>
           <div class={switchcss.Switch__knob} />
         </div>
@@ -38,7 +45,14 @@ export const Switches = () =>
 
     <div class={switchcss.SwitchField}>
       <div class={switchcss.SwitchPrimary}>
-        <input class={switchcss.Switch__native} id="switch-primary-on" name="switch" type="checkbox" value="primary-on" checked />
+        <input
+          class={switchcss.Switch__native}
+          id="switch-primary-on"
+          name="switch"
+          type="checkbox"
+          value="primary-on"
+          checked
+        />
         <div class={switchcss.Switch__background}>
           <div class={switchcss.Switch__knob} />
         </div>
@@ -59,7 +73,14 @@ export const Switches = () =>
 
     <div class={switchcss.SwitchField}>
       <div class={switchcss.SwitchSecondary}>
-        <input class={switchcss.Switch__native} id="switch-secondary-on" name="switch" type="checkbox" value="secondary-on" checked />
+        <input
+          class={switchcss.Switch__native}
+          id="switch-secondary-on"
+          name="switch"
+          type="checkbox"
+          value="secondary-on"
+          checked
+        />
         <div class={switchcss.Switch__background}>
           <div class={switchcss.Switch__knob} />
         </div>
@@ -69,7 +90,13 @@ export const Switches = () =>
     <br/>
     <div class={switchcss.SwitchField}>
       <div class={switchcss.SwitchSecondary}>
-        <input class={switchcss.Switch__native} id="switch-secondary" name="switch" type="checkbox" value="secondary" />
+        <input
+          class={switchcss.Switch__native}
+          id="switch-secondary"
+          name="switch"
+          type="checkbox"
+          value="secondary"
+        />
         <div class={switchcss.Switch__background}>
           <div class={switchcss.Switch__knob} />
         </div>
@@ -80,7 +107,15 @@ export const Switches = () =>
 
     <div class={switchcss.SwitchField}>
       <div class={switchcss.Switch}>
-        <input class={switchcss.Switch__native} id="switch-disabled-on" name="switch" type="checkbox" value="disabled-on" checked disabled />
+        <input
+          class={switchcss.Switch__native}
+          id="switch-disabled-on"
+          name="switch"
+          type="checkbox"
+          value="disabled-on"
+          checked
+          disabled
+        />
         <div class={switchcss.Switch__background}>
           <div class={switchcss.Switch__knob} />
         </div>
@@ -90,7 +125,14 @@ export const Switches = () =>
     <br/>
     <div class={switchcss.SwitchField}>
       <div class={switchcss.Switch}>
-        <input class={switchcss.Switch__native} id="switch-disabled-off" name="switch" type="checkbox" value="disabled-off" disabled />
+        <input
+          class={switchcss.Switch__native}
+          id="switch-disabled-off"
+          name="switch"
+          type="checkbox"
+          value="disabled-off"
+          disabled
+        />
         <div class={switchcss.Switch__background}>
           <div class={switchcss.Switch__knob} />
         </div>

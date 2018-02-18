@@ -14,6 +14,9 @@ logger.transports.console.level = config.logger.console.level;
 
 const app = express();
 
+app.set('env', process.env.NODE_ENV);
+logger.info(`Application env: ${process.env.NODE_ENV}`);
+
 // app.use(function (req, res, next) {
 //   logger.debug(`Incoming request for ${req.url}`);
 //   next();

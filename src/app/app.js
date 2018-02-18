@@ -31,7 +31,9 @@ const run = () => {
     unsubscribe();
   });
 
-  logger.info(`Application started, env: ${config.env}, public path: ${config.publicPath}, API path: ${config.apiPath}`);
+  logger.info(
+    `Application started, env: ${config.env}, public path: ${config.publicPath}, API path: ${config.apiPath}`
+  );
 };
 
 export default run;

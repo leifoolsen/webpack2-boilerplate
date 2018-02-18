@@ -357,9 +357,12 @@ describe('js-xpath', () => {
       JsXPath.setValue(obj, '/b', 'bbbb');
       expect(JsXPath.getValue(obj, '/b')).to.equal('bbbb', 'Expected "/a" value to be "10" after changing it');
 
-      expect(JsXPath.getValue(obj, '/bars[1]/bar/c')).to.equal(3, 'Expected "bars[1]/bar/c" value to be "3" before changing it');
+      expect(JsXPath.getValue(obj, '/bars[1]/bar/c'))
+        .to.equal(3, 'Expected "bars[1]/bar/c" value to be "3" before changing it');
+
       JsXPath.setValue(obj, '/bars[1]/bar/c', 10);
-      expect(JsXPath.getValue(obj, '/bars[1]/bar/c')).to.equal(10, 'Expected "bars[1]/bar/c" value to be "10" after changing it');
+      expect(JsXPath.getValue(obj, '/bars[1]/bar/c'))
+        .to.equal(10, 'Expected "bars[1]/bar/c" value to be "10" after changing it');
     });
 
     it('should throw TypeError if path is not valid', () => {
