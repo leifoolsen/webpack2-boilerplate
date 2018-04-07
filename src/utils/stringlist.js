@@ -9,6 +9,7 @@
  * // Returns ['foo', 'bar', 'baz', 'quux']
  * stringList(', ', 'foo', { bar: true, duck: false }, 'baz', { quux: true });
  * @example see the tests for more examples
+ * @author Leif Olsen
  */
 const stringlist = (...args) => {
 

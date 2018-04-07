@@ -10,6 +10,7 @@ import stringlist from './stringlist';
  * // Returns 'foo bar baz quux'
  * classnames('foo', { bar: true, duck: false }, 'baz', { quux: true });
  * @example see the tests for more examples
+ * @author Leif Olsen
  */
 const classnames = (...args) => stringlist(...args).join(' ');
 
