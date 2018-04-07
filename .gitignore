@@ -4,6 +4,8 @@ build/
 bundle/
 dist/
 errorShots/
+package-lock.json
+yarn.lock
 
 # Logs
 logs/
